@@ -90,6 +90,8 @@ details.wk>summary::-webkit-details-marker{display:none}
 .tag-now{display:inline-block;font:600 10px var(--f-body);letter-spacing:.06em;text-transform:uppercase;background:var(--led-now);color:#1b1305;border-radius:3px;padding:1px 6px;margin-left:6px;vertical-align:2px}
 .wk-body{padding:0 16px 14px;display:flex;flex-direction:column;gap:12px}
 .blk h4{margin:0 0 4px;font:600 12px var(--f-body);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:flex;gap:8px;align-items:baseline}
+.doc-link{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid var(--pc,currentColor);border-radius:999px;text-decoration:none;color:inherit;font-weight:600;font-size:14px}
+.doc-link:hover{background:rgba(127,127,127,.12)}
 .blk h4 em{font-style:normal;font-weight:500;letter-spacing:0;text-transform:none;font-variant-numeric:tabular-nums}
 ul.chk{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
 ul.chk li label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:3px 0}
@@ -195,6 +197,7 @@ const PHASES = [
  weeks:[
  {
   "t": "Chung · OSI, TCP/IP, PDU, Ethernet/ARP, MTU",
+  "doc": [{"t": "Bài giảng: OSI & TCP/IP (song ngữ)", "href": "bai-giang/osi-tcpip.html"}],
   "th": [
    "Đọc sách: Odom Vol 1: phần mô hình TCP/IP, Ethernet, ARP; Stevens TCP/IP Illustrated Vol 1: phần ARP, MTU",
    "Đọc sách: Odom Vol 1, chương \"Introduction to TCP/IP Networking\"",
@@ -1885,6 +1888,7 @@ function weekHTML(e){
   const dates = d2(e.start) + ' – ' + d2(e.end) + '/' + e.end.getFullYear();
   const num = e.buf ? 'TẾT' : 'T' + String(e.sn).padStart(2,'0') + ' · GĐ' + e.p.id.slice(1) + '/' + e.n;
   let body = '';
+  if (w.doc && w.doc.length) body += `<div class="blk"><h4>Bài giảng</h4>${w.doc.map(d=>`<a class="doc-link" href="${esc(d.href)}">📘 ${esc(d.t)}</a>`).join(' ')}</div>`;
   const li = it => `<li id="li-${it.id}" class="${state.done[it.id]?'done':''}"><label><input type="checkbox" id="${it.id}" data-id="${it.id}"${state.done[it.id]?' checked':''}><span>${fmt(it.t)}</span></label></li>`;
   if (e.buf){
     body += `<div class="blk"><ul class="chk">${e.items.filter(i=>i.cat==='items').map(li).join('')}</ul></div>`;

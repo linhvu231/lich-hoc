@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OSI &amp; TCP/IP Training</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8; --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e; --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e; --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:24px 16px 80px}
+header.hero{border-bottom:2px solid var(--ink);padding:24px 0 20px;margin-bottom:24px}
+.hero h1{font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.2;margin:0 0 8px;letter-spacing:-.01em}
+.hero p{margin:4px 0;color:var(--muted)}
+.lang-switch{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.lang-switch a,.btn{display:inline-block;padding:6px 14px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.9rem;background:transparent;cursor:pointer;font-family:inherit}
+.lang-switch a:hover,.btn:hover{background:var(--accent-soft)}
+h2{font-size:1.5rem;margin:48px 0 12px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.18rem;margin:28px 0 8px;color:var(--accent)}
+h4{font-size:1.02rem;margin:20px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+.toc ol{margin:6px 0;padding-left:22px;columns:2;column-gap:32px}
+.toc li{break-inside:avoid;margin:2px 0}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.88rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box strong:first-child{display:block;margin-bottom:4px}
+.layer{display:inline-block;min-width:30px;text-align:center;font-weight:700;border-radius:4px;padding:0 6px;color:#fff;font-size:.82rem}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+:root[data-theme="dark"] .layer,.layer{color:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .layer{color:#15181c}}
+:root[data-theme="dark"] .layer{color:#15181c}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.stack{display:grid;gap:6px;margin:14px 0}
+.stack div{border-radius:6px;padding:8px 12px;color:#fff;font-weight:600;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.stack span{font-weight:400;opacity:.92}
+.s7{background:#7a4fa3}.s6{background:#8a62b1}.s5{background:#9b77bf}.s4{background:#0f5e9c}.s3{background:#1d6b3a}.s2{background:#a4470d}.s1{background:#5b6470}
+.frame{display:flex;flex-wrap:wrap;gap:0;margin:12px 0;font-size:.82rem;font-family:Consolas,monospace}
+.frame div{padding:8px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+.foot{margin-top:60px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:16px}
+.part-title{margin-top:72px;padding:18px 0;border-top:3px solid var(--ink);border-bottom:1px solid var(--line)}
+.part-title h1{margin:0;font-size:1.9rem}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.lang-switch{display:none}body{background:#fff}h2{break-before:page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero" id="top">
+  <h1>OSI &amp; TCP/IP: Từ mô hình đến gói tin thật</h1>
+  <p>Giáo trình tầng nền tảng · cấp độ training expert-to-expert · Song ngữ Việt / English</p>
+  <p>Nguồn: Odom, <em>CCNA 200-301 Official Cert Guide Vol.1, 2nd Ed.</em> (Ch.1–3, 5) · Fall &amp; Stevens, <em>TCP/IP Illustrated Vol.1, 2nd Ed.</em> (Ch.1, 3, 4, 10) · Ghi chú CCNA cá nhân (Google Docs)</p>
+  <div class="lang-switch">
+    <a href="../index.html">← Lịch học</a>
+    <a href="#vi">Tiếng Việt</a>
+    <a href="#en">English</a>
+    <button class="btn" type="button" onclick="toggleTheme()">Sáng / Tối · Light / Dark</button>
+  </div>
+</header>
+
+<!-- ===================================================== VIETNAMESE ===================================================== -->
+<section id="vi">
+
+<nav class="toc" aria-label="Mục lục">
+<strong>Mục lục</strong>
+<ol start="0">
+  <li><a href="#vi-0">Cách dùng tài liệu</a></li>
+  <li><a href="#vi-1">Vì sao cần mô hình phân tầng</a></li>
+  <li><a href="#vi-2">Lịch sử: OSI và TCP/IP</a></li>
+  <li><a href="#vi-3">OSI 7 tầng: phân tích từng tầng</a></li>
+  <li><a href="#vi-4">TCP/IP: 4 tầng hay 5 tầng</a></li>
+  <li><a href="#vi-5">Tương tác giữa các tầng</a></li>
+  <li><a href="#vi-6">Đóng gói / mở gói và PDU</a></li>
+  <li><a href="#vi-7">Mổ xẻ header: Ethernet, IPv4, TCP, UDP</a></li>
+  <li><a href="#vi-8">Phân kênh: EtherType, Protocol, Port</a></li>
+  <li><a href="#vi-9">Giao thức X nằm ở tầng mấy?</a></li>
+  <li><a href="#vi-10">Kiểu truyền và miền mạng</a></li>
+  <li><a href="#vi-11">Thiết bị theo tầng</a></li>
+  <li><a href="#vi-12">Hành trình một gói tin, từng chặng</a></li>
+  <li><a href="#vi-13">Kích thước: MTU, MSS, frame</a></li>
+  <li><a href="#vi-14">Xử lý sự cố theo tầng</a></li>
+  <li><a href="#vi-15">Lab Wireshark</a></li>
+  <li><a href="#vi-16">Đính chính ghi chú CCNA</a></li>
+  <li><a href="#vi-17">Câu hỏi phỏng vấn</a></li>
+  <li><a href="#vi-18">Tự kiểm tra</a></li>
+  <li><a href="#vi-19">Thuật ngữ</a></li>
+</ol>
+</nav>
+
+<!-- 0 -->
+<h2 id="vi-0">0. Cách dùng tài liệu</h2>
+<p>Tài liệu này không dùng để học thuộc. Mục tiêu là sau khi đọc xong, bạn <strong>nhìn một sự cố là thấy được gói tin đang kẹt ở tầng nào</strong>. Helpdesk nhìn triệu chứng. Kỹ sư hạ tầng nhìn đường đi của gói tin.</p>
+<div class="tbl"><table>
+<tr><th>Phần trong tài liệu</th><th>Đọc kèm sách</th><th>Trang PDF (bản bạn có)</th></tr>
+<tr><td>Mục 1–6</td><td>Odom Ch.1 Introduction to TCP/IP Networking</td><td>72–91</td></tr>
+<tr><td>Mục 7 (Ethernet), 10, 11</td><td>Odom Ch.2 Fundamentals of Ethernet LANs · Stevens 3.2.2 Ethernet Frame Format</td><td>Odom 109–117 · Stevens 110–113</td></tr>
+<tr><td>Mục 12 (định tuyến, ARP)</td><td>Odom Ch.3 (IP Routing → ARP) · Stevens Ch.4 ARP</td><td>Odom 127–139 · Stevens 183–195</td></tr>
+<tr><td>Mục 11 (switch)</td><td>Odom Ch.5 Analyzing Ethernet LAN Switching</td><td>168–187</td></tr>
+<tr><td>Mục 13 (MTU)</td><td>Stevens 3.8 MTU and Path MTU · 10.7–10.9 Fragmentation, PMTUD</td><td>168–169 · 472–480</td></tr>
+</table></div>
+<div class="box"><strong>Quy ước</strong>Các nhãn <span class="layer L7">L7</span> <span class="layer L4">L4</span> <span class="layer L3">L3</span> <span class="layer L2">L2</span> <span class="layer L1">L1</span> dùng số tầng của OSI, đúng cách cả ngành vẫn nói chuyện với nhau ("switch L3", "firewall L7").</div>
+
+<!-- 1 -->
+<h2 id="vi-1">1. Vì sao cần mô hình phân tầng</h2>
+<p>Một kết nối web đơn giản cần hàng chục giao thức do nhiều tổ chức khác nhau viết ra (IEEE, IETF, các hãng thiết bị). Nếu không phân tầng, mỗi lần đổi một thành phần, ví dụ đổi cáp đồng sang cáp quang, ta lại phải viết lại cả trình duyệt. Mô hình phân tầng giải quyết chuyện đó bằng ba nguyên tắc:</p>
+<ol>
+  <li><strong>Mỗi tầng một trách nhiệm.</strong> Tầng 2 chỉ lo đưa frame qua một đoạn mạng (link). Nó không cần biết gói tin đang đi đến tận đâu.</li>
+  <li><strong>Mỗi tầng chỉ nói chuyện với tầng ngay trên và ngay dưới</strong>, thông qua một giao diện rõ ràng. Tầng trên dùng dịch vụ của tầng dưới mà không cần biết bên dưới làm thế nào.</li>
+  <li><strong>Thay một tầng không làm vỡ các tầng khác.</strong> IP chạy được trên Ethernet, Wi-Fi, PPP, MPLS hay đường hầm IPsec mà không phải sửa gì.</li>
+</ol>
+<p>Odom dùng hình ảnh <em>bản thiết kế nhà</em>: thợ điện, thợ nề, thợ sơn mỗi người làm phần của mình, nhưng cùng theo một bản vẽ chung nên ngôi nhà vẫn ăn khớp với nhau.</p>
+<h4>Giá trị thực tế với người vận hành</h4>
+<ul>
+  <li><strong>Ngôn ngữ chung:</strong> câu "lỗi L2, sai VLAN" đủ để cả nhóm hiểu ngay, không phải giải thích dài dòng.</li>
+  <li><strong>Khoanh vùng sự cố:</strong> nếu ping được gateway thì <span class="layer L1">L1</span>–<span class="layer L3">L3</span> trên đoạn đó đang chạy. Bạn chỉ cần tìm nguyên nhân ở các tầng trên.</li>
+  <li><strong>Hiểu sản phẩm:</strong> khi đọc datasheet có dòng "L4 load balancing", "L7 application control", bạn biết chính xác thiết bị đó đọc được tới trường nào trong gói tin.</li>
+</ul>
+
+<!-- 2 -->
+<h2 id="vi-2">2. Lịch sử: OSI và TCP/IP</h2>
+<div class="tbl"><table>
+<tr><th>Mốc</th><th>Sự kiện</th><th>Ý nghĩa</th></tr>
+<tr><td>Thập niên 1970</td><td>Mỗi hãng có một bộ giao thức riêng: IBM SNA, Novell NetWare (IPX/SPX), DECnet, AppleTalk</td><td>Máy của các hãng khác nhau khó nói chuyện với nhau. Doanh nghiệp bị khóa chặt vào một hãng</td></tr>
+<tr><td>1969–1983</td><td>ARPANET của Bộ Quốc phòng Mỹ phát triển TCP/IP. Năm 1983 ARPANET chính thức chuyển sang TCP/IP</td><td>TCP/IP được làm ra trước, sau đó mới viết thành chuẩn (RFC). Ưu tiên của nó là chạy được</td></tr>
+<tr><td>1981</td><td>RFC 791 (IP), RFC 793 (TCP); RFC 768 (UDP) từ 1980; RFC 826 (ARP) năm 1982</td><td>Đây là những tài liệu gốc. RFC 793 đã được thay bằng RFC 9293 vào năm 2022</td></tr>
+<tr><td>1984</td><td>ISO công bố mô hình tham chiếu OSI (ISO 7498)</td><td>OSI được thiết kế đầy đủ trên giấy trước, nhưng bộ giao thức OSI triển khai chậm và quá phức tạp</td></tr>
+<tr><td>1989</td><td>RFC 1122 (Host Requirements) định nghĩa TCP/IP gồm 4 tầng</td><td>Đây là cơ sở của hình "TCP/IP 4 tầng" mà bạn hay thấy</td></tr>
+<tr><td>Thập niên 1990</td><td>Internet bùng nổ, TCP/IP thắng hẳn</td><td>Ngày nay OSI chỉ còn sống như một <strong>bộ từ vựng</strong>, không ai chạy giao thức OSI thật</td></tr>
+</table></div>
+<div class="box"><strong>Ý chính Odom muốn bạn nhớ</strong>TCP/IP là mô hình được triển khai thật. OSI là mô hình dùng để nói chuyện và so sánh. Đề thi CCNA hỏi cả hai, kèm cách quy đổi tên tầng và tên PDU giữa hai mô hình.</div>
+
+<!-- 3 -->
+<h2 id="vi-3">3. OSI 7 tầng: phân tích từng tầng</h2>
+<div class="stack" aria-label="OSI stack">
+  <div class="s7">7 · Application <span>Dịch vụ mạng cho ứng dụng · Data</span></div>
+  <div class="s6">6 · Presentation <span>Biểu diễn, mã hóa, nén dữ liệu · Data</span></div>
+  <div class="s5">5 · Session <span>Mở, duy trì, đóng phiên · Data</span></div>
+  <div class="s4">4 · Transport <span>Giao tới đúng ứng dụng (port), tin cậy · Segment / Datagram</span></div>
+  <div class="s3">3 · Network <span>Địa chỉ logic, định tuyến xuyên mạng · Packet</span></div>
+  <div class="s2">2 · Data Link <span>Đóng khung, MAC, chuyển trên một link · Frame</span></div>
+  <div class="s1">1 · Physical <span>Tín hiệu, cáp, đầu nối · Bit</span></div>
+</div>
+<p>Cách nhớ thứ tự 7→1: <em>All People Seem To Need Data Processing</em>. Thứ tự 1→7: <em>Please Do Not Throw Sausage Pizza Away</em>.</p>
+
+<h3>Tầng 7: Application (Ứng dụng)</h3>
+<p><strong>Không phải là bản thân ứng dụng</strong> (Chrome, Outlook), mà là <em>giao thức</em> ứng dụng dùng để nói chuyện qua mạng: HTTP, DNS, SMTP, IMAP, SSH, DHCP, SNMP, LDAP, RDP.</p>
+<ul>
+  <li>Ví dụ trong Odom: trình duyệt gửi <code>HTTP GET /index.html</code>, máy chủ trả về <code>HTTP 200 OK</code> kèm nội dung trang. Hai bên HTTP "nói chuyện" với nhau qua header HTTP.</li>
+  <li>Thiết bị làm việc ở tầng này: proxy, WAF, FortiGate khi bật Application Control, Web Filter hoặc SSL Inspection.</li>
+  <li>Lỗi hay gặp: DNS phân giải sai, chứng chỉ hết hạn, dịch vụ bị dừng, sai tài khoản.</li>
+</ul>
+<h3>Tầng 6: Presentation (Trình bày)</h3>
+<p>Lo <strong>cách biểu diễn dữ liệu</strong> để hai bên hiểu giống nhau: bảng mã ký tự (ASCII, UTF-8), định dạng (JPEG, MP3, JSON, XML, MIME), nén dữ liệu, mã hóa.</p>
+<div class="box warn"><strong>Đính chính ghi chú</strong>Tầng 6 <em>không</em> "chuyển dữ liệu về mã máy". Mã máy là lệnh CPU, chuyện đó thuộc về trình biên dịch. Tầng 6 chỉ lo dữ liệu được <em>biểu diễn</em> thế nào khi truyền qua mạng.</div>
+<h3>Tầng 5: Session (Phiên)</h3>
+<p>Lo <strong>mở, duy trì, đồng bộ và đóng phiên</strong> giữa hai ứng dụng: điểm kiểm tra (checkpoint), khôi phục khi phiên bị đứt, điều phối lượt nói. Ví dụ: NetBIOS session, RPC, phiên của SQL hoặc SMB. Trong TCP/IP, chức năng này nằm luôn bên trong ứng dụng.</p>
+<div class="box"><strong>TLS thuộc tầng mấy?</strong>TLS mã hóa dữ liệu (việc của L6) và quản lý phiên bảo mật (việc của L5), nhưng lại chạy trên TCP và nằm dưới HTTP. Thực tế nó chen giữa L4 và L7. Đây cũng là lý do TCP/IP gộp tầng 5, 6, 7 lại làm một: ranh giới giữa ba tầng này trong thực tế không rõ ràng.</div>
+
+<h3>Tầng 4: Transport (Vận chuyển)</h3>
+<p>Đưa dữ liệu <strong>từ đầu đến cuối, tới đúng ứng dụng</strong> trên máy đích. Thứ dùng để định danh ở tầng này là <strong>port</strong>.</p>
+<div class="tbl"><table>
+<tr><th>Tiêu chí</th><th>TCP</th><th>UDP</th></tr>
+<tr><td>Kết nối</td><td>Có: bắt tay 3 bước SYN → SYN-ACK → ACK</td><td>Không</td></tr>
+<tr><td>Tin cậy</td><td>Có: số thứ tự (seq), ACK, gửi lại khi mất</td><td>Không: mất là mất, ứng dụng tự lo</td></tr>
+<tr><td>Thứ tự</td><td>Sắp lại đúng thứ tự</td><td>Không đảm bảo</td></tr>
+<tr><td>Kiểm soát luồng</td><td>Có: window</td><td>Không</td></tr>
+<tr><td>Kiểm soát tắc nghẽn</td><td>Có: slow start, congestion avoidance</td><td>Không</td></tr>
+<tr><td>Header</td><td>20–60 byte</td><td>8 byte</td></tr>
+<tr><td>PDU</td><td>Segment</td><td>Datagram</td></tr>
+<tr><td>Ứng dụng</td><td>HTTP/S, SSH, SMTP, RDP, BGP, SMB</td><td>DNS (truy vấn), DHCP, SNMP, Syslog, NTP, VoIP/RTP, TFTP, QUIC</td></tr>
+</table></div>
+<p><strong>Segmentation</strong>: TCP chia luồng dữ liệu của ứng dụng thành các segment, mỗi segment không lớn hơn MSS. Đây là việc của L4. Việc này <em>khác</em> với fragmentation ở L3 (xem mục 13).</p>
+<p>Thiết bị làm việc ở tầng này: firewall stateful (theo dõi trạng thái phiên TCP), load balancer L4, thiết bị NAT/PAT (sửa port).</p>
+
+<h3>Tầng 3: Network (Mạng)</h3>
+<p>Đưa gói tin <strong>xuyên qua nhiều mạng</strong>, từ host nguồn tới host đích. Thứ dùng để định danh là <strong>địa chỉ IP</strong> (định danh logic, có phân cấp mạng/host nên định tuyến được).</p>
+<ul>
+  <li>Hình ảnh trong Odom là <em>bưu điện</em>: bạn ghi địa chỉ lên phong bì, bưu điện chuyển qua nhiều bưu cục, mỗi bưu cục chỉ cần biết nên chuyển tiếp về hướng nào.</li>
+  <li>Hai việc chính: <strong>định địa chỉ</strong> và <strong>định tuyến</strong>. Phần ghi chú của bạn về "hành vi đọc (tra bảng định tuyến) và hành vi ghi (xây bảng định tuyến)" của router là đúng.</li>
+  <li>Giao thức: IPv4, IPv6, ICMP. Các giao thức định tuyến (OSPF, EIGRP, BGP) phục vụ chức năng L3.</li>
+  <li>Thiết bị: router, switch L3, firewall ở chế độ route/NAT.</li>
+</ul>
+
+<h3>Tầng 2: Data Link (Liên kết dữ liệu)</h3>
+<p>Đưa frame tới <strong>thiết bị kế tiếp trên cùng một đoạn mạng</strong>, tức một chặng (hop). Thứ dùng để định danh là <strong>địa chỉ MAC</strong> (phẳng, không phân cấp, chỉ có ý nghĩa trong phạm vi một broadcast domain).</p>
+<ul>
+  <li>Bốn việc chính: <strong>đóng khung</strong> (header và trailer), <strong>định địa chỉ MAC</strong>, <strong>phát hiện lỗi bằng FCS</strong> (chỉ phát hiện rồi bỏ frame, không sửa lỗi), <strong>điều khiển truy nhập đường truyền</strong> (CSMA/CD khi half duplex, CSMA/CA với Wi-Fi).</li>
+  <li>IEEE chia tầng này làm hai tầng con: <strong>LLC</strong> (802.2, cho biết giao thức tầng trên là gì) và <strong>MAC</strong> (802.3 với Ethernet, 802.11 với Wi-Fi).</li>
+  <li>Giao thức: Ethernet, 802.11, PPP, HDLC, 802.1Q (VLAN), STP, LACP, LLDP/CDP.</li>
+  <li>Thiết bị: switch, bridge, NIC, access point.</li>
+</ul>
+
+<h3>Tầng 1: Physical (Vật lý)</h3>
+<p>Biến bit thành <strong>tín hiệu</strong> (điện áp trên cáp đồng, xung ánh sáng trên cáp quang, sóng vô tuyến) và ngược lại. Tầng này quy định loại cáp, đầu nối (RJ-45, LC, SC), sơ đồ chân, tốc độ, mã hóa đường truyền, khoảng cách tối đa.</p>
+<div class="tbl"><table>
+<tr><th>Chuẩn</th><th>Tên</th><th>Tốc độ</th><th>Môi trường</th><th>Khoảng cách</th></tr>
+<tr><td>802.3u</td><td>100BASE-T</td><td>100 Mb/s</td><td>UTP Cat5 (2 cặp)</td><td>100 m</td></tr>
+<tr><td>802.3ab</td><td>1000BASE-T</td><td>1 Gb/s</td><td>UTP Cat5e (4 cặp)</td><td>100 m</td></tr>
+<tr><td>802.3z</td><td>1000BASE-SX / LX</td><td>1 Gb/s</td><td>Quang multimode / singlemode</td><td>550 m / 5 km</td></tr>
+<tr><td>802.3an</td><td>10GBASE-T</td><td>10 Gb/s</td><td>UTP Cat6a</td><td>100 m</td></tr>
+<tr><td>802.3ae</td><td>10GBASE-SR / LR</td><td>10 Gb/s</td><td>Quang multimode / singlemode</td><td>400 m (OM4) / 10 km</td></tr>
+</table></div>
+<p>Thiết bị: hub, repeater, media converter, module quang. Lỗi hay gặp: cáp hỏng, module quang sai loại (SR cắm với LR), sợi quang bẩn, lệch duplex (gây late collision và CRC tăng dần).</p>
+
+<!-- 4 -->
+<h2 id="vi-4">4. TCP/IP: 4 tầng hay 5 tầng</h2>
+<div class="tbl"><table>
+<tr><th>OSI</th><th>TCP/IP 5 tầng (Odom, CCNA)</th><th>TCP/IP 4 tầng (RFC 1122)</th><th>Ví dụ giao thức</th></tr>
+<tr><td>7 Application · 6 Presentation · 5 Session</td><td>Application</td><td>Application</td><td>HTTP, DNS, SMTP, SSH, DHCP, TLS</td></tr>
+<tr><td>4 Transport</td><td>Transport</td><td>Transport</td><td>TCP, UDP</td></tr>
+<tr><td>3 Network</td><td>Network</td><td>Internet</td><td>IPv4, IPv6, ICMP</td></tr>
+<tr><td>2 Data Link</td><td>Data Link</td><td rowspan="2">Link (Network Access / Network Interface)</td><td>Ethernet, 802.11, PPP</td></tr>
+<tr><td>1 Physical</td><td>Physical</td><td>UTP, fiber, RF</td></tr>
+</table></div>
+<div class="box"><strong>Dùng mô hình nào khi thi?</strong>Odom dùng mô hình <strong>TCP/IP 5 tầng</strong> ("updated TCP/IP model"), tách Link ra thành Data Link và Physical vì hai việc này rất khác nhau trong thực tế. Hình 4 tầng bạn gửi vẫn đúng, đó là theo RFC 1122 gốc. Khi gặp câu hỏi trắc nghiệm, đọc kỹ đề đang nói mô hình nào.</div>
+
+<!-- 5 -->
+<h2 id="vi-5">5. Tương tác giữa các tầng</h2>
+<p>Odom định nghĩa hai kiểu tương tác. Đề thi có hỏi, và hiểu được hai kiểu này thì bạn mới hiểu header sinh ra để làm gì.</p>
+<h4>Same-layer interaction: tương tác cùng tầng, khác máy</h4>
+<p>Một tầng trên máy A trao đổi với <strong>cùng tầng đó</strong> trên máy B, thông qua <strong>header</strong> mà tầng đó thêm vào.</p>
+<p>Ví dụ trong Odom: máy chủ web gửi 3 segment TCP, đánh số 1, 2, 3. Segment 2 bị mất. TCP phía trình duyệt gửi lại ACK cho biết nó đang chờ segment 2. TCP phía máy chủ gửi lại segment 2. Header TCP chính là "lá thư" mà hai đầu TCP gửi cho nhau.</p>
+<h4>Adjacent-layer interaction: tương tác giữa hai tầng liền kề, trên cùng máy</h4>
+<p>Tầng trên <strong>nhờ</strong> tầng ngay dưới cung cấp dịch vụ. Ví dụ: HTTP nhờ TCP gửi dữ liệu đi một cách tin cậy. TCP nhờ IP đưa segment tới máy đích. IP nhờ Ethernet đưa packet tới chặng kế tiếp.</p>
+<pre>
+Máy A                                   Máy B
+HTTP   ◄────── same-layer (HTTP header) ──────►  HTTP
+  │ adjacent                                       ▲
+TCP    ◄────── same-layer (TCP header: seq/ack) ─►  TCP
+  │                                                ▲
+IP     ◄────── same-layer (IP header) ───────────►  IP
+  │                                                ▲
+Ethernet ──────── bit trên dây ─────────────────►  Ethernet
+</pre>
+
+<!-- 6 -->
+<h2 id="vi-6">6. Đóng gói / mở gói và PDU</h2>
+<h3>Năm bước đóng gói (theo Odom)</h3>
+<ol>
+  <li><strong>Tạo dữ liệu ứng dụng</strong>, thêm header của giao thức ứng dụng nếu có (ví dụ header HTTP).</li>
+  <li><strong>Bọc vào header Transport</strong> (TCP hoặc UDP), tạo thành <em>segment</em> hoặc <em>datagram</em>.</li>
+  <li><strong>Bọc vào header IP</strong>, tạo thành <em>packet</em>.</li>
+  <li><strong>Bọc vào header và trailer Data Link</strong>, tạo thành <em>frame</em>.</li>
+  <li><strong>Truyền đi dưới dạng bit</strong> trên đường truyền vật lý.</li>
+</ol>
+<p>Bên nhận làm ngược lại (mở gói): mỗi tầng kiểm tra rồi gỡ header của mình, đọc trường "tầng trên là gì" (mục 8) để biết giao payload cho ai.</p>
+<h3>Nhìn ở mức byte</h3>
+<div class="frame" role="img" aria-label="Cấu trúc frame">
+  <div class="h2">Preamble+SFD<small>8 B (L1)</small></div>
+  <div class="h2">MAC đích<small>6 B</small></div>
+  <div class="h2">MAC nguồn<small>6 B</small></div>
+  <div class="h2">Type<small>2 B</small></div>
+  <div class="h3">IP header<small>20 B</small></div>
+  <div class="h4">TCP header<small>20 B</small></div>
+  <div>Data<small>≤ 1460 B</small></div>
+  <div class="h2">FCS<small>4 B</small></div>
+</div>
+<pre>
+L7  [ TLS + HTTP ]                                         Data
+L4  [TCP 20][ Data ]                                       Segment
+L3  [IP 20][TCP 20][ Data ]                                Packet   ≤ 1500 B  (= MTU)
+L2  [Eth 14][IP 20][TCP 20][ Data ][FCS 4]                 Frame    ≤ 1518 B
+L1  [Preamble 7 + SFD 1] + frame + IFG 12 byte             Bits
+</pre>
+<h3>Tên PDU</h3>
+<div class="tbl"><table>
+<tr><th>Tầng</th><th>Tên PDU</th><th>Tên OSI chung</th><th>Thêm gì</th></tr>
+<tr><td>L7–L5</td><td>Data / Message</td><td>L7PDU</td><td>Header ứng dụng (nếu có)</td></tr>
+<tr><td>L4</td><td>Segment (TCP) / Datagram (UDP)</td><td>L4PDU</td><td>Header TCP/UDP: port</td></tr>
+<tr><td>L3</td><td>Packet</td><td>L3PDU</td><td>Header IP: địa chỉ IP, TTL, Protocol</td></tr>
+<tr><td>L2</td><td>Frame</td><td>L2PDU</td><td>Header (MAC, Type) và trailer (FCS)</td></tr>
+<tr><td>L1</td><td>Bit</td><td>—</td><td>Không thêm header. Ethernet có thêm preamble để đồng bộ tín hiệu</td></tr>
+</table></div>
+<p>Chú ý: chỉ <strong>tầng 2</strong> có trailer (FCS). Các tầng khác chỉ thêm header.</p>
+
+<!-- 7 -->
+<h2 id="vi-7">7. Mổ xẻ header: Ethernet, IPv4, TCP, UDP</h2>
+<h3>7.1 Frame Ethernet II (Odom Ch.2, Stevens 3.2.2)</h3>
+<div class="tbl"><table>
+<tr><th>Trường</th><th>Độ dài</th><th>Ý nghĩa</th></tr>
+<tr><td>Preamble</td><td>7 B</td><td>Chuỗi 10101010… để bên nhận đồng bộ xung nhịp. Thuộc L1, Wireshark không hiển thị</td></tr>
+<tr><td>SFD</td><td>1 B</td><td>10101011, báo "frame bắt đầu từ đây"</td></tr>
+<tr><td>Destination MAC</td><td>6 B</td><td>Đặt ở <strong>đầu</strong> frame để switch đọc được sớm và chuyển tiếp ngay (cut-through)</td></tr>
+<tr><td>Source MAC</td><td>6 B</td><td>Switch <strong>học</strong> địa chỉ MAC từ trường này</td></tr>
+<tr><td>Type / Length</td><td>2 B</td><td>Giá trị ≥ 0x0600 (1536) là EtherType (Ethernet II). Giá trị ≤ 1500 là độ dài (802.3 + LLC)</td></tr>
+<tr><td>(802.1Q tag)</td><td>4 B</td><td>Chèn giữa MAC nguồn và Type: TPID 0x8100, PCP 3 bit (CoS), DEI 1 bit, VLAN ID 12 bit</td></tr>
+<tr><td>Data</td><td>46–1500 B</td><td>Payload (gói IP). Ngắn hơn 46 byte thì được đệm (padding) cho đủ</td></tr>
+<tr><td>FCS</td><td>4 B</td><td>CRC-32. Sai thì frame bị bỏ, không gửi lại. Bộ đếm <code>CRC</code> / <code>input errors</code> trên cổng sẽ tăng</td></tr>
+</table></div>
+<p>Frame nhỏ nhất = 6+6+2+46+4 = <strong>64 byte</strong>. Lớn nhất = 6+6+2+1500+4 = <strong>1518 byte</strong> (1522 nếu có tag 802.1Q). Frame nhỏ hơn 64 byte gọi là <em>runt</em>, lớn hơn mức tối đa gọi là <em>giant</em>.</p>
+<h4>Cấu trúc địa chỉ MAC (48 bit)</h4>
+<ul>
+  <li>24 bit đầu là <strong>OUI</strong>, mã IEEE cấp cho hãng sản xuất. 24 bit sau do hãng tự gán.</li>
+  <li>Bit thấp nhất của byte đầu tiên là <strong>I/G</strong>: 0 là unicast, 1 là group (multicast hoặc broadcast).</li>
+  <li>Bit kế tiếp là <strong>U/L</strong>: 0 là địa chỉ toàn cầu do hãng gán, 1 là địa chỉ quản trị cục bộ (máy ảo, MAC ngẫu nhiên trên điện thoại, virtual MAC của HA).</li>
+  <li>Broadcast: <code>FFFF.FFFF.FFFF</code>. Multicast IPv4: <code>0100.5Exx.xxxx</code>. Multicast IPv6: <code>3333.xxxx.xxxx</code>.</li>
+  <li>Ba cách viết cùng một địa chỉ: <code>0011.2233.4455</code> (Cisco), <code>00-11-22-33-44-55</code> (Windows), <code>00:11:22:33:44:55</code> (Linux, FortiGate).</li>
+</ul>
+
+<h3>7.2 Header IPv4 (20 byte khi không có option)</h3>
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-------+-------+---------------+-------------------------------+
+|Version|  IHL  |  DSCP   | ECN |          Total Length         |
++-------+-------+---------------+-----+-------------------------+
+|        Identification         |Flags|     Fragment Offset     |
++---------------+---------------+-----+-------------------------+
+|      TTL      |   Protocol    |        Header Checksum        |
++---------------+---------------+-------------------------------+
+|                       Source IP Address                       |
++---------------------------------------------------------------+
+|                    Destination IP Address                     |
++---------------------------------------------------------------+
+</pre>
+<div class="tbl"><table>
+<tr><th>Trường</th><th>Vì sao người vận hành cần biết</th></tr>
+<tr><td>Version / IHL</td><td>4 là IPv4. IHL = 5 tức header 20 byte</td></tr>
+<tr><td>DSCP</td><td>QoS. Voice thường đánh EF (46). Liên hệ với CoS 5 ở L2 trong ghi chú VLAN của bạn</td></tr>
+<tr><td>Total Length</td><td>Độ dài cả gói IP, phải ≤ MTU của link ra</td></tr>
+<tr><td>Identification, Flags (DF, MF), Fragment Offset</td><td>Dùng cho phân mảnh. <strong>DF = 1</strong> thì router không được chia gói, phải bỏ gói và gửi ICMP "fragmentation needed". Đây là cơ chế của Path MTU Discovery</td></tr>
+<tr><td>TTL</td><td>Mỗi router giảm đi 1, về 0 thì bỏ gói và gửi ICMP Time Exceeded. <code>tracert</code> dựa vào cơ chế này. Giá trị mặc định: Windows 128, Linux 64, Cisco IOS 255. Nhìn TTL trong phản hồi ping có thể đoán được hệ điều hành và số chặng</td></tr>
+<tr><td>Protocol</td><td>Cho biết header tầng trên là gì: 1 ICMP, 6 TCP, 17 UDP, 50 ESP, 89 OSPF…</td></tr>
+<tr><td>Header Checksum</td><td>Chỉ kiểm tra header. Vì TTL thay đổi nên mỗi router phải tính lại</td></tr>
+<tr><td>Source / Destination IP</td><td>Giữ nguyên từ đầu đến cuối, <strong>trừ khi đi qua NAT</strong></td></tr>
+</table></div>
+
+<h3>7.3 Header TCP (20 byte tối thiểu)</h3>
+<div class="tbl"><table>
+<tr><th>Trường</th><th>Ý nghĩa</th></tr>
+<tr><td>Source Port / Destination Port (2+2 B)</td><td>Port nguồn của client thường là port tạm (ephemeral): Windows dùng 49152–65535, Linux mặc định 32768–60999. Port đích là port dịch vụ (443…)</td></tr>
+<tr><td>Sequence Number (4 B)</td><td>Số thứ tự của byte đầu tiên trong segment</td></tr>
+<tr><td>Acknowledgment Number (4 B)</td><td>Byte tiếp theo mà bên này đang chờ nhận</td></tr>
+<tr><td>Data Offset, Flags</td><td><strong>SYN</strong> mở kết nối · <strong>ACK</strong> xác nhận · <strong>FIN</strong> đóng nhẹ nhàng · <strong>RST</strong> đóng đột ngột (thường do firewall chặn hoặc port không mở) · PSH · URG</td></tr>
+<tr><td>Window (2 B)</td><td>Bên nhận còn nhận được bao nhiêu byte. Window = 0 nghĩa là bên nhận đang quá tải</td></tr>
+<tr><td>Checksum, Urgent Pointer, Options</td><td>Options gồm <strong>MSS</strong> (chỉ có trong gói SYN), Window Scale, SACK, Timestamp</td></tr>
+</table></div>
+<p><strong>Bắt tay 3 bước:</strong> Client gửi <code>SYN (seq=x, MSS=1460)</code>. Server trả <code>SYN-ACK (seq=y, ack=x+1)</code>. Client gửi <code>ACK (ack=y+1)</code>. <strong>Đóng kết nối:</strong> FIN, ACK, FIN, ACK (4 bước), hoặc chỉ một gói RST.</p>
+<h3>7.4 Header UDP (8 byte)</h3>
+<p>Gồm Source Port, Destination Port, Length và Checksum, mỗi trường 2 byte. UDP không có seq, ack hay window, nên nhẹ và nhanh. Việc đảm bảo tin cậy (nếu cần) để ứng dụng tự lo.</p>
+
+<!-- 8 -->
+<h2 id="vi-8">8. Phân kênh: EtherType, Protocol, Port</h2>
+<p>Mô hình phân tầng còn một câu hỏi mà hình minh họa thường bỏ qua: khi mở gói, <strong>làm sao biết payload thuộc giao thức nào ở tầng trên?</strong> Câu trả lời là mỗi header có một trường cho biết điều đó:</p>
+<pre>
+Frame ──EtherType──► IPv4 / ARP / IPv6 / VLAN
+Packet ──Protocol──► ICMP / TCP / UDP / ESP / OSPF
+Segment ──Port─────► HTTP / DNS / SSH / ...
+</pre>
+<div class="tbl"><table>
+<tr><th>EtherType (L2)</th><th></th><th>IP Protocol (L3)</th><th></th><th>Port (L4)</th><th></th></tr>
+<tr><td>0x0800</td><td>IPv4</td><td>1</td><td>ICMP</td><td>TCP 20/21</td><td>FTP</td></tr>
+<tr><td>0x0806</td><td><strong>ARP</strong></td><td>2</td><td>IGMP</td><td>TCP 22</td><td>SSH</td></tr>
+<tr><td>0x86DD</td><td>IPv6</td><td>6</td><td>TCP</td><td>TCP 23</td><td>Telnet</td></tr>
+<tr><td>0x8100</td><td>802.1Q VLAN tag</td><td>17</td><td>UDP</td><td>TCP 25</td><td>SMTP</td></tr>
+<tr><td>0x88CC</td><td>LLDP</td><td>47</td><td>GRE</td><td>TCP/UDP 53</td><td>DNS</td></tr>
+<tr><td>0x8863 / 0x8864</td><td>PPPoE Discovery / Session</td><td>50 / 51</td><td>ESP / AH (IPsec)</td><td>UDP 67/68</td><td>DHCP server / client</td></tr>
+<tr><td>0x8847</td><td>MPLS</td><td>58</td><td>ICMPv6</td><td>UDP 69</td><td>TFTP</td></tr>
+<tr><td>0x8809</td><td>LACP (Slow Protocols)</td><td>88</td><td>EIGRP</td><td>TCP 80 / 443</td><td>HTTP / HTTPS</td></tr>
+<tr><td></td><td></td><td>89</td><td>OSPF</td><td>UDP 123</td><td>NTP</td></tr>
+<tr><td></td><td></td><td>112</td><td>VRRP</td><td>UDP 161/162</td><td>SNMP / trap</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>TCP 179</td><td>BGP</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>TCP 389 / 636</td><td>LDAP / LDAPS</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>TCP 445</td><td>SMB</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>UDP 500 / 4500</td><td>IKE / IPsec NAT-T</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>UDP 514</td><td>Syslog</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>TCP 3389</td><td>RDP</td></tr>
+</table></div>
+<p>CDP của Cisco không dùng EtherType mà đi trong frame 802.3 kèm LLC/SNAP, gửi tới MAC multicast <code>0100.0CCC.CCCC</code>. STP cũng dùng 802.3 + LLC (gửi tới MAC <code>0180.C200.0000</code>).</p>
+
+<!-- 9 -->
+<h2 id="vi-9">9. Giao thức X nằm ở tầng mấy?</h2>
+<p>Có hai cách trả lời, và người giỏi nêu cả hai: <strong>(a) nó được bọc trong cái gì</strong> và <strong>(b) nó phục vụ chức năng của tầng nào</strong>.</p>
+<div class="tbl"><table>
+<tr><th>Giao thức</th><th>Được bọc trong</th><th>Phục vụ chức năng</th><th>Cách trả lời khi thi / phỏng vấn</th></tr>
+<tr><td>ARP</td><td>Frame Ethernet trực tiếp (EtherType 0x0806), không có header IP</td><td>Ánh xạ IP sang MAC, phục vụ L3</td><td>"L2, có người gọi là L2.5". Router nhận ARP <em>không</em> tra bảng định tuyến</td></tr>
+<tr><td>ICMP</td><td>Gói IP (protocol 1)</td><td>Báo lỗi và chẩn đoán cho IP</td><td>L3. Nó là một phần của bộ giao thức IP dù được bọc trong IP</td></tr>
+<tr><td>OSPF</td><td>Gói IP (protocol 89)</td><td>Định tuyến</td><td>L3. Tự đảm bảo tin cậy bằng LSAck, không cần TCP</td></tr>
+<tr><td>EIGRP</td><td>Gói IP (protocol 88)</td><td>Định tuyến</td><td>L3. Dùng RTP riêng của Cisco để đảm bảo tin cậy</td></tr>
+<tr><td>BGP</td><td>TCP 179</td><td>Định tuyến</td><td>Về cách bọc là ứng dụng, về chức năng là L3. Dùng TCP vì trao đổi bảng định tuyến lớn giữa các AS, cần tin cậy và cần đi qua nhiều chặng</td></tr>
+<tr><td>RIP</td><td>UDP 520</td><td>Định tuyến</td><td>Tương tự BGP</td></tr>
+<tr><td>DHCP</td><td>UDP 67/68</td><td>Cấp cấu hình IP</td><td>L7. Client chưa có IP nên gửi broadcast từ 0.0.0.0 tới 255.255.255.255</td></tr>
+<tr><td>DNS</td><td>UDP 53 (truy vấn), TCP 53 (zone transfer, phản hồi lớn)</td><td>Phân giải tên</td><td>L7</td></tr>
+<tr><td>TLS</td><td>TCP</td><td>Mã hóa, xác thực</td><td>Giữa L4 và L7 (thường xếp vào L6 hoặc L7)</td></tr>
+<tr><td>QUIC (HTTP/3)</td><td>UDP 443</td><td>Truyền tải tin cậy và mã hóa</td><td>Làm việc của L4 nhưng chạy trong không gian ứng dụng</td></tr>
+<tr><td>802.1Q</td><td>Tag chèn vào frame</td><td>Phân biệt VLAN</td><td>L2</td></tr>
+<tr><td>STP / LACP / LLDP</td><td>Frame L2</td><td>Điều khiển L2</td><td>L2</td></tr>
+<tr><td>IPsec ESP</td><td>IP (protocol 50), hoặc UDP 4500 khi đi qua NAT</td><td>Đường hầm mã hóa</td><td>L3</td></tr>
+<tr><td>GRE</td><td>IP (protocol 47)</td><td>Đường hầm</td><td>L3</td></tr>
+</table></div>
+
+<!-- 10 -->
+<h2 id="vi-10">10. Kiểu truyền và miền mạng</h2>
+<h3>Kiểu truyền</h3>
+<div class="tbl"><table>
+<tr><th>Kiểu</th><th>Ý nghĩa</th><th>MAC/IP ví dụ</th><th>Switch xử lý</th></tr>
+<tr><td>Unicast</td><td>Một tới một</td><td>MAC của một máy</td><td>Đã học MAC thì chuyển ra đúng cổng, chưa học thì flood</td></tr>
+<tr><td>Broadcast</td><td>Một tới tất cả <strong>trong cùng broadcast domain</strong> (cùng VLAN)</td><td>FFFF.FFFF.FFFF · 255.255.255.255 hoặc địa chỉ broadcast của subnet</td><td>Flood ra mọi cổng cùng VLAN trừ cổng nhận vào. Router <strong>không</strong> chuyển tiếp broadcast</td></tr>
+<tr><td>Multicast</td><td>Một tới một nhóm</td><td>0100.5Exx.xxxx · 224.0.0.0/4</td><td><strong>Mặc định flood như broadcast</strong>. Chỉ gửi đúng nhóm khi bật IGMP snooping</td></tr>
+<tr><td>Anycast</td><td>Một tới máy gần nhất trong nhóm cùng địa chỉ</td><td>8.8.8.8, 1.1.1.1 (IPv4 dùng BGP), anycast của IPv6</td><td>Do định tuyến L3 quyết định, không phải switch</td></tr>
+</table></div>
+<h3>Collision domain và broadcast domain</h3>
+<ul>
+  <li><strong>Collision domain</strong>: vùng mà hai máy cùng truyền một lúc sẽ va chạm nhau. Hub gộp mọi cổng thành <em>một</em> collision domain. Switch biến <em>mỗi cổng</em> thành một collision domain riêng. Khi chạy full duplex thì không còn va chạm.</li>
+  <li><strong>Broadcast domain</strong>: vùng mà một frame broadcast lan tới được. Switch (trong một VLAN) không chặn broadcast. <strong>Router và VLAN mới chia nhỏ broadcast domain.</strong> Một VLAN tương ứng một broadcast domain và một subnet.</li>
+</ul>
+
+<!-- 11 -->
+<h2 id="vi-11">11. Thiết bị theo tầng</h2>
+<div class="tbl"><table>
+<tr><th>Thiết bị</th><th>Đọc tới trường nào</th><th>Quyết định dựa vào</th><th>Ghi chú vận hành</th></tr>
+<tr><td>Hub, repeater</td><td>Không đọc gì (L1)</td><td>Không có: lặp lại tín hiệu ra mọi cổng</td><td>Half duplex, va chạm. Đã lỗi thời</td></tr>
+<tr><td>Switch L2</td><td>Header Ethernet</td><td>Bảng MAC (CAM)</td><td>Học MAC nguồn, chuyển tiếp hoặc lọc theo MAC đích, flood khi chưa biết. Thời gian aging mặc định trên Cisco là 300 giây</td></tr>
+<tr><td>Switch L3</td><td>Header Ethernet và IP</td><td>Bảng MAC và bảng định tuyến (CEF, phần cứng ASIC)</td><td>Vẫn là switch: các cổng switchport vẫn học MAC. SVI hoặc routed port (<code>no switchport</code>) mới có IP</td></tr>
+<tr><td>Router</td><td>Header IP (bỏ header L2 cũ, đóng header L2 mới)</td><td>Bảng định tuyến, longest prefix match</td><td>Giảm TTL, tính lại checksum, đổi MAC ở mỗi chặng. Không chuyển tiếp broadcast</td></tr>
+<tr><td>Firewall stateful (FortiGate)</td><td>L3/L4, và L7 nếu bật UTM</td><td>Policy, bảng phiên (session table)</td><td>Vẫn phải ARP ở L2, vẫn định tuyến ở L3, NAT sửa IP và port. Bật IPS, AppCtrl hay SSL inspection thì đọc tới L7</td></tr>
+<tr><td>Load balancer</td><td>L4 (IP, port) hoặc L7 (URL, cookie, header HTTP)</td><td>Thuật toán cân bằng và health check</td><td>Cân bằng L7 thường phải giải mã TLS</td></tr>
+<tr><td>NIC</td><td>L1 và L2</td><td>So MAC đích với MAC của chính nó</td><td>Chế độ promiscuous (Wireshark) nhận tất cả frame</td></tr>
+</table></div>
+<h4>Ba hành vi của switch (đối chiếu với ghi chú của bạn)</h4>
+<ol>
+  <li><strong>Learn (học):</strong> học <em>MAC nguồn</em> và gắn với cổng nhận vào. Một cổng có thể có nhiều MAC (cổng nối xuống switch khác, máy chủ ảo hóa). Một MAC tại một thời điểm chỉ gắn với <em>một</em> cổng trong một VLAN.</li>
+  <li><strong>Forward / Filter (chuyển tiếp / lọc):</strong> MAC đích nằm ở cổng khác thì chuyển ra cổng đó. MAC đích nằm ngay cổng vừa nhận vào thì <em>lọc</em> (bỏ, không chuyển).</li>
+  <li><strong>Flood:</strong> gặp unknown unicast, broadcast hoặc multicast (khi không có IGMP snooping) thì gửi ra mọi cổng cùng VLAN trừ cổng nhận vào.</li>
+</ol>
+<p>Thêm hành vi thứ 4 là <strong>chống loop bằng STP</strong>: chặn bớt cổng dư thừa để chỉ còn một đường đi duy nhất.</p>
+
+<!-- 12 -->
+<h2 id="vi-12">12. Hành trình một gói tin, từng chặng</h2>
+<p>Ví dụ lấy theo địa chỉ trong ghi chú của bạn. PC-A <code>192.168.30.15/24</code> (gateway <code>.30.1</code>) mở HTTPS tới Server <code>192.168.10.10/24</code>. Giữa hai bên có R1 và R2.</p>
+<pre>
+PC-A ──(LAN 30)── [G0/0 R1 G0/1] ──(10.0.12.0/30)── [G0/1 R2 G0/0] ──(LAN 10)── Server
+MAC:  AAAA          R1a     R1b                       R2b      R2a                 SSSS
+IP:   .30.15        .30.1   10.0.12.1                 10.0.12.2 .10.1              .10.10
+</pre>
+<h3>Các bước</h3>
+<ol>
+  <li><strong>DNS</strong> <span class="layer L7">L7</span>: phân giải tên máy chủ ra <code>192.168.10.10</code> (UDP 53).</li>
+  <li><strong>Quyết định của host</strong> <span class="layer L3">L3</span>: lấy IP đích AND với mask của mình rồi so với subnet của mình. 192.168.10.0 khác 192.168.30.0, nên gói phải gửi tới <strong>gateway</strong>.</li>
+  <li><strong>ARP</strong> <span class="layer L2">L2</span>: trong ARP cache chưa có MAC của 192.168.30.1, nên PC gửi ARP Request dạng broadcast (<code>FFFF.FFFF.FFFF</code>). R1 trả ARP Reply dạng unicast kèm MAC R1a.</li>
+  <li><strong>TCP 3-way handshake</strong> <span class="layer L4">L4</span>: gói SYN tới port 443, MSS = 1460.</li>
+  <li><strong>Tại R1</strong>: kiểm tra FCS, MAC đích là của chính R1 nên nhận frame. Gỡ header L2, đọc IP đích, tra bảng định tuyến (longest match) và chọn next-hop 10.0.12.2. Giảm TTL, tính lại checksum. Tra ARP cho next-hop. <strong>Đóng frame mới.</strong></li>
+  <li><strong>Tại R2</strong>: làm tương tự. Mạng 192.168.10.0/24 nối trực tiếp với R2, nên R2 ARP thẳng cho Server.</li>
+  <li><strong>Server</strong> mở gói lên từng tầng: EtherType 0x0800 → IP Protocol 6 → TCP port 443 → TLS → HTTP.</li>
+</ol>
+<h3>Bảng địa chỉ theo từng chặng (chiều PC-A → Server)</h3>
+<div class="tbl"><table>
+<tr><th>Chặng</th><th>MAC nguồn</th><th>MAC đích</th><th>IP nguồn</th><th>IP đích</th><th>TTL (Windows)</th></tr>
+<tr><td>PC-A → R1</td><td>AAAA (PC-A)</td><td>R1a</td><td>192.168.30.15</td><td>192.168.10.10</td><td>128</td></tr>
+<tr><td>R1 → R2</td><td>R1b</td><td>R2b</td><td>192.168.30.15</td><td>192.168.10.10</td><td>127</td></tr>
+<tr><td>R2 → Server</td><td>R2a</td><td>SSSS (Server)</td><td>192.168.30.15</td><td>192.168.10.10</td><td>126</td></tr>
+</table></div>
+<div class="box ok"><strong>Định luật cần thuộc</strong>MAC đổi ở <em>mỗi chặng L3</em>. IP giữ nguyên từ đầu đến cuối (trừ NAT). Port giữ nguyên (trừ PAT). Switch L2 nằm giữa đường không làm đổi MAC. Bảng 3 dòng trong ghi chú của bạn ("1B|0B, 2A|2B, 0A|1A") đúng với định luật này.</div>
+<h3>Nếu có NAT trên FortiGate (ra Internet)</h3>
+<p>Tại firewall, <strong>IP nguồn</strong> đổi từ IP private sang IP public, và <strong>port nguồn</strong> có thể đổi (PAT). Firewall ghi lại cặp ánh xạ này trong bảng phiên để biết đổi ngược lại cho gói trả về. Đây là lý do <code>diagnose sys session list</code> là lệnh rất quan trọng khi xử lý sự cố.</p>
+
+<!-- 13 -->
+<h2 id="vi-13">13. Kích thước: MTU, MSS, frame</h2>
+<div class="tbl"><table>
+<tr><th>Khái niệm</th><th>Định nghĩa đúng</th><th>Giá trị Ethernet</th></tr>
+<tr><td><strong>MTU</strong></td><td>Kích thước tối đa của <strong>gói L3</strong> mà một link mang được, tức payload của frame</td><td>1500 byte</td></tr>
+<tr><td><strong>MSS</strong></td><td>Dữ liệu TCP tối đa trong một segment, không tính header. Mỗi bên báo cho bên kia trong gói SYN</td><td>1500 − 20 − 20 = <strong>1460</strong></td></tr>
+<tr><td>Frame</td><td>Header L2 + payload + FCS</td><td>64 – 1518 (1522 có VLAN tag)</td></tr>
+<tr><td>Payload ICMP tối đa không phân mảnh</td><td>MTU − 20 (IP) − 8 (ICMP)</td><td>1472</td></tr>
+<tr><td>Jumbo frame</td><td>MTU lớn hơn 1500, thường là 9000. Dùng cho SAN, vMotion, trong nội bộ datacenter</td><td>9000</td></tr>
+</table></div>
+<h3>Khi MTU bị thu nhỏ (overhead)</h3>
+<div class="tbl"><table>
+<tr><th>Công nghệ</th><th>Overhead</th><th>MTU còn lại</th><th>MSS nên đặt</th></tr>
+<tr><td>PPPoE (cáp quang FTTH của nhà mạng)</td><td>8 B</td><td>1492</td><td>1452 (khớp với lệnh <code>ip tcp adjust-mss 1452</code> trong ghi chú PPPoE của bạn)</td></tr>
+<tr><td>GRE</td><td>24 B</td><td>1476</td><td>1436</td></tr>
+<tr><td>IPsec ESP (tunnel mode, AES)</td><td>khoảng 50–73 B tùy thuật toán, NAT-T</td><td>khoảng 1400–1438</td><td>Thường đặt 1350–1380 cho an toàn</td></tr>
+<tr><td>VXLAN</td><td>50 B</td><td>Underlay cần MTU ≥ 1550</td><td>—</td></tr>
+</table></div>
+<h3>Fragmentation và PMTUD (Stevens 10.7–10.8)</h3>
+<ul>
+  <li><strong>IPv4:</strong> router <em>được phép</em> phân mảnh gói tin nếu DF = 0. Việc ghép lại chỉ xảy ra ở <em>máy đích</em>. Chỉ cần mất một mảnh là phải gửi lại cả gói.</li>
+  <li><strong>IPv6:</strong> router <em>không</em> phân mảnh. Chỉ máy nguồn mới được phân mảnh, và nó phải dùng PMTUD.</li>
+  <li><strong>PMTUD:</strong> máy nguồn gửi gói với DF = 1. Router gặp link có MTU nhỏ hơn thì bỏ gói và gửi lại ICMP Type 3 Code 4 ("Fragmentation Needed", kèm MTU của next-hop). Máy nguồn giảm kích thước gói rồi gửi lại.</li>
+  <li><strong>MTU blackhole:</strong> có firewall chặn hết ICMP nên gói ICMP Type 3 Code 4 không về được tới nguồn. Máy nguồn cứ gửi gói lớn mãi và gói cứ bị bỏ.</li>
+</ul>
+<div class="box warn"><strong>Triệu chứng kinh điển ở chi nhánh dùng SD-WAN/IPsec</strong>Ping được, mở được trang web nhẹ, nhưng trang nặng thì treo, copy file share đứng ở vài KB, Outlook kẹt ở "Trying to connect", RDP vào được rồi hiện màn hình đen. Gói nhỏ đi qua được còn gói lớn bị rơi, đó là <strong>MTU/MSS</strong>, không phải "đường truyền chậm". Cách xử lý: đặt TCP MSS trên policy hoặc interface của FortiGate (<code>set tcp-mss-sender</code> / <code>set tcp-mss-receiver</code> trong policy, hoặc <code>set tcp-mss</code> trên interface), và cho phép ICMP Type 3 đi qua.</div>
+<h4>Lab xác minh</h4>
+<pre>
+:: Windows
+ping -f -l 1472 8.8.8.8        → đi được
+ping -f -l 1473 8.8.8.8        → "Packet needs to be fragmented but DF set."
+netsh interface ipv4 show subinterfaces
+
+# Linux
+ping -M do -s 1472 8.8.8.8
+tracepath 8.8.8.8              # tự dò PMTU
+ip link show eth0              # xem mtu
+
+! Cisco (lab)
+interface g0/1
+ ip mtu 1400
+! Wireshark filter
+icmp.type==3 &amp;&amp; icmp.code==4
+</pre>
+
+<!-- 14 -->
+<h2 id="vi-14">14. Xử lý sự cố theo tầng</h2>
+<h3>Ba chiến lược</h3>
+<div class="tbl"><table>
+<tr><th>Chiến lược</th><th>Cách làm</th><th>Khi nào dùng</th></tr>
+<tr><td>Bottom-up</td><td>Đi từ L1 lên L7</td><td>Nghi lỗi phần cứng, cáp, hoặc thiết bị mới lắp</td></tr>
+<tr><td>Top-down</td><td>Đi từ L7 xuống</td><td>Chỉ một ứng dụng lỗi, các dịch vụ khác vẫn bình thường</td></tr>
+<tr><td>Divide-and-conquer</td><td>Bắt đầu ở L3: <code>ping</code> gateway hoặc đích. Ping được thì tìm ở tầng trên, không được thì tìm ở tầng dưới</td><td>Mặc định của người có kinh nghiệm: nhanh nhất</td></tr>
+<tr><td>Follow-the-path</td><td>Lần theo đường đi của gói tin, kiểm tra từng chặng (traceroute, bảng MAC, bảng ARP, session)</td><td>Mạng nhiều tầng, có SD-WAN hoặc nhiều firewall</td></tr>
+</table></div>
+<h3>Bộ lệnh theo tầng</h3>
+<div class="tbl"><table>
+<tr><th>Tầng</th><th>Câu hỏi</th><th>Windows</th><th>Linux</th><th>Cisco IOS</th><th>FortiGate</th></tr>
+<tr><td><span class="layer L1">L1</span></td><td>Có link không? Speed/duplex có khớp không? Có lỗi CRC không?</td><td><code>Get-NetAdapter</code></td><td><code>ip link</code>, <code>ethtool eth0</code></td><td><code>show interfaces status</code>, <code>show interfaces g1/0/1</code></td><td><code>get system interface physical</code></td></tr>
+<tr><td><span class="layer L2">L2</span></td><td>Đúng VLAN chưa? MAC đã học được chưa? ARP có ra MAC gateway không?</td><td><code>arp -a</code></td><td><code>ip neigh</code></td><td><code>show mac address-table</code>, <code>show vlan brief</code>, <code>show interfaces trunk</code>, <code>show cdp neighbors</code></td><td><code>get system arp</code>, <code>diagnose ip arp list</code></td></tr>
+<tr><td><span class="layer L3">L3</span></td><td>IP, mask, gateway có đúng không? Có route không? Route chiều về có không?</td><td><code>ipconfig /all</code>, <code>route print</code>, <code>ping</code>, <code>tracert</code>, <code>pathping</code></td><td><code>ip addr</code>, <code>ip route</code>, <code>tracepath</code>, <code>mtr</code></td><td><code>show ip interface brief</code>, <code>show ip route</code>, <code>show ip arp</code>, extended ping</td><td><code>get router info routing-table all</code>, <code>execute ping</code>, <code>execute traceroute</code></td></tr>
+<tr><td><span class="layer L4">L4</span></td><td>Port có mở không? Firewall có chặn không? Phiên có được tạo không?</td><td><code>Test-NetConnection host -Port 443</code>, <code>netstat -ano</code></td><td><code>ss -tulpn</code>, <code>nc -zv host 443</code></td><td><code>show access-lists</code>, <code>telnet host 443</code></td><td><code>diagnose debug flow</code>, <code>diagnose sys session list</code></td></tr>
+<tr><td><span class="layer L7">L7</span></td><td>DNS có đúng không? Chứng chỉ có lỗi không? Dịch vụ có chạy không? Tài khoản có đúng không?</td><td><code>nslookup</code>, <code>Resolve-DnsName</code></td><td><code>dig</code>, <code>curl -v</code>, <code>openssl s_client</code></td><td><code>show hosts</code></td><td>Log của Web Filter, IPS, Application Control</td></tr>
+</table></div>
+<h3>Ca thực tế trong ghi chú của bạn (20/11/2025)</h3>
+<div class="box ok"><strong>Bạn đã làm đúng kiểu "follow-the-path" ở L2</strong>PC nhận nhầm VLAN. Bạn chạy <code>show mac address-table address &lt;MAC&gt;</code> trên core và thấy MAC nằm ở một cổng uplink. Tiếp theo <code>show cdp neighbors</code> cho biết switch access nào nối vào cổng đó. Vào switch access đó tra MAC lần nữa thì ra đúng cổng của PC. Cuối cùng chuyển cổng sang VLAN đúng.<br><br><strong>Nâng cấp lên cấp độ hạ tầng:</strong> (1) Trước khi đổi VLAN, ghi lại trạng thái cũ (<code>show run interface &lt;port&gt;</code>) để quay lại được nếu cần. (2) Sau khi đổi, kiểm tra từng tầng: <code>show interfaces &lt;port&gt; switchport</code> (L2), PC nhận DHCP đúng dải (L3), <code>ping</code> gateway (L3). (3) Viết ticket theo mẫu: triệu chứng → tầng lỗi → nguyên nhân → thay đổi → kiểm chứng. (4) Câu hỏi về gốc rễ: vì sao cổng đó lại ở VLAN sai? Có cần cơ chế gán VLAN tự động (802.1X, dynamic VLAN) không?</div>
+<h3>Bảng "triệu chứng → tầng nghi ngờ"</h3>
+<div class="tbl"><table>
+<tr><th>Triệu chứng</th><th>Nghi tầng</th><th>Kiểm tra đầu tiên</th></tr>
+<tr><td>Đèn cổng tắt, Windows báo "Network cable unplugged"</td><td>L1</td><td>Cáp, cổng switch, trạng thái err-disabled</td></tr>
+<tr><td>Mạng chậm, lúc được lúc không, bộ đếm CRC tăng</td><td>L1/L2</td><td>Lệch duplex, cáp kém chất lượng, module quang bẩn</td></tr>
+<tr><td>Máy tự gán 169.254.x.x</td><td>L2/L7 (DHCP)</td><td>Sai VLAN, thiếu ip helper, hết IP trong pool DHCP</td></tr>
+<tr><td>Ping được máy cùng subnet, không ping được gateway</td><td>L2/L3</td><td>Sai VLAN, sai mask, sai gateway, ARP</td></tr>
+<tr><td>Ping được gateway, không ra được mạng ngoài</td><td>L3</td><td>Route, NAT, route chiều về</td></tr>
+<tr><td>Ping được đích nhưng không vào được web</td><td>L4/L7</td><td>Port, policy, DNS, proxy, chứng chỉ</td></tr>
+<tr><td>Trang nhẹ vào được, trang nặng treo, copy file đứng</td><td>L3 (MTU)</td><td>Ping với DF, kiểm tra MSS trên tunnel</td></tr>
+<tr><td>Lâu lâu mất kết nối vài giây, log có báo "MAC flapping"</td><td>L2</td><td>Loop, STP, trùng IP/MAC</td></tr>
+<tr><td>Vào bằng IP được, vào bằng tên không được</td><td>L7</td><td><code>nslookup</code>, DNS suffix, file hosts</td></tr>
+</table></div>
+
+<!-- 15 -->
+<h2 id="vi-15">15. Lab Wireshark: nhìn tận mắt mô hình</h2>
+<ol>
+  <li>Mở Wireshark, chọn card mạng. Mở CMD bằng quyền admin và chạy <code>arp -d *</code>, <code>ipconfig /flushdns</code>.</li>
+  <li>Bắt đầu bắt gói, rồi mở một trang HTTPS. Dừng sau khoảng 5 giây.</li>
+  <li>Lọc theo thứ tự, mỗi bộ lọc ứng với một bước trong mục 12:
+<pre>
+arp                               ← Request (broadcast) / Reply (unicast)
+dns                               ← Query / Response
+tcp.flags.syn==1                  ← SYN, SYN-ACK, kiểm tra option MSS
+tcp.port==443 &amp;&amp; tls.handshake    ← Client Hello (có SNI = tên site)
+eth.type==0x0806                  ← lọc ARP theo EtherType
+ip.ttl &lt; 64                       ← đoán số chặng
+</pre></li>
+  <li>Chọn một gói TCP và mở ô chi tiết. Bạn sẽ thấy đúng 4 lớp: <em>Frame</em> (L1 metadata) → <em>Ethernet II</em> → <em>Internet Protocol Version 4</em> → <em>Transmission Control Protocol</em>. Ghi lại giá trị EtherType, Protocol và Port.</li>
+  <li><strong>Bài nộp:</strong> chụp một ảnh có chú thích bằng tay, gồm (a) một cặp ARP Request/Reply và (b) 3 gói bắt tay TCP. Đánh dấu trường demultiplexing ở mỗi tầng.</li>
+</ol>
+
+<!-- 16 -->
+<h2 id="vi-16">16. Đính chính ghi chú CCNA (Google Docs)</h2>
+<div class="tbl"><table>
+<tr><th>#</th><th>Ghi chú hiện tại</th><th>Vấn đề</th><th>Sửa thành</th></tr>
+<tr><td>1</td><td>"MTU: 1500 byte ⇒ 1492 byte"; "MTU: Maximum frame size… usually 1492 effective"</td><td>Nhầm MTU với frame. 1492 chỉ áp dụng với PPPoE</td><td>MTU là kích thước gói L3 tối đa = 1500. Frame = 1518. PPPoE: MTU = 1492, MSS = 1452</td></tr>
+<tr><td>2</td><td>Transport "phân mảnh"</td><td>Nhầm segmentation với fragmentation</td><td>L4 làm segmentation (theo MSS). L3 làm fragmentation (theo MTU)</td></tr>
+<tr><td>3</td><td>Presentation "chuyển về mã máy (machine code)"</td><td>Sai khái niệm</td><td>Biểu diễn, mã hóa, nén dữ liệu</td></tr>
+<tr><td>4</td><td>Flooding "dễ gây bão broadcast"</td><td>Sai nguyên nhân</td><td>Bão broadcast do loop L2 khi STP không hoạt động. Flood unknown unicast chỉ làm tốn băng thông</td></tr>
+<tr><td>5</td><td>"1 MAC chỉ 1 port… chống spoofing/loop, quan trọng trong STP"</td><td>Hiểu ngược</td><td>MAC nhảy qua lại giữa các cổng (MAC flapping) là <em>triệu chứng</em> của loop hoặc giả mạo</td></tr>
+<tr><td>6</td><td>Multicast "switch có tính năng gửi 1 nhóm"</td><td>Thiếu điều kiện</td><td>Mặc định switch flood multicast. Phải bật IGMP snooping thì mới gửi đúng nhóm</td></tr>
+<tr><td>7</td><td>Longest match: "192.168.1.0/20"</td><td>Không phải network ID hợp lệ</td><td>Network ID của /20 chứa 192.168.1.x là 192.168.0.0/20</td></tr>
+<tr><td>8</td><td>RIP "4 bit đếm hop… tính sai từ router 16"</td><td>Sai</td><td>Trường metric dài 32 bit. Tối đa 15 hop, 16 nghĩa là unreachable</td></tr>
+<tr><td>9</td><td>"EtherChannel chỉ trên switch, không trên router"; "không can thiệp STP"</td><td>Sai một phần</td><td>Router cũng có port-channel. STP coi cả bó cổng là một link nên không chặn bớt cổng nào</td></tr>
+<tr><td>10</td><td>Router-on-a-stick "chứa được 50 sub-interface"</td><td>Không có giới hạn cố định như vậy</td><td>Giới hạn thực tế là băng thông trunk và CPU</td></tr>
+<tr><td>11</td><td>"Routing table nằm trong RAM… trừ static NV"</td><td>Diễn đạt chưa đúng</td><td>Bảng định tuyến luôn nằm trong RAM. Cấu hình static route lưu ở startup-config (NVRAM), khởi động lại thì bảng được dựng lại</td></tr>
+<tr><td>12</td><td>Mục ARP gần như trống</td><td>Thiếu</td><td>Bổ sung sau khi đọc Stevens Ch.4 (trang 183–195)</td></tr>
+</table></div>
+
+<!-- 17 -->
+<h2 id="vi-17">17. Câu hỏi phỏng vấn (bấm để xem đáp án)</h2>
+<details><summary>1. Khi gói đi qua router, những gì thay đổi, những gì giữ nguyên?</summary>
+<p>Thay đổi: MAC nguồn và MAC đích (frame mới), TTL giảm 1, header checksum được tính lại, có thể thay đổi DSCP nếu có chính sách QoS. Giữ nguyên: IP nguồn và IP đích, port, payload. Ngoại lệ là NAT/PAT, khi đó IP và port bị đổi.</p></details>
+<details><summary>2. Vì sao cần cả MAC lẫn IP? Chỉ dùng một loại có được không?</summary>
+<p>MAC là địa chỉ phẳng, chỉ có ý nghĩa trên một đoạn mạng và không gộp được nên không định tuyến được. IP là địa chỉ phân cấp mạng/host, gộp được thành dải nên định tuyến được trên quy mô Internet. L2 lo từng chặng, L3 lo cả đường đi. ARP là cầu nối giữa hai loại địa chỉ.</p></details>
+<details><summary>3. Switch L3 khác router thế nào?</summary>
+<p>Switch L3 định tuyến bằng phần cứng (ASIC/CEF) với mật độ cổng Ethernet cao, độ trễ thấp, và vẫn học MAC như switch L2. Router mạnh hơn ở WAN, NAT, VPN, tính năng dịch vụ, và có nhiều loại interface hơn. Ngày nay ranh giới giữa hai loại đã mờ đi.</p></details>
+<details><summary>4. ARP Request là broadcast, ARP Reply là unicast. Tại sao?</summary>
+<p>Lúc gửi request, máy hỏi chưa biết MAC của máy đích nên phải hỏi tất cả. Trong ARP Request đã có sẵn MAC của người hỏi, nên máy đích trả lời thẳng (unicast). Máy đích cũng tiện thể học luôn ánh xạ IP–MAC của người hỏi.</p></details>
+<details><summary>5. Ping được nhưng không vào được web. Bạn làm gì?</summary>
+<p>Ping được nghĩa là L1–L3 hai chiều đang chạy (với ICMP). Tiếp theo kiểm tra L4: <code>Test-NetConnection -Port 443</code>. Nếu bị RST hoặc timeout thì xem policy/ACL và <code>diagnose debug flow</code>. Nếu port mở thì kiểm tra L7: DNS phân giải đúng chưa, proxy, chứng chỉ. Trang tải được một nửa rồi treo thì nghĩ ngay tới MTU/MSS.</p></details>
+<details><summary>6. TCP và UDP: cho ví dụ khi nào UDP tốt hơn.</summary>
+<p>Với voice/video thời gian thực, gói tới trễ cũng vô ích, gửi lại chỉ làm tăng độ trễ. DNS cần trả lời nhanh, chỉ một gói hỏi và một gói đáp, mở kết nối TCP là thừa. DHCP thì client chưa có IP nên không thể mở kết nối TCP.</p></details>
+<details><summary>7. Router có chuyển tiếp broadcast không? Vậy DHCP qua subnet khác hoạt động thế nào?</summary>
+<p>Không. Router (hoặc SVI) được cấu hình <code>ip helper-address</code> để chuyển gói DHCP Discover broadcast thành unicast gửi tới DHCP server, đồng thời điền trường giaddr để server biết cấp IP từ pool nào.</p></details>
+<details><summary>8. Collision domain và broadcast domain trong một switch 24 cổng, có 2 VLAN?</summary>
+<p>24 collision domain (mỗi cổng một domain). 2 broadcast domain (mỗi VLAN một domain).</p></details>
+<details><summary>9. Firewall FortiGate làm việc ở tầng nào?</summary>
+<p>Nhiều tầng. L2 (ARP, có thể chạy transparent mode/virtual wire), L3 (định tuyến, NAT), L4 (policy theo port, theo dõi trạng thái phiên), L7 (IPS, Application Control, Web Filter, SSL inspection). Trả lời "firewall là thiết bị L3" là chưa đủ.</p></details>
+<details><summary>10. Vì sao địa chỉ MAC đích nằm ở đầu frame?</summary>
+<p>Để switch đọc được ngay sau 6 byte đầu và bắt đầu chuyển tiếp mà không cần chờ nhận hết frame (chế độ cut-through), giúp giảm độ trễ.</p></details>
+
+<!-- 18 -->
+<h2 id="vi-18">18. Tự kiểm tra (làm trước khi mở đáp án)</h2>
+<details><summary>1. Gói đi qua 2 router: liệt kê các trường thay đổi và các trường giữ nguyên ở mỗi chặng.</summary><p>Xem bảng ở mục 12. MAC đổi ở mỗi chặng, TTL giảm 1 sau mỗi router, IP và port giữ nguyên nếu không có NAT.</p></details>
+<details><summary>2. Router nhận frame có EtherType 0x0806. Nó có tra bảng định tuyến không?</summary><p>Không. Đây là ARP. Nếu IP được hỏi là IP của chính interface đó thì router trả lời, đồng thời cập nhật ARP cache. Router không chuyển tiếp gói ARP ra interface khác (trừ khi bật proxy ARP và có route tới IP được hỏi).</p></details>
+<details><summary>3. Vì sao OSPF không cần TCP mà BGP lại cần?</summary><p>OSPF chạy giữa các router láng giềng trực tiếp, tự xác nhận bằng LSAck và gửi lại khi mất. BGP trao đổi bảng định tuyến rất lớn, thường giữa các router không nối trực tiếp (iBGP qua nhiều chặng), nên dùng luôn TCP để có sẵn tin cậy, kiểm soát luồng và sắp xếp thứ tự.</p></details>
+<details><summary>4. Tính payload ICMP tối đa khi MTU = 1400.</summary><p>1400 − 20 − 8 = 1372 byte (<code>ping -f -l 1372</code>).</p></details>
+<details><summary>5. Tính MSS khi đi qua PPPoE.</summary><p>1492 − 20 − 20 = 1452.</p></details>
+<details><summary>6. Frame Ethernet nhỏ nhất là bao nhiêu byte và vì sao phải có giới hạn này?</summary><p>64 byte. Ở chế độ half duplex (CSMA/CD), bên gửi phải còn đang truyền khi tín hiệu va chạm từ đầu xa nhất của đoạn mạng dội về, nếu không sẽ không phát hiện được va chạm. Giới hạn này được giữ lại để tương thích ngược.</p></details>
+<details><summary>7. Một switch 48 cổng chưa cấu hình gì: bao nhiêu collision domain, bao nhiêu broadcast domain?</summary><p>48 collision domain, 1 broadcast domain (VLAN 1).</p></details>
+<details><summary>8. TTL trong phản hồi ping là 118. Bạn đoán được gì?</summary><p>Rất có thể máy đích chạy Windows (TTL ban đầu 128) và nằm cách bạn 10 chặng.</p></details>
+<details><summary>9. Vì sao TCP/IP gộp tầng 5, 6, 7 thành một?</summary><p>Trong thực tế, ứng dụng tự làm luôn việc của phiên và biểu diễn dữ liệu (HTTP, TLS). Tách thành ba tầng không đem lại lợi ích gì khi triển khai.</p></details>
+<details><summary>10. Segment và packet khác nhau ở đâu? Segmentation và fragmentation khác nhau ở đâu?</summary><p>Segment là PDU của L4 (TCP), packet là PDU của L3 (IP). Segmentation là TCP chia luồng dữ liệu theo MSS, làm ở máy nguồn. Fragmentation là IP chia gói theo MTU, IPv4 có thể làm ở router, và việc ghép lại chỉ xảy ra ở máy đích.</p></details>
+
+<!-- 19 -->
+<h2 id="vi-19">19. Thuật ngữ</h2>
+<div class="tbl"><table>
+<tr><th>Thuật ngữ</th><th>Giải thích ngắn</th></tr>
+<tr><td>PDU</td><td>Protocol Data Unit: dữ liệu cộng với header (và trailer) của một tầng</td></tr>
+<tr><td>Encapsulation / De-encapsulation</td><td>Bọc thêm header khi gửi đi / gỡ header khi nhận về</td></tr>
+<tr><td>Same-layer / Adjacent-layer interaction</td><td>Cùng tầng trên hai máy nói chuyện qua header / Hai tầng liền kề trên một máy nhờ nhau cung cấp dịch vụ</td></tr>
+<tr><td>EtherType</td><td>Trường của Ethernet cho biết giao thức L3 bên trong</td></tr>
+<tr><td>Protocol (IP)</td><td>Trường của IP cho biết giao thức bên trong (TCP, UDP, ICMP…)</td></tr>
+<tr><td>Port</td><td>Số định danh ứng dụng ở L4</td></tr>
+<tr><td>FCS / CRC</td><td>Mã phát hiện lỗi ở cuối frame</td></tr>
+<tr><td>OUI</td><td>24 bit đầu của MAC, xác định hãng sản xuất</td></tr>
+<tr><td>MTU / MSS</td><td>Kích thước gói L3 tối đa / dữ liệu TCP tối đa trong một segment</td></tr>
+<tr><td>DF bit</td><td>Don't Fragment: cấm router phân mảnh gói</td></tr>
+<tr><td>PMTUD</td><td>Path MTU Discovery: tìm MTU nhỏ nhất trên đường đi</td></tr>
+<tr><td>TTL</td><td>Time To Live: giới hạn số chặng, chống gói lặp vô tận</td></tr>
+<tr><td>Collision / Broadcast domain</td><td>Vùng va chạm / vùng mà broadcast lan tới được</td></tr>
+<tr><td>Flood / Forward / Filter</td><td>Gửi ra mọi cổng / gửi ra đúng một cổng / bỏ frame</td></tr>
+<tr><td>Next-hop</td><td>Router kế tiếp trên đường tới đích</td></tr>
+<tr><td>Longest prefix match</td><td>Chọn route có prefix dài nhất (cụ thể nhất) khớp với IP đích</td></tr>
+<tr><td>Stateful</td><td>Ghi nhớ trạng thái phiên để tự cho phép gói trả về</td></tr>
+</table></div>
+
+</section>
+<!-- ===================================================== ENGLISH (to be appended) ===================================================== -->
+<section id="en" lang="en">
+<div class="part-title"><h1>English Edition</h1><p>The same material as the Vietnamese edition above, written in English.</p></div>
+
+<nav class="toc" aria-label="Contents">
+<strong>Contents</strong>
+<ol start="0">
+  <li><a href="#en-0">How to use this guide</a></li>
+  <li><a href="#en-1">Why layered models exist</a></li>
+  <li><a href="#en-2">History: OSI and TCP/IP</a></li>
+  <li><a href="#en-3">The OSI model, layer by layer</a></li>
+  <li><a href="#en-4">TCP/IP: four layers or five?</a></li>
+  <li><a href="#en-5">How layers interact</a></li>
+  <li><a href="#en-6">Encapsulation and PDUs</a></li>
+  <li><a href="#en-7">Header anatomy: Ethernet, IPv4, TCP, UDP</a></li>
+  <li><a href="#en-8">Demultiplexing: EtherType, Protocol, Port</a></li>
+  <li><a href="#en-9">Which layer is protocol X?</a></li>
+  <li><a href="#en-10">Delivery types and domains</a></li>
+  <li><a href="#en-11">Devices by layer</a></li>
+  <li><a href="#en-12">A packet's journey, hop by hop</a></li>
+  <li><a href="#en-13">Sizes: MTU, MSS, frames</a></li>
+  <li><a href="#en-14">Troubleshooting by layer</a></li>
+  <li><a href="#en-15">Wireshark lab</a></li>
+  <li><a href="#en-16">Corrections to the CCNA notes</a></li>
+  <li><a href="#en-17">Interview questions</a></li>
+  <li><a href="#en-18">Self-check</a></li>
+  <li><a href="#en-19">Glossary</a></li>
+</ol>
+</nav>
+
+<h2 id="en-0">0. How to use this guide</h2>
+<p>This guide is not for memorising. The aim is that after reading it, you can <strong>look at an incident and tell which layer the packet is stuck at</strong>. Helpdesk looks at symptoms. Infrastructure engineers look at the path a packet takes.</p>
+<div class="tbl"><table>
+<tr><th>Sections</th><th>Read alongside</th><th>PDF pages (your copies)</th></tr>
+<tr><td>1–6</td><td>Odom Ch.1 Introduction to TCP/IP Networking</td><td>72–91</td></tr>
+<tr><td>7 (Ethernet), 10, 11</td><td>Odom Ch.2 Fundamentals of Ethernet LANs · Stevens 3.2.2 Ethernet Frame Format</td><td>Odom 109–117 · Stevens 110–113</td></tr>
+<tr><td>12 (routing, ARP)</td><td>Odom Ch.3 (IP Routing → ARP) · Stevens Ch.4 ARP</td><td>Odom 127–139 · Stevens 183–195</td></tr>
+<tr><td>11 (switching)</td><td>Odom Ch.5 Analyzing Ethernet LAN Switching</td><td>168–187</td></tr>
+<tr><td>13 (MTU)</td><td>Stevens 3.8 MTU and Path MTU · 10.7–10.9 Fragmentation, PMTUD</td><td>168–169 · 472–480</td></tr>
+</table></div>
+<div class="box"><strong>Convention</strong>The tags <span class="layer L7">L7</span> <span class="layer L4">L4</span> <span class="layer L3">L3</span> <span class="layer L2">L2</span> <span class="layer L1">L1</span> use OSI layer numbers, which is how the industry talks ("L3 switch", "L7 firewall").</div>
+
+<h2 id="en-1">1. Why layered models exist</h2>
+<p>Even a simple web connection relies on dozens of protocols written by different bodies (IEEE, IETF, vendors). Without layers, changing one component, such as moving from copper to fiber, would mean rewriting the browser. Layering solves that with three principles:</p>
+<ol>
+  <li><strong>One responsibility per layer.</strong> Layer 2 only moves a frame across one link. It does not need to know where the packet is ultimately going.</li>
+  <li><strong>Each layer talks only to the layer directly above and below it</strong>, through a well-defined interface. The upper layer uses the lower layer's service without knowing how it works.</li>
+  <li><strong>Replacing one layer does not break the others.</strong> IP runs unchanged over Ethernet, Wi-Fi, PPP, MPLS or an IPsec tunnel.</li>
+</ol>
+<p>Odom uses the image of <em>architectural plans for a house</em>: electricians, bricklayers and painters each do their own part, but they all follow one shared plan, so the house fits together.</p>
+<h4>Practical value for an operator</h4>
+<ul>
+  <li><strong>A shared language:</strong> "L2 issue, wrong VLAN" is enough for the whole team to understand straight away.</li>
+  <li><strong>Fault isolation:</strong> if you can ping the gateway, <span class="layer L1">L1</span>–<span class="layer L3">L3</span> on that segment are working. You only need to look at the layers above.</li>
+  <li><strong>Reading products:</strong> when a datasheet says "L4 load balancing" or "L7 application control", you know exactly how deep into the packet that device can read.</li>
+</ul>
+
+<h2 id="en-2">2. History: OSI and TCP/IP</h2>
+<div class="tbl"><table>
+<tr><th>When</th><th>Event</th><th>Why it matters</th></tr>
+<tr><td>1970s</td><td>Each vendor had its own protocol suite: IBM SNA, Novell NetWare (IPX/SPX), DECnet, AppleTalk</td><td>Machines from different vendors struggled to talk to each other, and businesses were locked in to one vendor</td></tr>
+<tr><td>1969–1983</td><td>The US DoD's ARPANET developed TCP/IP. ARPANET formally switched to TCP/IP in 1983</td><td>TCP/IP was built first and written up as standards (RFCs) afterwards. Its priority was working code</td></tr>
+<tr><td>1981</td><td>RFC 791 (IP), RFC 793 (TCP); RFC 768 (UDP) from 1980; RFC 826 (ARP) in 1982</td><td>These are the original documents. RFC 793 was replaced by RFC 9293 in 2022</td></tr>
+<tr><td>1984</td><td>ISO published the OSI reference model (ISO 7498)</td><td>OSI was fully designed on paper first, but the OSI protocol suite was slow to arrive and too complex</td></tr>
+<tr><td>1989</td><td>RFC 1122 (Host Requirements) defined TCP/IP as four layers</td><td>This is where the familiar "4-layer TCP/IP" picture comes from</td></tr>
+<tr><td>1990s</td><td>The Internet boomed and TCP/IP won outright</td><td>Today OSI survives only as a <strong>vocabulary</strong>. Nobody runs real OSI protocols</td></tr>
+</table></div>
+<div class="box"><strong>Odom's key point</strong>TCP/IP is the model that is actually implemented. OSI is the model used for discussion and comparison. The CCNA exam asks about both, including how layer names and PDU names map between them.</div>
+
+<h2 id="en-3">3. The OSI model, layer by layer</h2>
+<div class="stack" aria-label="OSI stack">
+  <div class="s7">7 · Application <span>Network services for applications · Data</span></div>
+  <div class="s6">6 · Presentation <span>Representation, encryption, compression · Data</span></div>
+  <div class="s5">5 · Session <span>Open, maintain, close sessions · Data</span></div>
+  <div class="s4">4 · Transport <span>Delivery to the right application (port), reliability · Segment / Datagram</span></div>
+  <div class="s3">3 · Network <span>Logical addressing, routing across networks · Packet</span></div>
+  <div class="s2">2 · Data Link <span>Framing, MAC, delivery across one link · Frame</span></div>
+  <div class="s1">1 · Physical <span>Signals, cables, connectors · Bit</span></div>
+</div>
+<p>Mnemonics: 7→1 <em>All People Seem To Need Data Processing</em>. 1→7 <em>Please Do Not Throw Sausage Pizza Away</em>.</p>
+
+<h3>Layer 7: Application</h3>
+<p><strong>Not the application itself</strong> (Chrome, Outlook), but the <em>protocol</em> the application uses to talk over the network: HTTP, DNS, SMTP, IMAP, SSH, DHCP, SNMP, LDAP, RDP.</p>
+<ul>
+  <li>Odom's example: the browser sends <code>HTTP GET /index.html</code> and the server replies <code>HTTP 200 OK</code> with the page. The two HTTP endpoints "talk" to each other through HTTP headers.</li>
+  <li>Devices working at this layer: proxies, WAFs, and FortiGate when Application Control, Web Filter or SSL Inspection is enabled.</li>
+  <li>Common faults: wrong DNS resolution, expired certificates, stopped services, wrong credentials.</li>
+</ul>
+<h3>Layer 6: Presentation</h3>
+<p>Handles <strong>how data is represented</strong> so both sides understand it the same way: character encoding (ASCII, UTF-8), formats (JPEG, MP3, JSON, XML, MIME), compression and encryption.</p>
+<div class="box warn"><strong>Correction to the notes</strong>Layer 6 does <em>not</em> "convert data into machine code". Machine code means CPU instructions, which is the compiler's job. Layer 6 is only about how data is <em>represented</em> on the wire.</div>
+<h3>Layer 5: Session</h3>
+<p>Handles <strong>opening, maintaining, synchronising and closing sessions</strong> between two applications: checkpoints, recovery after a broken session, and dialog control (whose turn it is to talk). Examples: NetBIOS sessions, RPC, SQL and SMB sessions. In TCP/IP this function lives inside the application itself.</p>
+<div class="box"><strong>Which layer is TLS?</strong>TLS encrypts data (an L6 job) and manages secure sessions (an L5 job), yet it runs over TCP and sits below HTTP. In practice it sits between L4 and L7. That is also why TCP/IP merges layers 5, 6 and 7 into one: in real life the boundaries between them are not clear.</div>
+
+<h3>Layer 4: Transport</h3>
+<p>Delivers data <strong>end to end, to the right application</strong> on the destination host. The identifier at this layer is the <strong>port</strong>.</p>
+<div class="tbl"><table>
+<tr><th>Criterion</th><th>TCP</th><th>UDP</th></tr>
+<tr><td>Connection</td><td>Yes: 3-way handshake SYN → SYN-ACK → ACK</td><td>No</td></tr>
+<tr><td>Reliability</td><td>Yes: sequence numbers, ACKs, retransmission on loss</td><td>No: lost data stays lost, the application deals with it</td></tr>
+<tr><td>Ordering</td><td>Reorders into the correct sequence</td><td>Not guaranteed</td></tr>
+<tr><td>Flow control</td><td>Yes: window</td><td>No</td></tr>
+<tr><td>Congestion control</td><td>Yes: slow start, congestion avoidance</td><td>No</td></tr>
+<tr><td>Header</td><td>20–60 bytes</td><td>8 bytes</td></tr>
+<tr><td>PDU</td><td>Segment</td><td>Datagram</td></tr>
+<tr><td>Uses</td><td>HTTP/S, SSH, SMTP, RDP, BGP, SMB</td><td>DNS (queries), DHCP, SNMP, Syslog, NTP, VoIP/RTP, TFTP, QUIC</td></tr>
+</table></div>
+<p><strong>Segmentation</strong>: TCP splits the application's byte stream into segments, each no larger than the MSS. This is an L4 job. It is <em>different</em> from fragmentation at L3 (see section 13).</p>
+<p>Devices working at this layer: stateful firewalls (tracking TCP session state), L4 load balancers, NAT/PAT devices (which rewrite ports).</p>
+
+<h3>Layer 3: Network</h3>
+<p>Delivers packets <strong>across multiple networks</strong>, from source host to destination host. The identifier is the <strong>IP address</strong> (a logical identifier, hierarchical as network/host, so it can be routed).</p>
+<ul>
+  <li>Odom's image is the <em>postal service</em>: you write the address on the envelope, the postal system passes it through many post offices, and each office only needs to know which direction to forward it.</li>
+  <li>Two main jobs: <strong>addressing</strong> and <strong>routing</strong>. Your notes on the router's "read behaviour (look up the routing table)" and "write behaviour (build the routing table)" are correct.</li>
+  <li>Protocols: IPv4, IPv6, ICMP. Routing protocols (OSPF, EIGRP, BGP) serve the L3 function.</li>
+  <li>Devices: routers, L3 switches, firewalls in route/NAT mode.</li>
+</ul>
+
+<h3>Layer 2: Data Link</h3>
+<p>Delivers a frame to <strong>the next device on the same network segment</strong>, that is, one hop. The identifier is the <strong>MAC address</strong> (flat, not hierarchical, meaningful only within one broadcast domain).</p>
+<ul>
+  <li>Four main jobs: <strong>framing</strong> (header and trailer), <strong>MAC addressing</strong>, <strong>error detection with the FCS</strong> (it detects and discards, it does not correct), and <strong>media access control</strong> (CSMA/CD in half duplex, CSMA/CA on Wi-Fi).</li>
+  <li>IEEE splits this layer into two sublayers: <strong>LLC</strong> (802.2, identifies the upper-layer protocol) and <strong>MAC</strong> (802.3 for Ethernet, 802.11 for Wi-Fi).</li>
+  <li>Protocols: Ethernet, 802.11, PPP, HDLC, 802.1Q (VLAN), STP, LACP, LLDP/CDP.</li>
+  <li>Devices: switches, bridges, NICs, access points.</li>
+</ul>
+
+<h3>Layer 1: Physical</h3>
+<p>Turns bits into <strong>signals</strong> (voltage on copper, light pulses on fiber, radio waves) and back again. This layer defines cable types, connectors (RJ-45, LC, SC), pinouts, speeds, line encoding and maximum distances.</p>
+<div class="tbl"><table>
+<tr><th>Standard</th><th>Name</th><th>Speed</th><th>Medium</th><th>Distance</th></tr>
+<tr><td>802.3u</td><td>100BASE-T</td><td>100 Mb/s</td><td>UTP Cat5 (2 pairs)</td><td>100 m</td></tr>
+<tr><td>802.3ab</td><td>1000BASE-T</td><td>1 Gb/s</td><td>UTP Cat5e (4 pairs)</td><td>100 m</td></tr>
+<tr><td>802.3z</td><td>1000BASE-SX / LX</td><td>1 Gb/s</td><td>Multimode / single-mode fiber</td><td>550 m / 5 km</td></tr>
+<tr><td>802.3an</td><td>10GBASE-T</td><td>10 Gb/s</td><td>UTP Cat6a</td><td>100 m</td></tr>
+<tr><td>802.3ae</td><td>10GBASE-SR / LR</td><td>10 Gb/s</td><td>Multimode / single-mode fiber</td><td>400 m (OM4) / 10 km</td></tr>
+</table></div>
+<p>Devices: hubs, repeaters, media converters, optics. Common faults: damaged cables, mismatched optics (SR plugged into LR), dirty fiber, duplex mismatch (which causes late collisions and a steadily rising CRC count).</p>
+
+<h2 id="en-4">4. TCP/IP: four layers or five?</h2>
+<div class="tbl"><table>
+<tr><th>OSI</th><th>TCP/IP 5-layer (Odom, CCNA)</th><th>TCP/IP 4-layer (RFC 1122)</th><th>Example protocols</th></tr>
+<tr><td>7 Application · 6 Presentation · 5 Session</td><td>Application</td><td>Application</td><td>HTTP, DNS, SMTP, SSH, DHCP, TLS</td></tr>
+<tr><td>4 Transport</td><td>Transport</td><td>Transport</td><td>TCP, UDP</td></tr>
+<tr><td>3 Network</td><td>Network</td><td>Internet</td><td>IPv4, IPv6, ICMP</td></tr>
+<tr><td>2 Data Link</td><td>Data Link</td><td rowspan="2">Link (Network Access / Network Interface)</td><td>Ethernet, 802.11, PPP</td></tr>
+<tr><td>1 Physical</td><td>Physical</td><td>UTP, fiber, RF</td></tr>
+</table></div>
+<div class="box"><strong>Which one for the exam?</strong>Odom uses the <strong>5-layer TCP/IP model</strong> (the "updated TCP/IP model"), which splits Link into Data Link and Physical because those two jobs are very different in practice. The 4-layer picture is also correct, following the original RFC 1122. In a multiple-choice question, read carefully which model it refers to.</div>
+
+<h2 id="en-5">5. How layers interact</h2>
+<p>Odom defines two kinds of interaction. The exam asks about them, and once you understand them you understand what headers are for.</p>
+<h4>Same-layer interaction: the same layer on different hosts</h4>
+<p>A layer on host A exchanges information with <strong>the same layer</strong> on host B, using the <strong>header</strong> that layer adds.</p>
+<p>Odom's example: a web server sends three TCP segments numbered 1, 2 and 3. Segment 2 is lost. The browser's TCP sends an ACK saying it is still waiting for segment 2. The server's TCP resends segment 2. The TCP header is the "letter" the two TCP endpoints send each other.</p>
+<h4>Adjacent-layer interaction: two neighbouring layers on the same host</h4>
+<p>The upper layer <strong>asks</strong> the layer directly below for a service. For example, HTTP asks TCP to deliver data reliably. TCP asks IP to get the segment to the destination host. IP asks Ethernet to get the packet to the next hop.</p>
+<pre>
+Host A                                    Host B
+HTTP   ◄────── same-layer (HTTP header) ──────►  HTTP
+  │ adjacent                                       ▲
+TCP    ◄────── same-layer (TCP header: seq/ack) ─►  TCP
+  │                                                ▲
+IP     ◄────── same-layer (IP header) ───────────►  IP
+  │                                                ▲
+Ethernet ──────── bits on the wire ─────────────►  Ethernet
+</pre>
+
+<h2 id="en-6">6. Encapsulation and PDUs</h2>
+<h3>The five encapsulation steps (per Odom)</h3>
+<ol>
+  <li><strong>Create the application data</strong>, adding any application-layer header (for example an HTTP header).</li>
+  <li><strong>Wrap it in a transport header</strong> (TCP or UDP), creating a <em>segment</em> or <em>datagram</em>.</li>
+  <li><strong>Wrap it in an IP header</strong>, creating a <em>packet</em>.</li>
+  <li><strong>Wrap it in a data-link header and trailer</strong>, creating a <em>frame</em>.</li>
+  <li><strong>Transmit it as bits</strong> over the physical medium.</li>
+</ol>
+<p>The receiver does the reverse (de-encapsulation): each layer checks and removes its own header, then reads the "what is the upper layer" field (section 8) to decide who gets the payload.</p>
+<h3>The byte-level view</h3>
+<div class="frame" role="img" aria-label="Frame layout">
+  <div class="h2">Preamble+SFD<small>8 B (L1)</small></div>
+  <div class="h2">Dest MAC<small>6 B</small></div>
+  <div class="h2">Src MAC<small>6 B</small></div>
+  <div class="h2">Type<small>2 B</small></div>
+  <div class="h3">IP header<small>20 B</small></div>
+  <div class="h4">TCP header<small>20 B</small></div>
+  <div>Data<small>≤ 1460 B</small></div>
+  <div class="h2">FCS<small>4 B</small></div>
+</div>
+<pre>
+L7  [ TLS + HTTP ]                                         Data
+L4  [TCP 20][ Data ]                                       Segment
+L3  [IP 20][TCP 20][ Data ]                                Packet   ≤ 1500 B  (= MTU)
+L2  [Eth 14][IP 20][TCP 20][ Data ][FCS 4]                 Frame    ≤ 1518 B
+L1  [Preamble 7 + SFD 1] + frame + 12-byte IFG             Bits
+</pre>
+<h3>PDU names</h3>
+<div class="tbl"><table>
+<tr><th>Layer</th><th>PDU name</th><th>Generic OSI name</th><th>What is added</th></tr>
+<tr><td>L7–L5</td><td>Data / Message</td><td>L7PDU</td><td>Application header (if any)</td></tr>
+<tr><td>L4</td><td>Segment (TCP) / Datagram (UDP)</td><td>L4PDU</td><td>TCP/UDP header: ports</td></tr>
+<tr><td>L3</td><td>Packet</td><td>L3PDU</td><td>IP header: IP addresses, TTL, Protocol</td></tr>
+<tr><td>L2</td><td>Frame</td><td>L2PDU</td><td>Header (MACs, Type) and trailer (FCS)</td></tr>
+<tr><td>L1</td><td>Bit</td><td>—</td><td>No header. Ethernet adds a preamble for clock synchronisation</td></tr>
+</table></div>
+<p>Note: only <strong>layer 2</strong> adds a trailer (the FCS). The other layers add only a header.</p>
+
+<h2 id="en-7">7. Header anatomy: Ethernet, IPv4, TCP, UDP</h2>
+<h3>7.1 The Ethernet II frame (Odom Ch.2, Stevens 3.2.2)</h3>
+<div class="tbl"><table>
+<tr><th>Field</th><th>Length</th><th>Meaning</th></tr>
+<tr><td>Preamble</td><td>7 B</td><td>A 10101010… pattern so the receiver can synchronise its clock. Belongs to L1, Wireshark does not show it</td></tr>
+<tr><td>SFD</td><td>1 B</td><td>10101011, meaning "the frame starts here"</td></tr>
+<tr><td>Destination MAC</td><td>6 B</td><td>Placed at the <strong>start</strong> of the frame so a switch can read it early and forward immediately (cut-through)</td></tr>
+<tr><td>Source MAC</td><td>6 B</td><td>Switches <strong>learn</strong> MAC addresses from this field</td></tr>
+<tr><td>Type / Length</td><td>2 B</td><td>A value ≥ 0x0600 (1536) is an EtherType (Ethernet II). A value ≤ 1500 is a length (802.3 + LLC)</td></tr>
+<tr><td>(802.1Q tag)</td><td>4 B</td><td>Inserted between the source MAC and Type: TPID 0x8100, 3-bit PCP (CoS), 1-bit DEI, 12-bit VLAN ID</td></tr>
+<tr><td>Data</td><td>46–1500 B</td><td>The payload (an IP packet). Anything shorter than 46 bytes is padded</td></tr>
+<tr><td>FCS</td><td>4 B</td><td>CRC-32. A bad FCS means the frame is discarded, not resent. The port's <code>CRC</code> / <code>input errors</code> counter goes up</td></tr>
+</table></div>
+<p>Smallest frame = 6+6+2+46+4 = <strong>64 bytes</strong>. Largest = 6+6+2+1500+4 = <strong>1518 bytes</strong> (1522 with an 802.1Q tag). A frame under 64 bytes is a <em>runt</em>. A frame above the maximum is a <em>giant</em>.</p>
+<h4>MAC address structure (48 bits)</h4>
+<ul>
+  <li>The first 24 bits are the <strong>OUI</strong>, a code IEEE assigns to the manufacturer. The vendor assigns the last 24 bits.</li>
+  <li>The lowest bit of the first byte is the <strong>I/G</strong> bit: 0 means unicast, 1 means group (multicast or broadcast).</li>
+  <li>The next bit is the <strong>U/L</strong> bit: 0 means a globally unique, vendor-assigned address. 1 means locally administered (VMs, randomised MACs on phones, HA virtual MACs).</li>
+  <li>Broadcast: <code>FFFF.FFFF.FFFF</code>. IPv4 multicast: <code>0100.5Exx.xxxx</code>. IPv6 multicast: <code>3333.xxxx.xxxx</code>.</li>
+  <li>Three ways to write the same address: <code>0011.2233.4455</code> (Cisco), <code>00-11-22-33-44-55</code> (Windows), <code>00:11:22:33:44:55</code> (Linux, FortiGate).</li>
+</ul>
+
+<h3>7.2 The IPv4 header (20 bytes without options)</h3>
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-------+-------+---------------+-------------------------------+
+|Version|  IHL  |  DSCP   | ECN |          Total Length         |
++-------+-------+---------------+-----+-------------------------+
+|        Identification         |Flags|     Fragment Offset     |
++---------------+---------------+-----+-------------------------+
+|      TTL      |   Protocol    |        Header Checksum        |
++---------------+---------------+-------------------------------+
+|                       Source IP Address                       |
++---------------------------------------------------------------+
+|                    Destination IP Address                     |
++---------------------------------------------------------------+
+</pre>
+<div class="tbl"><table>
+<tr><th>Field</th><th>Why an operator needs to know it</th></tr>
+<tr><td>Version / IHL</td><td>4 means IPv4. IHL = 5 means a 20-byte header</td></tr>
+<tr><td>DSCP</td><td>QoS. Voice is usually marked EF (46). Compare with CoS 5 at L2 in your VLAN notes</td></tr>
+<tr><td>Total Length</td><td>Length of the whole IP packet. It must be ≤ the MTU of the outgoing link</td></tr>
+<tr><td>Identification, Flags (DF, MF), Fragment Offset</td><td>Used for fragmentation. With <strong>DF = 1</strong>, a router must not split the packet. It drops it and sends ICMP "fragmentation needed". This is how Path MTU Discovery works</td></tr>
+<tr><td>TTL</td><td>Each router decrements it by 1. At 0 the packet is dropped and ICMP Time Exceeded is sent. <code>tracert</code> relies on this. Defaults: Windows 128, Linux 64, Cisco IOS 255. The TTL in a ping reply hints at the OS and the hop count</td></tr>
+<tr><td>Protocol</td><td>Identifies the next header: 1 ICMP, 6 TCP, 17 UDP, 50 ESP, 89 OSPF…</td></tr>
+<tr><td>Header Checksum</td><td>Covers the header only. Because TTL changes, every router recalculates it</td></tr>
+<tr><td>Source / Destination IP</td><td>Unchanged end to end, <strong>unless NAT is applied</strong></td></tr>
+</table></div>
+
+<h3>7.3 The TCP header (20 bytes minimum)</h3>
+<div class="tbl"><table>
+<tr><th>Field</th><th>Meaning</th></tr>
+<tr><td>Source Port / Destination Port (2+2 B)</td><td>The client's source port is usually an ephemeral port: Windows uses 49152–65535, Linux defaults to 32768–60999. The destination is the service port (443…)</td></tr>
+<tr><td>Sequence Number (4 B)</td><td>Sequence number of the first byte in the segment</td></tr>
+<tr><td>Acknowledgment Number (4 B)</td><td>The next byte this side is expecting to receive</td></tr>
+<tr><td>Data Offset, Flags</td><td><strong>SYN</strong> opens · <strong>ACK</strong> acknowledges · <strong>FIN</strong> closes gracefully · <strong>RST</strong> aborts (often a firewall block or a closed port) · PSH · URG</td></tr>
+<tr><td>Window (2 B)</td><td>How many bytes the receiver can still accept. A window of 0 means the receiver is overloaded</td></tr>
+<tr><td>Checksum, Urgent Pointer, Options</td><td>Options include <strong>MSS</strong> (only in the SYN), Window Scale, SACK, Timestamps</td></tr>
+</table></div>
+<p><strong>3-way handshake:</strong> the client sends <code>SYN (seq=x, MSS=1460)</code>. The server replies <code>SYN-ACK (seq=y, ack=x+1)</code>. The client sends <code>ACK (ack=y+1)</code>. <strong>Teardown:</strong> FIN, ACK, FIN, ACK (four steps), or a single RST.</p>
+<h3>7.4 The UDP header (8 bytes)</h3>
+<p>Source Port, Destination Port, Length and Checksum, two bytes each. UDP has no seq, ack or window, so it is light and fast. Reliability, if needed, is left to the application.</p>
+
+<h2 id="en-8">8. Demultiplexing: EtherType, Protocol, Port</h2>
+<p>There is one question that layer diagrams usually skip: when a receiver unwraps a packet, <strong>how does it know which upper-layer protocol the payload belongs to?</strong> The answer is that every header carries a field that says so:</p>
+<pre>
+Frame ──EtherType──► IPv4 / ARP / IPv6 / VLAN
+Packet ──Protocol──► ICMP / TCP / UDP / ESP / OSPF
+Segment ──Port─────► HTTP / DNS / SSH / ...
+</pre>
+<div class="tbl"><table>
+<tr><th>EtherType (L2)</th><th></th><th>IP Protocol (L3)</th><th></th><th>Port (L4)</th><th></th></tr>
+<tr><td>0x0800</td><td>IPv4</td><td>1</td><td>ICMP</td><td>TCP 20/21</td><td>FTP</td></tr>
+<tr><td>0x0806</td><td><strong>ARP</strong></td><td>2</td><td>IGMP</td><td>TCP 22</td><td>SSH</td></tr>
+<tr><td>0x86DD</td><td>IPv6</td><td>6</td><td>TCP</td><td>TCP 23</td><td>Telnet</td></tr>
+<tr><td>0x8100</td><td>802.1Q VLAN tag</td><td>17</td><td>UDP</td><td>TCP 25</td><td>SMTP</td></tr>
+<tr><td>0x88CC</td><td>LLDP</td><td>47</td><td>GRE</td><td>TCP/UDP 53</td><td>DNS</td></tr>
+<tr><td>0x8863 / 0x8864</td><td>PPPoE Discovery / Session</td><td>50 / 51</td><td>ESP / AH (IPsec)</td><td>UDP 67/68</td><td>DHCP server / client</td></tr>
+<tr><td>0x8847</td><td>MPLS</td><td>58</td><td>ICMPv6</td><td>UDP 69</td><td>TFTP</td></tr>
+<tr><td>0x8809</td><td>LACP (Slow Protocols)</td><td>88</td><td>EIGRP</td><td>TCP 80 / 443</td><td>HTTP / HTTPS</td></tr>
+<tr><td></td><td></td><td>89</td><td>OSPF</td><td>UDP 123</td><td>NTP</td></tr>
+<tr><td></td><td></td><td>112</td><td>VRRP</td><td>UDP 161/162</td><td>SNMP / trap</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>TCP 179</td><td>BGP</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>TCP 389 / 636</td><td>LDAP / LDAPS</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>TCP 445</td><td>SMB</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>UDP 500 / 4500</td><td>IKE / IPsec NAT-T</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>UDP 514</td><td>Syslog</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>TCP 3389</td><td>RDP</td></tr>
+</table></div>
+<p>Cisco CDP does not use an EtherType. It travels in an 802.3 frame with LLC/SNAP, sent to the multicast MAC <code>0100.0CCC.CCCC</code>. STP also uses 802.3 + LLC (sent to MAC <code>0180.C200.0000</code>).</p>
+
+<h2 id="en-9">9. Which layer is protocol X?</h2>
+<p>There are two ways to answer, and a strong engineer gives both: <strong>(a) what it is carried inside</strong> and <strong>(b) which layer's function it serves</strong>.</p>
+<div class="tbl"><table>
+<tr><th>Protocol</th><th>Carried in</th><th>Function served</th><th>How to answer in an exam / interview</th></tr>
+<tr><td>ARP</td><td>Directly in an Ethernet frame (EtherType 0x0806), no IP header</td><td>Maps IP to MAC, serving L3</td><td>"L2, sometimes called L2.5". A router receiving ARP does <em>not</em> consult its routing table</td></tr>
+<tr><td>ICMP</td><td>An IP packet (protocol 1)</td><td>Error reporting and diagnostics for IP</td><td>L3. It is part of the IP suite even though it is carried in IP</td></tr>
+<tr><td>OSPF</td><td>An IP packet (protocol 89)</td><td>Routing</td><td>L3. It provides its own reliability with LSAcks and does not need TCP</td></tr>
+<tr><td>EIGRP</td><td>An IP packet (protocol 88)</td><td>Routing</td><td>L3. Uses Cisco's own RTP for reliability</td></tr>
+<tr><td>BGP</td><td>TCP 179</td><td>Routing</td><td>By encapsulation it is an application, by function it is L3. It uses TCP because it exchanges large routing tables between ASes, needs reliability, and must work across multiple hops</td></tr>
+<tr><td>RIP</td><td>UDP 520</td><td>Routing</td><td>Same reasoning as BGP</td></tr>
+<tr><td>DHCP</td><td>UDP 67/68</td><td>Provides IP configuration</td><td>L7. The client has no IP yet, so it broadcasts from 0.0.0.0 to 255.255.255.255</td></tr>
+<tr><td>DNS</td><td>UDP 53 (queries), TCP 53 (zone transfers, large responses)</td><td>Name resolution</td><td>L7</td></tr>
+<tr><td>TLS</td><td>TCP</td><td>Encryption, authentication</td><td>Between L4 and L7 (usually placed at L6 or L7)</td></tr>
+<tr><td>QUIC (HTTP/3)</td><td>UDP 443</td><td>Reliable, encrypted transport</td><td>Does an L4 job but runs in application space</td></tr>
+<tr><td>802.1Q</td><td>A tag inserted into the frame</td><td>VLAN identification</td><td>L2</td></tr>
+<tr><td>STP / LACP / LLDP</td><td>L2 frames</td><td>L2 control</td><td>L2</td></tr>
+<tr><td>IPsec ESP</td><td>IP (protocol 50), or UDP 4500 through NAT</td><td>Encrypted tunnel</td><td>L3</td></tr>
+<tr><td>GRE</td><td>IP (protocol 47)</td><td>Tunnel</td><td>L3</td></tr>
+</table></div>
+
+<h2 id="en-10">10. Delivery types and domains</h2>
+<h3>Delivery types</h3>
+<div class="tbl"><table>
+<tr><th>Type</th><th>Meaning</th><th>Example MAC/IP</th><th>How a switch handles it</th></tr>
+<tr><td>Unicast</td><td>One to one</td><td>One host's MAC</td><td>Forward out the right port if the MAC is learned, flood if it is not</td></tr>
+<tr><td>Broadcast</td><td>One to all <strong>within the broadcast domain</strong> (same VLAN)</td><td>FFFF.FFFF.FFFF · 255.255.255.255 or the subnet broadcast</td><td>Flood out every port in the VLAN except the incoming one. Routers do <strong>not</strong> forward broadcasts</td></tr>
+<tr><td>Multicast</td><td>One to a group</td><td>0100.5Exx.xxxx · 224.0.0.0/4</td><td><strong>Flooded like a broadcast by default</strong>. Sent only to group members when IGMP snooping is enabled</td></tr>
+<tr><td>Anycast</td><td>One to the nearest of many hosts sharing an address</td><td>8.8.8.8, 1.1.1.1 (IPv4 via BGP), IPv6 anycast</td><td>Decided by L3 routing, not by switches</td></tr>
+</table></div>
+<h3>Collision domains and broadcast domains</h3>
+<ul>
+  <li><strong>Collision domain</strong>: the area where two hosts transmitting at the same time would collide. A hub puts all its ports into <em>one</em> collision domain. A switch makes <em>each port</em> its own collision domain. In full duplex there are no collisions at all.</li>
+  <li><strong>Broadcast domain</strong>: the area a broadcast frame reaches. A switch (within one VLAN) does not stop broadcasts. <strong>Routers and VLANs are what split broadcast domains.</strong> One VLAN equals one broadcast domain and one subnet.</li>
+</ul>
+
+<h2 id="en-11">11. Devices by layer</h2>
+<div class="tbl"><table>
+<tr><th>Device</th><th>Reads up to</th><th>Decides based on</th><th>Operational notes</th></tr>
+<tr><td>Hub, repeater</td><td>Nothing (L1)</td><td>Nothing: repeats the signal out every port</td><td>Half duplex, collisions. Obsolete</td></tr>
+<tr><td>L2 switch</td><td>Ethernet header</td><td>MAC (CAM) table</td><td>Learns source MACs, forwards or filters on destination MAC, floods unknowns. Cisco's default aging time is 300 seconds</td></tr>
+<tr><td>L3 switch</td><td>Ethernet and IP headers</td><td>MAC table and routing table (CEF, ASIC hardware)</td><td>Still a switch: switchports still learn MACs. Only SVIs or routed ports (<code>no switchport</code>) have IPs</td></tr>
+<tr><td>Router</td><td>IP header (strips the old L2 header, builds a new one)</td><td>Routing table, longest prefix match</td><td>Decrements TTL, recalculates the checksum, changes MACs at each hop. Does not forward broadcasts</td></tr>
+<tr><td>Stateful firewall (FortiGate)</td><td>L3/L4, plus L7 with UTM</td><td>Policies, session table</td><td>Still ARPs at L2 and routes at L3. NAT rewrites IPs and ports. With IPS, AppCtrl or SSL inspection it reads up to L7</td></tr>
+<tr><td>Load balancer</td><td>L4 (IP, port) or L7 (URL, cookie, HTTP header)</td><td>Balancing algorithm and health checks</td><td>L7 balancing usually requires TLS decryption</td></tr>
+<tr><td>NIC</td><td>L1 and L2</td><td>Compares the destination MAC with its own</td><td>Promiscuous mode (Wireshark) accepts every frame</td></tr>
+</table></div>
+<h4>The three switch behaviours (matching your notes)</h4>
+<ol>
+  <li><strong>Learn:</strong> learn the <em>source MAC</em> and tie it to the incoming port. One port can have many MACs (an uplink to another switch, a virtualised server). At any one time, a MAC is tied to only <em>one</em> port per VLAN.</li>
+  <li><strong>Forward / Filter:</strong> if the destination MAC is on another port, forward out that port. If it is on the same port the frame came in on, <em>filter</em> it (drop it).</li>
+  <li><strong>Flood:</strong> for unknown unicast, broadcast, or multicast (without IGMP snooping), send out every port in the VLAN except the incoming one.</li>
+</ol>
+<p>A fourth behaviour is <strong>loop prevention with STP</strong>: blocking redundant ports so that only one active path remains.</p>
+
+<h2 id="en-12">12. A packet's journey, hop by hop</h2>
+<p>This example uses the addresses from your notes. PC-A <code>192.168.30.15/24</code> (gateway <code>.30.1</code>) opens HTTPS to Server <code>192.168.10.10/24</code>. R1 and R2 sit in between.</p>
+<pre>
+PC-A ──(LAN 30)── [G0/0 R1 G0/1] ──(10.0.12.0/30)── [G0/1 R2 G0/0] ──(LAN 10)── Server
+MAC:  AAAA          R1a     R1b                       R2b      R2a                 SSSS
+IP:   .30.15        .30.1   10.0.12.1                 10.0.12.2 .10.1              .10.10
+</pre>
+<h3>Steps</h3>
+<ol>
+  <li><strong>DNS</strong> <span class="layer L7">L7</span>: resolves the server name to <code>192.168.10.10</code> (UDP 53).</li>
+  <li><strong>The host's decision</strong> <span class="layer L3">L3</span>: AND the destination IP with its own mask and compare with its own subnet. 192.168.10.0 is not 192.168.30.0, so the packet must go to the <strong>gateway</strong>.</li>
+  <li><strong>ARP</strong> <span class="layer L2">L2</span>: the ARP cache has no MAC for 192.168.30.1, so the PC sends a broadcast ARP Request (<code>FFFF.FFFF.FFFF</code>). R1 sends a unicast ARP Reply with MAC R1a.</li>
+  <li><strong>TCP 3-way handshake</strong> <span class="layer L4">L4</span>: a SYN to port 443, MSS = 1460.</li>
+  <li><strong>At R1</strong>: check the FCS. The destination MAC is R1's own, so it accepts the frame. Strip the L2 header, read the destination IP, look up the routing table (longest match) and choose next-hop 10.0.12.2. Decrement TTL, recalculate the checksum. ARP for the next hop. <strong>Build a new frame.</strong></li>
+  <li><strong>At R2</strong>: the same process. 192.168.10.0/24 is directly connected to R2, so R2 ARPs directly for the server.</li>
+  <li><strong>The server</strong> unwraps layer by layer: EtherType 0x0800 → IP Protocol 6 → TCP port 443 → TLS → HTTP.</li>
+</ol>
+<h3>Addresses per hop (PC-A → Server direction)</h3>
+<div class="tbl"><table>
+<tr><th>Hop</th><th>Source MAC</th><th>Dest MAC</th><th>Source IP</th><th>Dest IP</th><th>TTL (Windows)</th></tr>
+<tr><td>PC-A → R1</td><td>AAAA (PC-A)</td><td>R1a</td><td>192.168.30.15</td><td>192.168.10.10</td><td>128</td></tr>
+<tr><td>R1 → R2</td><td>R1b</td><td>R2b</td><td>192.168.30.15</td><td>192.168.10.10</td><td>127</td></tr>
+<tr><td>R2 → Server</td><td>R2a</td><td>SSSS (Server)</td><td>192.168.30.15</td><td>192.168.10.10</td><td>126</td></tr>
+</table></div>
+<div class="box ok"><strong>The law to remember</strong>MACs change at <em>every L3 hop</em>. IPs stay the same end to end (except with NAT). Ports stay the same (except with PAT). An L2 switch in the path does not change MACs. The three-row table in your notes ("1B|0B, 2A|2B, 0A|1A") is consistent with this law.</div>
+<h3>With NAT on a FortiGate (going to the Internet)</h3>
+<p>At the firewall, the <strong>source IP</strong> is rewritten from private to public, and the <strong>source port</strong> may be rewritten too (PAT). The firewall records this mapping in its session table so it can translate the return traffic back. That is why <code>diagnose sys session list</code> is such an important troubleshooting command.</p>
+
+<h2 id="en-13">13. Sizes: MTU, MSS, frames</h2>
+<div class="tbl"><table>
+<tr><th>Concept</th><th>Correct definition</th><th>Ethernet value</th></tr>
+<tr><td><strong>MTU</strong></td><td>The largest <strong>L3 packet</strong> a link can carry, that is, the frame's payload</td><td>1500 bytes</td></tr>
+<tr><td><strong>MSS</strong></td><td>The largest amount of TCP data in one segment, excluding headers. Each side announces it in the SYN</td><td>1500 − 20 − 20 = <strong>1460</strong></td></tr>
+<tr><td>Frame</td><td>L2 header + payload + FCS</td><td>64 – 1518 (1522 with a VLAN tag)</td></tr>
+<tr><td>Max ICMP payload without fragmentation</td><td>MTU − 20 (IP) − 8 (ICMP)</td><td>1472</td></tr>
+<tr><td>Jumbo frame</td><td>An MTU above 1500, usually 9000. Used for SAN, vMotion, inside the datacenter</td><td>9000</td></tr>
+</table></div>
+<h3>When the MTU shrinks (overhead)</h3>
+<div class="tbl"><table>
+<tr><th>Technology</th><th>Overhead</th><th>Remaining MTU</th><th>Recommended MSS</th></tr>
+<tr><td>PPPoE (ISP FTTH lines)</td><td>8 B</td><td>1492</td><td>1452 (matches the <code>ip tcp adjust-mss 1452</code> command in your PPPoE notes)</td></tr>
+<tr><td>GRE</td><td>24 B</td><td>1476</td><td>1436</td></tr>
+<tr><td>IPsec ESP (tunnel mode, AES)</td><td>about 50–73 B depending on algorithms and NAT-T</td><td>about 1400–1438</td><td>Usually set to 1350–1380 to be safe</td></tr>
+<tr><td>VXLAN</td><td>50 B</td><td>The underlay needs MTU ≥ 1550</td><td>—</td></tr>
+</table></div>
+<h3>Fragmentation and PMTUD (Stevens 10.7–10.8)</h3>
+<ul>
+  <li><strong>IPv4:</strong> routers <em>may</em> fragment a packet if DF = 0. Reassembly happens only at the <em>destination host</em>. Losing a single fragment means the whole packet must be resent.</li>
+  <li><strong>IPv6:</strong> routers do <em>not</em> fragment. Only the source may fragment, and it must use PMTUD.</li>
+  <li><strong>PMTUD:</strong> the source sends packets with DF = 1. A router that meets a link with a smaller MTU drops the packet and returns ICMP Type 3 Code 4 ("Fragmentation Needed", including the next-hop MTU). The source reduces the packet size and resends.</li>
+  <li><strong>MTU blackhole:</strong> a firewall blocks all ICMP, so the Type 3 Code 4 message never reaches the source. The source keeps sending large packets and they keep getting dropped.</li>
+</ul>
+<div class="box warn"><strong>The classic symptom at branches on SD-WAN/IPsec</strong>Ping works and light pages load, but heavy pages hang, file-share copies stall after a few KB, Outlook sits at "Trying to connect", and RDP connects but shows a black screen. Small packets get through while large ones are dropped. That is <strong>MTU/MSS</strong>, not a "slow line". The fix: set the TCP MSS on the FortiGate policy or interface (<code>set tcp-mss-sender</code> / <code>set tcp-mss-receiver</code> in the policy, or <code>set tcp-mss</code> on the interface), and allow ICMP Type 3 through.</div>
+<h4>Verification lab</h4>
+<pre>
+:: Windows
+ping -f -l 1472 8.8.8.8        → passes
+ping -f -l 1473 8.8.8.8        → "Packet needs to be fragmented but DF set."
+netsh interface ipv4 show subinterfaces
+
+# Linux
+ping -M do -s 1472 8.8.8.8
+tracepath 8.8.8.8              # discovers the PMTU automatically
+ip link show eth0              # shows the mtu
+
+! Cisco (lab)
+interface g0/1
+ ip mtu 1400
+! Wireshark filter
+icmp.type==3 &amp;&amp; icmp.code==4
+</pre>
+
+<h2 id="en-14">14. Troubleshooting by layer</h2>
+<h3>Strategies</h3>
+<div class="tbl"><table>
+<tr><th>Strategy</th><th>How</th><th>When to use it</th></tr>
+<tr><td>Bottom-up</td><td>Work from L1 up to L7</td><td>Suspected hardware or cabling faults, or newly installed equipment</td></tr>
+<tr><td>Top-down</td><td>Work from L7 down</td><td>Only one application is failing while other services are fine</td></tr>
+<tr><td>Divide-and-conquer</td><td>Start at L3: <code>ping</code> the gateway or the destination. If it works, look higher. If it fails, look lower</td><td>The experienced engineer's default: the fastest</td></tr>
+<tr><td>Follow-the-path</td><td>Trace the packet's path and check each hop (traceroute, MAC table, ARP table, sessions)</td><td>Multi-tier networks with SD-WAN or several firewalls</td></tr>
+</table></div>
+<h3>Commands by layer</h3>
+<div class="tbl"><table>
+<tr><th>Layer</th><th>Question</th><th>Windows</th><th>Linux</th><th>Cisco IOS</th><th>FortiGate</th></tr>
+<tr><td><span class="layer L1">L1</span></td><td>Is there link? Do speed/duplex match? Any CRC errors?</td><td><code>Get-NetAdapter</code></td><td><code>ip link</code>, <code>ethtool eth0</code></td><td><code>show interfaces status</code>, <code>show interfaces g1/0/1</code></td><td><code>get system interface physical</code></td></tr>
+<tr><td><span class="layer L2">L2</span></td><td>Right VLAN? Has the MAC been learned? Does ARP resolve the gateway's MAC?</td><td><code>arp -a</code></td><td><code>ip neigh</code></td><td><code>show mac address-table</code>, <code>show vlan brief</code>, <code>show interfaces trunk</code>, <code>show cdp neighbors</code></td><td><code>get system arp</code>, <code>diagnose ip arp list</code></td></tr>
+<tr><td><span class="layer L3">L3</span></td><td>Are IP, mask and gateway correct? Is there a route? Is there a return route?</td><td><code>ipconfig /all</code>, <code>route print</code>, <code>ping</code>, <code>tracert</code>, <code>pathping</code></td><td><code>ip addr</code>, <code>ip route</code>, <code>tracepath</code>, <code>mtr</code></td><td><code>show ip interface brief</code>, <code>show ip route</code>, <code>show ip arp</code>, extended ping</td><td><code>get router info routing-table all</code>, <code>execute ping</code>, <code>execute traceroute</code></td></tr>
+<tr><td><span class="layer L4">L4</span></td><td>Is the port open? Is a firewall blocking? Is a session being created?</td><td><code>Test-NetConnection host -Port 443</code>, <code>netstat -ano</code></td><td><code>ss -tulpn</code>, <code>nc -zv host 443</code></td><td><code>show access-lists</code>, <code>telnet host 443</code></td><td><code>diagnose debug flow</code>, <code>diagnose sys session list</code></td></tr>
+<tr><td><span class="layer L7">L7</span></td><td>Is DNS right? Any certificate errors? Is the service running? Are the credentials right?</td><td><code>nslookup</code>, <code>Resolve-DnsName</code></td><td><code>dig</code>, <code>curl -v</code>, <code>openssl s_client</code></td><td><code>show hosts</code></td><td>Web Filter, IPS and Application Control logs</td></tr>
+</table></div>
+<h3>The real case in your notes (20/11/2025)</h3>
+<div class="box ok"><strong>You did a correct "follow-the-path" at L2</strong>A PC was getting the wrong VLAN. You ran <code>show mac address-table address &lt;MAC&gt;</code> on the core and found the MAC on an uplink port. <code>show cdp neighbors</code> then showed which access switch was connected to that port. On that access switch, a second MAC lookup pointed to the PC's port. Finally you moved the port to the correct VLAN.<br><br><strong>Raising it to infrastructure level:</strong> (1) Before changing the VLAN, record the old state (<code>show run interface &lt;port&gt;</code>) so you can roll back. (2) After the change, verify layer by layer: <code>show interfaces &lt;port&gt; switchport</code> (L2), the PC gets DHCP in the right range (L3), <code>ping</code> the gateway (L3). (3) Write the ticket as symptom → faulty layer → cause → change → verification. (4) Ask the root-cause question: why was that port in the wrong VLAN? Is automatic VLAN assignment (802.1X, dynamic VLANs) needed?</div>
+<h3>Symptom → suspected layer</h3>
+<div class="tbl"><table>
+<tr><th>Symptom</th><th>Suspect</th><th>First check</th></tr>
+<tr><td>Port light off, Windows says "Network cable unplugged"</td><td>L1</td><td>Cable, switch port, err-disabled state</td></tr>
+<tr><td>Slow or intermittent network, rising CRC count</td><td>L1/L2</td><td>Duplex mismatch, poor cable, dirty optics</td></tr>
+<tr><td>Host self-assigns 169.254.x.x</td><td>L2/L7 (DHCP)</td><td>Wrong VLAN, missing ip helper, DHCP pool exhausted</td></tr>
+<tr><td>Can ping hosts in the same subnet but not the gateway</td><td>L2/L3</td><td>Wrong VLAN, wrong mask, wrong gateway, ARP</td></tr>
+<tr><td>Can ping the gateway but cannot reach outside networks</td><td>L3</td><td>Routes, NAT, return route</td></tr>
+<tr><td>Can ping the destination but the website will not load</td><td>L4/L7</td><td>Port, policy, DNS, proxy, certificate</td></tr>
+<tr><td>Light pages load, heavy ones hang, file copies stall</td><td>L3 (MTU)</td><td>Ping with DF, check the MSS on the tunnel</td></tr>
+<tr><td>Brief outages of a few seconds, "MAC flapping" in the logs</td><td>L2</td><td>Loops, STP, duplicate IP/MAC</td></tr>
+<tr><td>Works by IP but not by name</td><td>L7</td><td><code>nslookup</code>, DNS suffix, hosts file</td></tr>
+</table></div>
+
+<h2 id="en-15">15. Wireshark lab: see the model with your own eyes</h2>
+<ol>
+  <li>Open Wireshark and select your NIC. In an admin command prompt, run <code>arp -d *</code> and <code>ipconfig /flushdns</code>.</li>
+  <li>Start the capture, then open an HTTPS site. Stop after about 5 seconds.</li>
+  <li>Apply these filters in order. Each one matches a step in section 12:
+<pre>
+arp                               ← Request (broadcast) / Reply (unicast)
+dns                               ← Query / Response
+tcp.flags.syn==1                  ← SYN, SYN-ACK; check the MSS option
+tcp.port==443 &amp;&amp; tls.handshake    ← Client Hello (SNI = site name)
+eth.type==0x0806                  ← ARP filtered by EtherType
+ip.ttl &lt; 64                       ← estimate the hop count
+</pre></li>
+  <li>Select a TCP packet and expand the details pane. You will see exactly four layers: <em>Frame</em> (L1 metadata) → <em>Ethernet II</em> → <em>Internet Protocol Version 4</em> → <em>Transmission Control Protocol</em>. Write down the EtherType, Protocol and Port values.</li>
+  <li><strong>Deliverable:</strong> one annotated screenshot showing (a) an ARP Request/Reply pair and (b) the three TCP handshake packets. Mark the demultiplexing field at each layer.</li>
+</ol>
+
+<h2 id="en-16">16. Corrections to the CCNA notes (Google Docs)</h2>
+<div class="tbl"><table>
+<tr><th>#</th><th>Current note</th><th>Problem</th><th>Correct to</th></tr>
+<tr><td>1</td><td>"MTU: 1500 bytes ⇒ 1492 bytes"; "MTU: Maximum frame size… usually 1492 effective"</td><td>Confuses MTU with frame size. 1492 applies only to PPPoE</td><td>MTU is the maximum L3 packet = 1500. Frame = 1518. PPPoE: MTU = 1492, MSS = 1452</td></tr>
+<tr><td>2</td><td>Transport does "fragmentation"</td><td>Confuses segmentation with fragmentation</td><td>L4 does segmentation (by MSS). L3 does fragmentation (by MTU)</td></tr>
+<tr><td>3</td><td>Presentation "converts to machine code"</td><td>Wrong concept</td><td>Data representation, encryption, compression</td></tr>
+<tr><td>4</td><td>Flooding "easily causes broadcast storms"</td><td>Wrong cause</td><td>Broadcast storms come from L2 loops when STP is not working. Unknown-unicast flooding only wastes bandwidth</td></tr>
+<tr><td>5</td><td>"1 MAC per port… prevents spoofing/loops, important in STP"</td><td>Backwards</td><td>A MAC moving between ports (MAC flapping) is a <em>symptom</em> of a loop or spoofing</td></tr>
+<tr><td>6</td><td>Multicast "the switch can send to just one group"</td><td>Missing a condition</td><td>By default a switch floods multicast. It needs IGMP snooping to send only to group members</td></tr>
+<tr><td>7</td><td>Longest match: "192.168.1.0/20"</td><td>Not a valid network ID</td><td>The /20 network containing 192.168.1.x is 192.168.0.0/20</td></tr>
+<tr><td>8</td><td>RIP "4-bit hop count… miscalculates from router 16"</td><td>Wrong</td><td>The metric field is 32 bits. The maximum is 15 hops, and 16 means unreachable</td></tr>
+<tr><td>9</td><td>"EtherChannel only on switches, not routers"; "does not interact with STP"</td><td>Partly wrong</td><td>Routers support port-channels too. STP treats the whole bundle as one link, so no member port is blocked</td></tr>
+<tr><td>10</td><td>Router-on-a-stick "holds 50 sub-interfaces"</td><td>There is no fixed limit like that</td><td>The practical limits are trunk bandwidth and CPU</td></tr>
+<tr><td>11</td><td>"Routing table lives in RAM… except static in NV"</td><td>Imprecise wording</td><td>The routing table always lives in RAM. Static route configuration is stored in the startup-config (NVRAM), and the table is rebuilt at boot</td></tr>
+<tr><td>12</td><td>The ARP section is nearly empty</td><td>Missing</td><td>Fill it in after reading Stevens Ch.4 (pages 183–195)</td></tr>
+</table></div>
+
+<h2 id="en-17">17. Interview questions (click to reveal)</h2>
+<details><summary>1. When a packet crosses a router, what changes and what stays the same?</summary>
+<p>Changes: source and destination MAC (a new frame), TTL drops by 1, the header checksum is recalculated, and DSCP may be re-marked by a QoS policy. Unchanged: source and destination IP, ports, payload. The exception is NAT/PAT, which rewrites IPs and ports.</p></details>
+<details><summary>2. Why do we need both MAC and IP? Could we use just one?</summary>
+<p>MAC addresses are flat, meaningful only on one segment, and cannot be summarised, so they cannot be routed. IP addresses are hierarchical (network/host) and can be summarised into ranges, so they can be routed at Internet scale. L2 handles each hop, L3 handles the whole path. ARP bridges the two kinds of address.</p></details>
+<details><summary>3. How is an L3 switch different from a router?</summary>
+<p>An L3 switch routes in hardware (ASIC/CEF) with high Ethernet port density and low latency, and still learns MACs like an L2 switch. A router is stronger at WAN, NAT, VPN and service features, and supports more interface types. Today the line between them has blurred.</p></details>
+<details><summary>4. ARP Request is broadcast and ARP Reply is unicast. Why?</summary>
+<p>When sending the request, the asker does not yet know the target's MAC, so it has to ask everyone. The ARP Request already contains the asker's MAC, so the target replies directly (unicast). The target also learns the asker's IP–MAC mapping at the same time.</p></details>
+<details><summary>5. Ping works but the website will not load. What do you do?</summary>
+<p>A working ping means L1–L3 are working in both directions (for ICMP). Next check L4: <code>Test-NetConnection -Port 443</code>. If you get an RST or a timeout, look at the policy/ACL and <code>diagnose debug flow</code>. If the port is open, check L7: is DNS resolving correctly, is there a proxy, is the certificate valid. If the page loads halfway and then hangs, think MTU/MSS straight away.</p></details>
+<details><summary>6. TCP vs UDP: give examples of when UDP is the better choice.</summary>
+<p>For real-time voice/video, a late packet is useless and retransmission only adds delay. DNS needs a fast answer from just one query and one reply, so opening a TCP connection would be wasteful. With DHCP the client has no IP yet, so it cannot open a TCP connection.</p></details>
+<details><summary>7. Do routers forward broadcasts? How does DHCP work across subnets, then?</summary>
+<p>No. The router (or SVI) is configured with <code>ip helper-address</code>, which turns the broadcast DHCP Discover into a unicast sent to the DHCP server. It also fills in the giaddr field so the server knows which pool to assign from.</p></details>
+<details><summary>8. Collision and broadcast domains on a 24-port switch with 2 VLANs?</summary>
+<p>24 collision domains (one per port). 2 broadcast domains (one per VLAN).</p></details>
+<details><summary>9. Which layer does a FortiGate firewall work at?</summary>
+<p>Several. L2 (ARP, can run in transparent mode/virtual wire), L3 (routing, NAT), L4 (port-based policy, session state tracking), L7 (IPS, Application Control, Web Filter, SSL inspection). Answering "a firewall is an L3 device" is not enough.</p></details>
+<details><summary>10. Why is the destination MAC at the start of the frame?</summary>
+<p>So a switch can read it after just the first 6 bytes and start forwarding without waiting for the whole frame (cut-through mode), which reduces latency.</p></details>
+
+<h2 id="en-18">18. Self-check (try before revealing)</h2>
+<details><summary>1. A packet crosses 2 routers: list what changes and what stays the same at each hop.</summary><p>See the table in section 12. MACs change at every hop, TTL drops by 1 after each router, IPs and ports stay the same if there is no NAT.</p></details>
+<details><summary>2. A router receives a frame with EtherType 0x0806. Does it consult its routing table?</summary><p>No. This is ARP. If the requested IP belongs to that interface, the router replies and also updates its ARP cache. The router does not forward ARP out other interfaces (unless proxy ARP is enabled and it has a route to the requested IP).</p></details>
+<details><summary>3. Why does OSPF not need TCP while BGP does?</summary><p>OSPF runs between directly connected neighbours and handles reliability itself with LSAcks and retransmission. BGP exchanges very large routing tables, often between routers that are not directly connected (iBGP across multiple hops), so it uses TCP to get reliability, flow control and ordering for free.</p></details>
+<details><summary>4. Calculate the maximum ICMP payload when MTU = 1400.</summary><p>1400 − 20 − 8 = 1372 bytes (<code>ping -f -l 1372</code>).</p></details>
+<details><summary>5. Calculate the MSS over PPPoE.</summary><p>1492 − 20 − 20 = 1452.</p></details>
+<details><summary>6. What is the smallest Ethernet frame and why does this limit exist?</summary><p>64 bytes. In half duplex (CSMA/CD), the sender must still be transmitting when a collision signal from the far end of the segment comes back, otherwise it cannot detect the collision. The limit is kept for backward compatibility.</p></details>
+<details><summary>7. An unconfigured 48-port switch: how many collision domains and broadcast domains?</summary><p>48 collision domains, 1 broadcast domain (VLAN 1).</p></details>
+<details><summary>8. A ping reply shows TTL 118. What can you infer?</summary><p>Most likely the destination runs Windows (initial TTL 128) and is 10 hops away.</p></details>
+<details><summary>9. Why does TCP/IP merge layers 5, 6 and 7 into one?</summary><p>In practice, applications handle sessions and data representation themselves (HTTP, TLS). Splitting them into three layers brings no benefit in implementation.</p></details>
+<details><summary>10. How do a segment and a packet differ? How do segmentation and fragmentation differ?</summary><p>A segment is the L4 PDU (TCP), a packet is the L3 PDU (IP). Segmentation is TCP splitting the byte stream by MSS, done at the source host. Fragmentation is IP splitting packets by MTU. IPv4 routers can do it, and reassembly happens only at the destination host.</p></details>
+
+<h2 id="en-19">19. Glossary</h2>
+<div class="tbl"><table>
+<tr><th>Term</th><th>Short explanation</th></tr>
+<tr><td>PDU</td><td>Protocol Data Unit: data plus one layer's header (and trailer)</td></tr>
+<tr><td>Encapsulation / De-encapsulation</td><td>Adding headers when sending / removing headers when receiving</td></tr>
+<tr><td>Same-layer / Adjacent-layer interaction</td><td>The same layer on two hosts communicating through headers / two neighbouring layers on one host providing services to each other</td></tr>
+<tr><td>EtherType</td><td>The Ethernet field identifying the L3 protocol inside</td></tr>
+<tr><td>Protocol (IP)</td><td>The IP field identifying the protocol inside (TCP, UDP, ICMP…)</td></tr>
+<tr><td>Port</td><td>The number identifying an application at L4</td></tr>
+<tr><td>FCS / CRC</td><td>The error-detection code at the end of a frame</td></tr>
+<tr><td>OUI</td><td>The first 24 bits of a MAC address, identifying the manufacturer</td></tr>
+<tr><td>MTU / MSS</td><td>Maximum L3 packet size / maximum TCP data in one segment</td></tr>
+<tr><td>DF bit</td><td>Don't Fragment: forbids routers from fragmenting the packet</td></tr>
+<tr><td>PMTUD</td><td>Path MTU Discovery: finding the smallest MTU along the path</td></tr>
+<tr><td>TTL</td><td>Time To Live: limits the hop count and prevents packets from looping forever</td></tr>
+<tr><td>Collision / Broadcast domain</td><td>The area where collisions occur / the area a broadcast reaches</td></tr>
+<tr><td>Flood / Forward / Filter</td><td>Send out every port / send out exactly one port / drop the frame</td></tr>
+<tr><td>Next-hop</td><td>The next router on the path to the destination</td></tr>
+<tr><td>Longest prefix match</td><td>Choosing the route with the longest (most specific) prefix that matches the destination IP</td></tr>
+<tr><td>Stateful</td><td>Remembering session state so return traffic is allowed automatically</td></tr>
+</table></div>
+</section>
+
+<div class="foot">
+  <p>Compiled for Linh Vu · IT Infrastructure track · Week 2 (Ethernet, MAC, ARP, TCP/UDP) · October 2026.</p>
+  <p>Primary sources: Odom, CCNA 200-301 Official Cert Guide Vol.1, 2nd Ed. (Cisco Press, 2024); Fall &amp; Stevens, TCP/IP Illustrated Vol.1, 2nd Ed. (Addison-Wesley, 2011); RFC 791, 793/9293, 768, 826, 894, 1122, 1191.</p>
+</div>
+</div>
+<a class="toplink" href="#top">↑ Top</a>
+<script>
+function toggleTheme(){
+  var r=document.documentElement;
+  var cur=r.getAttribute('data-theme');
+  var dark=cur?cur==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var next=dark?'light':'dark';
+  r.setAttribute('data-theme',next);
+  try{localStorage.setItem('osi-theme',next)}catch(e){}
+}
+(function(){try{var t=localStorage.getItem('osi-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();
+</script>
+</body>
+</html>
