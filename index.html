@@ -1,0 +1,2040 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Lịch học">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#0f6e62">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Lịch học gộp CCNA, CCNP, NSE 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: một cột đọc được; "bảng đèn port" 80 tuần ở đầu trang giống mặt trước switch; tuần hiện tại mở sẵn. */
+:root{
+  --bg:#f3f5f4; --panel:#ffffff; --ink:#18201d; --muted:#5d6a65; --line:#d9e0dd;
+  --accent:#0f6e62; --accent-soft:#e0efec; --led-off:#c9d2ce; --led-on:#1f9d57; --led-now:#e39b14; --led-buf:#9aa7a2;
+  --p1:#2c6db3; --p2:#6a4fb0; --p3:#c0392b; --p4:#8a5a14; --p5:#0f6e62; --p6:#b0497a;
+  --warn-soft:#fbf0dc;
+  --f-display:"Be Vietnam Pro",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --f-body:"Be Vietnam Pro",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111715; --panel:#18201d; --ink:#e4ebe8; --muted:#94a39d; --line:#2b3632;
+  --accent:#4cc3b1; --accent-soft:#18312d; --led-off:#34403c; --led-on:#3fcf7f; --led-now:#f0b23c; --led-buf:#56635e;
+  --p1:#6aa5ea; --p2:#a58ae8; --p3:#ee7a6c; --p4:#d6a35a; --p5:#4cc3b1; --p6:#e585b3; --warn-soft:#33291a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111715; --panel:#18201d; --ink:#e4ebe8; --muted:#94a39d; --line:#2b3632;
+  --accent:#4cc3b1; --accent-soft:#18312d; --led-off:#34403c; --led-on:#3fcf7f; --led-now:#f0b23c; --led-buf:#56635e;
+  --p1:#6aa5ea; --p2:#a58ae8; --p3:#ee7a6c; --p4:#d6a35a; --p5:#4cc3b1; --p6:#e585b3; --warn-soft:#33291a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--f-body)}
+.wrap{max-width:920px;margin:0 auto;padding-inline:16px;padding-block:28px 80px;display:flex;flex-direction:column;gap:18px}
+h1{font:700 26px/1.2 var(--f-display);margin:0;text-wrap:balance}
+h2{font:600 18px/1.3 var(--f-display);margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:4px 0 0}
+code,.mono{font-family:var(--f-mono);font-size:.86em}
+code{background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-width:0}
+.stats{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:baseline}
+.stats b{font:700 22px var(--f-display);font-variant-numeric:tabular-nums}
+.stats span{color:var(--muted);font-size:13px}
+.bar{height:8px;background:var(--led-off);border-radius:4px;overflow:hidden;margin-top:10px}
+.bar>i{display:block;height:100%;background:var(--led-on);width:0;transition:width .3s}
+.save{font-size:12px;color:var(--muted);margin-top:8px}
+/* port panel */
+.ports-wrap{overflow-x:auto}
+.ports{display:grid;grid-template-columns:repeat(auto-fill,minmax(26px,1fr));gap:6px;margin-top:12px}
+.port{appearance:none;border:1px solid var(--line);background:var(--bg);border-radius:4px;padding:3px 0 2px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font:600 9px/1 var(--f-mono);color:var(--muted)}
+.port i{width:10px;height:6px;border-radius:2px;background:var(--led-off)}
+.port.part i{background:linear-gradient(90deg,var(--led-on) 50%,var(--led-off) 50%)}
+.port.done i{background:var(--led-on)}
+.port.buf i{background:var(--led-buf)}
+.port.now{border-color:var(--led-now);box-shadow:0 0 0 1px var(--led-now)}
+.port.now i{outline:1px solid var(--led-now)}
+.port:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:10px;height:6px;border-radius:2px;margin-right:5px;vertical-align:middle}
+.phase-strip{display:flex;height:4px;border-radius:2px;overflow:hidden;margin-top:8px}
+/* toolbar */
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button.b{font:500 13px var(--f-body);padding:6px 12px;border-radius:7px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+button.b:hover{border-color:var(--accent)}
+button.b:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+label.tog{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
+/* tables */
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+/* phases */
+.phase{display:flex;flex-direction:column;gap:10px}
+.ph-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;align-items:baseline;border-left:4px solid var(--pc);padding-left:12px}
+.ph-head .meta{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.ph-goal{font-size:14px;color:var(--muted);margin:0;padding-left:16px}
+.res{font-size:13px;padding-left:16px;color:var(--muted)}
+.res b{color:var(--ink);font-weight:600}
+details.wk{background:var(--panel);border:1px solid var(--line);border-radius:10px;scroll-margin-top:12px}
+details.wk.is-now{border-color:var(--led-now);box-shadow:0 0 0 1px var(--led-now)}
+details.wk.buf{background:var(--warn-soft)}
+details.wk>summary{list-style:none;cursor:pointer;padding:12px 16px;display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:baseline}
+details.wk>summary::-webkit-details-marker{display:none}
+.wn{font:600 12px var(--f-mono);color:var(--pc);white-space:nowrap}
+.wt{font-weight:600;min-width:0}
+.wd{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.wc{grid-column:2/4;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tag-now{display:inline-block;font:600 10px var(--f-body);letter-spacing:.06em;text-transform:uppercase;background:var(--led-now);color:#1b1305;border-radius:3px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+.wk-body{padding:0 16px 14px;display:flex;flex-direction:column;gap:12px}
+.blk h4{margin:0 0 4px;font:600 12px var(--f-body);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:flex;gap:8px;align-items:baseline}
+.blk h4 em{font-style:normal;font-weight:500;letter-spacing:0;text-transform:none;font-variant-numeric:tabular-nums}
+ul.chk{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+ul.chk li label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:3px 0}
+ul.chk input{margin-top:4px;width:16px;height:16px;flex:none;accent-color:var(--led-on);cursor:pointer}
+ul.chk li.done span{color:var(--muted);text-decoration:line-through}
+.out{background:var(--accent-soft);border-radius:8px;padding:8px 12px}
+.out h4{color:var(--accent)}
+.rate{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+select{font:inherit;font-size:13px;padding:4px 8px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+.hide-done ul.chk li.done{display:none}
+.note{font-size:13px;color:var(--muted);margin:8px 0 0}
+@media (max-width:560px){
+  details.wk>summary{grid-template-columns:1fr auto}
+  .wn{grid-column:1/3}
+  .wc{grid-column:1/3}
+  h1{font-size:22px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Lịch học gộp · CCNA, Routing, CCNP, NSE 4</h1>
+    <p class="sub">CCNA + Routing → ENCOR → NSE 4 → ENARSI → phỏng vấn · 12/10/2026 – 23/04/2028 · 78 tuần học + 2 tuần Tết · khoảng 10 giờ/tuần · học bằng sách, chỗ nào chưa hiểu hỏi Claude trực tiếp</p>
+  </header>
+
+  <section class="panel" aria-labelledby="h-prog">
+    <h2 id="h-prog" hidden>Tiến độ</h2>
+    <div class="stats">
+      <div><b id="pct">0%</b> <span>hoàn thành</span></div>
+      <div><b id="cnt">0</b> <span id="cntOf">/ 0 đầu việc</span></div>
+      <div><b id="wkDone">0</b> <span>tuần xong trọn</span></div>
+      <div><b id="nowLbl">—</b> <span>đang ở</span></div>
+    </div>
+    <div class="bar"><i id="bar"></i></div>
+    <div class="ports-wrap"><div class="ports" id="ports" role="list" aria-label="80 tuần"></div></div>
+    <div class="legend">
+      <span><i style="background:var(--led-on)"></i>Tuần xong trọn</span>
+      <span><i style="background:linear-gradient(90deg,var(--led-on) 50%,var(--led-off) 50%)"></i>Đang làm dở</span>
+      <span><i style="background:var(--led-off)"></i>Chưa bắt đầu</span>
+      <span><i style="background:var(--led-buf)"></i>Tuần Tết</span>
+      <span><i style="background:transparent;outline:2px solid var(--led-now)"></i>Tuần hiện tại</span>
+    </div>
+    <div class="phase-strip" id="strip"></div>
+    <p class="save" id="saveState">Đang kết nối nơi lưu tiến độ…</p>
+    <div class="tools" style="margin-top:10px">
+      <button class="b" id="goNow" type="button">Tới tuần này</button>
+      <button class="b" id="expand" type="button">Mở tất cả</button>
+      <button class="b" id="collapse" type="button">Thu gọn</button>
+      <label class="tog"><input type="checkbox" id="hideDone"> Ẩn mục đã xong</label>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-rhythm">
+    <h2 id="h-rhythm">Nhịp một tuần mẫu</h2>
+    <div class="tbl"><table>
+      <tr><th>Ngày</th><th>Việc</th><th>Thời lượng</th><th>Đầu ra</th></tr>
+      <tr><td>Thứ 2</td><td>Đọc sách phần 1</td><td class="n">1,5 giờ</td><td>Ghi chú tay, sơ đồ vẽ lại</td></tr>
+      <tr><td>Thứ 3</td><td>Đọc sách phần 2 + tự giảng lại 5 phút</td><td class="n">1,5 giờ</td><td>Ghi chú tay + 5 câu hỏi để hỏi Claude</td></tr>
+      <tr><td>Thứ 4</td><td>Lab dựng mới phần 1</td><td class="n">1,5 giờ</td><td>Cấu hình lưu vào git</td></tr>
+      <tr><td>Thứ 5</td><td>Lab dựng mới phần 2 + verify</td><td class="n">1,5 giờ</td><td>Output <code>show</code> kèm giải thích</td></tr>
+      <tr><td>Thứ 6</td><td>Ôn lại lab, sửa sổ tay</td><td class="n">1 giờ</td><td>Ghi chú đã sửa</td></tr>
+      <tr><td>Thứ 7</td><td>1 change có MOP + 1 diễn tập sự cố</td><td class="n">3 giờ</td><td>MOP + rollback, postmortem ngắn</td></tr>
+      <tr><td>Chủ nhật</td><td>Ôn ghi chú, nhờ Claude chấm phần tự kiểm tra, tự chấm mức 1–5</td><td class="n">30 phút</td><td>Chấm điểm ở cuối mỗi tuần bên dưới</td></tr>
+      <tr><td>Mỗi ngày</td><td>Tự hỏi đáp bằng miệng / đọc FortiGate theo gợi ý từng tuần</td><td class="n">15 phút</td><td>Ghi 1 điều mới thấy</td></tr>
+    </table></div>
+    <p class="note">Tuần bận (ca trực, sự cố ở công ty): giữ tối thiểu lý thuyết + lab, dời MOP và sự cố sang tuần sau. Cuối mỗi tháng: chủ đề nào dưới mức 3 thì học lại trước khi sang chủ đề mới.</p>
+  </section>
+
+  <section class="panel" aria-labelledby="h-lvl">
+    <h2 id="h-lvl">Thang tự chấm "nắm chắc"</h2>
+    <div class="tbl"><table>
+      <tr><th>Mức</th><th>Tự kiểm tra</th></tr>
+      <tr><td class="n">1. Giải thích được</td><td>Nói lại không nhìn tài liệu, vẽ được trên giấy</td></tr>
+      <tr><td class="n">2. Dựng từ trắng</td><td>Cấu hình từ máy trống, không copy</td></tr>
+      <tr><td class="n">3. Phá và sửa</td><td>Tìm lỗi người khác gài trong 30 phút</td></tr>
+      <tr><td class="n">4. Vận hành</td><td>Viết MOP, rollback, biết ảnh hưởng trên production</td></tr>
+      <tr><td class="n">5. Dạy lại</td><td>Giảng cho người khác, trả lời câu hỏi vặn</td></tr>
+    </table></div>
+    <p class="note">Một chủ đề chỉ coi là xong khi đạt mức 4. Quy tắc bảo mật: mọi ghi chép về FortiGate/hạ tầng AEON là ghi chú cá nhân bằng lời của mình; không sao chép cấu hình, IP thật hay ảnh chụp màn hình ra ngoài công ty.</p>
+  </section>
+
+  <div id="phases" style="display:flex;flex-direction:column;gap:26px"></div>
+</div>
+
+<script>
+/* ============ DỮ LIỆU ============ */
+const START = new Date(2026, 9, 12); // Thứ 2, 12/10/2026
+const CAT = [
+  ['th','Lý thuyết','3 giờ'],
+  ['lab','Lab dựng mới','3 giờ'],
+  ['mop','Change có MOP','1,5 giờ'],
+  ['inc','Diễn tập sự cố','1,5 giờ'],
+  ['sua','Sửa sổ tay CCNA của anh',''],
+  ['qa','Tự kiểm tra cuối tuần (nhờ Claude chấm)',''],
+  ['fg','15 phút mỗi ngày','']
+];
+const PHASES = [
+{id:"p1",name:"Giai đoạn 1 – CCNA và nền Routing (tuần 1–19)",color:'var(--p1)',
+ goal:"Gộp CCNA với phần nền của Routing: tuần ghi \"Chung\" học một lần được cả hai, tuần ghi \"CCNA\" là phần chỉ có ở CCNA. Có 1 tuần ôn nhớ giữa chừng.",
+ res:"<b>Sách:</b> Wendell Odom, CCNA 200-301 Official Cert Guide Vol 1 &amp; 2 (chính) · Todd Lammle, CCNA Study Guide (đối chiếu) · Stevens &amp; Fall, TCP/IP Illustrated Vol 1 (tham khảo) · Rick Graziani, IPv6 Fundamentals · Lab: Packet Tracer, CML hoặc EVE-NG · Wireshark",
+ gate:"Mốc giai đoạn 1: dựng chi nhánh (VLAN, STP, HSRP, OSPF, NAT, ACL) từ máy trống trong 90 phút và sửa được 5 lỗi người khác gài; subnet, VLSM, wildcard dưới 30 giây mỗi bài; sổ tay CCNA đã sửa hết",
+ weeks:[
+ {
+  "t": "Chung · OSI, TCP/IP, PDU, Ethernet/ARP, MTU",
+  "th": [
+   "Đọc sách: Odom Vol 1: phần mô hình TCP/IP, Ethernet, ARP; Stevens TCP/IP Illustrated Vol 1: phần ARP, MTU",
+   "Đọc sách: Odom Vol 1, chương \"Introduction to TCP/IP Networking\"",
+   "OSI 7 tầng: chức năng và thiết bị ở từng tầng",
+   "TCP/IP 4 tầng, đối chiếu với OSI",
+   "PDU: bit, frame, packet, segment, data; đóng gói và mở gói",
+   "Header Ethernet, IP, TCP/UDP có những trường nào",
+   "MAC, ARP: vì sao cần cả MAC lẫn IP",
+   "Đường đi của gói qua router: kiểm tra FCS và MAC → giảm TTL → tra FIB → ARP lấy MAC next-hop → đóng frame mới; header nào đổi, header nào giữ",
+   "MTU khác MSS, bit DF, Path MTU Discovery, overhead của VLAN tag, GRE, IPsec"
+  ],
+  "lab": [
+   "Lab pack W01: OSI, TCP/IP, PDU: nhìn gói tin đi qua router (PT + CML/EVE) — thư mục W01-osi-tcpip-pdu",
+   "Dựng khung lab: 2 PC, 1 switch, 1 router",
+   "Wireshark bắt ARP, ping, mở web; chỉ ra từng header",
+   "Ping kèm DF, tăng dần kích thước để tìm MTU tối đa",
+   "Tạo repo git có `configs/`, `mop/`, `postmortem/`"
+  ],
+  "mop": "Viết mẫu MOP (mục tiêu, phạm vi, pre-check, các bước, verify, rollback). MOP #0: đổi hostname và banner",
+  "inc": "Tình huống \"PC không vào được web\": khoanh vùng từ tầng 1 lên tầng 7",
+  "fg": "Tự hỏi đáp bằng miệng: tầng OSI, PDU, trường header",
+  "out": "Vẽ lại đường đi của gói PC → web server, ghi MAC/IP từng chặng, không nhìn tài liệu",
+  "sua": [
+   "Tầng 6 không \"chuyển data về mã máy\". Sửa thành: biểu diễn dữ liệu (mã hóa ký tự UTF-8, nén, mã hóa TLS).",
+   "\"MTU 1500 ⇒ 1492\" là sai. MTU Ethernet = 1500 byte. 1492 chỉ đúng khi chạy PPPoE (mất 8 byte cho header PPPoE).",
+   "Ghi rõ phép tính MSS: 1500 − 20 (IP header) − 20 (TCP header) = 1460 byte.",
+   "Frame Ethernet 64–1518 byte là đúng cho frame không có tag VLAN; có tag 802.1Q thì tối đa 1522 byte.",
+   "Mục multicast: switch không bật IGMP snooping thì multicast bị flood như broadcast."
+  ],
+  "qa": [
+   "Kể 7 tầng từ dưới lên, mỗi tầng một câu.",
+   "PDU của tầng 2, 3, 4 tên là gì?",
+   "Tầng nào dán cả header lẫn trailer? Trailer đó dùng để làm gì?",
+   "Gói đi qua 2 router thì MAC đích đổi mấy lần? IP đích đổi mấy lần?",
+   "\"Firewall chặn port 3389\" là chuyện ở tầng mấy?",
+   "Vì sao MSS là 1460 chứ không phải 1500?"
+  ]
+ },
+ {
+  "t": "CCNA · Ethernet, MAC, ARP, TCP và UDP",
+  "th": [
+   "Đọc sách: Odom Vol 1, chương \"Fundamentals of Ethernet LANs\" và \"Analyzing Ethernet LAN Switching\"; Vol 2, chương về TCP/IP Transport and Applications",
+   "Khung Ethernet, địa chỉ MAC, cách switch học MAC, flood unknown unicast",
+   "ARP, gratuitous ARP, ARP cache",
+   "TCP bắt tay 3 bước, cờ SYN/ACK/FIN/RST, window; UDP; các port hay gặp (22, 53, 80, 443, 389, 445, 3389)"
+  ],
+  "lab": [
+   "Lab pack W02: Ethernet, MAC, ARP, TCP/UDP (PT + CML/EVE) — thư mục W02-ethernet-arp-tcp",
+   "Đọc `show mac address-table` trước/sau khi PC ping",
+   "Xóa ARP trên PC và router, bắt gói ARP request/reply",
+   "Bắt bắt tay TCP và đóng kết nối bằng Wireshark, chú thích từng gói"
+  ],
+  "mop": "Xóa bảng MAC và ARP trên switch lab: có pre-check, lệnh, kết quả mong đợi, verify",
+  "inc": "Trùng IP giữa 2 PC: nhận diện qua ARP, gratuitous ARP, cảnh báo trên Windows",
+  "sua": [
+   "Bảng MAC tính theo từng VLAN: mỗi dòng là VLAN + MAC + port. Cùng một MAC có thể có ở hai VLAN.",
+   "Bỏ câu \"1 MAC = 1 port để chống loop trong STP\". Đúng ra: MAC nhảy qua lại giữa hai port (MAC flapping) là triệu chứng của loop, không phải cơ chế chống loop.",
+   "Flood là gửi ra mọi port cùng VLAN, trừ port nhận vào.",
+   "Thêm mục mới: ARP (4 bước phía trên) và TCP/UDP (bảng so sánh + bắt tay 3 bước).",
+   "Mục \"Layer 4 Transport\" đang trống: viết lại bằng lời của anh."
+  ],
+  "qa": [
+   "Switch học MAC nguồn hay MAC đích?",
+   "Khi nào switch flood?",
+   "PC 192.168.1.10/24 muốn tới 8.8.8.8. Nó gửi ARP hỏi MAC của ai?",
+   "ARP request là broadcast hay unicast? ARP reply thì sao?",
+   "Ba gói bắt tay TCP tên là gì, theo thứ tự?",
+   "DNS, DHCP, SSH, RDP dùng port nào?"
+  ],
+  "fg": "Tự hỏi đáp bằng miệng 5 phút và ôn lại ghi chú: Ethernet, MAC, ARP, TCP và UDP",
+  "out": "Giải thích được switch học MAC, flood; đọc được bắt tay TCP trong Wireshark"
+ },
+ {
+  "t": "Chung · IPv4, nhị phân, prefix length, subnetting",
+  "th": [
+   "Đọc sách: Odom Vol 1: phần địa chỉ IPv4 và subnetting",
+   "Đọc sách: Odom Vol 1, các chương Part IV \"IPv4 Addressing\" (Perspectives on IPv4 Subnetting, Analyzing Classful IPv4 Networks, Analyzing Subnet Masks, Analyzing Existing Subnets)",
+   "IPv4 32 bit, 4 octet; đổi nhị phân ↔ thập phân",
+   "Dải private RFC 1918, loopback, APIPA",
+   "Subnet mask và prefix length: /8, /16, /24 … /30",
+   "Phần network và phần host; số host trong một mạng",
+   "Địa chỉ network, broadcast, host đầu, host cuối",
+   "Magic number và block size",
+   "Chia mạng theo số host và theo số mạng cần",
+   "Mỗi VLAN một subnet: bảng VLAN – subnet – gateway"
+  ],
+  "lab": [
+   "Lab pack W03: IPv4, prefix length, chia mạng /26 (PT + CML/EVE) — thư mục W03-ipv4-subnetting",
+   "Đặt IP/mask cho PC ở 2 VLAN",
+   "Ping khi sai mask và giải thích vì sao thông hay không",
+   "Chia 192.168.10.0/24 cho 4 phòng ban và cấu hình trên router, switch"
+  ],
+  "mop": "—",
+  "inc": "Gài sai mask, sai gateway cho chính mình rồi tự sửa",
+  "fg": "Luyện 20 bài subnet mỗi ngày (bài tập trong sách)",
+  "out": "20 bài liên tiếp đúng ít nhất 18, mỗi bài dưới 45 giây; viết bảng /24 đến /30 không nhìn tài liệu",
+  "sua": [
+   "Mục \"IP v4 Private\" mới có dòng \"RFC 1918\": thêm 3 dải chính xác ở bảng trên.",
+   "Thêm bảng 7 dòng /24 → /30 (mask, số host, magic number).",
+   "Thêm quy trình 4 bước đọc subnet bằng magic number, kèm 2 ví dụ anh tự nghĩ ra.",
+   "Bảng 2^n và bảng hex anh đã có là đúng; xóa các dòng trống cuối bảng."
+  ],
+  "qa": [
+   "Đổi 224 sang nhị phân.",
+   "/28 là mask gì, bao nhiêu host?",
+   "172.20.1.1 có phải địa chỉ private không?",
+   "PC nhận địa chỉ 169.254.x.x nghĩa là gì?",
+   "Network và broadcast của 10.0.0.99/29?"
+  ]
+ },
+ {
+  "t": "Chung · VLSM, summarization, wildcard, thiết kế IP",
+  "th": [
+   "VLSM: chia mạng không đều, xếp host từ lớn đến nhỏ",
+   "Đọc sách: Odom Vol 1, chương \"Subnet Design\" và Vol 2 phần VLSM;",
+   "Link point-to-point dùng /30 hoặc /31",
+   "Route summarization: tìm prefix chung của nhiều mạng",
+   "Wildcard mask: bù của subnet mask, dùng trong OSPF network và ACL",
+   "Tính wildcard cho dải bất kỳ không nhìn tài liệu"
+  ],
+  "lab": [
+   "Lab pack W04: VLSM, summarization và wildcard: HQ + 2 chi nhánh (PT + CML/EVE) — thư mục W04-vlsm-summarization",
+   "Quy hoạch IP cho HQ và 5 chi nhánh trên giấy, đối chiếu đáp án",
+   "Dựng HQ + 2 chi nhánh theo bảng VLSM, ping trong từng site"
+  ],
+  "mop": "Thêm chi nhánh thứ 6 vào IP plan: kiểm tra chồng lấn, cập nhật tài liệu",
+  "inc": "Hai chi nhánh bị chồng dải IP: tìm ra bằng bảng định tuyến",
+  "fg": "Luyện 10 bài VLSM + 10 bài wildcard mỗi ngày (bài tập trong sách)",
+  "out": "Thiết kế VLSM cho 6 site không chồng lấn; tính wildcard 5 dải bất kỳ",
+  "sua": [
+   "Bảng longest match có dòng 192.168.1.0/20 là sai. Mạng /20 chứa 192.168.1.x phải là 192.168.0.0/20. Sửa lại và thêm một câu: \"route có prefix dài hơn được chọn\".",
+   "Thêm mục mới \"VLSM\" với quy tắc lớn trước nhỏ sau và bảng ví dụ của chính anh.",
+   "Thêm mục \"Wildcard mask\" và \"Summarization\"."
+  ],
+  "qa": [
+   "200 máy cần prefix nào?",
+   "Chia 192.168.5.0/24 thành 4 mạng bằng nhau: prefix và 4 network?",
+   "Vì sao VLSM phải cấp mạng lớn trước?",
+   "Route tổng của 10.0.8.0/24 đến 10.0.15.0/24?",
+   "Wildcard của /30?"
+  ]
+ },
+ {
+  "t": "Chung · IPv6 – địa chỉ, NDP, SLAAC, static route",
+  "th": [
+   "Đọc sách: Graziani, IPv6 Fundamentals: phần địa chỉ, NDP; Odom Vol 1: phần IPv6",
+   "Đọc sách: Odom Vol 1, Part VII \"IPv6\" (4 chương)",
+   "Cấu trúc 128 bit, quy tắc rút gọn (bỏ số 0 đầu, :: một lần)",
+   "Loại địa chỉ: GUA, link-local (FE80::/10), ULA (FC00::/7), multicast, anycast",
+   "Prefix length /64 cho LAN, /127 hoặc /126 cho link point-to-point",
+   "EUI-64 và SLAAC; DHCPv6 stateless và stateful",
+   "NDP thay ARP: NS, NA, RS, RA; DAD",
+   "`ipv6 unicast-routing`; static và default route IPv6; next-hop dùng link-local",
+   "Subnetting IPv6: chia /48 ra các /64"
+  ],
+  "lab": [
+   "Lab pack W05: IPv6: dual-stack, SLAAC, static route (PT + CML/EVE) — thư mục W05-ipv6-dualstack",
+   "Dual-stack 3 router + 2 PC: cấu hình IPv4 và IPv6 cùng lúc",
+   "SLAAC cho PC, quan sát RA bằng Wireshark",
+   "Static + default route IPv6, ping giữa các site"
+  ],
+  "mop": "Thêm IPv6 vào VLAN đang chạy IPv4 (dual-stack), có rollback",
+  "inc": "3 lỗi: thiếu `ipv6 unicast-routing`, sai next-hop link-local, RA không gửi",
+  "fg": "Tự hỏi đáp bằng miệng: loại địa chỉ IPv6; luyện rút gọn 10 địa chỉ IPv6 mỗi ngày",
+  "out": "Viết 10 địa chỉ IPv6 rút gọn đúng; chia /48 thành 16 mạng /64; giải thích NDP thay ARP thế nào",
+  "sua": [
+   "Sổ tay chưa có IPv6: tạo mục mới gồm 2 luật viết gọn, bảng loại địa chỉ, 4 bước EUI-64, bảng NDP.",
+   "Ghi câu: \"IPv6 không có broadcast\"."
+  ],
+  "qa": [
+   "Viết gọn 2001:0db8:0000:0001:0000:0000:0000:0010.",
+   "Địa chỉ fe80::1 thuộc loại nào, đi qua router được không?",
+   "Tin NDP nào thay ARP request?",
+   "SLAAC lấy prefix từ đâu?",
+   "Lệnh nào bắt buộc để router Cisco định tuyến IPv6?"
+  ]
+ },
+ {
+  "t": "CCNA · VLAN, trunk, VTP và inter-VLAN routing",
+  "th": [
+   "Đọc sách: Odom Vol 1, chương \"Implementing Ethernet Virtual LANs\" và \"IP Routing in the LAN\"",
+   "VLAN, trunk 802.1Q, native VLAN, allowed VLAN",
+   "Tắt DTP, VTP transparent",
+   "Router-on-a-stick so với SVI"
+  ],
+  "lab": [
+   "Lab pack W06: VLAN, trunk, inter-VLAN (router-on-a-stick rồi SVI) (PT + CML/EVE) — thư mục W06-vlan-intervlan",
+   "3 VLAN, trunk giữa 2 switch",
+   "Inter-VLAN bằng router-on-a-stick, sau đó chuyển sang SVI"
+  ],
+  "mop": "Cutover inter-VLAN từ router-on-a-stick sang SVI, đo thời gian gián đoạn",
+  "inc": "Native VLAN lệch và VLAN thiếu trong allowed list",
+  "sua": [
+   "\"Managed VLAN\" → đổi thành management VLAN.",
+   "CoS bị xóa về 0 xảy ra ở cổng access của switch (trust boundary), không phải \"khi đến router\".",
+   "VTP: client cũng gửi quảng bá; ghi thêm rủi ro revision number và khuyến nghị transparent.",
+   "Bỏ con số \"router-on-a-stick chứa được 50 sub-interface\". Thay bằng nhược điểm thật: dùng chung băng thông, điểm lỗi đơn.",
+   "Mục SVI đang dở (\"B3: mở inter vlan trên switch layer 3 / 1\"): viết lại đủ 3 bước theo lab bên dưới."
+  ],
+  "qa": [
+   "Frame VLAN native đi qua trunk có tag không?",
+   "VLAN ID dài bao nhiêu bit, dải hợp lệ?",
+   "Vì sao nên để VTP ở chế độ transparent?",
+   "SVI ở trạng thái down/down dù đã no shutdown: nguyên nhân hay gặp?",
+   "Lệnh nào xem VLAN nào đang được phép trên trunk?"
+  ],
+  "fg": "Tự hỏi đáp bằng miệng 5 phút và ôn lại ghi chú: VLAN, trunk, VTP và inter-VLAN routing",
+  "out": "Giải thích tag 802.1Q trong Wireshark"
+ },
+ {
+  "t": "CCNA · STP và RSTP",
+  "th": [
+   "Đọc sách: Odom Vol 1, chương \"Spanning Tree Protocol Concepts\" và \"RSTP and EtherChannel Configuration\"",
+   "Bầu root, path cost, vai trò và trạng thái port",
+   "RSTP, PortFast, BPDU Guard"
+  ],
+  "lab": [
+   "Lab pack W07: STP/RSTP: root, port role, PortFast + BPDU Guard (PT + CML/EVE) — thư mục W07-stp-rstp",
+   "Tạo vòng lặp có chủ đích, xem STP chặn",
+   "Dời root bridge về switch core"
+  ],
+  "mop": "Dời root bridge: dự đoán port nào đổi trạng thái trước khi làm",
+  "inc": "Sự cố #1: loop do cắm nhầm cáp trên port PortFast không có BPDU Guard",
+  "sua": [
+   "Tạo mục STP: 3 bước bầu cây, bảng cost, 2 bảng trạng thái (802.1D và RSTP).",
+   "Ở mục Switch: thay câu \"1 MAC 1 port chống loop\" bằng \"MAC flapping là dấu hiệu có loop\" (nếu tuần 2 chưa sửa)."
+  ],
+  "qa": [
+   "Vì sao loop L2 không tự tắt như loop L3?",
+   "Ba switch cùng priority 32768, MAC lần lượt ...0a, ...0b, ...0c. Root là switch nào?",
+   "Root bridge có root port không?",
+   "Link 1 Gbps có cost bao nhiêu?",
+   "Vai trò \"alternate\" trong RSTP nghĩa là gì?",
+   "PortFast bật ở port nào, không bao giờ bật ở port nào?"
+  ],
+  "fg": "Tự hỏi đáp bằng miệng 5 phút và ôn lại ghi chú: STP và RSTP",
+  "out": "Vẽ cây STP của lab và chỉ đúng port blocking trước khi kiểm tra"
+ },
+ {
+  "t": "CCNA · EtherChannel, CDP/LLDP, port security",
+  "th": [
+   "Đọc sách: Odom Vol 1, chương \"RSTP and EtherChannel Configuration\"; Vol 2, chương \"Implementing Switch Port Security\" và \"Device Management Protocols\"",
+   "EtherChannel LACP/PAgP/on, điều kiện gộp",
+   "CDP/LLDP",
+   "Port security: sticky MAC, violation mode"
+  ],
+  "lab": [
+   "Lab pack W08: EtherChannel LACP, port security (PT + CML/EVE) — thư mục W08-etherchannel-portsec",
+   "LACP 2 link giữa 2 switch",
+   "Port security trên port access, thử vi phạm"
+  ],
+  "mop": "Thêm link thứ 3 vào EtherChannel không gián đoạn",
+  "inc": "Sự cố #2: lệch mode (on với active) và lệch speed làm port bị suspended",
+  "sua": [
+   "\"EtherChannel chỉ trên switch, không có trên router\" là sai. Router Cisco (ISR, ASR) cũng có port-channel.",
+   "\"Tối đa 8 port\" → LACP cho tối đa 16 port, trong đó 8 active và 8 dự phòng.",
+   "\"Không mix fa với gi\" → ghi đúng điều kiện: cùng tốc độ, duplex, mode, VLAN.",
+   "\"EtherChannel không can thiệp STP\" → sửa: STP coi cả bó là một link logic.",
+   "Viết nốt bước 1 đang dở (\"channel-group 1 mode\") theo lab dưới."
+  ],
+  "qa": [
+   "LACP passive + passive có lên không?",
+   "Vì sao một luồng tải file không nhanh hơn khi thêm dây vào bó?",
+   "CDP và LLDP khác nhau ở điểm nào?",
+   "Chế độ vi phạm nào giữ port sống nhưng vẫn ghi log?",
+   "Port bị err-disabled do port security, khôi phục thế nào?"
+  ],
+  "fg": "Tự hỏi đáp bằng miệng 5 phút và ôn lại ghi chú: EtherChannel, CDP/LLDP, port security",
+  "out": "Đọc `show etherchannel summary` và giải thích từng cờ"
+ },
+ {
+  "t": "Ôn nhớ · subnetting, IPv6, VLAN, STP, EtherChannel",
+  "th": [
+   "Đọc lại ghi chú tuần 1–8 theo thứ tự, gạch phần chưa chắc",
+   "Làm lại các bài tập subnet, VLSM, wildcard khó nhất trong sách"
+  ],
+  "lab": [
+   "Lab pack W09: Ôn nhớ: dựng lại access–distribution từ trắng (PT + CML/EVE) — thư mục W09-review-switching",
+   "Dựng lại từ trắng, bấm giờ: 3 VLAN + trunk + RSTP + EtherChannel + IPv6 dual-stack",
+   "Ghi chỗ phải mở tài liệu"
+  ],
+  "mop": "Viết lại MOP yếu nhất trong 8 tuần qua, thêm rollback",
+  "inc": "Nhờ Claude gài 3 lỗi (VLAN, STP, mask) và sửa trong 30 phút",
+  "qa": [
+   "50 bài subnet, VLSM, wildcard trong 30 phút, gửi Claude chấm",
+   "Giải thích bằng miệng: STP chọn root và port thế nào; EtherChannel không lên do đâu"
+  ],
+  "fg": "Tự hỏi đáp bằng miệng 5 phút",
+  "out": "Dựng lại lab nền dưới 60 phút; đúng ít nhất 45/50 bài subnet"
+ },
+ {
+  "t": "Chung · Nền tảng RIB/FIB",
+  "th": [
+   "Đọc sách: Odom Vol 1: phần IP routing; Doyle Vol 1: phần nguyên lý routing",
+   "Đọc sách: Odom Vol 1, chương \"Operating Cisco Routers\", \"Configuring IPv4 Addresses and Static Routes\"",
+   "Đọc từng dòng `show ip route`: mã C, L, S, O",
+   "Longest prefix match: làm 10 tình huống",
+   "Administrative Distance: bảng AD thường gặp",
+   "Metric và khi nào so metric",
+   "Recursive lookup",
+   "ECMP: nhiều đường cùng cost",
+   "Thứ tự xử lý gói: RPF check, policy-based routing xét trước routing table"
+  ],
+  "lab": [
+   "Lab pack W10: Bảng định tuyến: longest match, AD (PT + CML/EVE) — thư mục W10-rib-fib-longest-match",
+   "3 router nối nhau, xem bảng route khi chưa cấu hình thêm",
+   "Giải thích từng dòng C và L",
+   "Thêm route chồng lấn và quan sát longest match"
+  ],
+  "mop": "—",
+  "inc": "Gói đi sai đường do route chồng lấn: tìm nguyên nhân",
+  "fg": "Tự hỏi đáp bằng miệng: bảng AD, mã route",
+  "out": "Cho bảng route và địa chỉ đích, chọn đúng route trong 10 tình huống",
+  "sua": [
+   "Viết nốt cấu trúc lệnh đang dở \"X là: 1/ next hop 2/ exit interface 3/ fully\" bằng 3 dòng ví dụ ở trên.",
+   "Thêm bảng AD và quy tắc 3 bước: longest match → AD → metric.",
+   "Ghi chú \"bảng định tuyến trong RAM\" là đúng; thêm: static route nằm trong startup-config nên reboot xong được nạp lại.",
+   "Mục RIP: hop 16 nghĩa là không tới được (unreachable), không phải \"tính sai\". Bỏ ý \"4 bit\". Ghi thêm: RIP không còn trong blueprint CCNA hiện tại, không cần đầu tư."
+  ]
+ },
+ {
+  "t": "Chung · Static, default, floating static, RIPv2 (lướt)",
+  "th": [
+   "Đọc sách: Odom Vol 1: phần static route",
+   "Cú pháp `ip route`; next-hop khác exit-interface",
+   "Default route 0.0.0.0/0",
+   "Floating static (AD cao hơn) làm đường dự phòng",
+   "Route trỏ vào Null0",
+   "Static kèm IP SLA tracking",
+   "Route chiều về: lỗi hay gặp nhất",
+   "Lướt distance vector: split horizon, poison reverse, hold-down, RIPv2 (nền cho BGP, không lab sâu)"
+  ],
+  "lab": [
+   "Lab pack W11: Static, default, floating static: WAN dự phòng (PT + CML/EVE) — thư mục W11-static-floating",
+   "Chi nhánh – HQ có đường chính và dự phòng",
+   "Rút link chính, kiểm tra failover",
+   "Dựng lab tổng 4 site: VLAN + static + default + floating"
+  ],
+  "mop": "Thêm route + floating static dự phòng, có rollback",
+  "inc": "3 lỗi: mask sai, thiếu route chiều về, next-hop không với tới",
+  "fg": "Ôn lại ghi chú tuần 1–4",
+  "out": "Dựng lab tổng dưới 90 phút từ máy trống"
+ },
+ {
+  "t": "Chung · OSPF 1 – khái niệm và neighbor",
+  "th": [
+   "Đọc sách: Odom Vol 2: phần OSPF (khái niệm, neighbor)",
+   "Đọc sách: Odom Vol 1, Part VI \"OSPF\" (chương \"Understanding OSPF Concepts\", \"Implementing OSPF\")",
+   "Link-state khác distance-vector; vì sao cần routing động",
+   "Router ID, area 0, hello/dead",
+   "Điều kiện neighbor lên: area, hello, subnet, authentication, MTU",
+   "Trạng thái neighbor: Down, Init, 2-Way, ExStart, Exchange, Loading, Full",
+   "Bật OSPF bằng network + wildcard và bằng `ip ospf` trên interface"
+  ],
+  "lab": [
+   "Lab pack W12: OSPF 1: neighbor, router-id, trạng thái (PT + CML/EVE) — thư mục W12-ospf-neighbor",
+   "3 router một area 0, làm cả hai cách bật OSPF",
+   "Đọc `show ip ospf neighbor`, `show ip ospf interface`"
+  ],
+  "mop": "Thêm router mới vào area 0, có rollback",
+  "inc": "Neighbor kẹt ở Init hoặc ExStart: tìm 2 nguyên nhân",
+  "fg": "Tự hỏi đáp bằng miệng: 7 trạng thái neighbor",
+  "out": "Giải thích từng trạng thái; nêu 5 lý do neighbor không lên",
+  "sua": [
+   "Viết tiếp bảng 5 loại gói (sổ đang dừng giữa chừng ở \"Link state .\").",
+   "Thêm danh sách điều kiện hàng xóm và 7 trạng thái.",
+   "Ghi câu: \"hai DROther ở 2-Way là bình thường\"."
+  ],
+  "qa": [
+   "Router ID được chọn theo thứ tự nào?",
+   "OSPF Hello gửi tới địa chỉ multicast nào?",
+   "Hai router kẹt ở ExStart: nghi lỗi gì đầu tiên?",
+   "Hai DROther ở trạng thái 2-Way có phải lỗi không?",
+   "Wildcard trong network 10.0.12.0 0.0.0.3 nghĩa là gì?"
+  ]
+ },
+ {
+  "t": "Chung · OSPF 2 – LSDB, DR/BDR",
+  "th": [
+   "Đọc sách: Odom Vol 2: phần OSPF (LSDB, DR/BDR)",
+   "LSA type 1, 2, 3 ở mức khái niệm",
+   "LSDB, SPF, cách ra bảng route",
+   "Network type: broadcast và point-to-point",
+   "Bầu DR/BDR: priority, router ID, không preempt",
+   "Đọc `show ip ospf database`"
+  ],
+  "lab": [
+   "Lab pack W13: OSPF 2: LSDB, DR/BDR, network type (PT + CML/EVE) — thư mục W13-ospf-dr-bdr",
+   "4 router trên 1 switch, đổi priority xem DR/BDR",
+   "Đổi link sang point-to-point"
+  ],
+  "mop": "Đổi network type sang point-to-point, có rollback",
+  "inc": "DR bầu sai do priority/router ID: tìm và sửa",
+  "fg": "Tự hỏi đáp bằng miệng: LSA 1/2/3",
+  "out": "Vẽ LSDB của lab bằng tay, chỉ ra router DR"
+ },
+ {
+  "t": "Chung · OSPF 3 – cost, passive, default route",
+  "th": [
+   "Đọc sách: Odom Vol 2: phần OSPF (cost, default route)",
+   "Đọc sách: Odom Vol 1, chương \"Implementing Optional OSPF Features\" và \"OSPF Neighbors and Route Selection\"",
+   "Cost = reference bandwidth / bandwidth; chỉnh auto-cost",
+   "`ip ospf cost`: chọn đường theo cost",
+   "`passive-interface`",
+   "`default-information originate`",
+   "Equal-cost load balancing"
+  ],
+  "lab": [
+   "Lab pack W14: OSPF 3: cost, passive-interface, default route (PT + CML/EVE) — thư mục W14-ospf-cost-default",
+   "Dual-link, đổi cost để chuyển đường",
+   "Rút link, đo thời gian hội tụ",
+   "Default route ra ISP giả lập"
+  ],
+  "mop": "MOP đổi cost chuyển đường chính, có rollback",
+  "inc": "Lệch hello/dead, MTU: 3 lỗi",
+  "fg": "Ôn lại ghi chú OSPF",
+  "out": "Chuyển đường chính xác bằng cost; giải thích mọi dòng `show ip ospf interface brief`",
+  "sua": [
+   "Thêm mục \"OSPF cost và reference bandwidth\" có phép tính.",
+   "Thêm quy trình sửa lỗi 5 bước.",
+   "Ghi câu: \"loopback quảng bá /32 trừ khi đổi network type\"."
+  ],
+  "qa": [
+   "Với reference mặc định, cost của link 1 Gbps và 10 Gbps là bao nhiêu? Vì sao là vấn đề?",
+   "Passive interface có còn quảng bá mạng của interface đó không?",
+   "O*E2 nghĩa là gì?",
+   "Neighbor kẹt Init: điều gì đang xảy ra?",
+   "Route có trong show ip ospf database nhưng không có trong bảng định tuyến — nghi gì?"
+  ]
+ },
+ {
+  "t": "CCNA · HSRP và gateway dự phòng",
+  "th": [
+   "Đọc sách: Odom Vol 2, phần First Hop Redundancy Protocols (tra mục lục theo từ \"FHRP\")",
+   "HSRP: VIP, priority, preempt, tracking",
+   "So sánh nhanh VRRP"
+  ],
+  "lab": [
+   "Lab pack W15: HSRP: gateway dự phòng, preempt, tracking (PT + CML/EVE) — thư mục W15-hsrp",
+   "HSRP trên 2 router",
+   "Tắt router active, đếm số gói ping mất"
+  ],
+  "mop": "Bảo trì có kế hoạch: chuyển active sang standby trước khi reboot",
+  "inc": "Lệch group hoặc VIP làm cả hai cùng active",
+  "sua": [
+   "Tạo mục FHRP: ví dụ hotline, bảng 3 thông số, bảng so sánh HSRP/VRRP/GLBP."
+  ],
+  "qa": [
+   "PC dùng IP nào làm gateway khi có HSRP?",
+   "Router active mất WAN nhưng LAN vẫn sống. Không có tracking thì điều gì xảy ra?",
+   "Preempt của HSRP mặc định bật hay tắt? Của VRRP?",
+   "Khi đổi active, làm sao switch biết MAC ảo giờ nằm ở port khác?",
+   "Cả hai router cùng Active: nghi gì?"
+  ],
+  "fg": "Tự hỏi đáp bằng miệng 5 phút và ôn lại ghi chú: HSRP và gateway dự phòng",
+  "out": "Giải thích vì sao cần preempt + tracking"
+ },
+ {
+  "t": "CCNA · ACL và NAT",
+  "th": [
+   "Đọc sách: Odom Vol 2, chương \"Basic IPv4 Access Control Lists\", \"Advanced IPv4 Access Control Lists\", \"Network Address Translation\"",
+   "ACL standard/extended/named, vị trí đặt, implicit deny",
+   "NAT static, dynamic, PAT"
+  ],
+  "lab": [
+   "Lab pack W16: ACL, PAT và static NAT (PT + CML/EVE) — thư mục W16-acl-nat",
+   "ACL chặn 1 subnet vào server, xem hit count",
+   "PAT ra Internet, static NAT publish server"
+  ],
+  "mop": "Thêm rule ACL có kiểm tra hit count trước và sau",
+  "inc": "Sự cố #4: ACL đặt sai hướng, quên permit cuối",
+  "sua": [
+   "Tạo mục ACL: ví dụ bảo vệ, bảng standard/extended, quy tắc đặt, cách đọc chiều in/out.",
+   "Tạo mục NAT: bảng 4 tên gọi, 3 kiểu NAT.",
+   "Mục PPPoE đã có ip nat inside/outside: đánh dấu liên kết sang mục NAT."
+  ],
+  "qa": [
+   "ACL chỉ có 1 dòng deny host 10.1.1.5. Máy 10.1.1.6 có qua được không?",
+   "Standard ACL nên đặt gần nguồn hay đích? Vì sao?",
+   "Wildcard cho \"mọi máy trong 192.168.20.0/24\"?",
+   "200 máy ra Internet bằng 1 IP public: kiểu NAT nào?",
+   "IP thật của PC trong LAN gọi là gì trong thuật ngữ NAT?"
+  ],
+  "fg": "Tự hỏi đáp bằng miệng 5 phút và ôn lại ghi chú: ACL và NAT",
+  "out": "Viết ACL đúng ngay lần đầu cho 3 yêu cầu"
+ },
+ {
+  "buf": true,
+  "t": "Tuần Tết Đinh Mùi",
+  "items": [
+   "Nghỉ, không mở lab mới",
+   "Đọc lại ghi chú 10 phút mỗi ngày nếu có thời gian",
+   "Chọn 2 chủ đề còn dưới mức 3 để học lại sau Tết"
+  ],
+  "out": "Quay lại nhịp đầy đủ từ tuần sau"
+ },
+ {
+  "t": "CCNA · DHCP, DNS, NTP, Syslog, SNMP, QoS cơ bản",
+  "th": [
+   "Đọc sách: Odom Vol 2, các chương về DHCP, DNS, NTP/Syslog/SNMP (Part \"IP Services\") và \"Quality of Service\"",
+   "DHCP và relay, DNS, NTP",
+   "Syslog, SNMP, QoS cơ bản"
+  ],
+  "lab": [
+   "Lab pack W17: DHCP + relay, DNS, NTP, Syslog, SNMP (PT + CML/EVE) — thư mục W17-ip-services",
+   "DHCP server trên router, relay cho VLAN khác",
+   "Đưa thiết bị lab vào Zabbix bằng SNMP"
+  ],
+  "mop": "Đưa lab vào Zabbix: SNMP community/v3, template, kiểm tra item",
+  "inc": "Sự cố #5: thiếu `ip helper-address`, client nhận APIPA",
+  "sua": [
+   "Bỏ ý \"server xem xét tính xác thực (Domain)\": DHCP không xác thực client theo domain.",
+   "Ghi rõ Request là broadcast.",
+   "Sửa lệnh: ip dhcp excluded-address (không phải exclude-address), dns-server (không phải dns), domain-name (không phải domain).",
+   "Thêm mục DHCP relay với ip helper-address.",
+   "Tạo mục NTP, Syslog (bảng 8 mức), SNMP, QoS."
+  ],
+  "qa": [
+   "Bước nào trong DORA là broadcast từ client?",
+   "ip helper-address đặt ở interface nào?",
+   "logging trap 4 gửi những mức nào?",
+   "SNMP trap dùng port nào, ai gửi cho ai?",
+   "DSCP thường dùng cho thoại?",
+   "Vì sao NTP quan trọng với AD?"
+  ],
+  "fg": "Tự hỏi đáp bằng miệng 5 phút và ôn lại ghi chú: DHCP, DNS, NTP, Syslog, SNMP, QoS cơ bản",
+  "out": "Lab hiện trên Zabbix, có ít nhất 1 trigger"
+ },
+ {
+  "t": "CCNA · SSH, AAA, bảo mật L2, wireless, SDN và API",
+  "th": [
+   "Đọc sách: Odom Vol 2, Part \"Security Services\" (DHCP Snooping and ARP Inspection), Part \"Wireless LANs\", Part \"Network Automation\"",
+   "SSH v2, AAA local",
+   "Khái niệm wireless: SSID, WPA2/WPA3, WLC",
+   "SDN, REST API, JSON"
+  ],
+  "lab": [
+   "Lab pack W18: SSH, AAA local, DHCP snooping, DAI (PT + CML/EVE) — thư mục W18-ssh-aaa-l2sec",
+   "Tắt telnet, bật SSH toàn lab",
+   "Gọi REST API bằng `curl`, đọc JSON trả về"
+  ],
+  "mop": "Chuyển toàn lab sang SSH-only",
+  "inc": "Tự khóa mình ngoài thiết bị do sai AAA; khôi phục qua console",
+  "sua": [
+   "Mục \"Wireless LAN\" đang trống: điền bảng wireless ở trên.",
+   "Tạo mục SSH/AAA, DHCP snooping/DAI, SDN/API/JSON."
+  ],
+  "qa": [
+   "Bật SSH trên Cisco cần 4 thứ gì?",
+   "RADIUS và TACACS+ khác nhau ở 2 điểm nào?",
+   "DHCP snooping: port nào đặt trusted?",
+   "DAI cần tính năng nào chạy trước?",
+   "WPA3 Personal thay PSK bằng gì?",
+   "Mã HTTP 401 nghĩa là gì?",
+   "Trong JSON mẫu, interfaces[0].up có giá trị gì?"
+  ],
+  "fg": "Tự hỏi đáp bằng miệng 5 phút và ôn lại ghi chú: SSH, AAA, bảo mật L2, wireless, SDN và API",
+  "out": "Đọc được 1 JSON lồng nhau và lấy ra đúng trường"
+ },
+ {
+  "t": "CCNA · Tổng ôn: dựng chi nhánh trong 90 phút",
+  "th": [
+   "Ôn các chủ đề dưới mức 3 theo sổ tự chấm"
+  ],
+  "lab": [
+   "Lab pack W19: CCNA tổng ôn: dựng chi nhánh trong 90 phút (PT + CML/EVE) — thư mục W19-ccna-capstone",
+   "Dựng chi nhánh từ máy trống trong 90 phút (VLAN, HSRP, OSPF, NAT, ACL)",
+   "Nhờ người khác hoặc script gài 5 lỗi, sửa và ghi thời gian"
+  ],
+  "mop": "MOP tổng hợp: dựng chi nhánh mới",
+  "inc": "5 lỗi gài sẵn, mỗi lỗi 1 postmortem ngắn",
+  "fg": "Tự hỏi đáp bằng miệng 5 phút và ôn lại ghi chú: Tổng ôn: dựng chi nhánh trong 90 phút",
+  "out": "Tự chấm 5 mức cho từng chủ đề giai đoạn 1"
+ }
+]},
+{id:"p2",name:"Giai đoạn 2 – Routing nâng cao",color:'var(--p2)',
+ goal:"OSPF nhiều area, EIGRP, IS-IS, BGP, routing IPv6, redistribution. Kết thúc bằng bài kiểm tra 10 lỗi.",
+ res:"<b>Sách:</b> CCNP ENCOR 350-401 và ENARSI 300-410 Official Cert Guide · Jeff Doyle, Routing TCP/IP Vol 1 và 2 · Russ White &amp; Alvaro Retana, IS-IS: Deployment in IP Networks · Sam Halabi, Internet Routing Architectures (tham khảo) · Lab 5–6 router",
+ gate:"Mốc giai đoạn 2: sửa tối thiểu 8/10 lỗi routing (IPv4 và IPv6) đúng giờ; giải thích thứ tự chọn đường BGP; dựng dual-ISP có chính sách",
+ weeks:[
+ {
+  "t": "OSPF 4 – nhiều area",
+  "th": [
+   "Đọc sách: ENCOR Cert Guide: phần OSPF nhiều area, loại LSA",
+   "Vì sao chia area; ABR và ASBR",
+   "Route O và O IA",
+   "LSA 4, 5, 7",
+   "Stub, totally stubby, NSSA",
+   "Summarization tại ABR"
+  ],
+  "lab": [
+   "Lab pack W20: OSPF 2: multi-area, ABR, stub, NSSA (PT + CML/EVE) — thư mục W20-ospf-multiarea",
+   "3 area + default route ra ISP giả lập",
+   "Quan sát LSA khi đổi loại area"
+  ],
+  "mop": "Chuyển area chi nhánh sang stub, có rollback",
+  "inc": "Area không khớp loại (stub/normal): neighbor không lên",
+  "fg": "Tự hỏi đáp bằng miệng: loại area, loại LSA",
+  "out": "Dựng 3 area từ trắng; giải thích route O IA"
+ },
+ {
+  "t": "OSPF 5 – troubleshoot và tổng ôn",
+  "th": [
+   "Đọc sách: ENARSI Cert Guide: phần troubleshoot OSPF",
+   "Troubleshoot: lệch hello/dead, MTU, area, network type, authentication",
+   "Lý do route có trong LSDB nhưng không vào bảng route",
+   "Ôn toàn bộ OSPF"
+  ],
+  "lab": [
+   "Lab pack W21: OSPF 3: troubleshooting 5 lỗi cài sẵn (PT + CML/EVE) — thư mục W21-ospf-troubleshoot",
+   "5 lỗi gài sẵn, mỗi lỗi 15 phút",
+   "Dựng OSPF 2 area từ trắng, bấm giờ"
+  ],
+  "mop": "—",
+  "inc": "Postmortem ngắn cho 5 lỗi",
+  "fg": "Ôn lại ghi chú toàn bộ OSPF, tự hỏi đáp bằng miệng",
+  "out": "Sửa 4/5 lỗi đúng giờ; dựng 2 area dưới 60 phút"
+ },
+ {
+  "t": "EIGRP 1 – neighbor, metric, DUAL",
+  "th": [
+   "Đọc sách: ENARSI Cert Guide: phần EIGRP; Doyle Vol 1: phần EIGRP",
+   "Neighbor: AS, K-value, authentication",
+   "Bảng neighbor, topology, routing",
+   "Metric dựa trên bandwidth + delay",
+   "Successor, feasible successor, điều kiện feasibility",
+   "DUAL ở mức khái niệm",
+   "Wildcard trong lệnh network"
+  ],
+  "lab": [
+   "Lab pack W22: EIGRP 1: neighbor, topology table, successor / feasible successor (PT + CML/EVE) — thư mục W22-eigrp-1",
+   "4 router, failover bằng feasible successor",
+   "Đo thời gian hội tụ so với OSPF"
+  ],
+  "mop": "Thêm EIGRP cho site mới, có rollback",
+  "inc": "Neighbor không lên do lệch K-value hoặc AS",
+  "fg": "Tự hỏi đáp bằng miệng: công thức metric, FD/AD",
+  "out": "Giải thích feasible successor và vì sao hội tụ nhanh"
+ },
+ {
+  "t": "EIGRP 2 – tối ưu và troubleshoot",
+  "th": [
+   "Đọc sách: ENARSI Cert Guide: phần EIGRP nâng cao (stub, variance, named mode)",
+   "Summarization",
+   "Stub",
+   "`passive-interface`",
+   "Unequal-cost load balancing (variance)",
+   "Named mode",
+   "So sánh EIGRP với OSPF"
+  ],
+  "lab": [
+   "Lab pack W23: EIGRP 2: variance, stub, summary, named mode (CML/EVE (PT một phần)) — thư mục W23-eigrp-2",
+   "Stub ở chi nhánh, variance cân tải 2 đường",
+   "Chuyển classic sang named mode"
+  ],
+  "mop": "Cấu hình stub cho chi nhánh, có rollback",
+  "inc": "Lệch AS, authentication, stuck-in-active",
+  "fg": "Ôn lại ghi chú EIGRP",
+  "out": "Giải thích variance; sửa 4/5 lỗi EIGRP"
+ },
+ {
+  "t": "IS-IS 1 – khái niệm và neighbor",
+  "th": [
+   "Đọc sách: White & Retana, IS-IS: Deployment in IP Networks: phần khái niệm; Doyle Vol 1: phần IS-IS",
+   "Vì sao nhà mạng và datacenter dùng IS-IS",
+   "Chạy trực tiếp trên L2 (CLNS), không chạy trên IP",
+   "NET/NSAP: area + system ID",
+   "Level 1, Level 2, L1/L2",
+   "Adjacency và hello",
+   "DIS thay DR/BDR (không có BDR)",
+   "LSP, CSNP, PSNP; metric mặc định 10 và wide metric"
+  ],
+  "lab": [
+   "Lab pack W24: IS-IS 1: NET, adjacency, LSP, DIS (chỉ CML/EVE) — thư mục W24-isis-1",
+   "3 router cùng area, bật IS-IS",
+   "Quan sát adjacency và DIS"
+  ],
+  "mop": "—",
+  "inc": "Adjacency không lên do system ID trùng hoặc lệch level",
+  "fg": "Tự hỏi đáp bằng miệng: NET, Level 1/2",
+  "out": "Viết đúng NET cho từng router; giải thích DIS khác DR"
+ },
+ {
+  "t": "IS-IS 2 – nhiều area và so sánh",
+  "th": [
+   "Đọc sách: White & Retana: phần cấu hình và nhiều area; Doyle Vol 1: phần IS-IS",
+   "Cấu hình IS-IS cho IP: `router isis`, `net`, `ip router isis`",
+   "Mạng nhiều area",
+   "Route leaking L2 → L1 (khái niệm)",
+   "So sánh OSPF và IS-IS",
+   "Troubleshoot: MTU/padding hello, authentication"
+  ],
+  "lab": [
+   "Lab pack W25: IS-IS 2: Level-1/Level-2, ATT bit, route leaking (chỉ CML/EVE) — thư mục W25-isis-2",
+   "4 router 2 area, quan sát DIS và LSDB",
+   "Lập bảng so sánh OSPF / EIGRP / IS-IS"
+  ],
+  "mop": "Thêm router vào IS-IS, có rollback",
+  "inc": "3 lỗi IS-IS: level, MTU, authentication",
+  "fg": "Ôn lại ghi chú IS-IS",
+  "out": "Bảng so sánh 3 giao thức tự viết, không nhìn tài liệu"
+ },
+ {
+  "t": "BGP 1 – eBGP cơ bản",
+  "th": [
+   "Đọc sách: ENCOR Cert Guide: phần BGP cơ bản; Doyle Vol 2: phần BGP",
+   "Path vector, AS, vì sao BGP dùng ở biên Internet",
+   "eBGP khác iBGP",
+   "Trạng thái neighbor: Idle, Connect, Active, OpenSent, OpenConfirm, Established",
+   "Cấu hình neighbor và network"
+  ],
+  "lab": [
+   "Lab pack W26: BGP 1: eBGP cơ bản, network, bảng BGP (PT + CML/EVE) — thư mục W26-bgp-1",
+   "eBGP giữa 2 AS",
+   "Quảng bá một prefix và kiểm tra bảng BGP"
+  ],
+  "mop": "Thêm neighbor eBGP, có rollback",
+  "inc": "Neighbor kẹt ở Active: tìm nguyên nhân",
+  "fg": "Tự hỏi đáp bằng miệng: trạng thái BGP",
+  "out": "Giải thích từng trạng thái; dựng eBGP từ trắng"
+ },
+ {
+  "t": "BGP 2 – iBGP, next-hop, route reflector",
+  "th": [
+   "Đọc sách: ENCOR Cert Guide: phần iBGP; Doyle Vol 2: phần route reflector",
+   "iBGP và quy tắc split horizon của iBGP",
+   "Next-hop và `next-hop-self`",
+   "Full mesh so với route reflector"
+  ],
+  "lab": [
+   "Lab pack W27: BGP 2: iBGP, next-hop-self, Route Reflector (CML/EVE (PT một phần)) — thư mục W27-bgp-2",
+   "iBGP trong 1 AS",
+   "Thêm route reflector"
+  ],
+  "mop": "Thêm route reflector, có rollback",
+  "inc": "Next-hop unreachable; neighbor kẹt ở Active",
+  "fg": "Tự hỏi đáp bằng miệng: quy tắc iBGP",
+  "out": "Giải thích vì sao cần next-hop-self và route reflector"
+ },
+ {
+  "t": "BGP 3 – chọn đường",
+  "th": [
+   "Đọc sách: ENCOR Cert Guide: phần chọn đường BGP",
+   "Thứ tự chọn đường BGP",
+   "Weight và Local Preference",
+   "AS-path prepend",
+   "MED"
+  ],
+  "lab": [
+   "Lab pack W28: BGP 3: dual-ISP, Local Preference, AS-path prepend (CML/EVE (PT một phần)) — thư mục W28-bgp-3",
+   "Chọn đường ra bằng Local Pref",
+   "Ép đường vào bằng prepend"
+  ],
+  "mop": "Đổi Local Pref chuyển đường ra, có rollback",
+  "inc": "Đường ra sai do Local Pref lệch",
+  "fg": "Tự hỏi đáp bằng miệng: thứ tự chọn đường",
+  "out": "Đọc `show ip bgp` và nói vì sao một path thắng"
+ },
+ {
+  "t": "BGP 4 – dual-ISP, prefix-list, route-map",
+  "th": [
+   "Đọc sách: ENARSI Cert Guide: phần BGP filter, route-map, prefix-list",
+   "Dual-ISP: thiết kế đường chính và dự phòng",
+   "Prefix-list",
+   "Route-map",
+   "Filter inbound và outbound"
+  ],
+  "lab": [
+   "Lab pack W29: BGP 4: prefix-list, route-map, as-path filter (CML/EVE (PT một phần)) — thư mục W29-bgp-4",
+   "Lọc route nhận từ ISP",
+   "Dual-ISP đầy đủ"
+  ],
+  "mop": "MOP áp filter inbound từ ISP, có rollback",
+  "inc": "Filter chặn hết route",
+  "fg": "Ôn lại ghi chú BGP",
+  "out": "Dựng dual-ISP có filter, failover đúng"
+ },
+ {
+  "t": "BGP 5 – community và tổng ôn",
+  "th": [
+   "Đọc sách: ENARSI Cert Guide: phần BGP community",
+   "Community và `send-community`",
+   "Điều khiển đường vào/ra bằng community",
+   "Ôn toàn bộ BGP"
+  ],
+  "lab": [
+   "Lab pack W30: BGP 5: community, no-export, local-pref theo community (CML/EVE (PT một phần)) — thư mục W30-bgp-5",
+   "Community cho dual-ISP",
+   "Dựng lại dual-ISP từ trắng, bấm giờ"
+  ],
+  "mop": "MOP chính sách dual-ISP dùng community",
+  "inc": "Community không gửi do thiếu `send-community`; 2 lỗi BGP gài sẵn",
+  "fg": "Ôn lại ghi chú toàn bộ BGP, tự hỏi đáp bằng miệng",
+  "out": "Giải thích thứ tự chọn đường; dựng dual-ISP có chính sách"
+ },
+ {
+  "t": "IPv6 routing – OSPFv3, EIGRP, BGP, dual-stack",
+  "th": [
+   "Đọc sách: ENARSI Cert Guide: phần OSPFv3, IPv6 routing; Graziani: phần routing",
+   "OSPFv3: khác OSPFv2 ở điểm nào (chạy trên link, address-family, router ID vẫn 32 bit)",
+   "EIGRP cho IPv6 (named mode, address-family)",
+   "IS-IS cho IPv6 (multi-topology, khái niệm)",
+   "MP-BGP: address-family ipv6, neighbor IPv4 hoặc IPv6",
+   "Next-hop IPv6: global và link-local",
+   "Dual-stack: troubleshoot khi IPv4 thông nhưng IPv6 không"
+  ],
+  "lab": [
+   "Lab pack W31: IPv6 routing: OSPFv3 + MP-BGP IPv6 (CML/EVE (PT một phần)) — thư mục W31-ipv6-routing",
+   "OSPFv3 cho 4 router dual-stack",
+   "MP-BGP IPv6 giữa 2 AS",
+   "Chuyển một giao thức IPv4 sang address-family để chạy cả IPv4 lẫn IPv6"
+  ],
+  "mop": "Bật OSPFv3 cho site mới, có rollback",
+  "inc": "3 lỗi: lệch address-family, router ID thiếu, next-hop link-local không với tới",
+  "fg": "Ôn lại ghi chú IPv6",
+  "out": "Dựng dual-stack OSPFv3 + BGP IPv6 từ trắng; giải thích 3 điểm khác OSPFv3 so với OSPFv2"
+ },
+ {
+  "t": "Redistribution, route control và kiểm tra cuối",
+  "th": [
+   "Đọc sách: ENARSI Cert Guide: phần redistribution, route control, PBR",
+   "Đưa static và connected vào OSPF",
+   "Trao đổi route giữa OSPF và BGP",
+   "Seed metric khi redistribute",
+   "Route tag chống loop",
+   "PBR"
+  ],
+  "lab": [
+   "Lab pack W32: Redistribution OSPF ↔ EIGRP tại 2 điểm + tag chống loop (lab tổng kết Routing) (PT + CML/EVE) — thư mục W32-redistribution",
+   "Redistribute tại 2 điểm, dùng tag chống loop",
+   "10 lỗi gài sẵn (có cả IPv6), mỗi lỗi 15 phút"
+  ],
+  "mop": "Thêm điểm redistribute thứ 2, có rollback",
+  "inc": "Postmortem cho 10 lỗi; lỗi routing loop do redistribute",
+  "fg": "Ôn lại ghi chú toàn track",
+  "out": "Sửa tối thiểu 8/10 lỗi đúng giờ"
+ }
+]},
+{id:"p3",name:"Giai đoạn 3 – CCNP ENCOR (phần còn lại)",color:'var(--p3)',
+ goal:"Routing đã học ở giai đoạn 2 nên ENCOR chỉ còn kiến trúc, switching nâng cao, wireless, multicast, ảo hóa/VPN, giám sát, bảo mật, tự động hóa. Thi ENCOR khoảng 30/8/2027. Kiểm tra lại blueprint trên trang Cisco trước khi đặt lịch.",
+ res:"<b>Sách:</b> CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide · blueprint ENCOR trên learningnetwork.cisco.com · Lab 18 thiết bị trên EVE-NG/CML",
+ gate:"Mốc giai đoạn 3: đỗ ENCOR; lab 18 thiết bị chạy failover gateway, dual-ISP BGP, có giám sát; ít nhất 10 MOP và 10 postmortem",
+ weeks:[
+ {
+  "t": "Kiến trúc mạng doanh nghiệp, CEF, TCAM",
+  "th": [
+   "Đọc sách: CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide – phần kiến trúc mạng doanh nghiệp, cef, tcam",
+   "Mô hình 2-tier, 3-tier, collapsed core; khi nào chọn mô hình nào",
+   "Thiết kế dự phòng, điểm lỗi đơn (SPOF), Layer 2 access so với Layer 3 access",
+   "Đọc blueprint ENCOR, đánh dấu phần đã biết từ CCNA",
+   "Process switching, fast switching, CEF",
+   "FIB, adjacency table, RIB khác FIB thế nào",
+   "TCAM, SDM template, vì sao ACL lớn làm hết TCAM"
+  ],
+  "lab": [
+   "Vẽ lab 18 thiết bị theo mô hình 3-tier: 2 core, 4 distribution, 6 access, 2 WAN edge, 2 ISP giả lập, 2 server",
+   "Dựng phần access và distribution, VLAN quản lý thống nhất",
+   "`show ip cef`, `show adjacency detail`, `show sdm prefer`",
+   "Hoàn thiện core và WAN edge, lab đủ 18 thiết bị, ping thông toàn mạng"
+  ],
+  "mop": [
+   "Chuẩn hóa hostname, IP quản lý, VLAN quản lý cho 18 thiết bị",
+   "Đưa 18 thiết bị vào Zabbix bằng SNMPv3, dùng chung 1 template"
+  ],
+  "inc": [
+   "Tự tìm SPOF trong sơ đồ vừa vẽ, ghi cách khắc phục",
+   "Adjacency incomplete do thiếu ARP phía next-hop"
+  ],
+  "fg": "NSE 4: kiến trúc FortiGate, SPU/CP/NP là gì, VDOM là gì",
+  "out": "Sơ đồ lab 3-tier và bảng IP quản lý trong repo; Vẽ và giải thích đường gói đi qua RIB → FIB → adjacency"
+ },
+ {
+  "t": "MST, bảo vệ STP, EtherChannel nâng cao",
+  "th": [
+   "Đọc sách: CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide – phần mst, bảo vệ stp, etherchannel nâng cao",
+   "MST region, instance, bảng ánh xạ VLAN",
+   "So sánh PVST+, Rapid PVST+, MST; IST và CIST",
+   "Root Guard, Loop Guard, BPDU Filter, UDLD; đặt ở port nào",
+   "EtherChannel nhiều link, thuật toán hash, LACP fast rate"
+  ],
+  "lab": [
+   "MST 2 instance: VLAN chẵn root ở DS1, VLAN lẻ root ở DS2",
+   "Kiểm tra `show spanning-tree mst`",
+   "Áp Root Guard ở downlink distribution, Loop Guard ở uplink",
+   "EtherChannel 4 link core–distribution, đổi `port-channel load-balance`, xem phân tải"
+  ],
+  "mop": [
+   "Chuyển từ Rapid PVST+ sang MST theo từng khối, có rollback",
+   "Checklist bảo vệ STP chuẩn cho switch access"
+  ],
+  "inc": [
+   "Lệch region name hoặc revision giữa 2 switch: MST coi là 2 region",
+   "Một switch lạ cắm vào gửi BPDU tốt hơn: Root Guard chặn, đọc log"
+  ],
+  "fg": "NSE 4: interface, zone, VLAN, software switch trên FortiGate",
+  "out": "Chứng minh bằng output: VLAN chẵn và lẻ đi hai đường khác nhau; Bảng: guard nào đặt ở loại port nào và vì sao"
+ },
+ {
+  "t": "Wireless",
+  "th": [
+   "Đọc sách: CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide – phần wireless",
+   "Wireless: RF, dBm, SNR, kênh 2.4/5 GHz, anten đẳng hướng và định hướng",
+   "AP mode: local, FlexConnect, monitor; AP join WLC qua CAPWAP",
+   "802.1X/EAP, PSK, WebAuth, roaming"
+  ],
+  "lab": [
+   "Vẽ từng bước AP join WLC qua CAPWAP",
+   "Nếu có WLC/AP ảo: cấu hình 1 SSID WPA2-PSK"
+  ],
+  "mop": "Checklist đổi mật khẩu SSID có kiểm tra client",
+  "inc": "Client không roaming được: nêu 3 nguyên nhân",
+  "fg": "NSE 4: xem FortiGate AP/wireless controller (khái niệm)",
+  "out": "Giải thích AP join WLC và khác biệt PSK với 802.1X"
+ },
+ {
+  "t": "FHRP, IP SLA, NAT nâng cao, NTP, QoS",
+  "th": [
+   "Đọc sách: CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide – phần fhrp, ip sla, nat nâng cao, ntp, qos",
+   "HSRP, VRRP, GLBP: khác nhau thế nào",
+   "IP SLA, object tracking",
+   "NAT nâng cao, NTP phân cấp",
+   "QoS: classification, marking DSCP, queuing, policing, shaping"
+  ],
+  "lab": [
+   "VRRP cho gateway, IP SLA track đường ISP, tự hạ priority khi mất đường",
+   "NTP phân cấp trong lab",
+   "QoS ưu tiên voice, xem counter"
+  ],
+  "mop": [
+   "Chuyển đường chính sang đường phụ",
+   "Áp policy QoS vào WAN edge"
+  ],
+  "inc": [
+   "Track nhầm object nên không failover",
+   "NTP không đồng bộ vì ACL chặn UDP 123"
+  ],
+  "fg": "NSE 4: link monitor, performance SLA trên FortiGate",
+  "out": "Failover dưới 5 giây, có số gói mất đo được; Giải thích DSCP EF, AF và nơi nên đánh dấu"
+ },
+ {
+  "t": "Multicast phần 1",
+  "th": [
+   "Đọc sách: CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide – phần multicast phần 1",
+   "IGMPv2/v3, IGMP snooping",
+   "PIM dense và sparse, cây shared và source"
+  ],
+  "lab": [
+   "Multicast 3 router, 1 nguồn, 2 receiver"
+  ],
+  "mop": "Bật multicast routing trên đường đi",
+  "inc": "Thiếu PIM trên 1 interface",
+  "fg": "NSE 4: đọc lại policy và object",
+  "out": "Vẽ luồng join IGMP và PIM"
+ },
+ {
+  "t": "Multicast phần 2",
+  "th": [
+   "Đọc sách: CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide – phần multicast phần 2",
+   "RP tĩnh và Auto-RP/BSR",
+   "RPF, SSM"
+  ],
+  "lab": [
+   "PIM-SM có RP, kiểm tra RPF"
+  ],
+  "mop": "Đổi RP",
+  "inc": "RPF fail do route unicast lệch",
+  "fg": "NSE 4: session và log",
+  "out": "Giải thích kiểm tra RPF"
+ },
+ {
+  "t": "Ảo hóa, VRF, GRE, IPsec",
+  "th": [
+   "Đọc sách: CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide – phần ảo hóa, vrf, gre, ipsec",
+   "Hypervisor type 1/2, virtual switch",
+   "VRF, GRE, IPsec"
+  ],
+  "lab": [
+   "VRF-lite",
+   "GRE over IPsec giữa 2 site"
+  ],
+  "mop": "Thêm tunnel GRE over IPsec",
+  "inc": "IPsec phase 2 không lên do lệch ACL crypto",
+  "fg": "NSE 4: IPsec site-to-site trên FortiGate",
+  "out": "Tunnel lên và có lưu lượng"
+ },
+ {
+  "t": "VXLAN, LISP, SD-WAN",
+  "th": [
+   "Đọc sách: CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide – phần vxlan, lisp, sd-wan",
+   "Khái niệm VXLAN, LISP",
+   "Catalyst SD-WAN: control/data plane"
+  ],
+  "lab": [
+   "Bảng so sánh Catalyst SD-WAN với FortiGate SD-WAN AEON (ghi chú cá nhân)"
+  ],
+  "mop": "MOP giả định thêm chi nhánh SD-WAN",
+  "inc": "Phân tích tình huống mất đường SD-WAN",
+  "fg": "NSE 4: SD-WAN rule",
+  "out": "Bảng so sánh trong repo"
+ },
+ {
+  "t": "Giám sát và troubleshoot",
+  "th": [
+   "Đọc sách: CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide – phần giám sát và troubleshoot",
+   "Conditional debug, SNMP, Syslog, NetFlow",
+   "SPAN, RSPAN, ERSPAN"
+  ],
+  "lab": [
+   "Bắt gói bằng SPAN",
+   "NetFlow sang collector"
+  ],
+  "mop": "Bật SPAN có thời hạn",
+  "inc": "Debug làm CPU tăng cao",
+  "fg": "NSE 4: `diagnose sniffer packet`",
+  "out": "Bắt được gói qua SPAN"
+ },
+ {
+  "t": "Bảo mật hạ tầng",
+  "th": [
+   "Đọc sách: CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide – phần bảo mật hạ tầng",
+   "ACL, CoPP, AAA TACACS+/RADIUS, hardening"
+  ],
+  "lab": [
+   "AAA với RADIUS",
+   "CoPP cơ bản"
+  ],
+  "mop": "Checklist hardening switch access",
+  "inc": "Mất RADIUS, dùng local fallback",
+  "fg": "NSE 4: admin profile, 2FA",
+  "out": "Checklist hardening trong repo"
+ },
+ {
+  "t": "Tự động hóa phần 1",
+  "th": [
+   "Đọc sách: CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide – phần tự động hóa phần 1",
+   "Python, JSON/YAML",
+   "Netmiko"
+  ],
+  "lab": [
+   "Script Netmiko lấy `show run` cả lab"
+  ],
+  "mop": "Chạy script backup có kiểm tra",
+  "inc": "Script timeout",
+  "fg": "NSE 4: FortiGate REST API",
+  "out": "Script chạy đủ 18 thiết bị"
+ },
+ {
+  "t": "Tự động hóa phần 2",
+  "th": [
+   "Đọc sách: CCNP and CCIE Enterprise Core ENCOR 350-401 Official Cert Guide – phần tự động hóa phần 2",
+   "REST API, NETCONF/RESTCONF, YANG"
+  ],
+  "lab": [
+   "RESTCONF lấy thông tin interface"
+  ],
+  "mop": "Đổi description bằng API",
+  "inc": "API trả 401/404",
+  "fg": "NSE 4: Ansible `fortinet.fortios`",
+  "out": "Lấy dữ liệu bằng RESTCONF"
+ },
+ {
+  "t": "Thi thử lần 1",
+  "th": [
+   "Thi thử trọn đề, ghi câu sai theo mảng blueprint"
+  ],
+  "lab": [
+   "Lab lại mảng yếu nhất"
+  ],
+  "mop": "Rà lại 10 MOP, sửa MOP còn thiếu rollback",
+  "inc": "Rà lại 10 postmortem",
+  "fg": "Ôn ghi chú ENCOR",
+  "out": "Điểm thi thử và danh sách 3 mảng yếu"
+ },
+ {
+  "t": "Thi thử lần 2, đặt lịch thi ENCOR",
+  "th": [
+   "Thi thử lần 2; đạt từ 85% thì đặt lịch thi trong 1–2 tuần"
+  ],
+  "lab": [
+   "Dựng lại mảng yếu nhất từ trắng"
+  ],
+  "mop": "Tổng kết số MOP",
+  "inc": "Tổng kết số postmortem",
+  "fg": "Ôn ghi chú ENCOR",
+  "out": "Thi ENCOR 350-401. Tự đánh giá sau khi đỗ ENCOR: ở AEON đã có quyền thay đổi hoặc chức danh mới chưa? Nếu chưa, cân nhắc SI/MSP hoặc vị trí monitoring"
+ }
+]},
+{id:"p4",name:"Giai đoạn 4 – Fortinet NSE 4 FortiOS 7.6",color:'var(--p4)',
+ goal:"Thi NSE4_FGT_AD-7.6 khoảng 29/11/2027. Fortinet không có sách giấy chính thức, nên học bằng tài liệu chính thức và lab. 15 phút mỗi ngày ôn ghi chú Cisco để không quên ENCOR.",
+ res:"<b>Tài liệu:</b> FortiGate Administrator 7.6 trên Fortinet Training Institute (training.fortinet.com) · docs.fortinet.com (FortiOS 7.6 Administration Guide) · FortiGate VM trên EVE-NG",
+ gate:"Mốc giai đoạn 4: đỗ NSE 4; nhìn một dòng log nói được khớp policy nào, vì sao; lab SD-WAN dual-hub failover có MOP",
+ weeks:[
+ {
+  "t": "FortiGate VM và nền tảng hệ thống",
+  "th": [
+   "Đọc tài liệu: FortiOS 7.6 Administration Guide, phần fortigate vm và nền tảng hệ thống",
+   "Chế độ NAT và transparent, VDOM, cách FortiGate xử lý gói (thứ tự các bước)",
+   "Interface, zone, admin profile, trusted host, firmware, backup/restore"
+  ],
+  "lab": [
+   "Dựng 3 FortiGate VM trên EVE-NG: HUB, BR1, BR2 + 2 ISP giả lập",
+   "Backup, restore, so sánh file cấu hình"
+  ],
+  "mop": "Nâng firmware FortiGate lab theo upgrade path chính thức",
+  "inc": "Mất quyền truy cập GUI do trusted host sai; vào lại qua console",
+  "fg": "Ôn ghi chú ENCOR 15 phút",
+  "out": "So sánh cấu trúc lab với hiểu biết về FortiGate AEON (ghi chú cá nhân)"
+ },
+ {
+  "t": "Firewall policy và object",
+  "th": [
+   "Đọc tài liệu: FortiOS 7.6 Administration Guide, phần firewall policy và object",
+   "Policy ID và thứ tự xét, implicit deny, policy lookup",
+   "Address, service, schedule, group; ISDB"
+  ],
+  "lab": [
+   "Bộ 20 policy cho HUB, dùng Policy Lookup để kiểm tra",
+   "Audit policy: tìm policy thừa, policy bị che (shadow)"
+  ],
+  "mop": "Thêm policy mới có kiểm tra hit count trước và sau",
+  "inc": "Lưu lượng khớp nhầm policy phía trên",
+  "fg": "Ôn ghi chú ENCOR 15 phút",
+  "out": "Nhìn policy table nói đúng gói nào khớp policy nào"
+ },
+ {
+  "t": "NAT và routing trên FortiGate",
+  "th": [
+   "Đọc tài liệu: FortiOS 7.6 Administration Guide, phần nat và routing trên fortigate",
+   "SNAT theo policy, central NAT, IP pool (overload, one-to-one, fixed port range)",
+   "VIP, port forwarding, hairpin NAT",
+   "Static route, distance, priority",
+   "Policy route, ECMP, kiểm tra RPF (reverse path check)"
+  ],
+  "lab": [
+   "Publish 1 web server bằng VIP",
+   "Chuyển lab sang central NAT, so sánh",
+   "Hai đường ISP có ECMP, policy route cho một subnet"
+  ],
+  "mop": [
+   "Publish dịch vụ mới ra Internet, có kiểm tra từ ngoài vào",
+   "Đổi đường mặc định bằng distance/priority"
+  ],
+  "inc": [
+   "VIP có nhưng thiếu policy cho phép chiều vào",
+   "Gói bị drop do RPF check sau khi đổi route"
+  ],
+  "fg": "Ôn ghi chú ENCOR 15 phút",
+  "out": "Giải thích khác biệt policy NAT và central NAT; Giải thích distance và priority khác nhau thế nào"
+ },
+ {
+  "t": "SD-WAN phần 1",
+  "th": [
+   "Đọc tài liệu: FortiOS 7.6 Administration Guide, phần sd-wan phần 1",
+   "Member, zone, performance SLA",
+   "Rule SD-WAN: manual, best quality, lowest cost, maximize bandwidth"
+  ],
+  "lab": [
+   "SD-WAN 2 ISP trên BR1, SLA tới 2 đích"
+  ],
+  "mop": "Thêm member SD-WAN mới",
+  "inc": "SLA đặt sai đích nên đánh giá link sai",
+  "fg": "Ôn ghi chú ENCOR 15 phút",
+  "out": "Giải thích từng loại rule SD-WAN"
+ },
+ {
+  "t": "SD-WAN phần 2 – dual-hub",
+  "th": [
+   "Đọc tài liệu: FortiOS 7.6 Administration Guide, phần sd-wan phần 2 – dual-hub",
+   "Mô hình dual-hub, overlay và underlay",
+   "Theo dõi SD-WAN Monitor"
+  ],
+  "lab": [
+   "Dual-hub, rút link xem failover, đo thời gian"
+  ],
+  "mop": "MOP bảo trì 1 hub không mất kết nối chi nhánh",
+  "inc": "Failover chậm do SLA interval quá dài",
+  "fg": "Ôn ghi chú ENCOR 15 phút",
+  "out": "Lab SD-WAN dual-hub failover có MOP"
+ },
+ {
+  "t": "IPsec phần 1",
+  "th": [
+   "Đọc tài liệu: FortiOS 7.6 Administration Guide, phần ipsec phần 1",
+   "Phase 1, phase 2, IKEv1 và IKEv2",
+   "Route-based so với policy-based"
+  ],
+  "lab": [
+   "IPsec site-to-site HUB–BR1",
+   "`diagnose vpn ike gateway list`, `diagnose vpn tunnel list`"
+  ],
+  "mop": "Thêm tunnel mới",
+  "inc": "Lệch selector phase 2",
+  "fg": "Ôn ghi chú ENCOR 15 phút",
+  "out": "Đọc debug IKE, chỉ ra lỗi"
+ },
+ {
+  "t": "IPsec phần 2 – dial-up và ADVPN",
+  "th": [
+   "Đọc tài liệu: FortiOS 7.6 Administration Guide, phần ipsec phần 2 – dial-up và advpn",
+   "Dial-up VPN, ADVPN, shortcut"
+  ],
+  "lab": [
+   "ADVPN giữa BR1 và BR2 qua HUB"
+  ],
+  "mop": "Bật ADVPN",
+  "inc": "Shortcut không lên",
+  "fg": "Ôn ghi chú ENCOR 15 phút",
+  "out": "Shortcut ADVPN lên và có lưu lượng"
+ },
+ {
+  "t": "Remote access và xác thực",
+  "th": [
+   "Đọc tài liệu: FortiOS 7.6 Administration Guide, phần remote access và xác thực",
+   "SSL VPN / IPsec remote access, LDAP với AD",
+   "FSSO khái niệm"
+  ],
+  "lab": [
+   "Remote access VPN xác thực LDAP"
+  ],
+  "mop": "Thêm group LDAP vào VPN",
+  "inc": "LDAP bind lỗi",
+  "fg": "Ôn ghi chú ENCOR 15 phút",
+  "out": "User AD đăng nhập VPN được"
+ },
+ {
+  "t": "Security profile",
+  "th": [
+   "Đọc tài liệu: FortiOS 7.6 Administration Guide, phần security profile",
+   "AV, IPS, Web Filter, Application Control",
+   "SSL inspection và ảnh hưởng tới CPU"
+  ],
+  "lab": [
+   "Bật profile cho 1 policy, xem log"
+  ],
+  "mop": "Bật SSL deep inspection cho nhóm thử nghiệm",
+  "inc": "Website lỗi chứng chỉ khi deep inspection",
+  "fg": "Ôn ghi chú ENCOR 15 phút",
+  "out": "Giải thích flow-based và proxy-based"
+ },
+ {
+  "t": "HA",
+  "th": [
+   "Đọc tài liệu: FortiOS 7.6 Administration Guide, phần ha",
+   "HA active-passive: heartbeat, session sync, override"
+  ],
+  "lab": [
+   "HA 2 FortiGate, ngắt heartbeat xem split-brain"
+  ],
+  "mop": "Failover HA có kế hoạch",
+  "inc": "Split-brain",
+  "fg": "Ôn ghi chú ENCOR 15 phút",
+  "out": "Giải thích override và priority"
+ },
+ {
+  "t": "Log và troubleshoot",
+  "th": [
+   "Đọc tài liệu: FortiOS 7.6 Administration Guide, phần log và troubleshoot",
+   "Log, FortiView",
+   "`diagnose debug flow`, `diagnose sniffer packet`"
+  ],
+  "lab": [
+   "Debug flow cho 5 tình huống"
+  ],
+  "mop": "Quy trình debug chuẩn",
+  "inc": "Gói bị drop không rõ lý do",
+  "fg": "Ôn ghi chú ENCOR 15 phút",
+  "out": "Giải thích 10 dòng log"
+ },
+ {
+  "t": "Thi thử NSE 4",
+  "th": [
+   "Thi thử, ôn mảng sai"
+  ],
+  "lab": [
+   "Lab lại mảng yếu"
+  ],
+  "mop": "Rà MOP FortiGate",
+  "inc": "Rà postmortem",
+  "fg": "Ôn ghi chú",
+  "out": "Điểm thi thử"
+ },
+ {
+  "t": "Thi NSE 4",
+  "th": [
+   "Ôn nhẹ, thi NSE4_FGT_AD-7.6"
+  ],
+  "lab": [
+   "Không lab mới"
+  ],
+  "mop": "—",
+  "inc": "—",
+  "fg": "Nghỉ",
+  "out": "Đỗ NSE 4"
+ }
+]},
+{id:"p5",name:"Giai đoạn 5 – CCNP ENARSI (phần còn lại)",color:'var(--p5)',
+ goal:"EIGRP, OSPF cơ bản, BGP và troubleshoot đã học ở giai đoạn 2 nên ENARSI chỉ còn phần nâng cao. Thi ENARSI khoảng 21/2/2028. Đỗ ENCOR + ENARSI = CCNP Enterprise.",
+ res:"<b>Sách:</b> CCNP Enterprise Advanced Routing ENARSI 300-410 Official Cert Guide · blueprint ENARSI trên learningnetwork.cisco.com · lab 18 thiết bị tái sử dụng",
+ gate:"Mốc giai đoạn 5: đỗ ENARSI; sửa 8/10 lỗi routing ngẫu nhiên trong giới hạn thời gian; giải thích khi nào chọn DMVPN, khi nào ADVPN",
+ weeks:[
+ {
+  "t": "OSPF nâng cao: lọc LSA, virtual link, route không vào bảng",
+  "th": [
+   "Đọc sách: CCNP Enterprise Advanced Routing ENARSI 300-410 Official Cert Guide – phần ospf nâng cao: lọc lsa, virtual link, route không vào bảng",
+   "LSA filtering, loại area",
+   "Distribute-list trong OSPF",
+   "Virtual link",
+   "Lý do route không vào bảng"
+  ],
+  "lab": [
+   "Lọc LSA type 3",
+   "Virtual link qua area thường"
+  ],
+  "mop": [
+   "Lọc route giữa area",
+   "Thêm virtual link"
+  ],
+  "inc": [
+   "Lọc nhầm route",
+   "Route có trong LSDB nhưng không vào RIB"
+  ],
+  "fg": "FortiGate: log",
+  "out": "Giải thích lọc LSA; Liệt kê 5 lý do route không vào bảng"
+ },
+ {
+  "t": "Redistribution nâng cao và troubleshoot",
+  "th": [
+   "Đọc sách: CCNP Enterprise Advanced Routing ENARSI 300-410 Official Cert Guide – phần redistribution nâng cao và troubleshoot",
+   "Route tag, chống loop, chỉnh AD",
+   "Troubleshoot redistribution"
+  ],
+  "lab": [
+   "Redistribute 2 điểm, dùng tag",
+   "Lab ghép OSPF và EIGRP hoàn chỉnh"
+  ],
+  "mop": [
+   "Thêm điểm redistribute thứ 2"
+  ],
+  "inc": [
+   "Routing loop",
+   "3 lỗi redistribution"
+  ],
+  "fg": "FortiGate: log",
+  "out": "Giải thích route tag; Sửa 3 lỗi"
+ },
+ {
+  "t": "Route filtering, PBR, IP SLA tracking",
+  "th": [
+   "Đọc sách: CCNP Enterprise Advanced Routing ENARSI 300-410 Official Cert Guide – phần route filtering, pbr, ip sla tracking",
+   "Distribute-list, PBR",
+   "IP SLA, object tracking với route"
+  ],
+  "lab": [
+   "PBR cho 1 subnet",
+   "Track static route"
+  ],
+  "mop": [
+   "Áp PBR",
+   "Failover bằng track"
+  ],
+  "inc": [
+   "PBR không khớp",
+   "Track sai"
+  ],
+  "fg": "FortiGate: log",
+  "out": "PBR đúng; Failover đúng"
+ },
+ {
+  "t": "VRF-lite và MPLS",
+  "th": [
+   "Đọc sách: CCNP Enterprise Advanced Routing ENARSI 300-410 Official Cert Guide – phần vrf-lite và mpls",
+   "VRF-lite, MPLS L3VPN khái niệm"
+  ],
+  "lab": [
+   "VRF-lite 2 khách hàng"
+  ],
+  "mop": "Thêm VRF",
+  "inc": "Route leak sai",
+  "fg": "FortiGate: log",
+  "out": "Giải thích L3VPN"
+ },
+ {
+  "t": "DMVPN",
+  "th": [
+   "Đọc sách: CCNP Enterprise Advanced Routing ENARSI 300-410 Official Cert Guide – phần dmvpn",
+   "DMVPN phase 1/2/3, NHRP, IPsec"
+  ],
+  "lab": [
+   "DMVPN phase 3"
+  ],
+  "mop": "Thêm spoke",
+  "inc": "NHRP lỗi",
+  "fg": "FortiGate: so sánh ADVPN",
+  "out": "Bảng so sánh DMVPN và ADVPN"
+ },
+ {
+  "t": "Bảo mật routing: uRPF, CoPP, AAA, IPv6 first-hop security",
+  "th": [
+   "Đọc sách: CCNP Enterprise Advanced Routing ENARSI 300-410 Official Cert Guide – phần bảo mật routing: urpf, copp, aaa, ipv6 first-hop security",
+   "uRPF, CoPP, AAA",
+   "IPv6 first-hop security",
+   "Troubleshoot ACL"
+  ],
+  "lab": [
+   "uRPF strict và loose",
+   "RA guard"
+  ],
+  "mop": [
+   "Áp CoPP",
+   "Áp RA guard"
+  ],
+  "inc": [
+   "CoPP chặn OSPF",
+   "ACL lỗi"
+  ],
+  "fg": "FortiGate: log",
+  "out": "Giải thích uRPF; Giải thích RA guard"
+ },
+ {
+  "t": "Dịch vụ hạ tầng",
+  "th": [
+   "Đọc sách: CCNP Enterprise Advanced Routing ENARSI 300-410 Official Cert Guide – phần dịch vụ hạ tầng",
+   "DHCPv4/v6, NTP, SNMP, Syslog, NetFlow"
+  ],
+  "lab": [
+   "Troubleshoot từng dịch vụ"
+  ],
+  "mop": "—",
+  "inc": "Lỗi DHCPv6",
+  "fg": "FortiGate: log",
+  "out": "Dịch vụ chạy đủ"
+ },
+ {
+  "buf": true,
+  "t": "Tuần Tết Mậu Thân",
+  "items": [
+   "Nghỉ, không mở lab mới",
+   "Đọc lại ghi chú 10 phút mỗi ngày nếu có thời gian",
+   "Chọn 2 chủ đề còn dưới mức 3 để học lại sau Tết"
+  ],
+  "out": "Quay lại nhịp đầy đủ từ tuần sau"
+ },
+ {
+  "t": "Troubleshooting marathon 1",
+  "th": [
+   "—"
+  ],
+  "lab": [
+   "10 lỗi ngẫu nhiên, 15 phút mỗi lỗi"
+  ],
+  "mop": "—",
+  "inc": "Postmortem 10 lỗi",
+  "fg": "Ôn ghi chú",
+  "out": "Sửa 8/10"
+ },
+ {
+  "t": "Troubleshooting marathon 2",
+  "th": [
+   "—"
+  ],
+  "lab": [
+   "10 lỗi ngẫu nhiên"
+  ],
+  "mop": "—",
+  "inc": "Postmortem",
+  "fg": "Ôn ghi chú",
+  "out": "Sửa 8/10"
+ },
+ {
+  "t": "Thi thử ENARSI",
+  "th": [
+   "Thi thử, ôn mảng sai"
+  ],
+  "lab": [
+   "Lab mảng yếu"
+  ],
+  "mop": "—",
+  "inc": "—",
+  "fg": "Ôn ghi chú",
+  "out": "Điểm thi thử"
+ },
+ {
+  "t": "Thi ENARSI",
+  "th": [
+   "Thi ENARSI 300-410"
+  ],
+  "lab": [
+   "—"
+  ],
+  "mop": "—",
+  "inc": "—",
+  "fg": "Nghỉ",
+  "out": "Nhận CCNP Enterprise"
+ }
+]},
+{id:"p6",name:"Giai đoạn 6 – Tổng hợp và đi phỏng vấn",color:'var(--p6)',
+ goal:"Không học thêm chứng chỉ. Biến những gì đã làm thành bằng chứng và luyện phỏng vấn.",
+ res:"<b>Đầu ra cần có:</b> lab tổng dựng lại không nhìn tài liệu · repo GitHub (topology, playbook Ansible, 5 MOP, 5 postmortem) · 5 câu chuyện STAR · câu trả lời 30 giây về chuyện chuyển nghề · 3 buổi phỏng vấn thử · LinkedIn/CV có CCNP, NSE 4",
+ gate:"Đích: nhận offer IT Infrastructure / Network, mức 27–36 triệu net",
+ weeks:[
+ {
+  "t": "Dựng lab tổng lần 1",
+  "th": [
+   "Viết lại sơ đồ lab tổng: dual-hub SD-WAN + ADVPN + OSPF/BGP + HA"
+  ],
+  "lab": [
+   "Dựng từ trắng, bấm giờ từng khối",
+   "Ghi chỗ phải mở tài liệu"
+  ],
+  "mop": "MOP dựng lab tổng",
+  "inc": "Gài 3 lỗi, tự sửa",
+  "fg": "Ôn ghi chú FortiGate",
+  "out": "Thời gian dựng lần 1"
+ },
+ {
+  "t": "Dựng lab tổng lần 2 và tự động hóa",
+  "th": [
+   "Ôn các chỗ phải mở tài liệu ở lần 1",
+   "Rà playbook Ansible cũ"
+  ],
+  "lab": [
+   "Dựng lại từ trắng, phải nhanh hơn lần 1",
+   "Playbook dựng lại lab tổng bằng Ansible (`cisco.ios`, `fortinet.fortios`, Vault)"
+  ],
+  "mop": [
+   "Cập nhật MOP"
+  ],
+  "inc": [
+   "Gài 3 lỗi khác",
+   "Playbook chạy lỗi giữa chừng: xử lý idempotent"
+  ],
+  "fg": "Ôn ghi chú",
+  "out": "Lần 2 nhanh hơn lần 1; Playbook chạy từ trắng tới xong"
+ },
+ {
+  "t": "Làm sạch repo",
+  "th": [
+   "—",
+   "—"
+  ],
+  "lab": [
+   "README, sơ đồ, cấu trúc thư mục",
+   "Xóa mọi thông tin nội bộ, kiểm tra lại toàn repo"
+  ],
+  "mop": [
+   "Chọn 5 MOP hay nhất, viết lại gọn"
+  ],
+  "inc": [
+   "Chọn 5 postmortem hay nhất"
+  ],
+  "fg": "—",
+  "out": "README rõ ràng; Repo công khai được"
+ },
+ {
+  "t": "Câu chuyện STAR",
+  "th": [
+   "Viết 5 câu chuyện STAR từ production (AEON, Wisol)",
+   "Câu trả lời 30 giây cho câu hỏi về tuổi và chuyển nghề"
+  ],
+  "lab": [
+   "Đọc to đến khi trôi chảy, ghi âm nghe lại"
+  ],
+  "mop": "—",
+  "inc": "—",
+  "fg": "—",
+  "out": "5 câu STAR trôi chảy"
+ },
+ {
+  "t": "Phỏng vấn thử",
+  "th": [
+   "Ôn câu hỏi kỹ thuật thường gặp",
+   "Vá câu bí"
+  ],
+  "lab": [
+   "2 buổi phỏng vấn thử có troubleshooting live",
+   "1 buổi phỏng vấn thử"
+  ],
+  "mop": [],
+  "inc": [
+   "Ghi câu bí, vá trong tuần"
+  ],
+  "fg": "—",
+  "out": "Danh sách câu bí; 3 buổi xong"
+ },
+ {
+  "t": "LinkedIn, CV, danh sách công ty",
+  "th": [
+   "—"
+  ],
+  "lab": [
+   "Cập nhật LinkedIn: CCNP, NSE 4, headline",
+   "CV 2 trang",
+   "20 công ty mục tiêu: ngân hàng (MB Bank…), tài chính, công ty Nhật, SI"
+  ],
+  "mop": "—",
+  "inc": "—",
+  "fg": "—",
+  "out": "CV và danh sách 20 công ty"
+ },
+ {
+  "t": "Ứng tuyển tuần 1",
+  "th": [
+   "—"
+  ],
+  "lab": [
+   "Ứng tuyển 3–5 nơi"
+  ],
+  "mop": "—",
+  "inc": "Sau mỗi buổi phỏng vấn: ghi câu hỏi, vá lỗ hổng",
+  "fg": "—",
+  "out": "3–5 hồ sơ"
+ },
+ {
+  "t": "Ứng tuyển tuần 2 và đàm phán offer",
+  "th": [
+   "—",
+   "—"
+  ],
+  "lab": [
+   "Ứng tuyển 3–5 nơi",
+   "Ứng tuyển 3–5 nơi, đàm phán offer"
+  ],
+  "mop": [],
+  "inc": [
+   "Vá lỗ hổng"
+  ],
+  "fg": "—",
+  "out": "3–5 hồ sơ; Offer"
+ }
+]}
+];
+
+
+/* ============ LOGIC ============ */
+const LKEY = 'lich-gop-ccna-routing-ccnp-nse-v1';
+const DAY = 86400000;
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const fmt = s => esc(s).replace(/`([^`]+)`/g,'<code>$1</code>');
+const real = s => s && s.trim() && s.trim() !== '—';
+const d2 = d => d.getDate() + '/' + (d.getMonth()+1);
+
+function buildEntries(){
+  const out = []; let gi = 0, study = 0;
+  PHASES.forEach(p => {
+    let n = 0;
+    p.weeks.forEach(w => {
+      const start = new Date(START.getTime() + gi*7*DAY + 3600000); // +1h tránh lệch giờ
+      start.setHours(0,0,0,0);
+      const end = new Date(start.getTime() + 6*DAY + 3600000); end.setHours(0,0,0,0);
+      const e = {p, w, gi, start, end, buf: !!w.buf};
+      if (w.buf){ e.key = p.id + '-tet'; e.label = 'Tết'; }
+      else { n++; study++; e.n = n; e.sn = study; e.key = p.id + '-w' + String(n).padStart(2,'0'); e.label = String(study); }
+      e.items = [];
+      if (e.buf){
+        w.items.forEach((t,j) => e.items.push({id:e.key+'-i'+j, cat:'items', t}));
+      } else {
+        CAT.forEach(([k]) => {
+          const v = w[k]; if (!v) return;
+          (Array.isArray(v) ? v : [v]).filter(real).forEach((t,j) => e.items.push({id:e.key+'-'+k+j, cat:k, t}));
+        });
+      }
+      if (real(w.out)) e.items.push({id:e.key+'-out', cat:'out', t:w.out});
+      out.push(e); gi++;
+    });
+  });
+  return out;
+}
+const ENTRIES = buildEntries();
+const GATES = PHASES.map(p => ({id:p.id+'-gate', t:p.gate, p}));
+const ALL_IDS = ENTRIES.flatMap(e => e.items.map(i => i.id)).concat(GATES.map(g => g.id));
+
+function currentIndex(){
+  const now = new Date(); now.setHours(12,0,0,0);
+  if (now < ENTRIES[0].start) return 0;
+  for (let i=0;i<ENTRIES.length;i++){ if (now >= ENTRIES[i].start && now <= new Date(ENTRIES[i].end.getTime()+DAY-1)) return i; }
+  return ENTRIES.length - 1;
+}
+const NOW = currentIndex();
+
+/* ---------- state ---------- */
+let state = {done:{}, lvl:{}};
+try { const c = JSON.parse(localStorage.getItem(LKEY) || 'null'); if (c && c.done) state = {done:c.done||{}, lvl:c.lvl||{}}; } catch(e){}
+function cacheLocal(){ try { localStorage.setItem(LKEY, JSON.stringify(state)); } catch(e){} }
+
+/* ---------- render ---------- */
+function weekHTML(e){
+  const w = e.w, isNow = e.gi === NOW;
+  const dates = d2(e.start) + ' – ' + d2(e.end) + '/' + e.end.getFullYear();
+  const num = e.buf ? 'TẾT' : 'T' + String(e.sn).padStart(2,'0') + ' · GĐ' + e.p.id.slice(1) + '/' + e.n;
+  let body = '';
+  const li = it => `<li id="li-${it.id}" class="${state.done[it.id]?'done':''}"><label><input type="checkbox" id="${it.id}" data-id="${it.id}"${state.done[it.id]?' checked':''}><span>${fmt(it.t)}</span></label></li>`;
+  if (e.buf){
+    body += `<div class="blk"><ul class="chk">${e.items.filter(i=>i.cat==='items').map(li).join('')}</ul></div>`;
+  } else {
+    CAT.forEach(([k,label,hrs]) => {
+      const its = e.items.filter(i => i.cat === k); if (!its.length) return;
+      body += `<div class="blk"><h4>${label}${hrs?` <em>${hrs}</em>`:''}</h4><ul class="chk">${its.map(li).join('')}</ul></div>`;
+    });
+  }
+  const o = e.items.find(i => i.cat === 'out');
+  if (o) body += `<div class="blk out"><h4>Đầu ra / tiêu chí đạt</h4><ul class="chk">${li(o)}</ul></div>`;
+  if (!e.buf){
+    const v = state.lvl[e.key] || '';
+    body += `<div class="rate"><label for="lvl-${e.key}">Tự chấm cuối tuần:</label><select id="lvl-${e.key}" data-lvl="${e.key}"><option value="">Chưa chấm</option>${[1,2,3,4,5].map(n=>`<option value="${n}"${String(v)===String(n)?' selected':''}>Mức ${n}</option>`).join('')}</select></div>`;
+  }
+  return `<details class="wk${isNow?' is-now':''}${e.buf?' buf':''}" id="wk-${e.key}" style="--pc:${e.p.color}"${isNow?' open':''}>
+    <summary><span class="wn">${num}</span><span class="wt">${esc(w.t)}${isNow?'<span class="tag-now">Tuần này</span>':''}</span><span class="wd">${dates}</span><span class="wc" id="wc-${e.key}"></span></summary>
+    <div class="wk-body">${body}</div></details>`;
+}
+
+function render(){
+  const html = PHASES.map(p => {
+    const es = ENTRIES.filter(e => e.p === p);
+    const first = es[0], last = es[es.length-1];
+    const nStudy = es.filter(e => !e.buf).length;
+    const g = GATES.find(x => x.p === p);
+    return `<section class="phase" id="${p.id}" style="--pc:${p.color}">
+      <div class="ph-head"><h2>${esc(p.name)}</h2><span class="meta">${d2(first.start)}/${first.start.getFullYear()} – ${d2(last.end)}/${last.end.getFullYear()} · ${nStudy} tuần${es.length>nStudy?' + Tết':''} · <span id="pc-${p.id}"></span></span></div>
+      <p class="ph-goal">${esc(p.goal)}</p>
+      <div class="res">${p.res}</div>
+      ${es.map(weekHTML).join('')}
+      <div class="panel out" style="--pc:${p.color}"><ul class="chk"><li id="li-${g.id}" class="${state.done[g.id]?'done':''}"><label><input type="checkbox" id="${g.id}" data-id="${g.id}"${state.done[g.id]?' checked':''}><span><b>${esc(g.t)}</b></span></label></li></ul></div>
+    </section>`;
+  }).join('');
+  document.getElementById('phases').innerHTML = html;
+  document.getElementById('ports').innerHTML = ENTRIES.map(e =>
+    `<button type="button" class="port" role="listitem" data-go="${e.key}" id="pt-${e.key}" title="${esc((e.buf?'Tết':'Tuần '+e.sn)+' · '+d2(e.start)+'/'+e.start.getFullYear()+' · '+e.w.t)}"><i></i>${e.label==='Tết'?'T':e.label}</button>`).join('');
+  document.getElementById('strip').innerHTML = PHASES.map(p => `<span style="flex:${ENTRIES.filter(e=>e.p===p).length};background:${p.color}" title="${esc(p.name)}"></span>`).join('');
+  refresh();
+}
+
+function refresh(){
+  const done = ALL_IDS.filter(id => state.done[id]).length;
+  const pct = Math.round(done / ALL_IDS.length * 100);
+  document.getElementById('pct').textContent = pct + '%';
+  document.getElementById('cnt').textContent = done;
+  document.getElementById('cntOf').textContent = '/ ' + ALL_IDS.length + ' đầu việc';
+  document.getElementById('bar').style.width = pct + '%';
+  let full = 0;
+  ENTRIES.forEach(e => {
+    const t = e.items.length, d = e.items.filter(i => state.done[i.id]).length;
+    if (!e.buf && t && d === t) full++;
+    const pt = document.getElementById('pt-' + e.key);
+    pt.className = 'port' + (e.buf ? ' buf' : '') + (t && d === t ? ' done' : d ? ' part' : '') + (e.gi === NOW ? ' now' : '');
+    const lv = state.lvl[e.key];
+    document.getElementById('wc-' + e.key).textContent = d + '/' + t + ' việc' + (lv ? ' · tự chấm mức ' + lv : '');
+  });
+  PHASES.forEach(p => {
+    const ids = ENTRIES.filter(e => e.p === p).flatMap(e => e.items.map(i => i.id)).concat(p.id + '-gate');
+    const d = ids.filter(id => state.done[id]).length;
+    document.getElementById('pc-' + p.id).textContent = d + '/' + ids.length + ' xong';
+  });
+  document.getElementById('wkDone').textContent = full;
+  const ne = ENTRIES[NOW];
+  document.getElementById('nowLbl').textContent = ne.buf ? 'Tuần Tết' : 'Tuần ' + ne.sn;
+}
+
+function applyStateToDom(){
+  document.querySelectorAll('input[data-id]').forEach(inp => {
+    const on = !!state.done[inp.dataset.id];
+    inp.checked = on; inp.closest('li').classList.toggle('done', on);
+  });
+  document.querySelectorAll('select[data-lvl]').forEach(s => { s.value = state.lvl[s.dataset.lvl] || ''; });
+  refresh();
+}
+
+/* ---------- lưu trữ ---------- */
+const saveEl = document.getElementById('saveState');
+let dbRef = null, canWrite = true, writing = false, dirty = false, timer = null;
+function setSave(t){ saveEl.textContent = t; }
+
+function scheduleWrite(){
+  cacheLocal();
+  if (!dbRef){ setSave('Đã lưu trên trình duyệt này.'); return; }
+  if (!canWrite){ setSave('Chế độ chỉ xem: thay đổi của bạn không được lưu lên trang.'); return; }
+  dirty = true; setSave('Đang lưu…');
+  clearTimeout(timer); timer = setTimeout(flush, 700);
+}
+async function flush(){
+  if (writing || !dirty) return;
+  writing = true; dirty = false;
+  try {
+    await dbRef.set({done: state.done, lvl: state.lvl, updatedAt: new Date().toISOString()});
+    setSave('Đã lưu. Tiến độ đồng bộ trên mọi thiết bị bạn mở trang này.');
+  } catch(err){
+    if (err && err.code === 'invalid_argument'){ canWrite = false; setSave('Chế độ chỉ xem: thay đổi của bạn không được lưu lên trang.'); }
+    else if (err && err.code === 'unavailable'){ dirty = true; setTimeout(flush, 1500 + Math.random()*1000); setSave('Mất kết nối tạm thời, sẽ thử lưu lại…'); }
+    else setSave('Chưa lưu được lên trang (' + (err && err.code || 'lỗi') + '). Tiến độ vẫn giữ trên trình duyệt này.');
+  } finally {
+    writing = false;
+    if (dirty) flush();
+  }
+}
+
+async function connectDb(){
+  let db = null;
+  try { db = window.claude && window.claude.use ? await window.claude.use('db') : null; } catch(e){ db = null; }
+  if (!db){ setSave('Tiến độ lưu trên trình duyệt này.'); return; }
+  try { dbRef = db.doc('progress/main'); } catch(e){ setSave('Tiến độ lưu trên trình duyệt này.'); return; }
+  let first = true;
+  dbRef.onSnapshot(snap => {
+    if (snap.metadata && snap.metadata.hasPendingWrites) return;
+    if (snap.exists){
+      const d = snap.data() || {};
+      state = {done: Object.assign({}, d.done || {}), lvl: Object.assign({}, d.lvl || {})};
+      cacheLocal(); applyStateToDom();
+      setSave('Đã đồng bộ. Tiến độ lưu cùng trang, mở ở máy nào cũng thấy.');
+    } else if (first){
+      if (Object.keys(state.done).length || Object.keys(state.lvl).length){ dirty = true; flush(); }
+      else setSave('Sẵn sàng. Tick mục đầu tiên để bắt đầu lưu tiến độ.');
+    }
+    first = false;
+  }, err => { setSave('Mất kết nối nơi lưu (' + (err && err.code) + '). Tiến độ vẫn giữ trên trình duyệt này.'); });
+}
+
+/* ---------- sự kiện ---------- */
+document.addEventListener('change', ev => {
+  const t = ev.target;
+  if (t.dataset && t.dataset.id){
+    if (t.checked) state.done[t.dataset.id] = 1; else delete state.done[t.dataset.id];
+    t.closest('li').classList.toggle('done', t.checked);
+    refresh(); scheduleWrite();
+  } else if (t.dataset && t.dataset.lvl){
+    if (t.value) state.lvl[t.dataset.lvl] = Number(t.value); else delete state.lvl[t.dataset.lvl];
+    refresh(); scheduleWrite();
+  }
+});
+function go(key){
+  const el = document.getElementById('wk-' + key); if (!el) return;
+  el.open = true; el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+document.addEventListener('click', ev => {
+  const b = ev.target.closest && ev.target.closest('[data-go]'); if (b) go(b.dataset.go);
+});
+document.getElementById('goNow').onclick = () => go(ENTRIES[NOW].key);
+document.getElementById('expand').onclick = () => document.querySelectorAll('details.wk').forEach(d => d.open = true);
+document.getElementById('collapse').onclick = () => document.querySelectorAll('details.wk').forEach(d => d.open = false);
+document.getElementById('hideDone').onchange = ev => document.body.classList.toggle('hide-done', ev.target.checked);
+
+render();
+connectDb();
+
+</script>
