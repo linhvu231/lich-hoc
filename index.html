@@ -104,7 +104,8 @@ ul.chk li.done span{color:var(--muted);text-decoration:line-through}
 .startpick label{font-weight:600}
 .muted-s{font-size:13px;color:var(--muted)}
 #startSel{font-size:14px;padding:6px 10px;color-scheme:light dark}
-#startSel option{background:var(--panel);color:var(--ink)}
+select.wd-sel{font-size:13px;padding:3px 6px;border:1px dashed var(--led-now);cursor:pointer;color-scheme:light dark}
+select.wd-sel option,#startSel option{background:var(--panel);color:var(--ink)}
 select{font:inherit;font-size:13px;padding:4px 8px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
 .hide-done ul.chk li.done{display:none}
 .note{font-size:13px;color:var(--muted);margin:8px 0 0}
@@ -1940,7 +1941,7 @@ function weekHTML(e){
     body += `<div class="rate"><label for="lvl-${e.key}">Tự chấm cuối tuần:</label><select id="lvl-${e.key}" data-lvl="${e.key}"><option value="">Chưa chấm</option>${[1,2,3,4,5].map(n=>`<option value="${n}"${String(v)===String(n)?' selected':''}>Mức ${n}</option>`).join('')}</select></div>`;
   }
   return `<details class="wk${isNow?' is-now':''}${e.buf?' buf':''}" id="wk-${e.key}" style="--pc:${e.p.color}"${(isNow || (NOW<0 && e.gi===0))?' open':''}>
-    <summary><span class="wn">${num}</span><span class="wt">${esc(w.t)}${isNow?'<span class="tag-now">Tuần này</span>':''}</span><span class="wd">${dates}</span><span class="wc" id="wc-${e.key}"></span></summary>
+    <summary><span class="wn">${num}</span><span class="wt">${esc(w.t)}${isNow?'<span class="tag-now">Tuần này</span>':''}</span>${e.gi===0 ? `<select class="wd wd-sel" title="Bấm để đổi tuần bắt đầu" aria-label="Tuần bắt đầu học">${startOptions(true)}</select>` : `<span class="wd">${dates}</span>`}<span class="wc" id="wc-${e.key}"></span></summary>
     <div class="wk-body">${body}</div></details>`;
 }
 
@@ -2006,18 +2007,21 @@ function renderHeader(){
   const nT = ENTRIES.filter(e => e.buf).length, nS = ENTRIES.length - nT;
   document.getElementById('span').textContent = d2(f.start) + '/' + f.start.getFullYear() + ' – ' + d2(l.end) + '/' + l.end.getFullYear() + ' · ' + nS + ' tuần học' + (nT ? ' + ' + nT + ' tuần Tết' : '');
   document.getElementById('ports').setAttribute('aria-label', ENTRIES.length + ' tuần');
+  document.getElementById('startSel').innerHTML = startOptions(false);
+}
+function startOptions(short){
   // Danh sách thứ Hai để chọn: từ mốc gốc tới 26 tuần sau hôm nay
-  const sel = document.getElementById('startSel');
-  const cur = ymd(mondayOf(START)), thisMon = ymd(mondayOf(new Date()));
+  const cur = ymd(mondayOf(START)), thisMon = ymd(mondayOf(new Date())), nextMon = ymd(addW(mondayOf(new Date()),1));
   const last = addW(mondayOf(new Date()), 26);
   let opts = '', d = mondayOf(LIST_FROM);
   while (d <= last){
     const v = ymd(d), end = new Date(d); end.setDate(end.getDate()+6);
-    const tag = v === thisMon ? ' (tuần này)' : v === ymd(addW(mondayOf(new Date()),1)) ? ' (tuần sau)' : '';
-    opts += `<option value="${v}"${v===cur?' selected':''}>T2 ${d2(d)}/${d.getFullYear()} – CN ${d2(end)}${tag}</option>`;
+    const tag = v === thisMon ? ' (tuần này)' : v === nextMon ? ' (tuần sau)' : '';
+    const txt = short ? d2(d) + ' – ' + d2(end) + '/' + end.getFullYear() : 'T2 ' + d2(d) + '/' + d.getFullYear() + ' – CN ' + d2(end);
+    opts += `<option value="${v}"${v===cur?' selected':''}>${txt}${tag}</option>`;
     d = addW(d, 1);
   }
-  sel.innerHTML = opts;
+  return opts;
 }
 
 function applyStateToDom(){
@@ -2087,7 +2091,7 @@ document.addEventListener('change', ev => {
     if (t.checked) state.done[t.dataset.id] = 1; else delete state.done[t.dataset.id];
     t.closest('li').classList.toggle('done', t.checked);
     refresh(); scheduleWrite();
-  } else if (t.id === 'startSel'){
+  } else if (t.id === 'startSel' || t.classList.contains('wd-sel')){
     setStart(t.value);
   } else if (t.dataset && t.dataset.lvl){
     if (t.value) state.lvl[t.dataset.lvl] = Number(t.value); else delete state.lvl[t.dataset.lvl];
@@ -2101,6 +2105,7 @@ function setStart(v){
   if (NOW < 0) go(ENTRIES[0].key); else go(ENTRIES[NOW].key);
 }
 document.addEventListener('click', ev => {
+  if (ev.target.closest && ev.target.closest('.wd-sel')){ ev.preventDefault(); return; }
   const b = ev.target.closest && ev.target.closest('[data-start]'); if (!b) return;
   setStart(ymd(addW(mondayOf(new Date()), Number(b.dataset.start))));
 });
