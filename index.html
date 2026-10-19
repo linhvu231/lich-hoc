@@ -102,6 +102,10 @@ ul.chk li.done span{color:var(--muted);text-decoration:line-through}
 .rate{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
 .startpick{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px;font-size:14px}
 .startpick label{font-weight:600}
+#wkPick,#wkDate{font-size:14px;padding:6px 10px;color-scheme:light dark;max-width:100%}
+#wkPick option,#wkDate option{background:var(--panel);color:var(--ink)}
+.shift{display:inline-flex;gap:4px;align-items:center;margin:2px 8px 2px 0;padding:2px 8px;border:1px dashed var(--led-now);border-radius:999px}
+.shift button{border:0;background:none;color:inherit;cursor:pointer;font-size:14px;padding:0 2px}
 .muted-s{font-size:13px;color:var(--muted)}
 #startSel{font-size:14px;padding:6px 10px;color-scheme:light dark}
 select.wd-sel{font-size:13px;padding:3px 6px;border:1px dashed var(--led-now);cursor:pointer;color-scheme:light dark}
@@ -127,12 +131,14 @@ select{font:inherit;font-size:13px;padding:4px 8px;border-radius:6px;border:1px 
   <section class="panel" aria-labelledby="h-prog">
     <h2 id="h-prog" hidden>Tiến độ</h2>
     <div class="startpick">
-      <label for="startSel">Tuần bắt đầu học:</label>
-      <select id="startSel"></select>
-      <button class="b" type="button" data-start="0">Bắt đầu tuần này</button>
-      <button class="b" type="button" data-start="1">Bắt đầu tuần sau</button>
-      <span id="startNote" class="muted-s"></span>
+      <label for="wkPick">Chọn tuần:</label>
+      <select id="wkPick"></select>
+      <label for="wkDate">bắt đầu từ:</label>
+      <select id="wkDate"></select>
     </div>
+    <p class="muted-s" style="margin:-4px 0 6px">Chọn tuần 1 để đặt ngày bắt đầu cả lịch. Chọn tuần khác để tạm nghỉ rồi học tiếp từ ngày đó; các tuần sau tự dời theo. Bấm vào ô số tuần bên dưới cũng chọn được tuần đó.</p>
+    <div id="shiftList" class="muted-s" style="margin-bottom:6px"></div>
+    <p id="startNote" class="muted-s" style="margin:0 0 10px"></p>
     <div class="stats">
       <div><b id="pct">0%</b> <span>hoàn thành</span></div>
       <div><b id="cnt">0</b> <span id="cntOf">/ 0 đầu việc</span></div>
@@ -1870,7 +1876,10 @@ function buildEntries(){
   // 2) Trải lên lịch từ START: gặp tuần Tết thì chèn Tết, còn lại lấy tuần học kế tiếp
   const out = []; let gi = 0, si = 0;
   let d = mondayOf(START);
+  const shifts = (typeof state !== 'undefined' && state.shifts) || {};
   while (si < study.length){
+    const sh = shifts[study[si].key] && parseYMD(shifts[study[si].key]);
+    if (sh && mondayOf(sh) > d) d = mondayOf(sh); // tạm nghỉ: nhảy tới ngày đã chọn
     const b = bufs.find(x => x.anchor && sameDay(x.anchor, d));
     let e;
     if (b){
@@ -1911,8 +1920,8 @@ function currentIndex(){
 }
 
 /* ---------- state ---------- */
-let state = {done:{}, lvl:{}, start:null};
-try { const c = JSON.parse(localStorage.getItem(LKEY) || 'null'); if (c && c.done) state = {done:c.done||{}, lvl:c.lvl||{}, start:c.start||null}; } catch(e){}
+let state = {done:{}, lvl:{}, start:null, shifts:{}};
+try { const c = JSON.parse(localStorage.getItem(LKEY) || 'null'); if (c && c.done) state = {done:c.done||{}, lvl:c.lvl||{}, start:c.start||null, shifts:c.shifts||{}}; } catch(e){}
 const parseYMD = v => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v||''); return m ? new Date(+m[1], +m[2]-1, +m[3]) : null; };
 const ymd = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
 function applyStart(){ START = parseYMD(state.start) || DEFAULT_START; rebuild(); }
@@ -2007,7 +2016,7 @@ function renderHeader(){
   const nT = ENTRIES.filter(e => e.buf).length, nS = ENTRIES.length - nT;
   document.getElementById('span').textContent = d2(f.start) + '/' + f.start.getFullYear() + ' – ' + d2(l.end) + '/' + l.end.getFullYear() + ' · ' + nS + ' tuần học' + (nT ? ' + ' + nT + ' tuần Tết' : '');
   document.getElementById('ports').setAttribute('aria-label', ENTRIES.length + ' tuần');
-  document.getElementById('startSel').innerHTML = startOptions(false);
+  fillPicker();
 }
 function startOptions(short){
   // Danh sách thứ Hai để chọn: từ mốc gốc tới 26 tuần sau hôm nay
@@ -2049,7 +2058,7 @@ async function flush(){
   if (writing || !dirty) return;
   writing = true; dirty = false;
   try {
-    await dbRef.set({done: state.done, lvl: state.lvl, start: state.start || null, updatedAt: new Date().toISOString()});
+    await dbRef.set({done: state.done, lvl: state.lvl, start: state.start || null, shifts: state.shifts || {}, updatedAt: new Date().toISOString()});
     setSave('Đã lưu. Tiến độ đồng bộ trên mọi thiết bị bạn mở trang này.');
   } catch(err){
     if (err && err.code === 'invalid_argument'){ canWrite = false; setSave('Chế độ chỉ xem: thay đổi của bạn không được lưu lên trang.'); }
@@ -2071,10 +2080,10 @@ async function connectDb(){
     if (snap.metadata && snap.metadata.hasPendingWrites) return;
     if (snap.exists){
       const d = snap.data() || {};
-      const prevStart = state.start || null;
-      state = {done: Object.assign({}, d.done || {}), lvl: Object.assign({}, d.lvl || {}), start: d.start || null};
+      const prevSched = JSON.stringify([state.start || null, state.shifts || {}]);
+      state = {done: Object.assign({}, d.done || {}), lvl: Object.assign({}, d.lvl || {}), start: d.start || null, shifts: Object.assign({}, d.shifts || {})};
       cacheLocal();
-      if ((state.start || null) !== prevStart){ applyStart(); render(); } else applyStateToDom();
+      if (JSON.stringify([state.start || null, state.shifts]) !== prevSched){ applyStart(); render(); } else applyStateToDom();
       setSave('Đã đồng bộ. Tiến độ lưu cùng trang, mở ở máy nào cũng thấy.');
     } else if (first){
       if (Object.keys(state.done).length || Object.keys(state.lvl).length){ dirty = true; flush(); }
@@ -2091,8 +2100,12 @@ document.addEventListener('change', ev => {
     if (t.checked) state.done[t.dataset.id] = 1; else delete state.done[t.dataset.id];
     t.closest('li').classList.toggle('done', t.checked);
     refresh(); scheduleWrite();
-  } else if (t.id === 'startSel' || t.classList.contains('wd-sel')){
-    setStart(t.value);
+  } else if (t.classList.contains('wd-sel')){
+    pickKey = 'p1-w01'; setStart(t.value);
+  } else if (t.id === 'wkPick'){
+    pickKey = t.value; fillPicker();
+  } else if (t.id === 'wkDate'){
+    setWeekDate(pickKey, t.value);
   } else if (t.dataset && t.dataset.lvl){
     if (t.value) state.lvl[t.dataset.lvl] = Number(t.value); else delete state.lvl[t.dataset.lvl];
     refresh(); scheduleWrite();
@@ -2104,10 +2117,47 @@ function setStart(v){
   applyStart(); render(); scheduleWrite();
   if (NOW < 0) go(ENTRIES[0].key); else go(ENTRIES[NOW].key);
 }
+let pickKey = 'p1-w01';
+function fillPicker(){
+  const studyEs = ENTRIES.filter(e => !e.buf);
+  if (!studyEs.find(e => e.key === pickKey)) pickKey = studyEs[0].key;
+  const cut = t => t.length > 42 ? t.slice(0, 40) + '…' : t;
+  document.getElementById('wkPick').innerHTML = studyEs.map(e =>
+    `<option value="${e.key}"${e.key===pickKey?' selected':''}>Tuần ${e.sn} · ${esc(cut(e.w.t))}</option>`).join('');
+  const e = ENTRIES.find(x => x.key === pickKey);
+  const today = mondayOf(new Date());
+  let from, to;
+  if (e.gi === 0){ from = mondayOf(LIST_FROM); to = addW(today, 26); }
+  else { from = addW(ENTRIES[e.gi-1].start, 1); to = addW(from > today ? from : today, 52); }
+  const cur = ymd(e.start), thisMon = ymd(today), nextMon = ymd(addW(today,1));
+  let opts = '', d = from;
+  while (d <= to){
+    const v = ymd(d), end = new Date(d); end.setDate(end.getDate()+6);
+    const tag = v === thisMon ? ' (tuần này)' : v === nextMon ? ' (tuần sau)' : '';
+    opts += `<option value="${v}"${v===cur?' selected':''}>T2 ${d2(d)}/${d.getFullYear()} – CN ${d2(end)}/${end.getFullYear()}${tag}</option>`;
+    d = addW(d, 1);
+  }
+  document.getElementById('wkDate').innerHTML = opts;
+  const sh = state.shifts || {};
+  const items = Object.keys(sh).map(k => ENTRIES.find(x => x.key === k)).filter(Boolean).sort((a,b) => a.gi - b.gi);
+  document.getElementById('shiftList').innerHTML = items.length ? 'Đã dời: ' + items.map(x =>
+    `<span class="shift">Tuần ${x.sn} → ${d2(x.start)}/${x.start.getFullYear()}<button type="button" data-unshift="${x.key}" title="Bỏ dời, học nối tiếp tuần trước">✕</button></span>`).join('') : '';
+}
+function setWeekDate(key, v){
+  if (key === 'p1-w01') return setStart(v);
+  const e = ENTRIES.find(x => x.key === key); if (!e) return;
+  state.shifts = state.shifts || {};
+  const natural = ymd(addW(ENTRIES[e.gi-1].start, 1));
+  if (v === natural) delete state.shifts[key]; else state.shifts[key] = v;
+  applyStart(); render(); scheduleWrite(); go(key);
+}
 document.addEventListener('click', ev => {
-  if (ev.target.closest && ev.target.closest('.wd-sel')){ ev.preventDefault(); return; }
-  const b = ev.target.closest && ev.target.closest('[data-start]'); if (!b) return;
-  setStart(ymd(addW(mondayOf(new Date()), Number(b.dataset.start))));
+  if (!ev.target.closest) return;
+  if (ev.target.closest('.wd-sel')){ ev.preventDefault(); return; }
+  const u = ev.target.closest('[data-unshift]');
+  if (u){ delete state.shifts[u.dataset.unshift]; applyStart(); render(); scheduleWrite(); return; }
+  const p = ev.target.closest('.port[data-go]');
+  if (p){ const e = ENTRIES.find(x => x.key === p.dataset.go); if (e && !e.buf){ pickKey = e.key; fillPicker(); } }
 });
 function go(key){
   const el = document.getElementById('wk-' + key); if (!el) return;
