@@ -120,7 +120,7 @@ select{font:inherit;font-size:13px;padding:4px 8px;border-radius:6px;border:1px 
 <div class="wrap">
   <header>
     <h1>Lịch học gộp · CCNA, Routing, CCNP, NSE 4</h1>
-    <p class="sub">CCNA + Routing → ENCOR → NSE 4 → ENARSI → phỏng vấn · <span id="span">12/10/2026 – 23/04/2028 · 78 tuần học + 2 tuần Tết</span> · khoảng 10 giờ/tuần · học bằng sách, chỗ nào chưa hiểu hỏi Claude trực tiếp</p>
+    <p class="sub">CCNA + Routing → ENCOR → NSE 4 → ENARSI → phỏng vấn · <span id="span">26/10/2026 – 7/5/2028 · 78 tuần học + 2 tuần Tết</span> · khoảng 10 giờ/tuần · học bằng sách, chỗ nào chưa hiểu hỏi Claude trực tiếp</p>
   </header>
 
   <section class="panel" aria-labelledby="h-prog">
@@ -191,7 +191,8 @@ select{font:inherit;font-size:13px;padding:4px 8px;border-radius:6px;border:1px 
 
 <script>
 /* ============ DỮ LIỆU ============ */
-const DEFAULT_START = new Date(2026, 9, 12); // Thứ 2, 12/10/2026 (mốc gốc)
+const DEFAULT_START = new Date(2026, 9, 26); // Thứ 2, 26/10/2026 (lùi từ 12/10 vì chưa bắt đầu được)
+const LIST_FROM = new Date(2026, 9, 12); // danh sách chọn tuần bắt đầu từ mốc gốc
 let START = DEFAULT_START;
 /* Tuần Tết neo theo lịch thật: dời ngày bắt đầu thì Tết vẫn đúng tuần Tết */
 const TET_ANCHOR = {"p1-tet": new Date(2027, 1, 1), "p5-tet": new Date(2028, 0, 24)};
@@ -2009,7 +2010,7 @@ function renderHeader(){
   const sel = document.getElementById('startSel');
   const cur = ymd(mondayOf(START)), thisMon = ymd(mondayOf(new Date()));
   const last = addW(mondayOf(new Date()), 26);
-  let opts = '', d = mondayOf(DEFAULT_START);
+  let opts = '', d = mondayOf(LIST_FROM);
   while (d <= last){
     const v = ymd(d), end = new Date(d); end.setDate(end.getDate()+6);
     const tag = v === thisMon ? ' (tuần này)' : v === ymd(addW(mondayOf(new Date()),1)) ? ' (tuần sau)' : '';
