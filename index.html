@@ -103,6 +103,8 @@ ul.chk li.done span{color:var(--muted);text-decoration:line-through}
 .startpick{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px;font-size:14px}
 .startpick label{font-weight:600}
 .muted-s{font-size:13px;color:var(--muted)}
+#startSel{font-size:14px;padding:6px 10px;color-scheme:light dark}
+#startSel option{background:var(--panel);color:var(--ink)}
 select{font:inherit;font-size:13px;padding:4px 8px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
 .hide-done ul.chk li.done{display:none}
 .note{font-size:13px;color:var(--muted);margin:8px 0 0}
@@ -126,6 +128,8 @@ select{font:inherit;font-size:13px;padding:4px 8px;border-radius:6px;border:1px 
     <div class="startpick">
       <label for="startSel">Tuần bắt đầu học:</label>
       <select id="startSel"></select>
+      <button class="b" type="button" data-start="0">Bắt đầu tuần này</button>
+      <button class="b" type="button" data-start="1">Bắt đầu tuần sau</button>
       <span id="startNote" class="muted-s"></span>
     </div>
     <div class="stats">
@@ -2083,14 +2087,21 @@ document.addEventListener('change', ev => {
     t.closest('li').classList.toggle('done', t.checked);
     refresh(); scheduleWrite();
   } else if (t.id === 'startSel'){
-    const v = t.value, d = parseYMD(v);
-    state.start = (d && sameDay(d, DEFAULT_START)) ? null : v;
-    applyStart(); render(); scheduleWrite();
-    if (NOW < 0) go(ENTRIES[0].key);
+    setStart(t.value);
   } else if (t.dataset && t.dataset.lvl){
     if (t.value) state.lvl[t.dataset.lvl] = Number(t.value); else delete state.lvl[t.dataset.lvl];
     refresh(); scheduleWrite();
   }
+});
+function setStart(v){
+  const d = parseYMD(v);
+  state.start = (d && sameDay(d, DEFAULT_START)) ? null : v;
+  applyStart(); render(); scheduleWrite();
+  if (NOW < 0) go(ENTRIES[0].key); else go(ENTRIES[NOW].key);
+}
+document.addEventListener('click', ev => {
+  const b = ev.target.closest && ev.target.closest('[data-start]'); if (!b) return;
+  setStart(ymd(addW(mondayOf(new Date()), Number(b.dataset.start))));
 });
 function go(key){
   const el = document.getElementById('wk-' + key); if (!el) return;
