@@ -100,6 +100,9 @@ ul.chk li.done span{color:var(--muted);text-decoration:line-through}
 .out{background:var(--accent-soft);border-radius:8px;padding:8px 12px}
 .out h4{color:var(--accent)}
 .rate{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.startpick{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px;font-size:14px}
+.startpick label{font-weight:600}
+.muted-s{font-size:13px;color:var(--muted)}
 select{font:inherit;font-size:13px;padding:4px 8px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
 .hide-done ul.chk li.done{display:none}
 .note{font-size:13px;color:var(--muted);margin:8px 0 0}
@@ -115,11 +118,16 @@ select{font:inherit;font-size:13px;padding:4px 8px;border-radius:6px;border:1px 
 <div class="wrap">
   <header>
     <h1>Lịch học gộp · CCNA, Routing, CCNP, NSE 4</h1>
-    <p class="sub">CCNA + Routing → ENCOR → NSE 4 → ENARSI → phỏng vấn · 12/10/2026 – 23/04/2028 · 78 tuần học + 2 tuần Tết · khoảng 10 giờ/tuần · học bằng sách, chỗ nào chưa hiểu hỏi Claude trực tiếp</p>
+    <p class="sub">CCNA + Routing → ENCOR → NSE 4 → ENARSI → phỏng vấn · <span id="span">12/10/2026 – 23/04/2028 · 78 tuần học + 2 tuần Tết</span> · khoảng 10 giờ/tuần · học bằng sách, chỗ nào chưa hiểu hỏi Claude trực tiếp</p>
   </header>
 
   <section class="panel" aria-labelledby="h-prog">
     <h2 id="h-prog" hidden>Tiến độ</h2>
+    <div class="startpick">
+      <label for="startSel">Tuần bắt đầu học:</label>
+      <select id="startSel"></select>
+      <span id="startNote" class="muted-s"></span>
+    </div>
     <div class="stats">
       <div><b id="pct">0%</b> <span>hoàn thành</span></div>
       <div><b id="cnt">0</b> <span id="cntOf">/ 0 đầu việc</span></div>
@@ -179,7 +187,10 @@ select{font:inherit;font-size:13px;padding:4px 8px;border-radius:6px;border:1px 
 
 <script>
 /* ============ DỮ LIỆU ============ */
-const START = new Date(2026, 9, 12); // Thứ 2, 12/10/2026
+const DEFAULT_START = new Date(2026, 9, 12); // Thứ 2, 12/10/2026 (mốc gốc)
+let START = DEFAULT_START;
+/* Tuần Tết neo theo lịch thật: dời ngày bắt đầu thì Tết vẫn đúng tuần Tết */
+const TET_ANCHOR = {"p1-tet": new Date(2027, 1, 1), "p5-tet": new Date(2028, 0, 24)};
 const CAT = [
   ['th','Lý thuyết','3 giờ'],
   ['lab','Lab dựng mới','3 giờ'],
@@ -1839,47 +1850,66 @@ const fmt = s => esc(s).replace(/`([^`]+)`/g,'<code>$1</code>');
 const real = s => s && s.trim() && s.trim() !== '—';
 const d2 = d => d.getDate() + '/' + (d.getMonth()+1);
 
+const mondayOf = d => { const x = new Date(d); x.setHours(0,0,0,0); x.setDate(x.getDate() - ((x.getDay()+6)%7)); return x; };
+const addW = (d,n) => { const x = new Date(d); x.setDate(x.getDate() + n*7); x.setHours(0,0,0,0); return x; };
+const sameDay = (a,b) => a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
+
 function buildEntries(){
-  const out = []; let gi = 0, study = 0;
-  PHASES.forEach(p => {
-    let n = 0;
-    p.weeks.forEach(w => {
-      const start = new Date(START.getTime() + gi*7*DAY + 3600000); // +1h tránh lệch giờ
-      start.setHours(0,0,0,0);
-      const end = new Date(start.getTime() + 6*DAY + 3600000); end.setHours(0,0,0,0);
-      const e = {p, w, gi, start, end, buf: !!w.buf};
-      if (w.buf){ e.key = p.id + '-tet'; e.label = 'Tết'; }
-      else { n++; study++; e.n = n; e.sn = study; e.key = p.id + '-w' + String(n).padStart(2,'0'); e.label = String(study); }
-      e.items = [];
-      if (e.buf){
-        w.items.forEach((t,j) => e.items.push({id:e.key+'-i'+j, cat:'items', t}));
-      } else {
-        CAT.forEach(([k]) => {
-          const v = w[k]; if (!v) return;
-          (Array.isArray(v) ? v : [v]).filter(real).forEach((t,j) => e.items.push({id:e.key+'-'+k+j, cat:k, t}));
-        });
-      }
-      if (real(w.out)) e.items.push({id:e.key+'-out', cat:'out', t:w.out});
-      out.push(e); gi++;
-    });
-  });
+  // 1) Tách tuần học (theo thứ tự) và tuần Tết (neo theo ngày)
+  const study = [], bufs = [];
+  PHASES.forEach(p => { let n = 0; p.weeks.forEach(w => {
+    if (w.buf){ const key = p.id + '-tet'; bufs.push({p, w, key, anchor: TET_ANCHOR[key]}); }
+    else { n++; study.push({p, w, n, key: p.id + '-w' + String(n).padStart(2,'0')}); }
+  }); });
+  // 2) Trải lên lịch từ START: gặp tuần Tết thì chèn Tết, còn lại lấy tuần học kế tiếp
+  const out = []; let gi = 0, si = 0;
+  let d = mondayOf(START);
+  while (si < study.length){
+    const b = bufs.find(x => x.anchor && sameDay(x.anchor, d));
+    let e;
+    if (b){
+      const prev = out.length ? out[out.length-1].p : study[si].p;
+      e = {p: prev, w: b.w, key: b.key, label: 'Tết', buf: true};
+    } else {
+      const s = study[si++];
+      e = {p: s.p, w: s.w, key: s.key, n: s.n, sn: si, label: String(si), buf: false};
+    }
+    e.gi = gi++; e.start = d; e.end = new Date(d); e.end.setDate(e.end.getDate()+6);
+    const w = e.w; e.items = [];
+    if (e.buf){
+      w.items.forEach((t,j) => e.items.push({id:e.key+'-i'+j, cat:'items', t}));
+    } else {
+      CAT.forEach(([k]) => {
+        const v = w[k]; if (!v) return;
+        (Array.isArray(v) ? v : [v]).filter(real).forEach((t,j) => e.items.push({id:e.key+'-'+k+j, cat:k, t}));
+      });
+    }
+    if (real(w.out)) e.items.push({id:e.key+'-out', cat:'out', t:w.out});
+    out.push(e); d = addW(d, 1);
+  }
   return out;
 }
-const ENTRIES = buildEntries();
 const GATES = PHASES.map(p => ({id:p.id+'-gate', t:p.gate, p}));
-const ALL_IDS = ENTRIES.flatMap(e => e.items.map(i => i.id)).concat(GATES.map(g => g.id));
+let ENTRIES = [], ALL_IDS = [], NOW = -1;
+function rebuild(){
+  ENTRIES = buildEntries();
+  ALL_IDS = ENTRIES.flatMap(e => e.items.map(i => i.id)).concat(GATES.map(g => g.id));
+  NOW = currentIndex();
+}
 
 function currentIndex(){
   const now = new Date(); now.setHours(12,0,0,0);
-  if (now < ENTRIES[0].start) return 0;
+  if (now < ENTRIES[0].start) return -1; // chưa tới tuần bắt đầu
   for (let i=0;i<ENTRIES.length;i++){ if (now >= ENTRIES[i].start && now <= new Date(ENTRIES[i].end.getTime()+DAY-1)) return i; }
   return ENTRIES.length - 1;
 }
-const NOW = currentIndex();
 
 /* ---------- state ---------- */
-let state = {done:{}, lvl:{}};
-try { const c = JSON.parse(localStorage.getItem(LKEY) || 'null'); if (c && c.done) state = {done:c.done||{}, lvl:c.lvl||{}}; } catch(e){}
+let state = {done:{}, lvl:{}, start:null};
+try { const c = JSON.parse(localStorage.getItem(LKEY) || 'null'); if (c && c.done) state = {done:c.done||{}, lvl:c.lvl||{}, start:c.start||null}; } catch(e){}
+const parseYMD = v => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v||''); return m ? new Date(+m[1], +m[2]-1, +m[3]) : null; };
+const ymd = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+function applyStart(){ START = parseYMD(state.start) || DEFAULT_START; rebuild(); }
 function cacheLocal(){ try { localStorage.setItem(LKEY, JSON.stringify(state)); } catch(e){} }
 
 /* ---------- render ---------- */
@@ -1904,12 +1934,13 @@ function weekHTML(e){
     const v = state.lvl[e.key] || '';
     body += `<div class="rate"><label for="lvl-${e.key}">Tự chấm cuối tuần:</label><select id="lvl-${e.key}" data-lvl="${e.key}"><option value="">Chưa chấm</option>${[1,2,3,4,5].map(n=>`<option value="${n}"${String(v)===String(n)?' selected':''}>Mức ${n}</option>`).join('')}</select></div>`;
   }
-  return `<details class="wk${isNow?' is-now':''}${e.buf?' buf':''}" id="wk-${e.key}" style="--pc:${e.p.color}"${isNow?' open':''}>
+  return `<details class="wk${isNow?' is-now':''}${e.buf?' buf':''}" id="wk-${e.key}" style="--pc:${e.p.color}"${(isNow || (NOW<0 && e.gi===0))?' open':''}>
     <summary><span class="wn">${num}</span><span class="wt">${esc(w.t)}${isNow?'<span class="tag-now">Tuần này</span>':''}</span><span class="wd">${dates}</span><span class="wc" id="wc-${e.key}"></span></summary>
     <div class="wk-body">${body}</div></details>`;
 }
 
 function render(){
+  renderHeader();
   const html = PHASES.map(p => {
     const es = ENTRIES.filter(e => e.p === p);
     const first = es[0], last = es[es.length-1];
@@ -1953,7 +1984,35 @@ function refresh(){
   });
   document.getElementById('wkDone').textContent = full;
   const ne = ENTRIES[NOW];
-  document.getElementById('nowLbl').textContent = ne.buf ? 'Tuần Tết' : 'Tuần ' + ne.sn;
+  const nowEl = document.getElementById('nowLbl');
+  if (NOW < 0){
+    const today = new Date(); today.setHours(0,0,0,0);
+    const days = Math.round((ENTRIES[0].start - today) / DAY);
+    nowEl.textContent = 'Chưa bắt đầu';
+    document.getElementById('startNote').textContent = 'Còn ' + days + ' ngày nữa tới tuần 1 (' + d2(ENTRIES[0].start) + '/' + ENTRIES[0].start.getFullYear() + ').';
+  } else {
+    nowEl.textContent = ne.buf ? 'Tuần Tết' : 'Tuần ' + ne.sn;
+    document.getElementById('startNote').textContent = '';
+  }
+}
+
+function renderHeader(){
+  const f = ENTRIES[0], l = ENTRIES[ENTRIES.length-1];
+  const nT = ENTRIES.filter(e => e.buf).length, nS = ENTRIES.length - nT;
+  document.getElementById('span').textContent = d2(f.start) + '/' + f.start.getFullYear() + ' – ' + d2(l.end) + '/' + l.end.getFullYear() + ' · ' + nS + ' tuần học' + (nT ? ' + ' + nT + ' tuần Tết' : '');
+  document.getElementById('ports').setAttribute('aria-label', ENTRIES.length + ' tuần');
+  // Danh sách thứ Hai để chọn: từ mốc gốc tới 26 tuần sau hôm nay
+  const sel = document.getElementById('startSel');
+  const cur = ymd(mondayOf(START)), thisMon = ymd(mondayOf(new Date()));
+  const last = addW(mondayOf(new Date()), 26);
+  let opts = '', d = mondayOf(DEFAULT_START);
+  while (d <= last){
+    const v = ymd(d), end = new Date(d); end.setDate(end.getDate()+6);
+    const tag = v === thisMon ? ' (tuần này)' : v === ymd(addW(mondayOf(new Date()),1)) ? ' (tuần sau)' : '';
+    opts += `<option value="${v}"${v===cur?' selected':''}>T2 ${d2(d)}/${d.getFullYear()} – CN ${d2(end)}${tag}</option>`;
+    d = addW(d, 1);
+  }
+  sel.innerHTML = opts;
 }
 
 function applyStateToDom(){
@@ -1981,7 +2040,7 @@ async function flush(){
   if (writing || !dirty) return;
   writing = true; dirty = false;
   try {
-    await dbRef.set({done: state.done, lvl: state.lvl, updatedAt: new Date().toISOString()});
+    await dbRef.set({done: state.done, lvl: state.lvl, start: state.start || null, updatedAt: new Date().toISOString()});
     setSave('Đã lưu. Tiến độ đồng bộ trên mọi thiết bị bạn mở trang này.');
   } catch(err){
     if (err && err.code === 'invalid_argument'){ canWrite = false; setSave('Chế độ chỉ xem: thay đổi của bạn không được lưu lên trang.'); }
@@ -2003,8 +2062,10 @@ async function connectDb(){
     if (snap.metadata && snap.metadata.hasPendingWrites) return;
     if (snap.exists){
       const d = snap.data() || {};
-      state = {done: Object.assign({}, d.done || {}), lvl: Object.assign({}, d.lvl || {})};
-      cacheLocal(); applyStateToDom();
+      const prevStart = state.start || null;
+      state = {done: Object.assign({}, d.done || {}), lvl: Object.assign({}, d.lvl || {}), start: d.start || null};
+      cacheLocal();
+      if ((state.start || null) !== prevStart){ applyStart(); render(); } else applyStateToDom();
       setSave('Đã đồng bộ. Tiến độ lưu cùng trang, mở ở máy nào cũng thấy.');
     } else if (first){
       if (Object.keys(state.done).length || Object.keys(state.lvl).length){ dirty = true; flush(); }
@@ -2021,6 +2082,11 @@ document.addEventListener('change', ev => {
     if (t.checked) state.done[t.dataset.id] = 1; else delete state.done[t.dataset.id];
     t.closest('li').classList.toggle('done', t.checked);
     refresh(); scheduleWrite();
+  } else if (t.id === 'startSel'){
+    const v = t.value, d = parseYMD(v);
+    state.start = (d && sameDay(d, DEFAULT_START)) ? null : v;
+    applyStart(); render(); scheduleWrite();
+    if (NOW < 0) go(ENTRIES[0].key);
   } else if (t.dataset && t.dataset.lvl){
     if (t.value) state.lvl[t.dataset.lvl] = Number(t.value); else delete state.lvl[t.dataset.lvl];
     refresh(); scheduleWrite();
@@ -2033,11 +2099,12 @@ function go(key){
 document.addEventListener('click', ev => {
   const b = ev.target.closest && ev.target.closest('[data-go]'); if (b) go(b.dataset.go);
 });
-document.getElementById('goNow').onclick = () => go(ENTRIES[NOW].key);
+document.getElementById('goNow').onclick = () => go(ENTRIES[Math.max(NOW,0)].key);
 document.getElementById('expand').onclick = () => document.querySelectorAll('details.wk').forEach(d => d.open = true);
 document.getElementById('collapse').onclick = () => document.querySelectorAll('details.wk').forEach(d => d.open = false);
 document.getElementById('hideDone').onchange = ev => document.body.classList.toggle('hide-done', ev.target.checked);
 
+applyStart();
 render();
 connectDb();
 
