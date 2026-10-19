@@ -55,6 +55,7 @@ code{background:var(--accent-soft);padding:1px 5px;border-radius:4px}
 .port.buf i{background:var(--led-buf)}
 .port.now{border-color:var(--led-now);box-shadow:0 0 0 1px var(--led-now)}
 .port.now i{outline:1px solid var(--led-now)}
+.port.sel{border-color:var(--led-now);box-shadow:0 0 0 2px var(--led-now);color:var(--led-now);background:color-mix(in srgb,var(--led-now) 18%,var(--bg))}
 .port:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted);margin-top:10px}
 .legend i{display:inline-block;width:10px;height:6px;border-radius:2px;margin-right:5px;vertical-align:middle}
@@ -153,6 +154,7 @@ select{font:inherit;font-size:13px;padding:4px 8px;border-radius:6px;border:1px 
       <span><i style="background:var(--led-off)"></i>Chưa bắt đầu</span>
       <span><i style="background:var(--led-buf)"></i>Tuần Tết</span>
       <span><i style="background:transparent;outline:2px solid var(--led-now)"></i>Tuần hiện tại</span>
+      <span><i style="background:var(--led-now)"></i>Tuần đang chọn</span>
     </div>
     <div class="phase-strip" id="strip"></div>
     <p class="save" id="saveState">Đang kết nối nơi lưu tiến độ…</p>
@@ -1988,7 +1990,7 @@ function refresh(){
     const t = e.items.length, d = e.items.filter(i => state.done[i.id]).length;
     if (!e.buf && t && d === t) full++;
     const pt = document.getElementById('pt-' + e.key);
-    pt.className = 'port' + (e.buf ? ' buf' : '') + (t && d === t ? ' done' : d ? ' part' : '') + (e.gi === NOW ? ' now' : '');
+    pt.className = 'port' + (e.buf ? ' buf' : '') + (t && d === t ? ' done' : d ? ' part' : '') + (e.gi === NOW ? ' now' : '') + (e.key === pickKey ? ' sel' : '');
     const lv = state.lvl[e.key];
     document.getElementById('wc-' + e.key).textContent = d + '/' + t + ' việc' + (lv ? ' · tự chấm mức ' + lv : '');
   });
@@ -2103,7 +2105,7 @@ document.addEventListener('change', ev => {
   } else if (t.classList.contains('wd-sel')){
     pickKey = 'p1-w01'; setStart(t.value);
   } else if (t.id === 'wkPick'){
-    pickKey = t.value; fillPicker();
+    pickKey = t.value; fillPicker(); refresh();
   } else if (t.id === 'wkDate'){
     setWeekDate(pickKey, t.value);
   } else if (t.dataset && t.dataset.lvl){
@@ -2157,7 +2159,7 @@ document.addEventListener('click', ev => {
   const u = ev.target.closest('[data-unshift]');
   if (u){ delete state.shifts[u.dataset.unshift]; applyStart(); render(); scheduleWrite(); return; }
   const p = ev.target.closest('.port[data-go]');
-  if (p){ const e = ENTRIES.find(x => x.key === p.dataset.go); if (e && !e.buf){ pickKey = e.key; fillPicker(); } }
+  if (p){ const e = ENTRIES.find(x => x.key === p.dataset.go); if (e && !e.buf){ pickKey = e.key; fillPicker(); refresh(); } }
 });
 function go(key){
   const el = document.getElementById('wk-' + key); if (!el) return;
