@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Tuần 1 · OSI, PDU, MTU</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 1 · 26/10 – 01/11/2026</div>
+  <h1>OSI, TCP/IP, PDU, Ethernet/ARP, MTU</h1>
+  <p>Hướng dẫn từng ngày: đọc gì, lab gõ lệnh gì, nộp ra cái gì. Khoảng 10,5 giờ cả tuần.</p>
+  <p>Lý thuyết đầy đủ nằm ở bài giảng song ngữ. Trang này là <b>giáo án</b>: thứ tự học, điểm phải nắm, lab và bài kiểm tra.</p>
+  <div class="links">
+    <a href="osi-tcpip.html">Bài giảng OSI &amp; TCP/IP</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Hết tuần anh phải làm được 4 việc sau mà <b>không nhìn tài liệu</b>:</p>
+<ol>
+  <li>Vẽ lại đường đi của một gói từ PC tới web server qua router, ghi đúng MAC nguồn/đích và IP nguồn/đích ở từng chặng.</li>
+  <li>Mở một gói trong Wireshark và chỉ ra Ethernet header, IP header, TCP/UDP header, và trường nào cho biết tầng trên là gì.</li>
+  <li>Tính ra MSS từ MTU, giải thích vì sao PPPoE, VLAN tag, GRE, IPsec làm thay đổi con số đó.</li>
+  <li>Xử lý ticket "PC không vào được web" theo thứ tự tầng 1 → 7, mỗi tầng có một lệnh kiểm tra.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  Ở helpdesk anh nhìn một máy và một người dùng. Ở hạ tầng, anh nhìn <b>một luồng</b> đi qua nhiều thiết bị, mỗi thiết bị chỉ đọc tới một tầng nhất định. Switch đọc tới tầng 2, router đọc tới tầng 3, firewall đọc tới tầng 4 (hoặc 7 nếu là NGFW như FortiGate). Khi có sự cố, câu hỏi đầu tiên của kỹ sư không phải "lỗi gì" mà là "<b>gói đã đi tới đâu, bị thiết bị nào xử lý sai, ở tầng nào</b>". Mô hình OSI là bản đồ để trả lời câu đó. Tuần 1 không phải học thuộc 7 tầng; tuần 1 là tập nhìn mạng như một chuỗi chặng.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · Mô hình phân tầng, PDU</a></li>
+    <li><a href="#t3">Thứ 3 · Header, ARP, gói qua router</a></li>
+    <li><a href="#t4">Thứ 4 · Lab phần 1: dựng và bắt gói</a></li>
+    <li><a href="#t5">Thứ 5 · Lab phần 2: MTU, DF, verify</a></li>
+    <li><a href="#t6">Thứ 6 · Ôn lab, sửa sổ tay</a></li>
+    <li><a href="#t7">Thứ 7 · MOP #0 và diễn tập sự cố</a></li>
+    <li><a href="#cn">Chủ nhật · Tự kiểm tra, tự chấm</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày 15 phút</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (26/10) · Mô hình phân tầng và PDU</h2>
+<div class="meta"><span><b>1,5 giờ</b> đọc</span><span>Đầu ra: ghi chú tay + sơ đồ đóng gói vẽ lại</span></div>
+
+<h3>Đọc</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Odom Vol 1, chương "Introduction to TCP/IP Networking" (đọc kỹ phần đóng gói, bỏ qua lịch sử)</label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Bài giảng mục <a href="osi-tcpip.html#vi-1">1</a>, <a href="osi-tcpip.html#vi-3">3</a>, <a href="osi-tcpip.html#vi-4">4</a>, <a href="osi-tcpip.html#vi-6">6</a></label></li>
+  <li><input type="checkbox" id="t2-3"><label for="t2-3">Vẽ tay sơ đồ đóng gói Data → Segment → Packet → Frame → Bits, ghi tên header ở mỗi bước</label></li>
+</ul>
+
+<h3>5 điểm phải nắm hôm nay</h3>
+<ol>
+  <li><b>Mỗi tầng chỉ nói chuyện với tầng cùng số ở đầu bên kia.</b> TCP bên gửi "nói" với TCP bên nhận qua TCP header; nó không quan tâm có bao nhiêu router ở giữa. Đây là lý do một ứng dụng chạy được trên Wi-Fi, cáp đồng hay cáp quang mà không cần sửa.</li>
+  <li><b>Mỗi tầng chỉ phục vụ tầng ngay trên nó.</b> IP không biết HTTP là gì; nó chỉ biết trường Protocol = 6 (TCP).</li>
+  <li><b>PDU = header (có thể thêm trailer) + payload.</b> Payload của tầng N chính là nguyên PDU của tầng N+1.</li>
+  <li><b>Chỉ tầng 2 có trailer</b> (FCS 4 byte, CRC-32) để phát hiện lỗi bit trên một đoạn dây. Ethernet phát hiện lỗi rồi bỏ frame, không gửi lại. Việc gửi lại là của TCP.</li>
+  <li><b>Thực tế dùng TCP/IP, nói chuyện dùng số OSI.</b> Kỹ sư vẫn nói "lỗi tầng 2", "load balancer tầng 7". Tầng 5, 6 của OSI trong TCP/IP gộp vào ứng dụng (TLS chẳng hạn, nằm trong thư viện ứng dụng).</li>
+</ol>
+
+<div class="frame" aria-label="Cấu trúc một frame Ethernet chứa gói TCP">
+  <div class="h2">MAC đích<small>6 B</small></div>
+  <div class="h2">MAC nguồn<small>6 B</small></div>
+  <div class="h2">EtherType<small>2 B</small></div>
+  <div class="h3">IP header<small>20 B</small></div>
+  <div class="h4">TCP header<small>20 B</small></div>
+  <div>Data<small>≤ 1460 B</small></div>
+  <div class="h2">FCS<small>4 B</small></div>
+</div>
+<p style="color:var(--muted);font-size:.9rem">Phần giữa (IP header + TCP header + Data) tối đa 1500 byte, đó là MTU. Cả frame không tag: 14 + 1500 + 4 = 1518 byte.</p>
+
+<div class="box warn">
+  <strong>Bẫy hay gặp</strong>
+  "Switch là tầng 2, router là tầng 3" đúng nhưng chưa đủ. Switch L3 làm cả hai. Firewall và load balancer đọc tới tầng 4 hoặc 7. Trong datacenter, một hộp có thể đóng nhiều vai; hãy hỏi "<b>thiết bị này ra quyết định dựa trên trường nào</b>", câu trả lời cho anh biết nó làm việc ở tầng mấy.
+</div>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (27/10) · Header, ARP, gói đi qua router</h2>
+<div class="meta"><span><b>1,5 giờ</b> đọc + 5 phút tự giảng</span><span>Đầu ra: ghi chú + 5 câu hỏi để hỏi Claude</span></div>
+
+<h3>Đọc</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Odom Vol 1, phần Ethernet và ARP; Stevens TCP/IP Illustrated Vol 1, chương ARP (đọc phần ví dụ, bỏ phần proxy ARP)</label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Bài giảng mục <a href="osi-tcpip.html#vi-7">7</a>, <a href="osi-tcpip.html#vi-8">8</a>, <a href="osi-tcpip.html#vi-12">12</a></label></li>
+  <li><input type="checkbox" id="t3-3"><label for="t3-3">Tự giảng lại 5 phút (bật ghi âm điện thoại): "gói đi từ PC tới web server qua 1 router"</label></li>
+  <li><input type="checkbox" id="t3-4"><label for="t3-4">Viết ra 5 câu hỏi mình còn lấn cấn để hỏi Claude</label></li>
+</ul>
+
+<h3>Các trường header cần thuộc</h3>
+<div class="tbl"><table>
+<thead><tr><th>Header</th><th>Trường quan trọng</th><th>Dùng để làm gì trong vận hành</th></tr></thead>
+<tbody>
+<tr><td><span class="tag L2">L2</span> Ethernet II</td><td>MAC đích, MAC nguồn, EtherType (<code>0x0800</code> IPv4, <code>0x0806</code> ARP, <code>0x86DD</code> IPv6, <code>0x8100</code> có tag VLAN), FCS</td><td>Switch học MAC nguồn, chuyển theo MAC đích. Lỗi FCS tăng trên cổng = cáp/module/duplex có vấn đề.</td></tr>
+<tr><td><span class="tag L3">L3</span> IPv4</td><td>Total Length, Identification, Flags (DF, MF), TTL, Protocol (<code>1</code> ICMP, <code>6</code> TCP, <code>17</code> UDP, <code>47</code> GRE, <code>50</code> ESP, <code>89</code> OSPF), Header checksum, IP nguồn, IP đích, DSCP</td><td>TTL chống vòng lặp và là thứ <code>tracert</code> lợi dụng. DF quyết định gói có được phân mảnh không. DSCP dùng cho QoS.</td></tr>
+<tr><td><span class="tag L4">L4</span> TCP</td><td>Port nguồn, port đích, Sequence, Acknowledgment, Flags (SYN, ACK, FIN, RST, PSH), Window, Option MSS</td><td>Firewall giữ trạng thái phiên theo 5-tuple. RST = bị từ chối hoặc bị firewall cắt. MSS được thỏa thuận trong gói SYN.</td></tr>
+<tr><td><span class="tag L4">L4</span> UDP</td><td>Port nguồn, port đích, Length, Checksum (chỉ 8 byte)</td><td>DNS, DHCP, syslog, SNMP, VoIP. Không có bắt tay nên firewall phải đoán "phiên" bằng timeout.</td></tr>
+</tbody>
+</table></div>
+
+<div class="box ok">
+  <strong>Phân kênh: mỗi tầng chỉ tầng trên bằng một con số</strong>
+  EtherType nói payload là IP hay ARP. Protocol trong IP nói payload là TCP hay UDP. Port nói payload là ứng dụng nào. Ba con số này là "chỉ đường lên trên". Khi viết rule firewall hay ACL, anh đang khớp chính các trường này.
+</div>
+
+<h3>Gói đi qua router: 7 bước, nhớ theo thứ tự</h3>
+<div class="diagram" role="img" aria-label="Sơ đồ PC1 qua switch và router tới server, MAC đổi ở mỗi chặng còn IP giữ nguyên">
+<svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .n{fill:var(--panel);stroke:var(--ink);stroke-width:1.5}
+    .t{fill:var(--ink);font-size:13px}
+    .s{fill:var(--muted);font-size:11px}
+    .ln{stroke:var(--ink);stroke-width:1.5}
+    .hop1{fill:var(--warn-soft);stroke:var(--warn)}
+    .hop2{fill:var(--ok-soft);stroke:var(--ok)}
+  </style>
+  <rect class="n" x="10" y="40" width="110" height="54" rx="8"/>
+  <text class="t" x="65" y="62" text-anchor="middle">PC1</text>
+  <text class="s" x="65" y="80" text-anchor="middle">192.168.10.10</text>
+  <rect class="n" x="190" y="40" width="100" height="54" rx="8"/>
+  <text class="t" x="240" y="62" text-anchor="middle">SW1</text>
+  <text class="s" x="240" y="80" text-anchor="middle">chỉ đọc L2</text>
+  <rect class="n" x="360" y="40" width="130" height="54" rx="8"/>
+  <text class="t" x="425" y="62" text-anchor="middle">R1</text>
+  <text class="s" x="425" y="80" text-anchor="middle">g0/0 .10.1 · g0/1 .20.1</text>
+  <rect class="n" x="600" y="40" width="150" height="54" rx="8"/>
+  <text class="t" x="675" y="62" text-anchor="middle">SRV (web)</text>
+  <text class="s" x="675" y="80" text-anchor="middle">192.168.20.10</text>
+  <line class="ln" x1="120" y1="67" x2="190" y2="67"/>
+  <line class="ln" x1="290" y1="67" x2="360" y2="67"/>
+  <line class="ln" x1="490" y1="67" x2="600" y2="67"/>
+  <rect class="hop1" x="10" y="120" width="480" height="110" rx="8"/>
+  <text class="t" x="24" y="142" font-weight="700">Chặng 1 (LAN 192.168.10.0/24)</text>
+  <text class="t" x="24" y="164">MAC nguồn: PC1 · MAC đích: R1 g0/0</text>
+  <text class="t" x="24" y="184">IP nguồn: 192.168.10.10 · IP đích: 192.168.20.10</text>
+  <text class="s" x="24" y="206">PC1 thấy đích khác mạng → ARP hỏi MAC của gateway, không hỏi MAC server</text>
+  <rect class="hop2" x="500" y="120" width="250" height="110" rx="8"/>
+  <text class="t" x="512" y="142" font-weight="700">Chặng 2 (192.168.20.0/24)</text>
+  <text class="t" x="512" y="164">MAC nguồn: R1 g0/1</text>
+  <text class="t" x="512" y="184">MAC đích: SRV</text>
+  <text class="t" x="512" y="206">IP: giữ nguyên · TTL −1</text>
+</svg>
+</div>
+<ol>
+  <li><b>Nhận frame, kiểm FCS.</b> Sai FCS → bỏ, đếm vào <code>input errors / CRC</code>.</li>
+  <li><b>Kiểm MAC đích</b> có phải MAC cổng của mình (hoặc broadcast/multicast mình nghe) không. Không phải → bỏ.</li>
+  <li><b>Bóc header L2</b>, kiểm checksum IP header.</li>
+  <li><b>Giảm TTL đi 1.</b> Về 0 → bỏ, gửi ICMP Time Exceeded (type 11) về nguồn. Đây chính là cơ chế của <code>tracert</code>.</li>
+  <li><b>Tra bảng định tuyến</b> (thực tế là FIB/CEF) theo <b>longest prefix match</b> để ra cổng ra + next-hop. Không có route → bỏ, có thể gửi ICMP Unreachable.</li>
+  <li><b>Kiểm MTU cổng ra.</b> Gói lớn hơn MTU: nếu DF = 1 → bỏ, gửi ICMP type 3 code 4 "Fragmentation needed" kèm MTU của chặng sau; nếu DF = 0 → phân mảnh (IPv4).</li>
+  <li><b>Tìm MAC next-hop</b> trong bảng ARP (thiếu thì ARP), <b>đóng frame mới</b>: MAC nguồn = cổng ra của router, MAC đích = next-hop, tính FCS mới.</li>
+</ol>
+
+<div class="tbl"><table>
+<thead><tr><th>Đổi ở mỗi router</th><th>Giữ nguyên từ đầu tới cuối</th></tr></thead>
+<tbody><tr>
+<td>MAC nguồn, MAC đích, FCS, TTL, IP header checksum (vì TTL đổi)</td>
+<td>IP nguồn, IP đích, port nguồn, port đích, payload. <b>Ngoại lệ:</b> NAT đổi IP (và PAT đổi cả port). Firewall biên của công ty thường làm NAT, nên khi đọc log trên FortiGate phải biết mình đang nhìn IP trước hay sau NAT.</td>
+</tr></tbody>
+</table></div>
+
+<div class="box">
+  <strong>Liên hệ thực tế</strong>
+  Lần anh dò máy nhận VLAN 4 ở văn phòng: <code>show mac address-table address &lt;mac&gt;</code> trên core ra port Gi1/0/13, <code>show cdp neighbors</code> ra switch access, lặp lại trên switch access ra Fa0/4. Đó chính là "đi theo chặng ở tầng 2". Tuần này anh làm điều tương tự ở tầng 3 với ARP và bảng định tuyến.
+</div>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (28/10) · Lab phần 1: dựng topology, bắt ARP và ping</h2>
+<div class="meta"><span><b>1,5 giờ</b> lab</span><span>Đầu ra: config lưu vào git, file .pcapng có chú thích</span></div>
+
+<h3>Topology và bảng địa chỉ</h3>
+<p>Một router, một switch, một PC, một server. Ít thiết bị để nhìn rõ từng header.</p>
+<div class="tbl"><table>
+<thead><tr><th>Thiết bị</th><th>Cổng</th><th>IP / mask</th><th>Gateway</th></tr></thead>
+<tbody>
+<tr><td>PC1</td><td>NIC → SW1 Fa0/1</td><td>192.168.10.10 /24</td><td>192.168.10.1</td></tr>
+<tr><td>SW1</td><td>Fa0/1 → PC1, Gi0/1 → R1</td><td>(không cần IP tuần này)</td><td></td></tr>
+<tr><td>R1</td><td>G0/0 → SW1</td><td>192.168.10.1 /24</td><td></td></tr>
+<tr><td>R1</td><td>G0/1 → SRV</td><td>192.168.20.1 /24</td><td></td></tr>
+<tr><td>SRV</td><td>NIC → R1 G0/1</td><td>192.168.20.10 /24</td><td>192.168.20.1</td></tr>
+</tbody>
+</table></div>
+<p style="color:var(--muted);font-size:.9rem">Packet Tracer: dùng Server-PT, bật dịch vụ HTTP. CML/EVE-NG: dùng một VM Linux nhỏ (Alpine, TinyCore) chạy <code>python3 -m http.server 80</code>; Wireshark bắt được trực tiếp trên link.</p>
+
+<h3>Cấu hình R1 (gõ tay, không dán)</h3>
+<pre><span class="c">! Dựng từ máy trống. Gõ tay để tay nhớ lệnh.</span>
+enable
+configure terminal
+ hostname R1
+ no ip domain-lookup
+ interface GigabitEthernet0/0
+  description LAN-PC
+  ip address 192.168.10.1 255.255.255.0
+  no shutdown
+ interface GigabitEthernet0/1
+  description LAN-SRV
+  ip address 192.168.20.1 255.255.255.0
+  no shutdown
+ end
+copy running-config startup-config</pre>
+
+<h3>Verify, đọc và giải thích từng dòng</h3>
+<pre>R1# show ip interface brief        <span class="c">! 2 cổng phải up/up</span>
+R1# show ip route                  <span class="c">! thấy 2 dòng C và 2 dòng L: vì sao có /32?</span>
+R1# show interfaces g0/0           <span class="c">! tìm MTU 1500 bytes, MAC (bia), input errors, CRC</span>
+R1# show arp                       <span class="c">! trước khi ping: chỉ có MAC của chính R1</span>
+SW1# show mac address-table dynamic</pre>
+
+<h3>Bắt gói</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1">Dựng topology, cấu hình R1 và IP cho PC1, SRV; <code>show ip interface brief</code> đúng</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2">Xóa ARP: trên PC <code>arp -d *</code> (Windows, chạy quyền admin), trên R1 <code>clear arp-cache</code></label></li>
+  <li><input type="checkbox" id="t4-3"><label for="t4-3">Bật Wireshark trên link PC1–SW1, lọc <code>arp || icmp</code>, rồi từ PC1 <code>ping 192.168.20.10</code></label></li>
+  <li><input type="checkbox" id="t4-4"><label for="t4-4">Chỉ ra: ARP request là broadcast (<code>ff:ff:ff:ff:ff:ff</code>), hỏi MAC của 192.168.10.1, không phải của server</label></li>
+  <li><input type="checkbox" id="t4-5"><label for="t4-5">Bắt thêm trên link R1–SRV: so 2 gói ICMP cùng một lần ping. MAC khác, IP giống, TTL giảm 1</label></li>
+  <li><input type="checkbox" id="t4-6"><label for="t4-6">Từ PC1 mở web <code>http://192.168.20.10</code>, lọc <code>tcp.port == 80</code>, đánh dấu 3 gói bắt tay SYN, SYN-ACK, ACK</label></li>
+  <li><input type="checkbox" id="t4-7"><label for="t4-7">Ghi lại <code>show arp</code> và <code>show mac address-table</code> sau khi ping: MAC nào xuất hiện, ở port nào</label></li>
+</ul>
+
+<div class="tbl"><table>
+<thead><tr><th>Bộ lọc Wireshark</th><th>Để xem gì</th></tr></thead>
+<tbody>
+<tr><td><code>arp</code></td><td>ARP request/reply</td></tr>
+<tr><td><code>icmp</code></td><td>ping, Time Exceeded, Unreachable</td></tr>
+<tr><td><code>ip.addr == 192.168.20.10</code></td><td>mọi thứ đi tới/từ server</td></tr>
+<tr><td><code>tcp.flags.syn == 1</code></td><td>chỉ gói mở kết nối (xem option MSS ở đây)</td></tr>
+<tr><td><code>tcp.flags.reset == 1</code></td><td>kết nối bị từ chối/cắt</td></tr>
+<tr><td><code>icmp.type == 3 &amp;&amp; icmp.code == 4</code></td><td>"Fragmentation needed" (dùng ngày mai)</td></tr>
+</tbody>
+</table></div>
+
+<h3>Tạo repo git cho lab</h3>
+<p>Repo riêng, ví dụ <code>ccna-lab</code>, tách khỏi repo lịch học này.</p>
+<pre>mkdir ccna-lab &amp;&amp; cd ccna-lab
+git init
+mkdir configs mop postmortem captures
+echo "# CCNA lab · Linh Vu" &gt; README.md
+<span class="c"># mỗi tuần một thư mục con: configs/W01/R1.txt, captures/W01/arp-icmp.pcapng</span>
+git add . &amp;&amp; git commit -m "W01: khung repo"</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-8"><label for="t4-8">Repo có <code>configs/</code>, <code>mop/</code>, <code>postmortem/</code>; đã commit <code>show running-config</code> của R1 vào <code>configs/W01/R1.txt</code></label></li>
+</ul>
+<div class="box warn">
+  <strong>Quy tắc bảo mật</strong>
+  Repo này chỉ chứa lab ở nhà. Không đưa cấu hình, IP thật, tên thiết bị hay ảnh chụp màn hình hạ tầng AEON vào bất kỳ repo nào. Nếu lỡ commit, xóa file thôi chưa đủ vì lịch sử git vẫn giữ.
+</div>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (29/10) · Lab phần 2: MTU, MSS, DF, Path MTU Discovery</h2>
+<div class="meta"><span><b>1,5 giờ</b> lab + verify</span><span>Đầu ra: output <code>show</code>/ping kèm giải thích bằng lời của anh</span></div>
+
+<h3>Phép tính phải tự làm được</h3>
+<div class="tbl"><table>
+<thead><tr><th>Trường hợp</th><th>MTU IP</th><th>MSS TCP</th><th>Lý do</th></tr></thead>
+<tbody>
+<tr><td>Ethernet thường</td><td>1500</td><td>1460</td><td>1500 − 20 IP − 20 TCP</td></tr>
+<tr><td>Có tag 802.1Q</td><td>1500</td><td>1460</td><td>Tag 4 byte nằm ở tầng 2: frame dài 1522, MTU IP <b>không đổi</b></td></tr>
+<tr><td>PPPoE (cáp quang FTTH)</td><td>1492</td><td>1452</td><td>Mất 8 byte cho header PPPoE + PPP</td></tr>
+<tr><td>GRE</td><td>1476</td><td>1436</td><td>Thêm IP header ngoài 20 + GRE 4</td></tr>
+<tr><td>IPsec (ESP, tunnel mode)</td><td>~1400 (đặt an toàn)</td><td>~1360</td><td>Overhead thay đổi theo thuật toán mã hóa, khoảng 50–73 byte; người ta chừa dư</td></tr>
+</tbody>
+</table></div>
+
+<h3>Ping kèm DF để dò MTU</h3>
+<p>Payload ICMP + 8 (ICMP header) + 20 (IP header) = kích thước gói IP. Muốn gói đúng 1500 thì payload = 1472.</p>
+<pre><span class="c"># Windows: -f = đặt DF, -l = kích thước payload ICMP</span>
+ping 192.168.20.10 -f -l 1472     <span class="c"># gói IP 1500: đi được</span>
+ping 192.168.20.10 -f -l 1473     <span class="c"># 1501: "Packet needs to be fragmented but DF set."</span>
+
+<span class="c"># Linux</span>
+ping -M do -s 1472 192.168.20.10
+
+<span class="c">! Cisco IOS: size là kích thước cả gói IP (đã gồm header)</span>
+R1# ping 192.168.20.10 size 1500 df-bit
+R1# ping 192.168.20.10 size 1501 df-bit</pre>
+
+<h3>Mô phỏng một chặng có MTU nhỏ</h3>
+<p>Làm trên CML/EVE-NG (Packet Tracer hỗ trợ lệnh này không đầy đủ). Hạ MTU cổng phía server để giả một đường hầm:</p>
+<pre>R1(config)# interface g0/1
+R1(config-if)# ip mtu 1400
+R1(config-if)# end
+R1# show ip interface g0/1 | include MTU</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1">Từ PC1: <code>ping 192.168.20.10 -f -l 1372</code> đi được, <code>-l 1373</code> bị báo cần phân mảnh</label></li>
+  <li><input type="checkbox" id="t5-2"><label for="t5-2">Wireshark trên link PC1–SW1 lọc <code>icmp.type == 3</code>: thấy R1 gửi "Fragmentation needed", mở gói xem trường <b>MTU of next hop = 1400</b></label></li>
+  <li><input type="checkbox" id="t5-3"><label for="t5-3">Ping <b>không</b> có <code>-f</code> với <code>-l 2000</code>: lọc <code>ip.flags.mf == 1</code> trên link R1–SRV để thấy gói bị phân mảnh</label></li>
+  <li><input type="checkbox" id="t5-4"><label for="t5-4">Thêm <code>ip tcp adjust-mss 1360</code> vào g0/0 của R1, mở lại web, xem option MSS trong gói SYN đã bị router sửa</label></li>
+  <li><input type="checkbox" id="t5-5"><label for="t5-5">Trả g0/1 về MTU 1500 (<code>no ip mtu</code>), bỏ adjust-mss, lưu config, commit</label></li>
+</ul>
+
+<div class="box">
+  <strong>Vì sao kỹ sư firewall phải hiểu cái này</strong>
+  Triệu chứng kinh điển: <b>ping được, web nhỏ vào được, nhưng trang HTTPS lớn, tải file, đồng bộ OneDrive hoặc VPN thì treo</b>. Nguyên nhân thường là một chặng có MTU nhỏ (PPPoE, IPsec, SD-WAN overlay) và ICMP "Fragmentation needed" bị firewall chặn, nên máy gửi không biết phải giảm kích thước. Gọi là <b>PMTUD black hole</b>. Cách xử lý ở biên: cho phép ICMP type 3 code 4, hoặc ép MSS (<code>ip tcp adjust-mss</code> trên Cisco; trên FortiGate có <code>tcp-mss-sender</code>/<code>tcp-mss-receiver</code> trong policy). Anh sẽ gặp lại chuyện này khi học SD-WAN và IPsec.
+</div>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (30/10) · Ôn lab, sửa sổ tay CCNA</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: ghi chú Google Docs đã sửa</span></div>
+
+<h3>Ôn lab trong 20 phút</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1">Xóa sạch R1 (<code>write erase</code>, <code>reload</code>), dựng lại từ trắng, bấm giờ. Mục tiêu dưới 10 phút</label></li>
+</ul>
+
+<h3>Sửa sổ tay (5 lỗi đã chỉ ra trong lịch)</h3>
+<p>Sửa bằng lời của anh, không chép nguyên câu dưới đây.</p>
+<ul class="check">
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">Tầng 6 không "chuyển data về mã máy". Đúng: <b>biểu diễn dữ liệu</b> (bảng mã ký tự như UTF-8, nén, mã hóa)</label></li>
+  <li><input type="checkbox" id="t6-3"><label for="t6-3">"MTU 1500 ⇒ 1492" sai. MTU Ethernet là 1500. 1492 chỉ khi chạy PPPoE</label></li>
+  <li><input type="checkbox" id="t6-4"><label for="t6-4">Ghi rõ phép tính MSS: 1500 − 20 − 20 = 1460. MSS chỉ tính phần dữ liệu TCP</label></li>
+  <li><input type="checkbox" id="t6-5"><label for="t6-5">Frame 64–1518 byte là frame không tag; có tag 802.1Q tối đa 1522</label></li>
+  <li><input type="checkbox" id="t6-6"><label for="t6-6">Multicast: switch không bật IGMP snooping thì multicast bị flood như broadcast</label></li>
+  <li><input type="checkbox" id="t6-7"><label for="t6-7">Thêm vào sổ: bảng "đổi / giữ nguyên khi qua router" và 7 bước xử lý gói ở Thứ 3</label></li>
+</ul>
+<div class="box warn">
+  <strong>Thêm một lỗi tôi thấy trong sổ</strong>
+  Mục "Hành vi Router" ghi bảng định tuyến lưu RAM nên "reboot là mất (trừ static NV)". Chính xác hơn: <b>cả bảng định tuyến đều xây lại sau khi khởi động</b>. Route tĩnh không mất vì <b>lệnh</b> <code>ip route</code> nằm trong startup-config (NVRAM), router đọc lại lệnh rồi nạp route vào RAM. Phân biệt "cấu hình" với "trạng thái": cấu hình nằm trên đĩa, trạng thái (bảng route, ARP, MAC) luôn nằm trong RAM và được dựng lại.
+</div>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (31/10) · MOP #0 và diễn tập sự cố</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>mop/MOP-000-hostname-banner.md</code> và <code>postmortem/W01-pc-khong-vao-web.md</code></span></div>
+
+<h3>Phần A · MOP là gì, vì sao người mới phải tập ngay</h3>
+<p>MOP (Method of Procedure) là văn bản mô tả một thay đổi trên hệ thống thật: làm gì, theo thứ tự nào, kiểm tra ra sao, hỏng thì quay lại thế nào. Ở ngân hàng và datacenter, <b>không có MOP được duyệt thì không được gõ lệnh lên thiết bị production</b>. Người phỏng vấn mảng hạ tầng ngân hàng rất hay hỏi "anh làm change thế nào". Bắt đầu từ một thay đổi vô hại để tập khung.</p>
+
+<h3>Mẫu MOP #0 (điền cho lab R1)</h3>
+<pre>
+# MOP-000 · Đổi hostname và banner trên R1
+
+| Mục            | Nội dung                                              |
+|----------------|-------------------------------------------------------|
+| Mục tiêu       | Đặt hostname theo chuẩn đặt tên, thêm banner cảnh báo |
+| Phạm vi        | 1 thiết bị: R1 (lab)                                  |
+| Ảnh hưởng      | Không mất kết nối. Tên trên giám sát/syslog sẽ đổi    |
+| Mức rủi ro     | Thấp                                                  |
+| Thời gian      | 15 phút, cửa sổ: Thứ 7 20:00–20:15                    |
+| Người làm/duyệt| Linh Vu / (tự duyệt khi lab)                          |
+
+## 1. Pre-check (chụp lại hiện trạng)
+R1# show running-config | include hostname
+R1# show banner motd
+R1# show ip interface brief
+R1# copy running-config flash:pre-MOP000.cfg     ! bản lưu để rollback
+
+## 2. Các bước
+R1# configure terminal
+R1(config)# hostname HN-LAB-RT01
+HN-LAB-RT01(config)# banner motd #
+Chi danh cho nguoi duoc phep. Moi truy cap deu bi ghi log.
+#
+HN-LAB-RT01(config)# end
+HN-LAB-RT01# copy running-config startup-config
+
+## 3. Verify (kết quả mong đợi)
+- Dấu nhắc đổi thành HN-LAB-RT01#
+- Thoát ra đăng nhập lại: thấy banner
+- show ip interface brief: giống hệt pre-check
+
+## 4. Rollback (khi verify sai)
+HN-LAB-RT01# configure replace flash:pre-MOP000.cfg
+   (hoặc gõ tay: hostname R1 / no banner motd)
+Verify lại theo mục 1.
+
+## 5. Kết quả
+Thành công / Rollback · thời gian thực tế · ghi chú
+</pre>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống: "thay đổi nhỏ" ảnh hưởng tới đâu</strong>
+  Đổi hostname tưởng vô hại, nhưng ở hệ thống thật: sysName qua SNMP đổi nên Zabbix có thể hiện tên mới hoặc cảnh báo; syslog gửi về SIEM mang tên mới nên rule lọc theo tên có thể trượt; tài liệu sơ đồ và CMDB lệch. Viết MOP là tập thói quen hỏi "<b>còn hệ thống nào đọc thông tin này</b>". Đó là khác biệt giữa người gõ lệnh và kỹ sư hạ tầng.
+</div>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Viết MOP-000 vào repo, chạy đúng theo MOP trên lab</label></li>
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Chạy thử rollback (<code>configure replace</code>) để chắc nó hoạt động, rồi làm lại thay đổi</label></li>
+</ul>
+
+<h3>Phần B · Diễn tập sự cố "PC không vào được web"</h3>
+<p>Cách diễn tập: nhờ ai đó (hoặc tự viết 5 lỗi ra giấy, gấp lại, rút ngẫu nhiên) gài <b>một</b> lỗi vào lab. Anh bấm giờ, xử lý theo bảng dưới, không đoán bừa.</p>
+
+<div class="tbl"><table>
+<thead><tr><th>Tầng</th><th>Câu hỏi</th><th>Lệnh trên PC (Windows)</th><th>Dấu hiệu lỗi</th></tr></thead>
+<tbody>
+<tr><td><span class="tag L1">L1</span></td><td>Có link không?</td><td><code>Get-NetAdapter</code>, đèn port</td><td>Status Disconnected; trên switch <code>notconnect</code></td></tr>
+<tr><td><span class="tag L2">L2</span></td><td>Đúng VLAN, có MAC trên switch không?</td><td><code>arp -a</code>; trên switch <code>show mac address-table interface fa0/1</code></td><td>Không có MAC, hoặc MAC nằm sai VLAN</td></tr>
+<tr><td><span class="tag L3">L3</span></td><td>IP, mask, gateway đúng không? Tới gateway được không?</td><td><code>ipconfig /all</code>, <code>ping 192.168.10.1</code>, <code>tracert 192.168.20.10</code></td><td>IP 169.254.x.x (không nhận DHCP), sai gateway, tracert dừng ở chặng nào</td></tr>
+<tr><td><span class="tag L4">L4</span></td><td>Port dịch vụ có mở không?</td><td><code>Test-NetConnection 192.168.20.10 -Port 80</code></td><td>TcpTestSucceeded False; Wireshark thấy SYN không có trả lời (bị chặn) hoặc RST (dịch vụ không chạy)</td></tr>
+<tr><td><span class="tag L7">L7</span></td><td>Tên miền, proxy, chứng chỉ, ứng dụng?</td><td><code>nslookup</code>, <code>curl -I http://...</code>, xem proxy trình duyệt</td><td>DNS trả sai/không trả, lỗi chứng chỉ, HTTP 4xx/5xx</td></tr>
+</tbody>
+</table></div>
+
+<p><b>5 lỗi gài để rút thăm:</b></p>
+<ol>
+  <li>Sai default gateway trên PC1 (ví dụ .254).</li>
+  <li><code>shutdown</code> cổng G0/1 của R1.</li>
+  <li>Sai default gateway trên SRV (đặt 192.168.20.254).</li>
+  <li>Tắt dịch vụ HTTP trên SRV.</li>
+  <li>Cổng SW1 nối PC1 bị đưa sang VLAN khác (<code>switchport access vlan 99</code>).</li>
+</ol>
+
+<details>
+<summary>Gợi ý: mỗi lỗi lộ ra ở bước nào (mở sau khi làm xong)</summary>
+<ol>
+  <li>Ping gateway thất bại; <code>arp -a</code> không có MAC của .1; <code>ipconfig</code> lộ gateway sai. Tầng 3 phía PC.</li>
+  <li>Ping .10.1 được nhưng ping .20.10 thì R1 trả "Destination host unreachable"; <code>show ip interface brief</code> thấy <code>administratively down</code>. Tầng 1/3 phía router.</li>
+  <li>Ping từ PC timeout, nhưng Wireshark trên link R1–SRV thấy echo request tới server; server gửi ARP hỏi MAC của .20.254 mà không ai trả lời nên không có reply. Lỗi <b>đường về</b>: luôn kiểm cả hai chiều, gói đi tới nơi chưa chắc gói về được.</li>
+  <li>Ping server được, <code>Test-NetConnection -Port 80</code> thất bại, Wireshark thấy RST. Tầng 4/7. Chứng minh "ping được" không có nghĩa "dịch vụ chạy".</li>
+  <li>PC mất cả gateway; trên switch MAC của PC nằm ở VLAN 99. Tầng 2. Đây là lỗi anh gặp ngoài đời nhiều nhất ở văn phòng.</li>
+</ol>
+</details>
+
+<h3>Mẫu postmortem ngắn</h3>
+<pre>
+# Postmortem W01 · PC không vào được web
+
+- Thời điểm phát hiện / xử lý xong / tổng thời gian:
+- Triệu chứng người dùng thấy:
+- Ảnh hưởng: ai, bao nhiêu người, dịch vụ nào
+- Dòng thời gian: các bước đã kiểm tra, theo tầng, kết quả từng bước
+- Nguyên nhân gốc (root cause):
+- Cách khắc phục:
+- Vì sao không phát hiện sớm hơn:
+- Hành động phòng ngừa (ai làm, hạn):
+</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t7-3"><label for="t7-3">Diễn tập ít nhất 2 lỗi, bấm giờ, mỗi lỗi dưới 15 phút</label></li>
+  <li><input type="checkbox" id="t7-4"><label for="t7-4">Viết 1 postmortem cho lỗi khó nhất, commit vào <code>postmortem/</code></label></li>
+</ul>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (01/11) · Tự kiểm tra và tự chấm</h2>
+<div class="meta"><span><b>30 phút</b></span><span>Trả lời ra giấy trước, rồi mới mở đáp án. Gửi câu trả lời cho Claude chấm.</span></div>
+
+<h3>Bài vẽ (đầu ra bắt buộc của tuần)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">Vẽ tay PC1 → SW1 → R1 → SRV, ghi MAC/IP nguồn-đích, TTL ở từng chặng, không nhìn tài liệu. Chụp ảnh lưu vào repo</label></li>
+</ul>
+
+<h3>6 câu tự kiểm tra trong lịch</h3>
+<details><summary>1. Kể 7 tầng từ dưới lên, mỗi tầng một câu.</summary>
+<p>Vật lý: truyền bit bằng điện/ánh sáng/sóng. Liên kết dữ liệu: đóng frame, địa chỉ MAC, phát hiện lỗi trên một đoạn. Mạng: địa chỉ IP, chọn đường giữa các mạng. Vận chuyển: port, chia đoạn, tin cậy (TCP) hoặc không (UDP). Phiên: mở, giữ, đóng phiên. Trình bày: biểu diễn dữ liệu, nén, mã hóa. Ứng dụng: giao thức mà ứng dụng dùng (HTTP, DNS, SMTP).</p></details>
+<details><summary>2. PDU của tầng 2, 3, 4 tên là gì?</summary>
+<p>Frame, packet, segment (TCP) hoặc datagram (UDP).</p></details>
+<details><summary>3. Tầng nào dán cả header lẫn trailer? Trailer đó dùng làm gì?</summary>
+<p>Tầng 2. Trailer là FCS 4 byte (CRC-32) để bên nhận phát hiện frame bị hỏng bit trên đoạn dây đó. Frame lỗi bị bỏ, không được Ethernet gửi lại; tầng trên (TCP) lo việc gửi lại.</p></details>
+<details><summary>4. Gói đi qua 2 router thì MAC đích đổi mấy lần? IP đích đổi mấy lần?</summary>
+<p>Có 3 đoạn mạng (PC–R1, R1–R2, R2–đích), mỗi đoạn một frame mới, nên MAC nguồn và MAC đích được viết lại <b>2 lần</b> (tại mỗi router). IP đích đổi <b>0 lần</b>, trừ khi có NAT.</p></details>
+<details><summary>5. "Firewall chặn port 3389" là chuyện ở tầng mấy?</summary>
+<p>Tầng 4: firewall khớp trường port đích TCP 3389 trong header. Ứng dụng RDP là tầng 7, nhưng rule chặn theo port là tầng 4. Nếu NGFW chặn theo nhận diện ứng dụng (FortiGate Application Control) thì quyết định đó dựa trên nội dung tầng 7, kể cả khi RDP chạy ở port khác.</p></details>
+<details><summary>6. Vì sao MSS là 1460 chứ không phải 1500?</summary>
+<p>MTU 1500 là kích thước tối đa của cả gói IP. Trong đó IP header 20 byte và TCP header 20 byte (không option). MSS chỉ đếm dữ liệu TCP: 1500 − 20 − 20 = 1460.</p></details>
+
+<h3>4 câu vặn thêm (mức phỏng vấn)</h3>
+<details><summary>7. PC 192.168.10.10/24 ping 192.168.20.10. Gói ARP đầu tiên hỏi MAC của ai? Nếu ping 192.168.10.50 thì sao?</summary>
+<p>Khác mạng → PC hỏi MAC của default gateway 192.168.10.1. Cùng mạng → hỏi thẳng MAC của 192.168.10.50. PC quyết định bằng cách AND IP đích với mask của chính nó.</p></details>
+<details><summary>8. Người dùng báo: ping được server, nhưng tải file lớn qua VPN thì treo. Anh nghi gì đầu tiên, kiểm tra bằng lệnh gì?</summary>
+<p>Nghi vấn MTU/PMTUD black hole: đường hầm làm MTU nhỏ đi, ICMP "Fragmentation needed" bị chặn. Kiểm tra bằng <code>ping -f -l</code> tăng dần để tìm MTU thực; xử lý bằng ép MSS trên thiết bị đầu hầm hoặc cho phép ICMP type 3 code 4.</p></details>
+<details><summary>9. Trên một cổng switch, bộ đếm CRC/FCS errors tăng đều. Đó là tầng mấy, nghi gì?</summary>
+<p>Tầng 1/2: frame tới bị hỏng bit. Nghi cáp hỏng, đầu bấm lỗi, module quang bẩn hoặc sai loại, nhiễu, hoặc lệch duplex (half/full). Kiểm <code>show interfaces</code>, thay cáp, kiểm speed/duplex hai đầu.</p></details>
+<details><summary>10. Vì sao router có dòng <code>L 192.168.10.1/32</code> trong bảng định tuyến?</summary>
+<p>Dòng L (local) là chính địa chỉ của cổng router, /32 để router biết gói gửi tới IP đó là gửi cho chính nó (xử lý tại chỗ: SSH, ping tới router) thay vì chuyển tiếp ra mạng /24.</p></details>
+
+<h3>Tự chấm cuối tuần</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 1</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>Nói 7 tầng, PDU, 7 bước gói qua router không nhìn tài liệu</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>Dựng lại R1 dưới 10 phút, không copy</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>Tìm 5 lỗi gài, mỗi lỗi dưới 15 phút, theo thứ tự tầng</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>MOP-000 có pre-check, verify, rollback đã chạy thử; nói được ảnh hưởng tới giám sát/syslog</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Giảng 10 phút cho đồng nghiệp/người nhà và trả lời câu 7–10</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<p>Chủ đề chỉ coi là xong khi đạt mức 4. Chưa tới mức 3 thì cuối tháng học lại trước khi sang chủ đề mới.</p>
+<ul class="check">
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Gửi câu trả lời 1–10 cho Claude chấm, ghi lại câu sai vào sổ</label></li>
+  <li><input type="checkbox" id="cn-3"><label for="cn-3">Tick tuần 1 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày 15 phút (lúc đi đường hoặc trước khi ngủ)</h2>
+<ul>
+  <li><b>Hỏi đáp bằng miệng:</b> tự hỏi một tầng bất kỳ → nói chức năng, PDU, một trường header, một thiết bị, một lỗi hay gặp.</li>
+  <li><b>Soi ở công ty</b> (chỉ quan sát, không ghi ra ngoài): mỗi ticket mạng hôm nay thuộc tầng mấy? Ghi 1 câu vào sổ cá nhân.</li>
+  <li><b>Một lệnh mỗi ngày trên máy mình:</b> T2 <code>ipconfig /all</code>, T3 <code>arp -a</code>, T4 <code>tracert 8.8.8.8</code> (đếm chặng, nhận ra chặng nào là router nhà, chặng nào là nhà mạng), T5 <code>ping 8.8.8.8 -f -l 1472</code> (mạng nhà anh có PPPoE không?), T6 <code>Test-NetConnection google.com -Port 443</code>.</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">Đã chạy đủ 5 lệnh và ghi 5 điều mới thấy</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 1/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick trên trang này lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: Ethernet, MAC, ARP, TCP và UDP (đi sâu bảng MAC, gratuitous ARP, bắt tay TCP).
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan01-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
