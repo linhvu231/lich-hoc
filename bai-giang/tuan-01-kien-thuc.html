@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Tuần 1 · Kiến thức</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:14px 0 16px;margin-bottom:18px}
+.kicker{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.25;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+h2{font-size:1.35rem;line-height:1.3;margin:0 0 4px}
+h3{font-size:1.05rem;margin:20px 0 6px;color:var(--accent)}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+.lesson{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px 14px;margin:20px 0;scroll-margin-top:10px}
+.lesson .time{font-size:.85rem;color:var(--muted);margin-bottom:6px}
+.one{font-weight:600;border-left:4px solid var(--accent);padding:6px 12px;background:var(--accent-soft);border-radius:0 8px 8px 0;margin:10px 0}
+.box{border-left:4px solid var(--ok);background:var(--ok-soft);padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box > strong:first-child{display:block;margin-bottom:2px}
+.tbl{overflow-x:auto;margin:10px 0;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code{font-family:"Cascadia Code",Consolas,Menlo,monospace;font-size:.86em;background:var(--code);padding:1px 5px;border-radius:4px}
+.stack{display:grid;gap:4px;margin:12px 0}
+.stack div{border-radius:6px;padding:7px 12px;color:#fff;font-weight:600;font-size:.92rem;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.stack span{font-weight:400;opacity:.95}
+.s7{background:#7a4fa3}.s6{background:#8a62b1}.s5{background:#9b77bf}.s4{background:#0f5e9c}.s3{background:#1d6b3a}.s2{background:#a4470d}.s1{background:#5b6470}
+.wrapbox{display:grid;gap:0;margin:12px 0;font-size:.85rem;font-family:Consolas,Menlo,monospace}
+.wrapbox div{padding:6px 10px;border:1px solid var(--ink);margin-top:-1px}
+.w2{background:var(--warn-soft)}.w3{background:var(--ok-soft);margin-left:14px}.w4{background:var(--accent-soft);margin-left:28px}.w7{background:var(--panel);margin-left:42px}
+details{border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:6px}
+.done{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.toc ol{margin:4px 0}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.88rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.foot{margin-top:40px;color:var(--muted);font-size:.86rem;border-top:1px solid var(--line);padding-top:12px}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Tuần 1 · Thay cho phần đọc sách</div>
+  <h1>Toàn bộ kiến thức tuần 1, viết cho người bận</h1>
+  <p>8 bài, mỗi bài 10–15 phút, đọc được trên điện thoại. Hết mỗi bài có 3 câu tự hỏi: trả lời trong đầu (hoặc gửi cho Claude) rồi mới mở đáp án.</p>
+  <p><a href="tuan-01.html">← Giáo án tuần 1 (lab, MOP, tự kiểm tra)</a></p>
+</header>
+
+<div class="progress"><span id="pText">0 / 8 bài</span><div class="bar"><i id="pBar"></i></div></div>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Đọc theo lịch gọn</b>
+<ol>
+  <li><a href="#b1">Mạng là chuỗi chặng: OSI và TCP/IP</a> · T2</li>
+  <li><a href="#b2">Đóng gói: dữ liệu được bọc thế nào</a> · T2</li>
+  <li><a href="#b3">Tầng 2: Ethernet và địa chỉ MAC</a> · T3</li>
+  <li><a href="#b4">Tầng 3: IP và ARP</a> · T3</li>
+  <li><a href="#b5">Gói đi qua router</a> · T3</li>
+  <li><a href="#b6">Tầng 4: TCP và UDP</a> · T4 (trước lab)</li>
+  <li><a href="#b7">Kích thước: MTU và MSS</a> · T5 (trước lab)</li>
+  <li><a href="#b8">Xử lý sự cố theo tầng</a> · T6</li>
+</ol>
+<p style="margin:6px 0 0"><a href="#tu-vung">20 từ tiếng Anh phải biết tuần này</a></p>
+</nav>
+
+<!-- ============ BÀI 1 ============ -->
+<section class="lesson" id="b1">
+<h2>Bài 1 · Mạng là chuỗi chặng: OSI và TCP/IP</h2>
+<div class="time">12 phút</div>
+<p class="one">Mô hình phân tầng chia việc truyền dữ liệu thành nhiều tầng; mỗi tầng chỉ lo một việc và chỉ cần biết tầng ngay trên, ngay dưới nó.</p>
+
+<h3>Vì sao phải chia tầng</h3>
+<p>Hãy nghĩ tới gửi một hồ sơ từ chi nhánh Hà Nội vào Hội sở. Nhân viên viết nội dung (không cần biết xe nào chở). Văn thư bỏ vào phong bì, ghi người nhận. Bưu điện ghi địa chỉ tỉnh thành, chọn tuyến. Xe tải chở từ bưu cục này tới bưu cục kia. Mỗi người làm đúng phần mình; đổi xe tải sang máy bay thì người viết thư không phải thay đổi gì.</p>
+<p>Mạng cũng vậy. Nhờ chia tầng: ứng dụng web chạy được trên cáp đồng, cáp quang, Wi-Fi mà không sửa code; hãng A làm switch, hãng B làm card mạng vẫn nói chuyện được với nhau; và quan trọng nhất với kỹ sư: <b>khi hỏng, ta khoanh vùng theo tầng</b>.</p>
+
+<h3>OSI 7 tầng</h3>
+<div class="stack">
+  <div class="s7">7 · Application (Ứng dụng)<span>HTTP, DNS, SMTP · "nói ngôn ngữ của dịch vụ"</span></div>
+  <div class="s6">6 · Presentation (Trình bày)<span>bảng mã UTF-8, nén, mã hóa</span></div>
+  <div class="s5">5 · Session (Phiên)<span>mở, giữ, đóng phiên</span></div>
+  <div class="s4">4 · Transport (Vận chuyển)<span>TCP, UDP · port · tin cậy</span></div>
+  <div class="s3">3 · Network (Mạng)<span>IP · chọn đường giữa các mạng · router</span></div>
+  <div class="s2">2 · Data Link (Liên kết dữ liệu)<span>Ethernet · MAC · trong một mạng · switch</span></div>
+  <div class="s1">1 · Physical (Vật lý)<span>cáp, quang, sóng · bit</span></div>
+</div>
+<p>Thuộc thứ tự từ dưới lên bằng câu: <b>"Phải Đi Nhanh Tới Sân Phơi Áo"</b> (Physical, Data link, Network, Transport, Session, Presentation, Application).</p>
+
+<h3>TCP/IP: mô hình thực tế đang chạy</h3>
+<p>OSI là mô hình để <b>nói chuyện và khoanh vùng</b>. Thứ thật sự chạy trên mạng là bộ giao thức TCP/IP, chia 4 tầng:</p>
+<div class="tbl"><table>
+<thead><tr><th>TCP/IP</th><th>Tương ứng OSI</th><th>Ví dụ</th></tr></thead>
+<tbody>
+<tr><td>Application</td><td>7 + 6 + 5</td><td>HTTP, HTTPS (có TLS), DNS, SSH</td></tr>
+<tr><td>Transport</td><td>4</td><td>TCP, UDP</td></tr>
+<tr><td>Internet</td><td>3</td><td>IPv4, IPv6, ICMP</td></tr>
+<tr><td>Link (Network Access)</td><td>2 + 1</td><td>Ethernet, Wi-Fi</td></tr>
+</tbody>
+</table></div>
+<p>Kỹ sư vẫn dùng số của OSI khi nói: "lỗi tầng 2", "cân bằng tải tầng 7", "firewall tầng 4". Anh cần thuộc cả hai và biết đối chiếu.</p>
+
+<div class="box">
+  <strong>Câu thần chú của kỹ sư</strong>
+  Gặp một thiết bị, hỏi: "<b>nó ra quyết định dựa vào trường nào?</b>". Switch dựa vào MAC → tầng 2. Router dựa vào IP → tầng 3. Firewall thường dựa vào IP + port → tầng 4. FortiGate có nhận diện ứng dụng → tầng 7.
+</div>
+
+<h3>Tự hỏi</h3>
+<details><summary>1. Tầng nào lo việc "chọn đường giữa các mạng"? Thiết bị nào?</summary><p>Tầng 3 (Network), giao thức IP. Thiết bị: router, switch tầng 3.</p></details>
+<details><summary>2. TLS (khóa trong HTTPS) thuộc tầng mấy trong OSI và trong TCP/IP?</summary><p>OSI: thường xếp tầng 6 (mã hóa) hoặc lửng giữa 5–6. TCP/IP: nằm trong tầng Application, vì nó là thư viện mà ứng dụng gọi.</p></details>
+<details><summary>3. Vì sao người ta vẫn dùng OSI dù thực tế chạy TCP/IP?</summary><p>Vì OSI chia chi tiết hơn và là "ngôn ngữ chung" để mô tả, khoanh vùng sự cố và mô tả thiết bị.</p></details>
+<label class="done"><input type="checkbox" id="b1-done"> Xong bài 1</label>
+</section>
+
+<!-- ============ BÀI 2 ============ -->
+<section class="lesson" id="b2">
+<h2>Bài 2 · Đóng gói: dữ liệu được bọc thế nào</h2>
+<div class="time">12 phút</div>
+<p class="one">Đi xuống từng tầng, dữ liệu được bọc thêm một lớp "phong bì" (header). Đi lên ở đầu nhận, từng lớp được bóc ra.</p>
+
+<h3>Từng bước bọc</h3>
+<div class="wrapbox" aria-label="Các lớp bọc lồng nhau">
+  <div class="w2">Tầng 2: [ MAC header | ... | FCS ] = Frame</div>
+  <div class="w3">Tầng 3: [ IP header | ... ] = Packet</div>
+  <div class="w4">Tầng 4: [ TCP header | ... ] = Segment</div>
+  <div class="w7">Tầng 7–5: [ Data: "GET /index.html" ]</div>
+</div>
+<ol>
+  <li>Ứng dụng tạo dữ liệu, ví dụ trình duyệt tạo yêu cầu HTTP. Gọi là <b>Data</b>.</li>
+  <li>Tầng 4 dán TCP header (port nguồn, port đích, số thứ tự…). Thành <b>Segment</b> (nếu UDP thì gọi <b>Datagram</b>).</li>
+  <li>Tầng 3 dán IP header (IP nguồn, IP đích, TTL…). Thành <b>Packet</b>.</li>
+  <li>Tầng 2 dán MAC header ở đầu và <b>FCS ở đuôi</b>. Thành <b>Frame</b>.</li>
+  <li>Tầng 1 biến frame thành tín hiệu điện / ánh sáng / sóng: <b>Bits</b>.</li>
+</ol>
+<p>Tên gọi chung các "đơn vị" này là <b>PDU</b> (Protocol Data Unit). Nhớ chuỗi: <b>Data → Segment → Packet → Frame → Bits</b>.</p>
+
+<h3>Ba ý quan trọng hơn cả việc thuộc tên</h3>
+<ul>
+  <li><b>Payload của tầng dưới chính là cả PDU của tầng trên.</b> IP không mở TCP ra đọc; nó chỉ chở.</li>
+  <li><b>Chỉ tầng 2 có đuôi (trailer).</b> FCS dài 4 byte, dùng để kiểm tra frame có bị hỏng bit trên đường dây không. Hỏng thì bỏ, không gửi lại; việc gửi lại là của TCP. Bộ đếm "CRC errors" tăng trên cổng switch = cáp hoặc module có vấn đề.</li>
+  <li><b>Mỗi tầng ghi một con số để báo tầng trên là ai</b>:
+    <ul>
+      <li>Ethernet có <code>EtherType</code>: 0x0800 = bên trong là IPv4, 0x0806 = ARP, 0x86DD = IPv6.</li>
+      <li>IP có <code>Protocol</code>: 6 = TCP, 17 = UDP, 1 = ICMP.</li>
+      <li>TCP/UDP có <code>Port</code>: 443 = HTTPS, 53 = DNS…</li>
+    </ul>
+    Đầu nhận đọc các con số này để biết đưa dữ liệu lên đâu. Khi viết rule firewall, anh đang khớp đúng các trường này.
+  </li>
+</ul>
+
+<h3>Tự hỏi</h3>
+<details><summary>1. PDU của tầng 2, 3, 4 tên là gì?</summary><p>Frame, Packet, Segment (TCP) / Datagram (UDP).</p></details>
+<details><summary>2. Tầng nào dán cả đầu lẫn đuôi? Đuôi để làm gì?</summary><p>Tầng 2. Đuôi FCS để phát hiện frame bị hỏng bit; frame hỏng bị bỏ.</p></details>
+<details><summary>3. Đầu nhận làm sao biết trong IP packet là TCP hay UDP?</summary><p>Đọc trường Protocol trong IP header: 6 là TCP, 17 là UDP.</p></details>
+<label class="done"><input type="checkbox" id="b2-done"> Xong bài 2</label>
+</section>
+
+<!-- ============ BÀI 3 ============ -->
+<section class="lesson" id="b3">
+<h2>Bài 3 · Tầng 2: Ethernet và địa chỉ MAC</h2>
+<div class="time">10 phút</div>
+<p class="one">MAC là địa chỉ của card mạng, chỉ có ý nghĩa <b>trong một mạng LAN</b> (một VLAN). Ra khỏi router là MAC được viết lại.</p>
+
+<h3>Địa chỉ MAC</h3>
+<ul>
+  <li>Dài 48 bit, viết 12 số hex, ví dụ <code>00:1A:2B:3C:4D:5E</code> (Cisco viết <code>001a.2b3c.4d5e</code>).</li>
+  <li>6 số hex đầu là mã hãng sản xuất (OUI). Nhìn MAC đoán được hãng: tiện khi dò thiết bị lạ trong mạng.</li>
+  <li><code>FF:FF:FF:FF:FF:FF</code> là MAC broadcast: gửi cho tất cả máy trong cùng VLAN.</li>
+</ul>
+
+<h3>Cấu trúc frame Ethernet</h3>
+<div class="tbl"><table>
+<thead><tr><th>Trường</th><th>Độ dài</th><th>Ý nghĩa</th></tr></thead>
+<tbody>
+<tr><td>MAC đích</td><td>6 byte</td><td>gửi cho card mạng nào (đặt đầu tiên để switch đọc nhanh)</td></tr>
+<tr><td>MAC nguồn</td><td>6 byte</td><td>card mạng nào gửi</td></tr>
+<tr><td>EtherType</td><td>2 byte</td><td>bên trong là gì (IPv4, ARP, IPv6, có tag VLAN)</td></tr>
+<tr><td>Dữ liệu</td><td>46–1500 byte</td><td>chính là IP packet. 1500 là <b>MTU</b></td></tr>
+<tr><td>FCS</td><td>4 byte</td><td>kiểm tra lỗi</td></tr>
+</tbody>
+</table></div>
+<p>Cả frame: tối thiểu 64 byte, tối đa 1518 byte. Có tag VLAN (802.1Q, thêm 4 byte) thì tối đa 1522. Dữ liệu ngắn hơn 46 byte sẽ được độn thêm (padding) cho đủ.</p>
+
+<h3>Switch làm gì (tuần sau học sâu)</h3>
+<ul>
+  <li><b>Học:</b> nhìn MAC <b>nguồn</b> của frame đi vào, ghi "MAC này ở cổng này" vào bảng MAC.</li>
+  <li><b>Chuyển:</b> nhìn MAC <b>đích</b>, tra bảng. Có → gửi đúng một cổng. Không có, hoặc là broadcast → gửi ra mọi cổng cùng VLAN trừ cổng vừa nhận (gọi là <b>flood</b>).</li>
+</ul>
+<div class="box">
+  <strong>Anh đã làm việc này ngoài đời</strong>
+  Lần dò máy nhận nhầm VLAN 4: <code>show mac address-table address &lt;mac&gt;</code> trên core ra cổng Gi1/0/13, <code>show cdp neighbors</code> ra switch access, làm lại trên switch access ra Fa0/4. Đó chính là đọc bảng MAC để lần theo từng chặng tầng 2.
+</div>
+
+<h3>Tự hỏi</h3>
+<details><summary>1. Switch học MAC nguồn hay MAC đích?</summary><p>MAC nguồn. MAC đích dùng để chuyển đi.</p></details>
+<details><summary>2. MTU 1500 tính phần nào của frame?</summary><p>Chỉ phần dữ liệu (IP packet), không tính 14 byte header Ethernet và 4 byte FCS.</p></details>
+<details><summary>3. Gắn tag VLAN có làm MTU IP giảm xuống 1496 không?</summary><p>Không. Tag 4 byte nằm ở tầng 2, làm frame dài tới 1522; IP vẫn được 1500.</p></details>
+<label class="done"><input type="checkbox" id="b3-done"> Xong bài 3</label>
+</section>
+
+<!-- ============ BÀI 4 ============ -->
+<section class="lesson" id="b4">
+<h2>Bài 4 · Tầng 3: IP và ARP</h2>
+<div class="time">15 phút</div>
+<p class="one">IP là địa chỉ "điểm đến cuối cùng", giữ nguyên suốt đường đi. ARP là cách tìm ra MAC của "chặng kế tiếp" khi đã biết IP.</p>
+
+<h3>Vì sao cần cả MAC lẫn IP</h3>
+<p>So sánh với đi giao hàng: <b>IP là địa chỉ nhà người nhận</b> (ghi trên kiện hàng, không đổi). <b>MAC là "giao cho ai ở chặng này"</b>: từ kho Hà Nội giao cho xe tuyến A, xe tuyến A giao cho kho Đà Nẵng… Mỗi chặng người nhận khác nhau, nhưng địa chỉ trên kiện hàng không đổi.</p>
+<p>IP có cấu trúc theo mạng (192.168.10.x là một mạng), nên router chọn đường được. MAC thì phẳng, không có thứ tự, chỉ dùng được trong một LAN.</p>
+
+<h3>Các trường IP header cần biết</h3>
+<div class="tbl"><table>
+<thead><tr><th>Trường</th><th>Dùng làm gì</th></tr></thead>
+<tbody>
+<tr><td>IP nguồn, IP đích</td><td>Ai gửi, gửi cho ai. Không đổi qua router (trừ khi có NAT)</td></tr>
+<tr><td>TTL</td><td>Mỗi router trừ 1, về 0 thì bỏ gói. Chống gói chạy vòng mãi. Mặc định: Windows 128, Linux 64, Cisco 255 → nhìn TTL trả về đoán được hệ điều hành và số chặng</td></tr>
+<tr><td>Protocol</td><td>Bên trong là gì: 1 ICMP, 6 TCP, 17 UDP</td></tr>
+<tr><td>Cờ DF (Don't Fragment)</td><td>Cấm router chia nhỏ gói (học ở bài 7)</td></tr>
+<tr><td>Total Length</td><td>Độ dài cả gói, tối đa bằng MTU của đường</td></tr>
+<tr><td>DSCP</td><td>Mức ưu tiên cho QoS (thoại được ưu tiên)</td></tr>
+</tbody>
+</table></div>
+<p>IP header thường dài 20 byte.</p>
+
+<h3>Máy tính quyết định gửi thẳng hay gửi gateway</h3>
+<p>Trước khi gửi, máy so <b>IP đích</b> với <b>mạng của chính nó</b> (dùng subnet mask):</p>
+<ul>
+  <li><b>Cùng mạng</b> (PC 192.168.10.10/24 gửi tới 192.168.10.50): hỏi thẳng MAC của 192.168.10.50.</li>
+  <li><b>Khác mạng</b> (gửi tới 192.168.20.10 hoặc 8.8.8.8): hỏi MAC của <b>default gateway</b> 192.168.10.1. IP đích trong gói vẫn là 8.8.8.8.</li>
+</ul>
+<p>Sai mask hoặc sai gateway là hai lỗi helpdesk gặp hàng tuần; giờ anh biết nó sai ở bước nào.</p>
+
+<h3>ARP: 4 bước</h3>
+<ol>
+  <li>PC xem <b>bảng ARP</b> (<code>arp -a</code>) đã có MAC của IP cần tìm chưa. Có thì dùng luôn.</li>
+  <li>Chưa có: gửi <b>ARP request</b> dạng <b>broadcast</b> (MAC đích FF:FF…): "Ai là 192.168.10.1? Báo MAC cho 192.168.10.10".</li>
+  <li>Chỉ máy có IP đó trả lời bằng <b>ARP reply</b> dạng <b>unicast</b>: "192.168.10.1 là MAC aa:bb:…".</li>
+  <li>PC ghi vào bảng ARP (Windows giữ vài chục giây đến vài phút, Cisco giữ 4 giờ), rồi mới gửi gói thật.</li>
+</ol>
+<div class="box warn">
+  <strong>Bẫy</strong>
+  ARP nằm giữa tầng 2 và 3: nó phục vụ IP nhưng đi trong frame Ethernet (EtherType 0x0806), không có IP header. Vì là broadcast nên ARP <b>không đi qua router</b>.
+</div>
+
+<h3>Tự hỏi</h3>
+<details><summary>1. PC 192.168.10.10/24 ping 8.8.8.8. Nó gửi ARP hỏi MAC của ai?</summary><p>Của default gateway (192.168.10.1), vì 8.8.8.8 khác mạng.</p></details>
+<details><summary>2. ARP request là broadcast hay unicast? Reply thì sao?</summary><p>Request broadcast, reply unicast.</p></details>
+<details><summary>3. Ping một máy trả về TTL=125. Đoán gì?</summary><p>Rất có thể là Windows (mặc định 128) cách 3 router.</p></details>
+<label class="done"><input type="checkbox" id="b4-done"> Xong bài 4</label>
+</section>
+
+<!-- ============ BÀI 5 ============ -->
+<section class="lesson" id="b5">
+<h2>Bài 5 · Gói đi qua router</h2>
+<div class="time">12 phút</div>
+<p class="one">Ở mỗi router, khung tầng 2 bị vứt đi và làm lại cái mới. Gói tầng 3 bên trong đi tiếp, chỉ bị trừ TTL.</p>
+
+<h3>7 bước router làm với mỗi gói</h3>
+<ol>
+  <li><b>Nhận frame, kiểm FCS.</b> Sai → bỏ.</li>
+  <li><b>MAC đích có phải của mình không?</b> Không phải → bỏ.</li>
+  <li><b>Bóc vỏ tầng 2</b>, lấy IP packet ra.</li>
+  <li><b>Trừ TTL đi 1.</b> Về 0 → bỏ, báo ICMP "Time Exceeded" về máy gửi. Lệnh <code>tracert</code> lợi dụng đúng điều này: gửi TTL=1, 2, 3… để từng router lần lượt "tự khai" địa chỉ.</li>
+  <li><b>Tra bảng định tuyến</b>, chọn route <b>khớp dài nhất</b> (longest match: /27 thắng /24, /24 thắng /16, cái nào cũng thua thì dùng 0.0.0.0/0). Không có route nào → bỏ.</li>
+  <li><b>Kiểm MTU cổng ra</b> (bài 7).</li>
+  <li><b>Tìm MAC chặng kế</b> (bằng ARP), <b>đóng frame mới</b>: MAC nguồn = cổng ra của router, MAC đích = chặng kế, FCS mới. Gửi đi.</li>
+</ol>
+
+<div class="tbl"><table>
+<thead><tr><th>Đổi ở mỗi router</th><th>Giữ nguyên suốt đường</th></tr></thead>
+<tbody><tr>
+<td>MAC nguồn, MAC đích, FCS, TTL</td>
+<td>IP nguồn, IP đích, port, dữ liệu</td>
+</tr></tbody>
+</table></div>
+<p><b>Ngoại lệ NAT:</b> firewall/router biên đổi IP riêng (192.168.x.x) thành IP công cộng. Khi đọc log FortiGate phải biết mình đang nhìn IP trước hay sau NAT.</p>
+
+<h3>Ví dụ đầy đủ: PC1 mở web trên SRV</h3>
+<p>PC1 192.168.10.10 → SW1 → R1 (cổng .10.1 và .20.1) → SRV 192.168.20.10.</p>
+<div class="tbl"><table>
+<thead><tr><th>Chặng</th><th>MAC nguồn</th><th>MAC đích</th><th>IP nguồn → đích</th><th>TTL</th></tr></thead>
+<tbody>
+<tr><td>PC1 → R1</td><td>PC1</td><td>R1 cổng g0/0</td><td>.10.10 → .20.10</td><td>128</td></tr>
+<tr><td>R1 → SRV</td><td>R1 cổng g0/1</td><td>SRV</td><td>.10.10 → .20.10</td><td>127</td></tr>
+</tbody>
+</table></div>
+<p>Switch ở giữa không đổi gì cả; nó chỉ đọc MAC đích để chọn cổng. Đó là lý do switch không xuất hiện trong <code>tracert</code>.</p>
+
+<h3>Router biết đường bằng cách nào</h3>
+<ul>
+  <li><b>Mạng nối trực tiếp:</b> cổng có IP và đang up là tự biết (dòng <code>C</code> trong <code>show ip route</code>; dòng <code>L</code> /32 là chính IP của cổng).</li>
+  <li><b>Mạng ở xa:</b> admin dạy bằng route tĩnh (<code>ip route</code>) hoặc router tự học qua OSPF, BGP…</li>
+  <li>Bảng định tuyến nằm trong RAM và được xây lại sau mỗi lần khởi động. Route tĩnh "không mất" vì <b>lệnh</b> nằm trong cấu hình đã lưu, router đọc lại rồi nạp vào RAM.</li>
+</ul>
+
+<h3>Tự hỏi</h3>
+<details><summary>1. Gói đi qua 2 router: MAC đích đổi mấy lần? IP đích đổi mấy lần?</summary><p>MAC được viết lại 2 lần (ở mỗi router). IP đích không đổi (trừ NAT).</p></details>
+<details><summary>2. Vì sao switch không hiện trong tracert?</summary><p>Switch không xử lý tầng 3, không trừ TTL, nên không bao giờ gửi "Time Exceeded".</p></details>
+<details><summary>3. Bảng route có 10.0.0.0/8, 10.1.0.0/16, 0.0.0.0/0. Gói tới 10.1.5.5 đi theo dòng nào?</summary><p>10.1.0.0/16, vì khớp dài nhất.</p></details>
+<label class="done"><input type="checkbox" id="b5-done"> Xong bài 5</label>
+</section>
+
+<!-- ============ BÀI 6 ============ -->
+<section class="lesson" id="b6">
+<h2>Bài 6 · Tầng 4: TCP và UDP</h2>
+<div class="time">12 phút</div>
+<p class="one">IP đưa gói tới đúng máy; port đưa dữ liệu tới đúng ứng dụng trên máy đó. TCP thì cẩn thận, UDP thì nhanh.</p>
+
+<h3>Port</h3>
+<p>Một máy chạy nhiều dịch vụ cùng lúc; port phân biệt chúng. Máy chủ nghe ở port cố định, máy khách dùng port ngẫu nhiên (thường từ 49152 trở lên).</p>
+<div class="tbl"><table>
+<thead><tr><th>Port</th><th>Dịch vụ</th><th>Port</th><th>Dịch vụ</th></tr></thead>
+<tbody>
+<tr><td>22 TCP</td><td>SSH</td><td>389 TCP</td><td>LDAP (AD)</td></tr>
+<tr><td>53 UDP/TCP</td><td>DNS</td><td>443 TCP</td><td>HTTPS</td></tr>
+<tr><td>67/68 UDP</td><td>DHCP</td><td>445 TCP</td><td>Chia sẻ file Windows (SMB)</td></tr>
+<tr><td>80 TCP</td><td>HTTP</td><td>3389 TCP</td><td>Remote Desktop</td></tr>
+</tbody>
+</table></div>
+<p>Bộ 5 thứ <b>IP nguồn, IP đích, port nguồn, port đích, giao thức</b> (gọi là <b>5-tuple</b>) xác định duy nhất một phiên. Firewall theo dõi phiên bằng đúng 5 thứ này.</p>
+
+<h3>TCP: có bắt tay, có xác nhận</h3>
+<ul>
+  <li><b>Bắt tay 3 bước</b> trước khi gửi dữ liệu: <b>SYN</b> (xin kết nối) → <b>SYN-ACK</b> (đồng ý) → <b>ACK</b> (xác nhận).</li>
+  <li><b>Sequence / Acknowledgment:</b> đánh số từng byte, bên nhận báo đã nhận tới đâu. Mất thì gửi lại.</li>
+  <li><b>Window:</b> bên nhận báo "tôi còn nhận được bao nhiêu", để bên gửi không dồn quá.</li>
+  <li><b>Đóng:</b> FIN (đóng lịch sự) hoặc <b>RST</b> (cắt ngang, từ chối).</li>
+  <li>Header 20 byte (chưa tính option).</li>
+</ul>
+<h3>UDP: gửi rồi thôi</h3>
+<p>Header chỉ 8 byte: port nguồn, port đích, độ dài, checksum. Không bắt tay, không gửi lại. Dùng khi nhanh quan trọng hơn đủ: DNS, DHCP, thoại, video, syslog, SNMP.</p>
+
+<div class="box">
+  <strong>Đọc triệu chứng bằng TCP (dùng được ngay ở công ty)</strong>
+  Gửi SYN mà <b>không có trả lời</b> → thường là firewall chặn im lặng, hoặc đường không tới. Gửi SYN mà nhận <b>RST</b> → tới được máy nhưng dịch vụ không chạy ở port đó (hoặc firewall chủ động từ chối). Lệnh kiểm tra trên Windows: <code>Test-NetConnection &lt;IP&gt; -Port 443</code>.
+</div>
+
+<h3>Tự hỏi</h3>
+<details><summary>1. Ba gói bắt tay TCP theo thứ tự?</summary><p>SYN, SYN-ACK, ACK.</p></details>
+<details><summary>2. Vì sao DNS dùng UDP?</summary><p>Câu hỏi và trả lời ngắn, cần nhanh; mất thì hỏi lại. (Bản trả lời quá lớn thì DNS chuyển sang TCP.)</p></details>
+<details><summary>3. Ping được server nhưng không RDP được. Ping chứng minh được tới tầng mấy?</summary><p>Tầng 3. Ping dùng ICMP, không có port. RDP cần TCP 3389 mở ở tầng 4 và dịch vụ chạy ở tầng 7.</p></details>
+<label class="done"><input type="checkbox" id="b6-done"> Xong bài 6</label>
+</section>
+
+<!-- ============ BÀI 7 ============ -->
+<section class="lesson" id="b7">
+<h2>Bài 7 · Kích thước: MTU và MSS</h2>
+<div class="time">15 phút</div>
+<p class="one">MTU là gói IP lớn nhất được đi trên một đường. MSS là phần dữ liệu TCP lớn nhất bỏ vừa vào gói đó.</p>
+
+<h3>Phép tính cơ bản</h3>
+<p><b>MTU Ethernet = 1500 byte</b> (cả gói IP).<br>
+Trừ IP header 20 và TCP header 20: <b>MSS = 1500 − 20 − 20 = 1460 byte</b>.</p>
+<p>MSS được hai bên báo cho nhau trong gói SYN lúc bắt tay.</p>
+
+<h3>Khi đường đi phải "bọc thêm"</h3>
+<p>Mỗi công nghệ bọc thêm header sẽ ăn bớt chỗ, nên gói bên trong phải nhỏ hơn:</p>
+<div class="tbl"><table>
+<thead><tr><th>Đường đi</th><th>Tốn thêm</th><th>MTU còn</th><th>MSS</th></tr></thead>
+<tbody>
+<tr><td>Ethernet</td><td>0</td><td>1500</td><td>1460</td></tr>
+<tr><td>PPPoE (cáp quang nhà mạng)</td><td>8</td><td>1492</td><td>1452</td></tr>
+<tr><td>GRE</td><td>24</td><td>1476</td><td>1436</td></tr>
+<tr><td>IPsec VPN</td><td>~50–73</td><td>thường đặt 1400</td><td>1360</td></tr>
+<tr><td>Tag VLAN</td><td>4 (ở tầng 2)</td><td>1500</td><td>1460</td></tr>
+</tbody>
+</table></div>
+<div class="box warn">
+  <strong>Sửa trong sổ tay</strong>
+  "MTU 1500 ⇒ 1492" chỉ đúng khi chạy PPPoE. Trên Ethernet thường, MTU là 1500.
+</div>
+
+<h3>Gói to hơn MTU thì sao</h3>
+<ul>
+  <li>Cờ <b>DF = 0</b>: router chia nhỏ gói (phân mảnh). Chạy được nhưng chậm, tốn CPU.</li>
+  <li>Cờ <b>DF = 1</b> (phần lớn máy tính hiện đại đặt cờ này): router <b>bỏ gói</b> và gửi về ICMP "Fragmentation needed" kèm con số MTU phù hợp. Máy gửi đọc con số đó và tự gửi gói nhỏ hơn. Cơ chế này gọi là <b>Path MTU Discovery</b>.</li>
+</ul>
+
+<h3>Sự cố kinh điển: "ping được nhưng web treo"</h3>
+<p>Nếu firewall chặn hết ICMP, thông báo "Fragmentation needed" không về được máy gửi. Máy cứ gửi gói 1500, router cứ bỏ. Triệu chứng:</p>
+<ul>
+  <li>Ping được (gói ping nhỏ).</li>
+  <li>Trang web nhẹ vào được, trang HTTPS nặng, tải file, đồng bộ OneDrive, VPN thì treo giữa chừng.</li>
+</ul>
+<p>Gọi là <b>PMTUD black hole</b>. Cách xử lý: cho phép ICMP loại "Fragmentation needed", hoặc <b>ép MSS</b> ở thiết bị biên (Cisco <code>ip tcp adjust-mss 1360</code>; FortiGate có thiết lập MSS trong policy). Anh sẽ gặp lại khi làm SD-WAN và VPN.</p>
+
+<h3>Dò MTU bằng ping</h3>
+<p>Windows: <code>ping 8.8.8.8 -f -l 1472</code>. Trong đó <code>-f</code> bật DF, <code>-l</code> là dữ liệu ICMP. 1472 + 8 (ICMP) + 20 (IP) = 1500. Tăng/giảm số 1472 tới khi vừa đủ đi qua là ra MTU thật của đường.</p>
+
+<h3>Tự hỏi</h3>
+<details><summary>1. Vì sao MSS là 1460 chứ không phải 1500?</summary><p>1500 là cả gói IP; trừ 20 IP header và 20 TCP header còn 1460 cho dữ liệu.</p></details>
+<details><summary>2. Mạng nhà dùng PPPoE: <code>ping -f -l 1472</code> có đi không? Số lớn nhất đi được là bao nhiêu?</summary><p>Không đi, vì MTU chỉ 1492. Số lớn nhất là 1464 (1464 + 28 = 1492).</p></details>
+<details><summary>3. Người dùng VPN: ping được server, mở file lớn thì treo. Nghi gì?</summary><p>Vấn đề MTU qua đường hầm, có thể ICMP "Fragmentation needed" bị chặn. Kiểm bằng ping -f -l, xử lý bằng ép MSS.</p></details>
+<label class="done"><input type="checkbox" id="b7-done"> Xong bài 7</label>
+</section>
+
+<!-- ============ BÀI 8 ============ -->
+<section class="lesson" id="b8">
+<h2>Bài 8 · Xử lý sự cố theo tầng</h2>
+<div class="time">12 phút</div>
+<p class="one">Đi từ dưới lên, mỗi tầng một câu hỏi, một lệnh. Đừng đoán; tầng nào chưa chứng minh được là tốt thì chưa đi lên.</p>
+
+<h3>Ticket "PC không vào được web"</h3>
+<div class="tbl"><table>
+<thead><tr><th>Tầng</th><th>Câu hỏi</th><th>Lệnh / cách xem</th><th>Dấu hiệu lỗi</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Có link không?</td><td>đèn cổng, <code>Get-NetAdapter</code></td><td>Disconnected, switch báo notconnect</td></tr>
+<tr><td>2</td><td>Đúng VLAN, switch thấy MAC không?</td><td><code>show mac address-table interface ...</code></td><td>Không thấy MAC, MAC nằm sai VLAN</td></tr>
+<tr><td>3</td><td>IP, mask, gateway đúng không? Ra được gateway không?</td><td><code>ipconfig /all</code>, <code>ping &lt;gateway&gt;</code>, <code>tracert</code></td><td>IP 169.254.x.x (không nhận DHCP), sai gateway, tracert dừng giữa chừng</td></tr>
+<tr><td>4</td><td>Port dịch vụ có mở không?</td><td><code>Test-NetConnection &lt;IP&gt; -Port 443</code></td><td>Không trả lời (bị chặn) hoặc RST (dịch vụ không chạy)</td></tr>
+<tr><td>7</td><td>Tên miền, proxy, chứng chỉ?</td><td><code>nslookup</code>, cài đặt proxy, lỗi trình duyệt</td><td>DNS sai/không trả lời, lỗi chứng chỉ, HTTP 4xx/5xx</td></tr>
+</tbody>
+</table></div>
+
+<h3>4 nguyên tắc của người làm hạ tầng</h3>
+<ol>
+  <li><b>Phạm vi trước, nguyên nhân sau.</b> Một máy hay cả phòng? Một trang hay mọi trang? Cả phòng mất → nhìn switch, gateway, không đi sửa từng máy.</li>
+  <li><b>Kiểm cả chiều về.</b> Gói tới được server chưa chắc trả lời về được (server sai gateway, route chiều về thiếu).</li>
+  <li><b>Ping được không có nghĩa là dịch vụ chạy.</b> Ping chỉ chứng minh tầng 3.</li>
+  <li><b>Hỏi "gần đây có ai thay đổi gì không".</b> Phần lớn sự cố đi sau một thay đổi. Đây là lý do có MOP.</li>
+</ol>
+
+<div class="box">
+  <strong>Áp vào việc đang làm</strong>
+  Chuyển văn phòng và chuyển core T24 là hai đợt thay đổi lớn. Trong những tuần tới, mỗi ticket anh nhận, hãy tự ghi một dòng: <b>tầng mấy, nguyên nhân, có liên quan đợt chuyển đổi không</b>. Sau một tháng anh có một danh sách sự cố thật, là thứ rất đáng nói khi phỏng vấn vị trí hạ tầng. Ghi bằng lời của mình, không ghi IP hay cấu hình thật ra ngoài công ty.
+</div>
+
+<h3>Tự hỏi</h3>
+<details><summary>1. Cả phòng 20 máy cùng mất mạng. Anh bắt đầu ở đâu?</summary><p>Ở thiết bị chung: switch của phòng, đường uplink, gateway, DHCP. Không bắt đầu ở từng máy.</p></details>
+<details><summary>2. Máy nhận IP 169.254.x.x nghĩa là gì?</summary><p>Không nhận được IP từ DHCP nên Windows tự đặt (APIPA). Kiểm: cáp/VLAN đúng chưa, DHCP server còn IP không, relay (ip helper) có đúng không.</p></details>
+<details><summary>3. Bộ đếm CRC errors tăng đều trên một cổng switch. Tầng mấy, nghi gì?</summary><p>Tầng 1/2. Nghi cáp hỏng, đầu bấm, module quang bẩn, lệch duplex.</p></details>
+<label class="done"><input type="checkbox" id="b8-done"> Xong bài 8</label>
+</section>
+
+<!-- ============ TỪ VỰNG ============ -->
+<section class="lesson" id="tu-vung">
+<h2>20 từ tiếng Anh phải biết tuần này</h2>
+<div class="time">5 phút mỗi ngày · thay cho đọc sách tiếng Anh</div>
+<p>Không cần đọc sách tiếng Anh lúc này, nhưng thiết bị, log và đề thi đều bằng tiếng Anh. Mỗi tuần chỉ cần thuộc khoảng 20 từ như dưới đây.</p>
+<div class="tbl"><table>
+<thead><tr><th>Từ</th><th>Nghĩa</th><th>Từ</th><th>Nghĩa</th></tr></thead>
+<tbody>
+<tr><td>layer</td><td>tầng</td><td>header / trailer</td><td>phần đầu / phần đuôi</td></tr>
+<tr><td>encapsulation</td><td>đóng gói</td><td>payload</td><td>phần dữ liệu được chở</td></tr>
+<tr><td>frame / packet / segment</td><td>khung / gói / đoạn</td><td>hop</td><td>chặng</td></tr>
+<tr><td>source / destination</td><td>nguồn / đích</td><td>next hop</td><td>chặng kế tiếp</td></tr>
+<tr><td>default gateway</td><td>cổng mặc định ra mạng khác</td><td>broadcast / unicast</td><td>gửi tất cả / gửi một</td></tr>
+<tr><td>flood</td><td>gửi tràn ra mọi cổng</td><td>forward / drop</td><td>chuyển đi / bỏ</td></tr>
+<tr><td>handshake</td><td>bắt tay</td><td>acknowledgment (ACK)</td><td>xác nhận</td></tr>
+<tr><td>fragment</td><td>phân mảnh</td><td>overhead</td><td>phần tốn thêm</td></tr>
+<tr><td>reachable / unreachable</td><td>tới được / không tới được</td><td>time exceeded</td><td>hết thời gian sống (TTL)</td></tr>
+<tr><td>troubleshoot</td><td>xử lý sự cố</td><td>rollback</td><td>quay lại trạng thái cũ</td></tr>
+</tbody>
+</table></div>
+</section>
+
+<div class="foot">
+  Học xong 8 bài thì làm phần lab và tự kiểm tra trong <a href="tuan-01.html">giáo án tuần 1</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan01-kienthuc-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' bài';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
