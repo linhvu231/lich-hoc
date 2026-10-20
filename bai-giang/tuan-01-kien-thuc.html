@@ -73,6 +73,14 @@ details[open] summary{margin-bottom:5px}
 .c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
 :root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
 @media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
 </style>
 </head>
@@ -419,6 +427,112 @@ Tầng 1    →  1010110010111010...                               = Bits trên 
 <tr><td><b>Destination IP</b></td><td>32 bit</td><td class="l">IP đích</td></tr>
 <tr><td>Options</td><td>0–40 byte</td><td class="l">Hiếm dùng</td></tr>
 </table></div>
+
+<h3>📌 Sơ đồ IPv4 header theo hàng 32 bit</h3>
+<p>Header được vẽ thành <b>các hàng 32 bit = 4 byte</b>. 5 hàng bắt buộc ⇒ <mark><b>header tối thiểu 20 byte</b></mark>; thêm Options tối đa 40 byte ⇒ <mark><b>tối đa 60 byte</b></mark>.</p>
+<div class="hdr-wrap">
+<div class="hdr" role="img" aria-label="Sơ đồ IPv4 header: 5 hàng 32 bit bắt buộc, Options, Data">
+  <div class="ruler" style="grid-column:span 4">0 … 3</div>
+  <div class="ruler" style="grid-column:span 4">4 … 7</div>
+  <div class="ruler" style="grid-column:span 8">8 … 15</div>
+  <div class="ruler" style="grid-column:span 3">16–18</div>
+  <div class="ruler" style="grid-column:span 13">19 … 31 (bit)</div>
+
+  <div style="grid-column:span 4"><b>Version</b><small>4 bit</small></div>
+  <div style="grid-column:span 4"><b>IHL</b> (HLEN)<small>4 bit</small></div>
+  <div style="grid-column:span 8"><b>ToS</b> = DSCP 6 + ECN 2<small>8 bit</small></div>
+  <div style="grid-column:span 16"><b>Total Length</b><small>16 bit</small></div>
+
+  <div style="grid-column:span 16"><b>Identification</b><small>16 bit</small></div>
+  <div class="fl" style="grid-column:span 1"><b>0</b><small>R</small></div>
+  <div class="fl" style="grid-column:span 1"><b>DF</b><small>1</small></div>
+  <div class="fl" style="grid-column:span 1"><b>MF</b><small>1</small></div>
+  <div style="grid-column:span 13"><b>Fragment Offset</b><small>13 bit</small></div>
+
+  <div style="grid-column:span 8"><b>TTL</b><small>8 bit</small></div>
+  <div style="grid-column:span 8"><b>Protocol</b><small>8 bit</small></div>
+  <div style="grid-column:span 16"><b>Header Checksum</b><small>16 bit</small></div>
+
+  <div style="grid-column:span 32"><b>Source IP Address</b><small>32 bit</small></div>
+  <div style="grid-column:span 32"><b>Destination IP Address</b><small>32 bit</small></div>
+  <div class="opt" style="grid-column:span 32"><b>Options + Padding</b><small>0 – 40 byte (hiếm dùng)</small></div>
+  <div class="dat" style="grid-column:span 32"><b>DATA</b> (payload: TCP segment, UDP datagram, ICMP…)<small>0 – 65 515 byte</small></div>
+</div>
+</div>
+<p style="font-size:.88rem;color:var(--muted)">Mỗi hàng 32 bit = 4 byte; 5 hàng đầu = 20 byte. Màu cam: 3 bit cờ (Flags). Màu xanh dương: phần không bắt buộc. Trên điện thoại kéo ngang để xem đủ.</p>
+
+<h3>🔹 Đọc sơ đồ theo từng hàng</h3>
+<ol>
+  <li><b>Hàng 1 (byte 0–3):</b>
+    <ul>
+      <li><b>Version</b> = 4. Router đọc 4 bit đầu tiên để biết đây là IPv4 hay IPv6 (= 6).</li>
+      <li><b>IHL / HLEN</b> (Internet Header Length): đếm theo <b>đơn vị 4 byte</b>, không phải byte. Giá trị 5 ⇒ 5 × 4 = <b>20 byte</b>; tối đa 15 ⇒ 15 × 4 = <b>60 byte</b>. Nhờ trường này máy nhận biết header kết thúc ở đâu, data bắt đầu ở đâu.</li>
+      <li><b>ToS</b> (Type of Service), nay chia thành <b>DSCP</b> 6 bit (mức ưu tiên QoS, ví dụ thoại DSCP 46 = EF) và <b>ECN</b> 2 bit (báo nghẽn).</li>
+      <li><b>Total Length</b>: độ dài <b>cả gói</b> (header + data), tính bằng byte. 16 bit ⇒ tối đa <b>65 535 byte</b>; trên Ethernet thực tế không vượt <b>1500</b> (MTU).</li>
+    </ul>
+  </li>
+  <li><b>Hàng 2 (byte 4–7): nhóm phân mảnh</b>
+    <ul>
+      <li><b>Identification</b>: số nhận diện gói. Các mảnh của cùng một gói có cùng ID để máy nhận ráp lại.</li>
+      <li><b>Flags</b> 3 bit: bit 0 <b>Reserved</b> luôn = 0; bit 1 <b>DF</b> (Don't Fragment) = 1 thì cấm chia nhỏ; bit 2 <b>MF</b> (More Fragments) = 1 thì còn mảnh phía sau, = 0 là mảnh cuối (hoặc gói không bị chia).</li>
+      <li><b>Fragment Offset</b> 13 bit: vị trí của mảnh trong gói gốc, tính theo <b>đơn vị 8 byte</b>. Mảnh đầu = 0.</li>
+    </ul>
+  </li>
+  <li><b>Hàng 3 (byte 8–11):</b>
+    <ul>
+      <li><b>TTL</b>: mỗi router trừ 1, về 0 thì drop + gửi ICMP Time Exceeded.</li>
+      <li><b>Protocol</b>: payload là gì (1 ICMP, 6 TCP, 17 UDP, 47 GRE, 50 ESP, 89 OSPF).</li>
+      <li><b>Header Checksum</b>: kiểm lỗi <b>chỉ phần header</b>. Vì TTL đổi ở mỗi router nên <b>mỗi router phải tính lại checksum</b>.</li>
+    </ul>
+  </li>
+  <li><b>Hàng 4, 5 (byte 12–19):</b> <b>Source IP</b> và <b>Destination IP</b>, mỗi cái 32 bit.</li>
+  <li><b>Options</b>: hiếm dùng, phần lớn gói không có ⇒ IHL = 5.</li>
+</ol>
+
+<h3>🔹 Ví dụ dễ hiểu: giải mã 20 byte đầu của một gói thật</h3>
+<p>Wireshark hiện phần hex của IP header như sau (gói TCP từ PC Windows):</p>
+<pre>45 00 05 dc 1c 46 40 00 80 06 xx xx c0 a8 0a 0a c0 a8 14 0a</pre>
+<div class="tbl"><table>
+<tr><th>Byte</th><th>Hex</th><th class="l">Giải mã</th></tr>
+<tr><td>0</td><td><code>45</code></td><td class="l">4 = Version 4 · 5 = IHL 5 × 4 = <b>20 byte header</b></td></tr>
+<tr><td>1</td><td><code>00</code></td><td class="l">DSCP 0 (không ưu tiên), ECN 0</td></tr>
+<tr><td>2–3</td><td><code>05 dc</code></td><td class="l">0x05DC = <b>1500 byte</b> cả gói ⇒ data = 1500 − 20 = 1480</td></tr>
+<tr><td>4–5</td><td><code>1c 46</code></td><td class="l">Identification = 0x1C46</td></tr>
+<tr><td>6–7</td><td><code>40 00</code></td><td class="l">0100 0000 0000 0000 ⇒ R = 0, <b>DF = 1</b>, MF = 0, Offset = 0 ⇒ gói nguyên, <b>cấm phân mảnh</b></td></tr>
+<tr><td>8</td><td><code>80</code></td><td class="l">TTL = 128 ⇒ đúng mặc định Windows, gói chưa qua router nào</td></tr>
+<tr><td>9</td><td><code>06</code></td><td class="l">Protocol 6 ⇒ payload là <b>TCP</b></td></tr>
+<tr><td>10–11</td><td><code>xx xx</code></td><td class="l">Header checksum</td></tr>
+<tr><td>12–15</td><td><code>c0 a8 0a 0a</code></td><td class="l">192.168.10.10 (Source)</td></tr>
+<tr><td>16–19</td><td><code>c0 a8 14 0a</code></td><td class="l">192.168.20.10 (Destination)</td></tr>
+</table></div>
+<p>Đổi hex sang thập phân: <code>c0</code> = 12 × 16 + 0 = 192, <code>a8</code> = 10 × 16 + 8 = 168, <code>14</code> = 1 × 16 + 4 = 20. Bảng đổi hex có sẵn trong sổ Google Docs của anh (tab "Tính toán hệ số").</p>
+
+<h3>🔹 Ví dụ phân mảnh: gói 2000 byte đi qua đường MTU 1500, DF = 0</h3>
+<p>Data = 2000 − 20 = 1980 byte. Mỗi mảnh tối đa 1500 − 20 = 1480 byte data (1480 chia hết cho 8, hợp lệ).</p>
+<div class="tbl"><table>
+<tr><th>Mảnh</th><th>Total Length</th><th>Data</th><th>MF</th><th>Fragment Offset</th><th>Identification</th></tr>
+<tr><td>1</td><td>1500</td><td>1480</td><td>1</td><td>0</td><td>giống nhau</td></tr>
+<tr><td>2</td><td>520</td><td>500</td><td>0</td><td>1480 / 8 = <b>185</b></td><td>giống nhau</td></tr>
+</table></div>
+<p>Máy nhận gom các mảnh cùng Identification, xếp theo Offset, thấy MF = 0 là đã đủ ⇒ ráp lại. Mất một mảnh ⇒ <b>bỏ cả gói</b>. Đây là lý do phân mảnh làm hiệu năng kém và người ta thích dùng DF + PMTUD (mục 12).</p>
+
+<div class="fix"><b>✏️ Hai chỗ trong hình cần ghi cho đúng</b>
+<ol style="margin:4px 0">
+  <li>Hình ghi bit đầu của Flags là <b>"NULL Bit"</b>. Tên chuẩn là <b>Reserved</b> (dự phòng), luôn bằng 0.</li>
+  <li>Hình ghi <b>"Data 20 Bytes to 65536 Bytes"</b>. Sai. Total Length 16 bit nên cả gói tối đa <b>65 535</b> byte (2<sup>16</sup> − 1), gồm cả header ⇒ data tối đa <b>65 535 − 20 = 65 515</b> byte, tối thiểu 0 byte. Trên Ethernet, data thực tế ≤ 1480.</li>
+</ol>
+Thêm một điểm hay nhầm: <b>HLEN đếm theo 4 byte</b>, <b>Fragment Offset đếm theo 8 byte</b>, <b>Total Length đếm theo byte</b>. Ba đơn vị khác nhau.</div>
+
+<div class="sum"><b>✔️ Ghi nhớ nhanh IPv4 header</b>
+<div class="tbl"><table class="narrow" style="min-width:0">
+<tr><th class="l">Phải nhớ</th><th class="l">Giá trị</th></tr>
+<tr><td class="l">Header tối thiểu / tối đa</td><td class="l">20 / 60 byte</td></tr>
+<tr><td class="l">IHL thường gặp</td><td class="l">5 (× 4 = 20 byte)</td></tr>
+<tr><td class="l">Gói IP tối đa (Total Length)</td><td class="l">65 535 byte; Ethernet 1500</td></tr>
+<tr><td class="l">3 trường phân mảnh</td><td class="l">Identification, Flags (R, DF, MF), Fragment Offset</td></tr>
+<tr><td class="l">Đổi ở mỗi router</td><td class="l">TTL, Header Checksum (và Flags/Offset nếu phân mảnh)</td></tr>
+<tr><td class="l">Không đổi (trừ NAT)</td><td class="l">Source IP, Destination IP</td></tr>
+</table></div></div>
 
 <h2>3/ TCP header (layer 4), tối thiểu 20 byte</h2>
 <div class="tbl"><table>
@@ -1005,6 +1119,10 @@ Mỗi ticket trong những tuần này, ghi 1 dòng vào sổ riêng: <b>layer m
 <details><summary>14. Ping từ PC tới server timeout, nhưng Wireshark phía server thấy echo request tới nơi. Nghi gì?</summary><p>Lỗi chiều về: server sai default gateway, sai mask, thiếu route về mạng của PC, hoặc firewall trên server chặn trả lời. Luôn kiểm cả hai chiều.</p></details>
 <details><summary>15. Bảng route có 10.0.0.0/8, 10.1.0.0/16, 0.0.0.0/0. Gói tới 10.1.5.5 và 172.16.1.1 đi theo dòng nào?</summary><p>10.1.5.5 → 10.1.0.0/16 (khớp dài nhất). 172.16.1.1 → 0.0.0.0/0 (default route).</p></details>
 <details><summary>16. Vì sao router có dòng L 10.1.1.1/32 trong bảng định tuyến?</summary><p>Đó là chính IP của cổng router. /32 để router biết gói tới IP này là gửi cho nó (SSH, ping tới router), xử lý tại chỗ thay vì chuyển ra mạng /24.</p></details>
+
+<details><summary>17. IHL = 6 nghĩa là gì? Gói có gì khác thường?</summary><p>Header dài 6 × 4 = 24 byte, tức là có 4 byte Options. Gói thường không có Options (IHL = 5).</p></details>
+<details><summary>18. Hai byte Flags/Offset là <code>20 00</code>. Giải mã.</summary><p>0010 0000 0000 0000 ⇒ R = 0, DF = 0, MF = 1, Offset = 0 ⇒ đây là <b>mảnh đầu tiên</b> của một gói bị phân mảnh, còn mảnh phía sau.</p></details>
+<details><summary>19. Vì sao router phải tính lại Header Checksum ở mỗi chặng?</summary><p>Vì router trừ TTL, header thay đổi nên checksum cũ không còn đúng.</p></details>
 
 <label class="done"><input type="checkbox" id="d17"> Xong mục 17</label>
 
