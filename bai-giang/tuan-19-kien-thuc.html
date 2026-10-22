@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 19</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 19 (08/03 – 14/03/2027) · <a href="tuan-19.html">Giáo án tuần 19 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Tuần cuối giai đoạn 1: không học chủ đề mới. Sổ tay này là <b>đề bài capstone</b> (dựng một chi nhánh từ máy trống trong 90 phút), lời giải tham khảo, checklist verify, phương pháp xử lý sự cố, và bảng tổng ôn mọi con số/lệnh của tuần 2–18. Ôn những chủ đề anh tự chấm dưới mức 3. Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">Đề bài: chi nhánh lab</a></li>
+  <li><a href="#m2">Bảng địa chỉ IP</a></li>
+  <li><a href="#m3">Thứ tự dựng trong 90 phút</a></li>
+  <li><a href="#m4">Cấu hình tham khảo</a></li>
+  <li><a href="#m5">Checklist verify</a></li>
+  <li><a href="#m6">Phương pháp xử lý sự cố</a></li>
+  <li><a href="#m7">Bảng tổng ôn giai đoạn 1</a></li>
+  <li><a href="#m8">Rà lại sổ tay CCNA</a></li>
+  <li><a href="#m9">Tình huống thực tế</a></li>
+  <li><a href="#m10">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m11">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m12">Câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> Đề bài: chi nhánh lab</h1>
+<p>Dựng chi nhánh "BR" từ thiết bị trống (đã <code>write erase</code>) trong <b>90 phút</b>, đúng các yêu cầu sau. Tất cả là địa chỉ lab, không liên quan hệ thống công ty.</p>
+<div class="flow">                       ISP (203.0.113.1, loopback 8.8.8.8 — KHÔNG có route về 10.10.x)
+                                │ g0/2 203.0.113.2/30 (nat outside)
+                              R-BR  (loopback 10.10.0.1 · DHCP server · PAT · default route)
+                 g0/0 .1 /30 ┌──┴──┐ g0/1 .5 /30   (nat inside cả hai)
+             10.10.255.0/30  │     │  10.10.255.4/30
+                 g0/0 .2 (routed)  g0/0 .6 (routed)
+                      DSW1 ══Po1 (Gi0/2-3, LACP)══ DSW2        ← switch L3, HSRP, OSPF
+                  Gi0/1 │                          │ Gi0/1
+                        └────────── ASW1 ──────────┘          ← trunk 2 đường, STP chặn 1
+                            Gi0/2 PC-STAFF (VLAN 10) · Gi0/3 PC-GUEST (VLAN 20)</div>
+<h2>Yêu cầu</h2>
+<ol>
+  <li><b>VLAN</b>: 10 STAFF, 20 GUEST, 99 MGMT trên cả 3 switch; trunk chỉ cho phép 10, 20, 99; native VLAN không dùng (ví dụ 999).</li>
+  <li><b>EtherChannel</b> LACP giữa DSW1–DSW2 (Po1, trunk).</li>
+  <li><b>Rapid PVST+</b>: DSW1 root VLAN 10, 99; DSW2 root VLAN 20. Port PC: PortFast + BPDU Guard.</li>
+  <li><b>HSRP</b> v2: VIP .1 mỗi VLAN; DSW1 active VLAN 10, 99; DSW2 active VLAN 20 (khớp STP root); preempt.</li>
+  <li><b>OSPF</b> area 0 giữa R-BR, DSW1, DSW2; SVI passive; R-BR quảng bá default route.</li>
+  <li><b>DHCP</b>: R-BR cấp cho VLAN 10, 20 (DNS 8.8.8.8), relay trên SVI của cả hai DSW.</li>
+  <li><b>NAT</b>: PAT toàn bộ 10.10.0.0/16 ra IP g0/2 của R-BR.</li>
+  <li><b>ACL</b>: GUEST không vào được bất kỳ địa chỉ 10.10.0.0/16, vẫn nhận DHCP và ra Internet.</li>
+  <li><b>Quản trị</b>: SSH v2 + AAA local trên mọi thiết bị, chỉ từ VLAN 99; NTP từ R-BR; <code>service timestamps</code>.</li>
+</ol>
+<p>Đầu ra cuối tuần trong lịch: <b>tự chấm 5 mức cho từng chủ đề giai đoạn 1</b> (bảng ở giáo án).</p>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Bảng địa chỉ IP</h1>
+<div class="tbl"><table>
+<tr><th>Mạng / Network</th><th>Dải</th><th>DSW1</th><th>DSW2</th><th>VIP / khác</th></tr>
+<tr><td>VLAN 10 STAFF</td><td>10.10.10.0/24</td><td>.2</td><td>.3</td><td>VIP .1 · DHCP từ .11</td></tr>
+<tr><td>VLAN 20 GUEST</td><td>10.10.20.0/24</td><td>.2</td><td>.3</td><td>VIP .1 · DHCP từ .11</td></tr>
+<tr><td>VLAN 99 MGMT</td><td>10.10.99.0/24</td><td>.2</td><td>.3</td><td>VIP .1 · ASW1 .11 · PC quản trị .50 (tĩnh)</td></tr>
+<tr><td>R-BR–DSW1</td><td>10.10.255.0/30</td><td>.2</td><td>–</td><td>R-BR .1</td></tr>
+<tr><td>R-BR–DSW2</td><td>10.10.255.4/30</td><td>–</td><td>.6</td><td>R-BR .5</td></tr>
+<tr><td>R-BR loopback</td><td>10.10.0.1/32</td><td colspan="3">DHCP server, NTP, router-id 1.1.1.1</td></tr>
+<tr><td>R-BR–ISP</td><td>203.0.113.0/30</td><td colspan="3">R-BR .2 · ISP .1 · ISP loopback 8.8.8.8/32</td></tr>
+</table></div>
+<p>Router-ID: R-BR 1.1.1.1, DSW1 2.2.2.2, DSW2 3.3.3.3. Cả chi nhánh tóm tắt được thành <b>10.10.0.0/16</b> (tuần 4).</p>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Thứ tự dựng trong 90 phút</h1>
+<p><mark>Dựng từ dưới lên theo tầng, verify sau mỗi khối, không dồn verify về cuối.</mark></p>
+<div class="tbl"><table>
+<tr><th>Phút</th><th class="l">Khối</th><th class="l">Verify trước khi sang khối sau</th></tr>
+<tr><td>0–5</td><td class="l">Hostname, no ip domain-lookup, VLAN, mô tả cổng</td><td class="l"><code>show vlan brief</code></td></tr>
+<tr><td>5–15</td><td class="l">Trunk, Po1, STP root, PortFast/BPDU Guard</td><td class="l"><code>show interfaces trunk</code>, <code>show etherchannel summary</code> (SU/P), <code>show spanning-tree root</code></td></tr>
+<tr><td>15–30</td><td class="l">ip routing, SVI, HSRP</td><td class="l"><code>show standby brief</code> (active đúng như yêu cầu), ping VIP từ PC tĩnh tạm</td></tr>
+<tr><td>30–45</td><td class="l">Routed link, OSPF, default route</td><td class="l"><code>show ip ospf neighbor</code> (FULL ×2 trên R-BR), <code>show ip route ospf</code> có O*E2 trên DSW</td></tr>
+<tr><td>45–55</td><td class="l">DHCP pool + helper</td><td class="l">PC nhận IP, <code>show ip dhcp binding</code></td></tr>
+<tr><td>55–65</td><td class="l">NAT</td><td class="l">PC ping 8.8.8.8, <code>show ip nat translations</code></td></tr>
+<tr><td>65–75</td><td class="l">ACL GUEST</td><td class="l">Guest: nhận IP, ra 8.8.8.8, không ping được 10.10.10.x; hit count</td></tr>
+<tr><td>75–85</td><td class="l">SSH, AAA, MGMT ACL, NTP, timestamps</td><td class="l">SSH từ PC .50 tới mọi thiết bị</td></tr>
+<tr><td>85–90</td><td class="l">Failover test, <code>write memory</code></td><td class="l">Shut DSW1 Gi0/1 hoặc tắt DSW1: STAFF vẫn ra Internet</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> Cấu hình tham khảo</h1>
+<p>Chỉ mở <b>sau</b> khi đã tự làm. Dùng để so sánh, không chép.</p>
+<details><summary>R-BR</summary>
+<pre>hostname R-BR
+no ip domain-lookup
+interface loopback0
+ ip address 10.10.0.1 255.255.255.255
+interface g0/0
+ description to-DSW1
+ ip address 10.10.255.1 255.255.255.252
+ ip nat inside
+ no shutdown
+interface g0/1
+ description to-DSW2
+ ip address 10.10.255.5 255.255.255.252
+ ip nat inside
+ no shutdown
+interface g0/2
+ description to-ISP
+ ip address 203.0.113.2 255.255.255.252
+ ip nat outside
+ no shutdown
+ip route 0.0.0.0 0.0.0.0 203.0.113.1
+router ospf 1
+ router-id 1.1.1.1
+ network 10.10.0.0 0.0.255.255 area 0
+ default-information originate
+ip access-list standard NAT-IN
+ permit 10.10.0.0 0.0.255.255
+ip nat inside source list NAT-IN interface g0/2 overload
+ip dhcp excluded-address 10.10.10.1 10.10.10.10
+ip dhcp excluded-address 10.10.20.1 10.10.20.10
+ip dhcp pool STAFF
+ network 10.10.10.0 255.255.255.0
+ default-router 10.10.10.1
+ dns-server 8.8.8.8
+ip dhcp pool GUEST
+ network 10.10.20.0 255.255.255.0
+ default-router 10.10.20.1
+ dns-server 8.8.8.8
+ntp master 4</pre></details>
+<details><summary>DSW1 (DSW2 giống, đổi các chỗ ghi chú)</summary>
+<pre>hostname DSW1
+ip routing
+vlan 10
+ name STAFF
+vlan 20
+ name GUEST
+vlan 99
+ name MGMT
+vlan 999
+ name NATIVE-UNUSED
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,99 root primary        ! DSW2: vlan 20 root primary, vlan 10,99 root secondary
+spanning-tree vlan 20 root secondary
+interface range g0/2 - 3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode active
+interface port-channel 1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,99,999
+interface g0/1
+ description to-ASW1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,99,999
+interface g0/0
+ no switchport
+ ip address 10.10.255.2 255.255.255.252      ! DSW2: 10.10.255.6
+interface vlan 10
+ ip address 10.10.10.2 255.255.255.0         ! DSW2: .3
+ standby version 2
+ standby 10 ip 10.10.10.1
+ standby 10 priority 110                      ! DSW2: bỏ dòng này (mặc định 100)
+ standby 10 preempt
+ ip helper-address 10.10.0.1
+interface vlan 20
+ ip address 10.10.20.2 255.255.255.0         ! DSW2: .3
+ standby version 2
+ standby 20 ip 10.10.20.1
+ standby 20 preempt                           ! DSW2: thêm "standby 20 priority 110"
+ ip helper-address 10.10.0.1
+ ip access-group GUEST-IN in
+interface vlan 99
+ ip address 10.10.99.2 255.255.255.0         ! DSW2: .3
+ standby version 2
+ standby 99 ip 10.10.99.1
+ standby 99 priority 110                      ! DSW2: bỏ
+ standby 99 preempt
+ip access-list extended GUEST-IN
+ 10 permit udp any any eq bootps
+ 20 deny ip 10.10.20.0 0.0.0.255 10.10.0.0 0.0.255.255
+ 30 permit ip 10.10.20.0 0.0.0.255 any
+router ospf 1
+ router-id 2.2.2.2                            ! DSW2: 3.3.3.3
+ network 10.10.0.0 0.0.255.255 area 0
+ passive-interface default
+ no passive-interface g0/0
+ntp server 10.10.0.1</pre>
+<p>Trên switch ảo IOSvL2 cần <code>switchport trunk encapsulation dot1q</code> trước <code>switchport mode trunk</code>; Catalyst đời mới chỉ hỗ trợ dot1q nên không có lệnh này.</p></details>
+<details><summary>ASW1</summary>
+<pre>hostname ASW1
+vlan 10,20,99,999
+spanning-tree mode rapid-pvst
+interface range g0/0 - 1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,99,999
+interface g0/2
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+interface g0/3
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+interface vlan 99
+ ip address 10.10.99.11 255.255.255.0
+ip default-gateway 10.10.99.1</pre></details>
+<details><summary>Quản trị (mọi thiết bị)</summary>
+<pre>ip domain-name lab.local
+crypto key generate rsa modulus 2048
+ip ssh version 2
+username admin privilege 15 secret &lt;mật-khẩu-lab&gt;
+aaa new-model
+aaa authentication login default local
+aaa authorization exec default local
+ip access-list standard MGMT
+ permit 10.10.99.0 0.0.0.255
+line vty 0 15
+ transport input ssh
+ access-class MGMT in
+service timestamps log datetime msec localtime show-timezone
+clock timezone ICT 7 0</pre>
+<p>Lưu ý R-BR: SSH từ 10.10.99.50 tới R-BR đi qua DSW (nguồn vẫn là 10.10.99.50, không bị NAT vì đích là 10.10.x) nên access-class MGMT khớp.</p></details>
+<p>Vì sao ACL GUEST cần dòng 10: Discover có nguồn <b>0.0.0.0</b>, không khớp dòng 30 (nguồn 10.10.20.0/24) ⇒ thiếu dòng 10 thì implicit deny chặn DHCP trước khi relay kịp xử lý (sự cố 5 ở giáo án).</p>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Checklist verify</h1>
+<div class="tbl"><table>
+<tr><th class="l">Lệnh</th><th class="l">Kết quả đúng</th></tr>
+<tr><td class="l"><code>show vlan brief</code> (ASW1)</td><td class="l">VLAN 10 có Gi0/2, VLAN 20 có Gi0/3</td></tr>
+<tr><td class="l"><code>show interfaces trunk</code></td><td class="l">Native 999, allowed 10,20,99,999 trên mọi trunk</td></tr>
+<tr><td class="l"><code>show etherchannel summary</code></td><td class="l">Po1(SU), Gi0/2(P), Gi0/3(P)</td></tr>
+<tr><td class="l"><code>show spanning-tree vlan 10</code> (ASW1)</td><td class="l">Root port hướng DSW1; port hướng DSW2 là Alternate (BLK)</td></tr>
+<tr><td class="l"><code>show spanning-tree vlan 20</code> (ASW1)</td><td class="l">Ngược lại: root port hướng DSW2</td></tr>
+<tr><td class="l"><code>show standby brief</code></td><td class="l">DSW1 Active 10, 99 / Standby 20; DSW2 ngược lại</td></tr>
+<tr><td class="l"><code>show ip ospf neighbor</code> (R-BR)</td><td class="l">2.2.2.2 và 3.3.3.3 FULL (point-to-point hoặc DR/BDR trên link /30 Ethernet)</td></tr>
+<tr><td class="l"><code>show ip route</code> (DSW1)</td><td class="l"><code>O*E2 0.0.0.0/0 via 10.10.255.1</code>; R-BR có hai đường bằng nhau tới 10.10.10.0/24</td></tr>
+<tr><td class="l"><code>show ip dhcp binding</code></td><td class="l">PC-STAFF 10.10.10.11, PC-GUEST 10.10.20.11 (số có thể khác)</td></tr>
+<tr><td class="l"><code>show ip nat translations</code></td><td class="l">icmp 203.0.113.2:x 10.10.10.11:x 8.8.8.8 …</td></tr>
+<tr><td class="l"><code>show access-lists GUEST-IN</code></td><td class="l">Dòng 10, 20, 30 đều có hit sau khi test</td></tr>
+<tr><td class="l">Failover</td><td class="l">Tắt DSW1: PC-STAFF ping liên tục 8.8.8.8 mất vài gói rồi chạy lại; DSW2 Active VLAN 10</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Phương pháp xử lý sự cố</h1>
+<h2>1/ Ba cách tiếp cận</h2>
+<ul>
+  <li><b>Bottom-up</b> (tầng 1 lên): khi không có manh mối. Chậm nhưng chắc.</li>
+  <li><b>Top-down</b>: bắt đầu từ ứng dụng; hợp khi chỉ một ứng dụng lỗi.</li>
+  <li><b>Follow the path</b> (đi theo gói): <mark>vẽ đường đi của gói, cả chiều đi và chiều về, kiểm từng chặng</mark>. Cách hiệu quả nhất ở mạng doanh nghiệp.</li>
+</ul>
+<h2>2/ Khung 6 câu hỏi cho mọi ticket</h2>
+<ol>
+  <li><b>Ai</b> bị (một máy, một VLAN, cả chi nhánh)? ⇒ khoanh vùng.</li>
+  <li><b>Từ khi nào</b>, có thay đổi gì không (MOP, ticket gần đây)?</li>
+  <li>Máy có <b>IP/mask/gateway/DNS</b> đúng không? (169.254 ⇒ DHCP)</li>
+  <li>Ping <b>gateway</b> được không? (tầng 2 và HSRP)</li>
+  <li>Ping <b>đích bằng IP</b> được không? (routing, NAT, ACL) — rồi bằng <b>tên</b> (DNS).</li>
+  <li><code>traceroute</code> dừng ở đâu ⇒ nhảy lên thiết bị đó và hỏi lại câu 4–5.</li>
+</ol>
+<p>Ví dụ dễ hiểu: như shipper giao hàng thất bại: đơn có đúng địa chỉ không (IP), có ra được khỏi ngõ không (gateway), đường lớn có thông không (routing), có bị bảo vệ tòa nhà chặn không (ACL), người nhận có đổi tên không (DNS).</p>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Bảng tổng ôn giai đoạn 1</h1>
+<div class="tbl"><table>
+<tr><th>Tuần</th><th class="l">Chủ đề</th><th class="l">Con số / lệnh phải thuộc</th></tr>
+<tr><td>2</td><td class="l">Ethernet, ARP, TCP/UDP</td><td class="l">MAC 48 bit, OUI 24 bit · ARP broadcast hỏi / unicast trả lời · bắt tay 3 bước · port 20/21, 22, 23, 25, 53, 67/68, 80, 123, 161/162, 443, 3389</td></tr>
+<tr><td>3</td><td class="l">IPv4, subnetting</td><td class="l">Số host = 2<sup>h</sup> − 2 · block size = 256 − octet mask · RFC 1918 · 169.254 APIPA</td></tr>
+<tr><td>4</td><td class="l">VLSM, tóm tắt, wildcard</td><td class="l">Chia từ mạng lớn nhất · wildcard = 255.255.255.255 − mask</td></tr>
+<tr><td>5</td><td class="l">IPv6</td><td class="l">128 bit · :: một lần · FE80::/10 link-local · 2000::/3 global · EUI-64 chèn FFFE, đảo bit 7 · NDP thay ARP</td></tr>
+<tr><td>6</td><td class="l">VLAN, trunk, inter-VLAN</td><td class="l">802.1Q tag 4 byte, VLAN ID 12 bit · native không tag · ROAS / SVI + ip routing</td></tr>
+<tr><td>7</td><td class="l">STP/RSTP</td><td class="l">Bridge ID = priority (bội 4096) + MAC · root nhỏ nhất · cost 10G=2, 1G=4, 100M=19 · PortFast, BPDU Guard</td></tr>
+<tr><td>8</td><td class="l">EtherChannel, CDP/LLDP, port security</td><td class="l">LACP active/passive, PAgP desirable/auto · cùng speed/duplex/VLAN · violation shutdown/restrict/protect</td></tr>
+<tr><td>10</td><td class="l">Routing cơ bản</td><td class="l">Longest match → AD → metric · AD: connected 0, static 1, eBGP 20, EIGRP 90, OSPF 110, RIP 120</td></tr>
+<tr><td>11</td><td class="l">Static, floating, IP SLA</td><td class="l">Floating = AD lớn hơn · <code>track</code> + <code>ip sla</code></td></tr>
+<tr><td>12–14</td><td class="l">OSPF</td><td class="l">Hello 10/dead 40 (broadcast) · 224.0.0.5/6 · khớp area, mask, timer, auth, MTU · DR/BDR priority rồi RID · cost = 100 Mbps / BW · LSA 1, 2</td></tr>
+<tr><td>15</td><td class="l">HSRP/VRRP/GLBP</td><td class="l">HSRP priority 100 mặc định, không preempt mặc định · MAC v1 0000.0c07.acXX · VRRP chuẩn mở, preempt mặc định · GLBP cân tải</td></tr>
+<tr><td>16</td><td class="l">ACL, NAT</td><td class="l">First match, implicit deny · standard gần đích, extended gần nguồn · inside local/global · PAT overload</td></tr>
+<tr><td>17</td><td class="l">IP services</td><td class="l">DORA · helper-address · Syslog 0–7 · SNMP 161/162 · NTP 123 · EF 46</td></tr>
+<tr><td>18</td><td class="l">Bảo mật, wireless, API</td><td class="l">SSH 4 thứ · RADIUS UDP / TACACS+ TCP 49 · snooping trust uplink · DAI · WPA3 SAE · 401/403/404</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> Rà lại sổ tay CCNA</h1>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Tuần này không có lỗi mới cần sửa. Việc cuối giai đoạn: mở lại Google Docs "CCNA" và kiểm từng mục đã sửa từ tuần 2–18 thực sự đã được chép vào (đặc biệt các lỗi lệnh dễ tái phạm khi gõ tay):
+<ul>
+  <li>DHCP: <code>excluded-address</code>, <code>dns-server</code>, <code>domain-name</code>; Request là broadcast; không có "xác thực Domain" (tuần 17).</li>
+  <li>Mục Wireless LAN không còn trống (tuần 18).</li>
+  <li>Danh sách kiểm tra 31 mục ở giáo án tuần 9 (ôn tập) đã tick đủ.</li>
+  <li>Các mục mới đã có: OSPF, HSRP, ACL, NAT, NTP, Syslog, SNMP, QoS, SSH/AAA, snooping/DAI, SDN/API.</li>
+</ul></div>
+<p>Cách rà nhanh: với mỗi mục trong sổ, tự hỏi "nếu mai thi, câu nào trong mục này tôi chưa chắc?" và ghi câu đó vào cuối mục.</p>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> Tình huống thực tế</h1>
+<h3>Tình huống 1 · "Chi nhánh mới khai trương, khách dùng Wi-Fi được nhưng nhân viên không vào được hệ thống lõi"</h3>
+<details><summary>Phân tích</summary>
+<p>Khoanh vùng: chỉ VLAN STAFF, chỉ hướng vào hội sở (Internet vẫn ổn). Theo đường đi: gateway OK ⇒ route về hội sở có không (tunnel/SD-WAN lên chưa, OSPF/BGP có quảng bá dải chi nhánh không) ⇒ firewall hội sở có policy cho dải mới chưa ⇒ có bị NAT nhầm (NAT ACL không loại trừ dải nội bộ). Bài học capstone: dải mới phải được khai báo ở <b>mọi</b> nơi: routing, firewall, NAT exemption, giám sát.</p></details>
+<h3>Tình huống 2 · Bảo trì switch core chi nhánh, mất mạng 3 phút dù có HSRP</h3>
+<details><summary>Phân tích</summary>
+<p>Có thể: STP root và HSRP active cùng nằm trên switch bảo trì, nhưng switch còn lại hội tụ chậm vì có port chưa PortFast/chưa RSTP; hoặc OSPF trên switch còn lại chưa có neighbor (lỗi ẩn từ trước, không ai giám sát). Bài học: MOP bảo trì luôn có pre-check "đường dự phòng đang thật sự sẵn sàng" (show standby, show ip ospf neighbor trên thiết bị còn lại).</p></details>
+<h3>Tình huống 3 · Dựng xong nhưng không có tài liệu</h3>
+<details><summary>Phân tích</summary>
+<p>Sáu tháng sau không ai nhớ vì sao VLAN 20 active ở DSW2. Sản phẩm của một lần dựng chi nhánh gồm: sơ đồ, bảng IP, cấu hình đã lưu, MOP, checklist verify, thiết bị đã vào Zabbix. Đó là thứ phân biệt kỹ sư hạ tầng với người "cấu hình cho chạy".</p></details>
+<div class="note"><b>Góc nhìn hệ thống</b>
+Capstone này gần như là một chi nhánh thật thu nhỏ: hai switch lõi dự phòng, gateway dự phòng, định tuyến động, NAT, phân vùng khách, quản trị an toàn. Khi phỏng vấn vị trí IT Infrastructure, kể được "tôi tự dựng một chi nhánh lab trong 90 phút, gài 5 lỗi và tìm ra từng lỗi trong bao lâu, có MOP và postmortem" là một câu chuyện có sức nặng hơn liệt kê chứng chỉ.</div>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Việc</th><th class="l">Phải nhớ</th></tr>
+<tr><td>Dựng</td><td class="l">Tầng 2 → SVI/HSRP → routing → DHCP → NAT → ACL → quản trị · verify từng khối</td></tr>
+<tr><td>Khớp</td><td class="l">STP root = HSRP active cho từng VLAN</td></tr>
+<tr><td>NAT</td><td class="l">inside trên <b>mọi</b> cổng phía LAN · outside phía ISP</td></tr>
+<tr><td>ACL khách</td><td class="l">Cho bootps trước · chặn nội bộ · cho phần còn lại</td></tr>
+<tr><td>Xử lý sự cố</td><td class="l">Khoanh vùng · đi theo gói cả hai chiều · sửa một lỗi rồi kiểm lại từ đầu</td></tr>
+<tr><td>Thi</td><td class="l">Đọc kỹ đề: "most likely", "two answers" · loại trừ đáp án sai trước</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">capstone</td><td class="l">bài tổng kết</td><td class="l">greenfield</td><td class="l">dựng mới từ đầu</td></tr>
+<tr><td class="l">branch site</td><td class="l">chi nhánh</td><td class="l">head office</td><td class="l">hội sở</td></tr>
+<tr><td class="l">redundancy</td><td class="l">dự phòng</td><td class="l">single point of failure</td><td class="l">điểm lỗi duy nhất</td></tr>
+<tr><td class="l">failover / failback</td><td class="l">chuyển sang dự phòng / quay về</td><td class="l">convergence</td><td class="l">hội tụ</td></tr>
+<tr><td class="l">baseline</td><td class="l">trạng thái chuẩn để so sánh</td><td class="l">as-built</td><td class="l">tài liệu hiện trạng sau khi dựng</td></tr>
+<tr><td class="l">fault injection</td><td class="l">gài lỗi</td><td class="l">root cause</td><td class="l">nguyên nhân gốc</td></tr>
+<tr><td class="l">isolate</td><td class="l">khoanh vùng</td><td class="l">symptom</td><td class="l">triệu chứng</td></tr>
+<tr><td class="l">workaround</td><td class="l">cách tạm thời</td><td class="l">permanent fix</td><td class="l">sửa triệt để</td></tr>
+<tr><td class="l">hand-over</td><td class="l">bàn giao</td><td class="l">sign-off</td><td class="l">ký xác nhận hoàn thành</td></tr>
+<tr><td class="l">timebox</td><td class="l">giới hạn thời gian</td><td class="l">checklist</td><td class="l">danh sách kiểm tra</td></tr>
+<tr><td class="l">lessons learned</td><td class="l">bài học rút ra</td><td class="l">self-assessment</td><td class="l">tự đánh giá</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"I built a redundant branch from scratch in 90 minutes and documented the root cause of five injected faults."</i></p>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Câu hỏi tự kiểm tra</h1>
+<p>Ôn trộn cả giai đoạn. Trả lời ra giấy hoặc gửi cho Claude <b>trước</b>, rồi mới mở đáp án.</p>
+<h3>Mức 1 · Nhớ</h3>
+<details><summary>1. AD của OSPF và static?</summary><p>110 và 1.</p></details>
+<details><summary>2. /27 có bao nhiêu host dùng được?</summary><p>2<sup>5</sup> − 2 = 30.</p></details>
+<details><summary>3. HSRP priority mặc định? Preempt mặc định bật không?</summary><p>100; không.</p></details>
+<details><summary>4. Syslog mức 5 là gì?</summary><p>Notification (notifications).</p></details>
+<details><summary>5. Wildcard của /26?</summary><p>0.0.0.63.</p></details>
+<h3>Mức 2 · Hiểu</h3>
+<details><summary>6. Vì sao nên để STP root trùng HSRP active cho mỗi VLAN?</summary><p>Để khung từ access đi thẳng lên switch đang làm gateway, không vòng qua switch kia và link giữa hai switch lõi.</p></details>
+<details><summary>7. Vì sao ACL GUEST cần dòng permit udp eq bootps đứng đầu?</summary><p>Discover có nguồn 0.0.0.0, không khớp dòng permit theo dải guest ⇒ bị implicit deny trên SVI trước khi relay.</p></details>
+<details><summary>8. Tại sao ISP trong lab không có route về 10.10.x mà PC vẫn ra Internet?</summary><p>PAT đổi nguồn thành 203.0.113.2; ISP chỉ cần trả về IP đó (mạng connected của nó).</p></details>
+<details><summary>9. DSW lấy default route từ đâu và hiện mã gì?</summary><p>Từ R-BR qua <code>default-information originate</code>; hiện <code>O*E2</code>.</p></details>
+<details><summary>10. ip helper-address đặt trên cả hai DSW thì client có nhận hai Offer không?</summary><p>Có thể có hai bản relay tới cùng server; server cấp một lease (client chấp nhận một Offer). Bình thường, không phải lỗi.</p></details>
+<h3>Mức 3 · Vận dụng / xử lý sự cố</h3>
+<details><summary>11. Khách nhận IP nhưng không ra Internet, nhân viên vẫn ổn. Ba nghi phạm?</summary><p>(1) Cổng R-BR phía DSW đang active cho VLAN 20 thiếu <code>ip nat inside</code>; (2) DSW active VLAN 20 mất OSPF neighbor ⇒ không có default route; (3) ACL GUEST chặn quá tay (dòng deny sai dải).</p></details>
+<details><summary>12. Tắt DSW1, nhân viên mất mạng 40 giây rồi mới chạy lại. Nghi gì?</summary><p>HSRP timer mặc định (hold 10 s) cộng STP chưa RSTP/PortFast trên đường access, hoặc DSW2 chưa có OSPF neighbor sẵn (phải chờ hình thành). Kiểm <code>show spanning-tree summary</code>, <code>show standby</code>, <code>show ip ospf neighbor</code> trên DSW2.</p></details>
+<details><summary>13. Po1 hiện (SD), các port (I) hoặc (s). Kiểm gì?</summary><p>Mode hai bên (active/passive, không phải passive–passive hoặc on–active), speed/duplex, VLAN allowed/native và mode trunk khớp nhau.</p></details>
+<details><summary>14. Từ PC .50 SSH được tới DSW1 nhưng không tới ASW1. Kiểm gì?</summary><p>ASW1 có SVI 99 up (VLAN 99 tồn tại, có trên trunk), <code>ip default-gateway</code>, khóa RSA/domain-name, access-class MGMT đúng dải.</p></details>
+<details><summary>15. Kể đủ các nơi phải khai báo khi thêm VLAN 30 cho chi nhánh này.</summary><p>VLAN trên 3 switch, allowed list mọi trunk, STP root, SVI + HSRP trên 2 DSW, helper, pool DHCP trên R-BR, (OSPF tự có vì network 10.10.0.0/16), NAT ACL (đã gồm), ACL nếu cần, Zabbix, tài liệu.</p></details>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm capstone trong <a href="tuan-19.html">giáo án tuần 19</a>. Tuần trước: <a href="tuan-18-kien-thuc.html">sổ tay tuần 18</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan19-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

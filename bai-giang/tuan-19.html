@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 19</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 19 · 08/03 – 14/03/2027</div>
+  <h1>Tổng ôn CCNA: dựng chi nhánh trong 90 phút</h1>
+  <p>Hướng dẫn từng ngày. Khoảng 10,5 giờ. Tuần cuối giai đoạn 1.</p>
+  <p>Đề bài, bảng IP, lời giải tham khảo ở <a href="tuan-19-kien-thuc.html">sổ tay tuần 19</a>.</p>
+  <div class="links">
+    <a href="tuan-19-kien-thuc.html">Sổ tay tuần 19 (đề bài + tổng ôn)</a>
+    <a href="tuan-18.html">Giáo án tuần 18</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-cham">Tự chấm giai đoạn 1</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Đầu ra trong lịch: <b>tự chấm 5 mức cho từng chủ đề giai đoạn 1.</b> Cụ thể:</p>
+<ol>
+  <li>Ôn lại các chủ đề đang dưới mức 3 trong sổ tự chấm.</li>
+  <li>Dựng chi nhánh <a href="tuan-19-kien-thuc.html#m1">theo đề bài</a> từ thiết bị trống trong 90 phút (VLAN, EtherChannel, STP, HSRP, OSPF, DHCP, NAT, ACL, SSH).</li>
+  <li>Viết MOP tổng hợp "dựng chi nhánh mới" dùng lại được.</li>
+  <li>Sửa 5 lỗi gài sẵn, mỗi lỗi một postmortem ngắn có thời gian phát hiện.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  Làm lab theo từng chủ đề thì dễ; khó là khi mọi thứ chồng lên nhau: một lỗi ở tầng 2 trông như lỗi DHCP, một lỗi NAT trông như lỗi routing. Tuần này luyện đúng kỹ năng đó: <b>khoanh vùng trước, đi theo gói cả hai chiều, sửa một thứ, kiểm lại</b>. Lưu toàn bộ thư mục <code>W19-ccna-capstone</code> (sơ đồ, cấu hình, MOP, 5 postmortem, thời gian): đây là câu chuyện để kể khi phỏng vấn.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · Tự chấm sơ bộ, chọn chủ đề yếu</a></li>
+    <li><a href="#t3">Thứ 3 · Ôn chủ đề yếu, đọc đề capstone</a></li>
+    <li><a href="#t4">Thứ 4 · Dựng lần 1 (không giới hạn giờ)</a></li>
+    <li><a href="#t5">Thứ 5 · Viết MOP tổng hợp</a></li>
+    <li><a href="#t6">Thứ 6 · Xóa trắng, dựng lần 2 trong 90 phút</a></li>
+    <li><a href="#t7">Thứ 7 · 5 lỗi gài sẵn, 5 postmortem</a></li>
+    <li><a href="#cn">Chủ nhật · Tự chấm 5 mức cả giai đoạn</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày 15 phút</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (08/03) · Tự chấm sơ bộ, chọn chủ đề yếu</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: danh sách tối đa 4 chủ đề dưới mức 3</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Điền nhanh <a href="#tu-cham">bảng tự chấm giai đoạn 1</a> (tick trung thực; mức 3 = phá và sửa được không xem tài liệu)</label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Đọc <a href="tuan-19-kien-thuc.html#m7">bảng tổng ôn mục 7</a>, che cột phải, tự đọc to con số/lệnh từng dòng; đánh dấu dòng bị vấp</label></li>
+  <li><input type="checkbox" id="t2-3"><label for="t2-3">Chọn tối đa 4 chủ đề yếu nhất để ôn Thứ 3</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (09/03) · Ôn chủ đề yếu, đọc đề capstone</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: sơ đồ chi nhánh vẽ tay có IP</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Với mỗi chủ đề yếu: đọc mục "Tóm tắt cực ngắn" và làm lại câu hỏi mức 3 của sổ tay tuần đó</label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Đọc sổ tay <a href="tuan-19-kien-thuc.html#m1">mục 1</a> đến <a href="tuan-19-kien-thuc.html#m3">3</a> (<b>chưa mở</b> mục 4 lời giải)</label></li>
+  <li><input type="checkbox" id="t3-3"><label for="t3-3">Vẽ tay sơ đồ chi nhánh với bảng IP; ghi STP root và HSRP active từng VLAN lên hình</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (10/03) · Dựng lần 1, không giới hạn giờ</h2>
+<div class="meta"><span><b>2 giờ</b></span><span>Đầu ra: thư mục <code>W19-ccna-capstone</code>, cấu hình lần 1</span></div>
+<p>CML/EVE: R-BR và ISP là IOSv (4 cổng), DSW1/DSW2/ASW1 là IOSvL2. Packet Tracer: R-BR dùng ISR4331 hoặc 2911, DSW là 3560/3650, ASW là 2960 (bỏ dòng <code>switchport trunk encapsulation</code> trên 2960).</p>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1">Dựng theo <a href="tuan-19-kien-thuc.html#m3">thứ tự mục 3</a>, verify từng khối bằng <a href="tuan-19-kien-thuc.html#m5">checklist mục 5</a>; ghi thời gian thực tế từng khối</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2">Chạy đủ checklist verify, kể cả failover (tắt DSW1, ping liên tục từ PC-STAFF ra 8.8.8.8, đếm số gói mất)</label></li>
+  <li><input type="checkbox" id="t4-3"><label for="t4-3">Xong rồi mới so với <a href="tuan-19-kien-thuc.html#m4">lời giải mục 4</a>; ghi mọi chỗ khác và vì sao</label></li>
+  <li><input type="checkbox" id="t4-4"><label for="t4-4">Lưu cấu hình 6 thiết bị vào <code>W19-ccna-capstone/config-lan1/</code></label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (11/03) · MOP tổng hợp: dựng chi nhánh mới</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: <code>mop/MOP-015-dung-chi-nhanh-moi.md</code></span></div>
+<pre>
+# MOP-015 · Dựng chi nhánh mới (mẫu dùng lại)
+
+| Mục        | Nội dung                                                         |
+|------------|------------------------------------------------------------------|
+| Mục tiêu   | Chi nhánh có LAN dự phòng, định tuyến động, Internet, phân vùng khách |
+| Phạm vi    | R-BR, DSW1, DSW2, ASW1 (+ ISP, Zabbix)                            |
+| Đầu vào    | Bảng IP đã duyệt, sơ đồ, danh sách VLAN, thông tin đường ISP     |
+| Rủi ro     | Trùng dải với nơi khác; NAT/ACL sai làm mất dịch vụ; khóa mình khi bật AAA |
+
+## 0. Chuẩn bị
+- Kiểm dải 10.10.0.0/16 chưa dùng ở đâu (IPAM / bảng IP chung)
+- Console tới mọi thiết bị; file cấu hình soạn sẵn theo bảng IP
+
+## 1. Các khối (mỗi khối: cấu hình → verify → ghi kết quả)
+1. Cơ bản: hostname, VLAN, mô tả cổng            → show vlan brief
+2. Tầng 2: trunk, Po1, STP root, PortFast/BPDU    → show interfaces trunk / etherchannel summary / spanning-tree root
+3. Gateway: SVI, HSRP (khớp STP root)            → show standby brief
+4. Routing: routed link, OSPF, default            → show ip ospf neighbor / show ip route
+5. Dịch vụ: DHCP pool, helper                     → show ip dhcp binding
+6. Internet: NAT                                  → show ip nat translations
+7. Bảo mật: ACL GUEST, SSH/AAA, MGMT ACL          → show access-lists, thử SSH phiên mới
+8. Vận hành: NTP, timestamps, Syslog, SNMP, Zabbix → show ntp status, host xanh trên Zabbix
+
+## 2. Nghiệm thu
+- Checklist verify sổ tay mục 5 đạt 100%
+- Failover: tắt DSW1 rồi DSW2, ghi số gói mất
+- Lưu cấu hình, sơ đồ as-built, bàn giao
+
+## 3. Rollback
+- Chi nhánh mới chưa có người dùng: xóa trắng và dựng lại từ file cấu hình
+- Từng khối: gỡ đúng lệnh của khối đó (ghi sẵn lệnh "no …" cạnh mỗi khối)
+</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1">Viết MOP-015 dựa trên thời gian và vấp váp thực tế của Thứ 4; có danh sách lệnh rollback từng khối</label></li>
+  <li><input type="checkbox" id="t5-2"><label for="t5-2">Soạn sẵn file cấu hình từng thiết bị (text) theo bảng IP, để Thứ 6 có thể dán từng khối</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (12/03) · Xóa trắng, dựng lần 2 trong 90 phút</h2>
+<div class="meta"><span><b>2 giờ</b></span><span>Đầu ra: thời gian từng khối, cấu hình lần 2</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1"><code>write erase</code> + reload cả 6 thiết bị (hoặc wipe node trong CML/EVE)</label></li>
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">Bấm giờ, dựng theo MOP-015. <b>Gõ tay</b> (không dán) ít nhất các khối 2, 3, 4 để luyện cho thi và cho lúc không có file</label></li>
+  <li><input type="checkbox" id="t6-3"><label for="t6-3">Checklist verify đạt 100% trong ≤ 90 phút. Ghi thời gian từng khối vào bảng so với lần 1</label></li>
+  <li><input type="checkbox" id="t6-4"><label for="t6-4">Lưu cấu hình vào <code>config-lan2/</code>; đây là "baseline" cho Thứ 7</label></li>
+</ul>
+<div class="box warn">
+  <strong>Nếu quá 90 phút</strong>
+  Không sao; ghi khối nào tốn thời gian nhất. Đó chính là chủ đề cần đưa xuống mức 2 trong bảng tự chấm và ôn tiếp ở đầu giai đoạn 2.
+</div>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (13/03) · 5 lỗi gài sẵn, mỗi lỗi 1 postmortem</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>postmortem/W19-loi-1.md</code> … <code>W19-loi-5.md</code></span></div>
+<p>Nhờ người khác gài, hoặc tự viết 5 lỗi lên 5 mẩu giấy, úp lại, bốc ngẫu nhiên. <b>Mỗi lần chỉ gài một lỗi</b> trên baseline, bấm giờ từ lúc nghe triệu chứng đến lúc sửa xong và verify. Sau mỗi lỗi, khôi phục baseline.</p>
+<div class="tbl"><table>
+<thead><tr><th>#</th><th>Triệu chứng người dùng (chỉ đọc cột này trước)</th></tr></thead>
+<tbody>
+<tr><td>1</td><td style="text-align:left">"Máy khách ở quầy hiện 169.254, không vào được gì"</td></tr>
+<tr><td>2</td><td style="text-align:left">Không ai báo lỗi. Người hướng dẫn: "tìm cái không đúng thiết kế"</td></tr>
+<tr><td>3</td><td style="text-align:left">"Wi-Fi khách nhận IP nhưng không vào được Internet; nhân viên vẫn bình thường"</td></tr>
+<tr><td>4</td><td style="text-align:left">"Wi-Fi khách nhận IP nhưng không vào được Internet; nhân viên vẫn bình thường" (cùng triệu chứng, lỗi khác)</td></tr>
+<tr><td>5</td><td style="text-align:left">"Khách mới đến không nhận được IP, khách đã ngồi từ trước vẫn dùng được"</td></tr>
+</tbody>
+</table></div>
+<details><summary>Danh sách lỗi để gài (người gài mở; người sửa mở sau khi xong)</summary>
+<ol>
+  <li><b>ASW1 thiếu VLAN 20</b>: <code>no vlan 20</code> trên ASW1 ⇒ Gi0/3 inactive. Phát hiện: <code>show interfaces g0/3 switchport</code> ("Access Mode VLAN: 20 (Inactive)"), <code>show vlan brief</code>.</li>
+  <li><b>HSRP lệch STP root</b>: trên DSW1 <code>no standby 10 preempt</code>, rồi reload DSW1 ⇒ DSW2 active VLAN 10 trong khi STP root VLAN 10 vẫn là DSW1. Phát hiện: so <code>show standby brief</code> với <code>show spanning-tree root</code>. Ảnh hưởng: lưu lượng vòng qua Po1, mất tính dự đoán.</li>
+  <li><b>OSPF hello mismatch</b>: <code>ip ospf hello-interval 5</code> trên g0/0 của DSW2 ⇒ DSW2 mất neighbor, mất default route; VLAN 20 (DSW2 active) không ra Internet. Phát hiện: <code>show ip ospf neighbor</code> trên R-BR chỉ còn 2.2.2.2; <code>show ip ospf interface g0/0</code> hai bên khác timer.</li>
+  <li><b>R-BR g0/1 thiếu ip nat inside</b>: <code>no ip nat inside</code> trên g0/1 ⇒ gói từ VLAN 20 (qua DSW2) ra ISP với nguồn 10.10.20.x, ISP không có đường về. Phát hiện: <code>show ip nat translations</code> không có 10.10.20.x; <code>traceroute</code> từ guest đi tới R-BR rồi mất; <code>show ip interface g0/1 | include NAT</code>.</li>
+  <li><b>GUEST-IN thiếu dòng permit bootps</b>: <code>no 10</code> trong GUEST-IN trên cả hai DSW ⇒ Discover (nguồn 0.0.0.0) bị implicit deny. Máy đã có lease vẫn chạy (cho tới khi gia hạn). Phát hiện: hit count không tăng ở dòng nào khi PC mới renew; <code>debug ip dhcp server packet</code> trên R-BR không thấy Discover.</li>
+</ol>
+</details>
+<h3>Mẫu postmortem ngắn (mỗi lỗi một file)</h3>
+<pre>
+# W19 · Lỗi N · &lt;tên ngắn&gt;
+- Triệu chứng: …
+- Thời gian: bắt đầu … / tìm ra … / sửa xong … (tổng … phút)
+- Khoanh vùng: ai bị, ai không ⇒ suy ra …
+- Lệnh đã dùng (theo thứ tự) và kết quả chính: …
+- Nguyên nhân gốc: …
+- Cách sửa + verify: …
+- Phòng ngừa (giám sát/MOP/checklist nào bắt được sớm hơn): …
+</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Lỗi 1 sửa xong, có postmortem</label></li>
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Lỗi 2 sửa xong, có postmortem</label></li>
+  <li><input type="checkbox" id="t7-3"><label for="t7-3">Lỗi 3 sửa xong, có postmortem</label></li>
+  <li><input type="checkbox" id="t7-4"><label for="t7-4">Lỗi 4 sửa xong, có postmortem (so sánh với lỗi 3: cùng triệu chứng, lệnh nào phân biệt nhanh nhất?)</label></li>
+  <li><input type="checkbox" id="t7-5"><label for="t7-5">Lỗi 5 sửa xong, có postmortem (so sánh với lỗi 1: cùng không có IP, khác tầng)</label></li>
+  <li><input type="checkbox" id="t7-6"><label for="t7-6">Bảng tổng hợp thời gian 5 lỗi; mục tiêu mỗi lỗi ≤ 15 phút</label></li>
+</ul>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2>Chủ nhật (14/03) · Tự chấm 5 mức cho từng chủ đề giai đoạn 1</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: bảng tự chấm dưới đây (đầu ra trong lịch)</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">Trả lời 15 câu ở <a href="tuan-19-kien-thuc.html#m12">mục 12 sổ tay</a> ra giấy rồi mới mở đáp án</label></li>
+  <li><input type="checkbox" id="cn-3"><label for="cn-3">Rà sổ tay CCNA theo <a href="tuan-19-kien-thuc.html#m8">mục 8</a></label></li>
+</ul>
+<h3 id="tu-cham">Tự chấm giai đoạn 1 (tick các mức đã đạt)</h3>
+<p>1 = giải thích được · 2 = dựng từ trắng · 3 = phá và sửa · 4 = vận hành (MOP, verify, rollback) · 5 = dạy lại được. Chủ đề nào dưới mức 3: ghi vào đầu tuần 20 để ôn xen kẽ.</p>
+<div class="tbl"><table>
+<thead><tr><th>Tuần</th><th>Chủ đề</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+<tbody>
+<tr><td><a href="tuan-02-kien-thuc.html">Tuần 2</a></td><td style="text-align:left">Ethernet, ARP, TCP/UDP</td><td><input type="checkbox" id="lv-w02-1" aria-label="Tuần 2 mức 1"></td><td><input type="checkbox" id="lv-w02-2" aria-label="Tuần 2 mức 2"></td><td><input type="checkbox" id="lv-w02-3" aria-label="Tuần 2 mức 3"></td><td><input type="checkbox" id="lv-w02-4" aria-label="Tuần 2 mức 4"></td><td><input type="checkbox" id="lv-w02-5" aria-label="Tuần 2 mức 5"></td></tr>
+<tr><td><a href="tuan-03-kien-thuc.html">Tuần 3</a></td><td style="text-align:left">IPv4 và subnetting</td><td><input type="checkbox" id="lv-w03-1" aria-label="Tuần 3 mức 1"></td><td><input type="checkbox" id="lv-w03-2" aria-label="Tuần 3 mức 2"></td><td><input type="checkbox" id="lv-w03-3" aria-label="Tuần 3 mức 3"></td><td><input type="checkbox" id="lv-w03-4" aria-label="Tuần 3 mức 4"></td><td><input type="checkbox" id="lv-w03-5" aria-label="Tuần 3 mức 5"></td></tr>
+<tr><td><a href="tuan-04-kien-thuc.html">Tuần 4</a></td><td style="text-align:left">VLSM, tóm tắt, wildcard</td><td><input type="checkbox" id="lv-w04-1" aria-label="Tuần 4 mức 1"></td><td><input type="checkbox" id="lv-w04-2" aria-label="Tuần 4 mức 2"></td><td><input type="checkbox" id="lv-w04-3" aria-label="Tuần 4 mức 3"></td><td><input type="checkbox" id="lv-w04-4" aria-label="Tuần 4 mức 4"></td><td><input type="checkbox" id="lv-w04-5" aria-label="Tuần 4 mức 5"></td></tr>
+<tr><td><a href="tuan-05-kien-thuc.html">Tuần 5</a></td><td style="text-align:left">IPv6</td><td><input type="checkbox" id="lv-w05-1" aria-label="Tuần 5 mức 1"></td><td><input type="checkbox" id="lv-w05-2" aria-label="Tuần 5 mức 2"></td><td><input type="checkbox" id="lv-w05-3" aria-label="Tuần 5 mức 3"></td><td><input type="checkbox" id="lv-w05-4" aria-label="Tuần 5 mức 4"></td><td><input type="checkbox" id="lv-w05-5" aria-label="Tuần 5 mức 5"></td></tr>
+<tr><td><a href="tuan-06-kien-thuc.html">Tuần 6</a></td><td style="text-align:left">VLAN, trunk, inter-VLAN</td><td><input type="checkbox" id="lv-w06-1" aria-label="Tuần 6 mức 1"></td><td><input type="checkbox" id="lv-w06-2" aria-label="Tuần 6 mức 2"></td><td><input type="checkbox" id="lv-w06-3" aria-label="Tuần 6 mức 3"></td><td><input type="checkbox" id="lv-w06-4" aria-label="Tuần 6 mức 4"></td><td><input type="checkbox" id="lv-w06-5" aria-label="Tuần 6 mức 5"></td></tr>
+<tr><td><a href="tuan-07-kien-thuc.html">Tuần 7</a></td><td style="text-align:left">STP/RSTP</td><td><input type="checkbox" id="lv-w07-1" aria-label="Tuần 7 mức 1"></td><td><input type="checkbox" id="lv-w07-2" aria-label="Tuần 7 mức 2"></td><td><input type="checkbox" id="lv-w07-3" aria-label="Tuần 7 mức 3"></td><td><input type="checkbox" id="lv-w07-4" aria-label="Tuần 7 mức 4"></td><td><input type="checkbox" id="lv-w07-5" aria-label="Tuần 7 mức 5"></td></tr>
+<tr><td><a href="tuan-08-kien-thuc.html">Tuần 8</a></td><td style="text-align:left">EtherChannel, CDP/LLDP, port security</td><td><input type="checkbox" id="lv-w08-1" aria-label="Tuần 8 mức 1"></td><td><input type="checkbox" id="lv-w08-2" aria-label="Tuần 8 mức 2"></td><td><input type="checkbox" id="lv-w08-3" aria-label="Tuần 8 mức 3"></td><td><input type="checkbox" id="lv-w08-4" aria-label="Tuần 8 mức 4"></td><td><input type="checkbox" id="lv-w08-5" aria-label="Tuần 8 mức 5"></td></tr>
+<tr><td><a href="tuan-10-kien-thuc.html">Tuần 10</a></td><td style="text-align:left">RIB/FIB, AD, longest match</td><td><input type="checkbox" id="lv-w10-1" aria-label="Tuần 10 mức 1"></td><td><input type="checkbox" id="lv-w10-2" aria-label="Tuần 10 mức 2"></td><td><input type="checkbox" id="lv-w10-3" aria-label="Tuần 10 mức 3"></td><td><input type="checkbox" id="lv-w10-4" aria-label="Tuần 10 mức 4"></td><td><input type="checkbox" id="lv-w10-5" aria-label="Tuần 10 mức 5"></td></tr>
+<tr><td><a href="tuan-11-kien-thuc.html">Tuần 11</a></td><td style="text-align:left">Static, default, floating static</td><td><input type="checkbox" id="lv-w11-1" aria-label="Tuần 11 mức 1"></td><td><input type="checkbox" id="lv-w11-2" aria-label="Tuần 11 mức 2"></td><td><input type="checkbox" id="lv-w11-3" aria-label="Tuần 11 mức 3"></td><td><input type="checkbox" id="lv-w11-4" aria-label="Tuần 11 mức 4"></td><td><input type="checkbox" id="lv-w11-5" aria-label="Tuần 11 mức 5"></td></tr>
+<tr><td><a href="tuan-12-kien-thuc.html">Tuần 12</a></td><td style="text-align:left">OSPF: khái niệm và neighbor</td><td><input type="checkbox" id="lv-w12-1" aria-label="Tuần 12 mức 1"></td><td><input type="checkbox" id="lv-w12-2" aria-label="Tuần 12 mức 2"></td><td><input type="checkbox" id="lv-w12-3" aria-label="Tuần 12 mức 3"></td><td><input type="checkbox" id="lv-w12-4" aria-label="Tuần 12 mức 4"></td><td><input type="checkbox" id="lv-w12-5" aria-label="Tuần 12 mức 5"></td></tr>
+<tr><td><a href="tuan-13-kien-thuc.html">Tuần 13</a></td><td style="text-align:left">OSPF: LSDB, DR/BDR</td><td><input type="checkbox" id="lv-w13-1" aria-label="Tuần 13 mức 1"></td><td><input type="checkbox" id="lv-w13-2" aria-label="Tuần 13 mức 2"></td><td><input type="checkbox" id="lv-w13-3" aria-label="Tuần 13 mức 3"></td><td><input type="checkbox" id="lv-w13-4" aria-label="Tuần 13 mức 4"></td><td><input type="checkbox" id="lv-w13-5" aria-label="Tuần 13 mức 5"></td></tr>
+<tr><td><a href="tuan-14-kien-thuc.html">Tuần 14</a></td><td style="text-align:left">OSPF: cost, passive, default route</td><td><input type="checkbox" id="lv-w14-1" aria-label="Tuần 14 mức 1"></td><td><input type="checkbox" id="lv-w14-2" aria-label="Tuần 14 mức 2"></td><td><input type="checkbox" id="lv-w14-3" aria-label="Tuần 14 mức 3"></td><td><input type="checkbox" id="lv-w14-4" aria-label="Tuần 14 mức 4"></td><td><input type="checkbox" id="lv-w14-5" aria-label="Tuần 14 mức 5"></td></tr>
+<tr><td><a href="tuan-15-kien-thuc.html">Tuần 15</a></td><td style="text-align:left">HSRP/VRRP/GLBP</td><td><input type="checkbox" id="lv-w15-1" aria-label="Tuần 15 mức 1"></td><td><input type="checkbox" id="lv-w15-2" aria-label="Tuần 15 mức 2"></td><td><input type="checkbox" id="lv-w15-3" aria-label="Tuần 15 mức 3"></td><td><input type="checkbox" id="lv-w15-4" aria-label="Tuần 15 mức 4"></td><td><input type="checkbox" id="lv-w15-5" aria-label="Tuần 15 mức 5"></td></tr>
+<tr><td><a href="tuan-16-kien-thuc.html">Tuần 16</a></td><td style="text-align:left">ACL và NAT</td><td><input type="checkbox" id="lv-w16-1" aria-label="Tuần 16 mức 1"></td><td><input type="checkbox" id="lv-w16-2" aria-label="Tuần 16 mức 2"></td><td><input type="checkbox" id="lv-w16-3" aria-label="Tuần 16 mức 3"></td><td><input type="checkbox" id="lv-w16-4" aria-label="Tuần 16 mức 4"></td><td><input type="checkbox" id="lv-w16-5" aria-label="Tuần 16 mức 5"></td></tr>
+<tr><td><a href="tuan-17-kien-thuc.html">Tuần 17</a></td><td style="text-align:left">DHCP, DNS, NTP, Syslog, SNMP, QoS</td><td><input type="checkbox" id="lv-w17-1" aria-label="Tuần 17 mức 1"></td><td><input type="checkbox" id="lv-w17-2" aria-label="Tuần 17 mức 2"></td><td><input type="checkbox" id="lv-w17-3" aria-label="Tuần 17 mức 3"></td><td><input type="checkbox" id="lv-w17-4" aria-label="Tuần 17 mức 4"></td><td><input type="checkbox" id="lv-w17-5" aria-label="Tuần 17 mức 5"></td></tr>
+<tr><td><a href="tuan-18-kien-thuc.html">Tuần 18</a></td><td style="text-align:left">SSH, AAA, bảo mật L2, wireless, API</td><td><input type="checkbox" id="lv-w18-1" aria-label="Tuần 18 mức 1"></td><td><input type="checkbox" id="lv-w18-2" aria-label="Tuần 18 mức 2"></td><td><input type="checkbox" id="lv-w18-3" aria-label="Tuần 18 mức 3"></td><td><input type="checkbox" id="lv-w18-4" aria-label="Tuần 18 mức 4"></td><td><input type="checkbox" id="lv-w18-5" aria-label="Tuần 18 mức 5"></td></tr>
+</tbody>
+</table></div>
+<h3>Tự chấm riêng tuần 19</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 19</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>Vì sao mỗi lựa chọn thiết kế (STP root = HSRP active, ACL bootps, NAT inside hai cổng)</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>Chi nhánh đạt checklist trong ≤ 90 phút</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>5 lỗi, mỗi lỗi ≤ 15 phút</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>MOP-015 và 5 postmortem đầy đủ</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Trình bày chi nhánh lab trong 5 phút như đang phỏng vấn</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Tick tuần 19 trên lịch học. Hết giai đoạn 1</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày 15 phút</h2>
+<ul>
+  <li><b>Hỏi đáp bằng miệng 5 phút:</b> một dòng ngẫu nhiên trong <a href="tuan-19-kien-thuc.html#m7">bảng tổng ôn</a>.</li>
+  <li><b>Một bài subnet nhanh</b> (tuần 3–4) để giữ tốc độ cho kỳ thi.</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">Đủ 5 ngày</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 19/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Hết giai đoạn 1. Tuần sau: giai đoạn 2, OSPF 4 – nhiều area.
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan19-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
