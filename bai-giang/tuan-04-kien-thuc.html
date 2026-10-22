@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 4</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 4 (16/11 – 22/11/2026) · <a href="tuan-04.html">Giáo án tuần 4 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 4 (Odom Vol 1, "Subnet Design"; Vol 2 phần VLSM). Tuần 3 anh chia mạng <b>đều nhau</b>. Thực tế không phòng nào giống phòng nào, và một ngân hàng có hàng chục chi nhánh. Tuần này học ba công cụ của người <b>thiết kế</b> mạng: <b>VLSM</b> (chia không đều), <b>summarization</b> (gom nhiều mạng thành một dòng) và <b>wildcard mask</b> (cách Cisco viết dải trong ACL và OSPF). Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">Vì sao cần VLSM</a></li>
+  <li><a href="#m2">Quy tắc VLSM: lớn trước, căn biên</a></li>
+  <li><a href="#m3">Ví dụ VLSM từng bước</a></li>
+  <li><a href="#m4">Link point-to-point: /30 hay /31</a></li>
+  <li><a href="#m5">Thiết kế IP cho nhiều site</a></li>
+  <li><a href="#m6">Longest prefix match (nhắc lại và sửa lỗi)</a></li>
+  <li><a href="#m7">Route summarization là gì</a></li>
+  <li><a href="#m8">Tìm route tổng bằng nhị phân</a></li>
+  <li><a href="#m9">Bẫy của summarization</a></li>
+  <li><a href="#m10">Wildcard mask</a></li>
+  <li><a href="#m11">Wildcard cho dải bất kỳ, dùng trong ACL và OSPF</a></li>
+  <li><a href="#m12">Lệnh kiểm tra</a></li>
+  <li><a href="#m13">Tình huống thực tế</a></li>
+  <li><a href="#m14">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m15">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m16">Bài luyện và câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> Vì sao cần VLSM</h1>
+
+<h2>1/ FLSM lãng phí thế nào</h2>
+<p><b>FLSM</b> (Fixed Length Subnet Mask): mọi subnet cùng một mask (tuần 3). <b>VLSM</b> (Variable Length Subnet Mask): mỗi subnet một mask <b>vừa đủ</b> cho nhu cầu của nó.</p>
+<p>Ví dụ: một /24 cần cho: phòng A 100 máy, phòng B 50, phòng C 25, phòng D 10, và 3 link router.</p>
+<div class="tbl"><table>
+<tr><th>Cách</th><th class="l">Tính</th><th class="l">Kết quả</th></tr>
+<tr><td>FLSM</td><td class="l">Mạng lớn nhất cần 100 host ⇒ /25 cho tất cả ⇒ /24 chỉ có 2 mạng /25</td><td class="l"><b>Không đủ</b> (cần 7 mạng)</td></tr>
+<tr><td>VLSM</td><td class="l">/25 + /26 + /27 + /28 + 3 × /30</td><td class="l"><b>Đủ</b>, còn dư một /30 (mục 3)</td></tr>
+</table></div>
+
+<h2>2/ Điều kiện để dùng VLSM</h2>
+<p>Giao thức định tuyến phải <b>gửi kèm mask</b> trong cập nhật (classless): OSPF, EIGRP, RIPv2, BGP, static. RIPv1 không gửi mask nên không dùng được VLSM (lý do RIPv1 đã chết).</p>
+
+<div class="note"><b>💡 Ví dụ dễ hiểu</b>
+FLSM giống chia một mảnh đất thành các lô <b>bằng nhau</b>: nhà 3 người cũng được lô bằng nhà 30 người. VLSM là chia lô theo <b>nhu cầu</b>: nhà to lô to, nhà nhỏ lô nhỏ, nhưng vẫn phải chia sao cho các lô <b>không đè lên nhau</b> và ranh giới thẳng hàng.</div>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Quy tắc VLSM: lớn trước, căn biên</h1>
+
+<h2>1/ Bốn bước</h2>
+<ol>
+  <li><b>Liệt kê nhu cầu</b> (số host mỗi mạng, cộng gateway và dự phòng).</li>
+  <li><b>Sắp xếp từ lớn đến nhỏ.</b></li>
+  <li><b>Chọn prefix</b> cho từng mạng (2<sup>h</sup> − 2 ≥ nhu cầu).</li>
+  <li><b>Cấp lần lượt</b> từ đầu khối: mạng tiếp theo bắt đầu ngay sau broadcast của mạng trước.</li>
+</ol>
+
+<h2>2/ Vì sao phải cấp mạng lớn trước</h2>
+<p>Mỗi subnet phải bắt đầu ở <b>bội số của kích thước của chính nó</b> (căn biên, alignment). Một /25 chỉ có thể bắt đầu ở .0 hoặc .128; một /26 ở .0, .64, .128, .192.</p>
+<p>Nếu cấp nhỏ trước: /30 ở .0 (.0–.3), rồi muốn đặt /25 thì không thể bắt đầu ở .4 (không phải bội của 128) ⇒ phải nhảy tới .128, <b>bỏ phí .4 – .127</b>, và sau đó không còn chỗ cho /26.</p>
+<p><mark>Lớn trước, nhỏ sau ⇒ mỗi mạng mới tự động rơi đúng biên, không có khoảng trống.</mark></p>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ chưa có VLSM. <b>Thêm mục mới "VLSM"</b> với quy tắc "lớn trước nhỏ sau, mỗi mạng bắt đầu ở bội số kích thước của nó" và <b>một bảng ví dụ của chính anh</b> (tự đặt đề: 4 phòng ban số máy khác nhau + 2 link).</div>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Ví dụ VLSM từng bước</h1>
+<p>Khối: <b>192.168.100.0/24</b>. Nhu cầu: A 100 máy, B 50, C 25, D 10, 3 link router (L1, L2, L3).</p>
+
+<h2>1/ Sắp xếp và chọn prefix</h2>
+<div class="tbl"><table>
+<tr><th>Mạng</th><th>Cần</th><th>Prefix</th><th>Kích thước</th><th>Host được</th></tr>
+<tr><td>A</td><td>100</td><td>/25</td><td>128</td><td>126</td></tr>
+<tr><td>B</td><td>50</td><td>/26</td><td>64</td><td>62</td></tr>
+<tr><td>C</td><td>25</td><td>/27</td><td>32</td><td>30</td></tr>
+<tr><td>D</td><td>10</td><td>/28</td><td>16</td><td>14</td></tr>
+<tr><td>L1, L2, L3</td><td>2</td><td>/30</td><td>4</td><td>2</td></tr>
+</table></div>
+
+<h2>2/ Cấp lần lượt</h2>
+<div class="tbl"><table>
+<tr><th>Mạng</th><th>Network</th><th>Host</th><th>Broadcast</th><th class="l">Mạng sau bắt đầu ở</th></tr>
+<tr><td>A</td><td>192.168.100.0/25</td><td>.1 – .126</td><td>.127</td><td class="l">.128</td></tr>
+<tr><td>B</td><td>192.168.100.128/26</td><td>.129 – .190</td><td>.191</td><td class="l">.192</td></tr>
+<tr><td>C</td><td>192.168.100.192/27</td><td>.193 – .222</td><td>.223</td><td class="l">.224</td></tr>
+<tr><td>D</td><td>192.168.100.224/28</td><td>.225 – .238</td><td>.239</td><td class="l">.240</td></tr>
+<tr><td>L1</td><td>192.168.100.240/30</td><td>.241 – .242</td><td>.243</td><td class="l">.244</td></tr>
+<tr><td>L2</td><td>192.168.100.244/30</td><td>.245 – .246</td><td>.247</td><td class="l">.248</td></tr>
+<tr><td>L3</td><td>192.168.100.248/30</td><td>.249 – .250</td><td>.251</td><td class="l">.252</td></tr>
+<tr><td>(trống)</td><td>192.168.100.252/30</td><td colspan="3" class="l">Còn dư một /30 cho link thứ tư</td></tr>
+</table></div>
+
+<h2>3/ Vẽ thanh địa chỉ để kiểm tra không chồng lấn</h2>
+<div class="flow">0                127 128      191 192   223 224 239 240 .. 255
+|-------- A /25 -------|---- B /26 ----|-- C /27 --|-D /28-|L1 L2 L3 --|</div>
+<p>Kiểm tra nhanh: tổng kích thước = 128 + 64 + 32 + 16 + 4 × 4 = 256 ⇒ vừa khít /24.</p>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> Link point-to-point: /30 hay /31</h1>
+<div class="tbl"><table>
+<tr><th></th><th>/30</th><th>/31</th></tr>
+<tr><td>Số địa chỉ</td><td>4 (network, 2 host, broadcast)</td><td>2 (cả hai là host)</td></tr>
+<tr><td>Lãng phí</td><td>50%</td><td>0%</td></tr>
+<tr><td>Hỗ trợ</td><td>Mọi thiết bị</td><td>Cisco IOS/IOS-XE, NX-OS, Juniper, Linux. Một số thiết bị cũ, firewall, thiết bị nhà mạng không hỗ trợ</td></tr>
+<tr><td>Ví dụ</td><td>10.255.0.0/30: .1 và .2</td><td>10.255.0.0/31: .0 và .1</td></tr>
+</table></div>
+<pre>R1(config-if)# ip address 10.255.0.0 255.255.255.254
+% Warning: use /31 mask on non point-to-point interface cautiously   ! IOS cảnh báo trên cổng Ethernet, vẫn chấp nhận</pre>
+<p>Trong datacenter dùng /31 rất phổ biến (hàng trăm link spine–leaf). Ở văn phòng/chi nhánh, /30 vẫn là lựa chọn an toàn vì thiết bị nhà mạng và firewall đều hỗ trợ.</p>
+<p><b>Loopback</b> của router (dùng làm router ID, quản trị, nguồn của syslog/SNMP) dùng <b>/32</b>, lấy từ một khối riêng.</p>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Thiết kế IP cho nhiều site</h1>
+
+<h2>1/ Nguyên tắc của người thiết kế</h2>
+<ol>
+  <li><b>Phân cấp</b>: công ty một khối lớn ⇒ mỗi site một khối con liên tục ⇒ trong site chia VLAN. Như địa chỉ bưu điện: tỉnh → quận → phường.</li>
+  <li><b>Khối mỗi site cùng kích thước</b> (ví dụ chi nhánh nào cũng /22): dễ nhớ, dễ dùng chung mẫu cấu hình, dễ summarize.</li>
+  <li><b>Chừa chỗ tăng trưởng</b>: chi nhánh hiện cần một /24 thì cấp khối /22, dùng /24 đầu, giữ 3 /24 còn lại.</li>
+  <li><b>Khối riêng</b> cho link WAN (cắt /30), loopback (cắt /32), quản trị (mgmt).</li>
+  <li><b>Số VLAN ăn khớp số subnet</b> nếu được (VLAN 10 ⇒ x.x.10.0): người trực đêm nhìn IP đoán được VLAN.</li>
+  <li><b>Ghi vào IPAM trước khi cấu hình.</b> IPAM (IP Address Management): Excel, NetBox, phpIPAM.</li>
+</ol>
+
+<h2>2/ Ví dụ: HQ + 5 chi nhánh (dùng cho lab tuần này)</h2>
+<p>Khối công ty (giả định cho lab): <b>10.20.0.0/16</b>.</p>
+<div class="tbl"><table>
+<tr><th>Site</th><th>Khối</th><th class="l">Bên trong</th></tr>
+<tr><td>HQ</td><td>10.20.0.0/20</td><td class="l">Người dùng 400 máy: 10.20.0.0/23 · Thoại 200: 10.20.2.0/24 · Server 60: 10.20.3.0/26 · Mgmt 20: 10.20.3.64/27 · Còn lại dự phòng</td></tr>
+<tr><td>CN1</td><td>10.20.16.0/22</td><td class="l" rowspan="5">Mỗi chi nhánh dùng /24 đầu khối:<br>Người dùng 100: <b>x.0/25</b> · Thoại 50: <b>x.128/26</b> · Máy in/camera 20: <b>x.192/27</b> · Mgmt 10: <b>x.224/28</b> · x.240/28 trống.<br>Ba /24 sau giữ cho tăng trưởng.</td></tr>
+<tr><td>CN2</td><td>10.20.20.0/22</td></tr>
+<tr><td>CN3</td><td>10.20.24.0/22</td></tr>
+<tr><td>CN4</td><td>10.20.28.0/22</td></tr>
+<tr><td>CN5</td><td>10.20.32.0/22</td></tr>
+<tr><td>Link WAN</td><td>10.20.255.0/24</td><td class="l">Cắt /30: HQ–CN1 10.20.255.0/30, HQ–CN2 .4/30, HQ–CN3 .8/30, HQ–CN4 .12/30, HQ–CN5 .16/30</td></tr>
+<tr><td>Loopback</td><td>10.20.254.0/24</td><td class="l">Mỗi router một /32: HQ .1, CN1 .11, CN2 .12…</td></tr>
+</table></div>
+<p>Hệ quả hay: CN1–CN4 nằm gọn trong <b>10.20.16.0/20</b> ⇒ HQ có thể dùng <b>một route</b> cho cả 4 chi nhánh (mục 7).</p>
+
+<div class="note"><b>Góc nhìn hệ thống</b>
+Ở ngân hàng có hàng chục chi nhánh và phòng giao dịch, bảng quy hoạch như trên là thứ đầu tiên kỹ sư mới phải đọc. Nó quyết định: rule firewall viết theo khối (một dòng cho "mọi chi nhánh"), SD-WAN và định tuyến gọn hay rối, Zabbix nhóm thiết bị theo site, và lúc sự cố nhìn IP là biết chi nhánh nào. Thiết kế dở (mỗi chi nhánh một dải ngẫu nhiên) thì 10 năm sau vẫn trả giá.</div>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Longest prefix match (nhắc lại và sửa lỗi)</h1>
+<p>Router có nhiều route cùng chứa IP đích ⇒ chọn route có <b>prefix dài nhất</b> (khớp nhiều bit nhất). Đây là luật cơ bản nhất của định tuyến, xảy ra <b>trước</b> AD và metric (tuần 10).</p>
+<div class="tbl"><table>
+<tr><th>Route trong bảng</th><th>Dải thực</th><th>Chứa 192.168.1.10?</th></tr>
+<tr><td>192.168.0.0/16</td><td>192.168.0.0 – 192.168.255.255</td><td>Có (16 bit)</td></tr>
+<tr><td>192.168.0.0/20</td><td>192.168.0.0 – 192.168.15.255</td><td>Có (20 bit)</td></tr>
+<tr><td>192.168.1.0/24</td><td>192.168.1.0 – 192.168.1.255</td><td>Có (24 bit)</td></tr>
+<tr><td><b>192.168.1.0/27</b></td><td>192.168.1.0 – 192.168.1.31</td><td><b>Có (27 bit) ⇒ được chọn</b></td></tr>
+<tr><td>0.0.0.0/0</td><td>mọi địa chỉ</td><td>Có (0 bit), chỉ dùng khi không còn gì khác</td></tr>
+</table></div>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Bảng longest match trong sổ có dòng <b>"192.168.1.0/20"</b>. <b>Sai</b>: 192.168.1.0 không phải địa chỉ network của một /20. /20 có magic 16 ở octet 3 ⇒ mạng /20 chứa 192.168.1.x là <b>192.168.0.0/20</b> (192.168.0.0 – 192.168.15.255). Router Cisco sẽ tự sửa thành 192.168.0.0 hoặc báo lỗi "Inconsistent address and mask". Sửa lại dòng đó và thêm câu: <i>"Route có prefix dài hơn (cụ thể hơn) được chọn trước, bất kể AD hay metric."</i></div>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Route summarization là gì</h1>
+
+<h2>1/ Định nghĩa</h2>
+<p><b>Route summarization</b> (gộp route, còn gọi supernetting hay aggregation): thay <b>nhiều route cụ thể</b> bằng <b>một route có prefix ngắn hơn</b> bao trùm tất cả.</p>
+<div class="flow">Trước (HQ có 4 dòng):            Sau (HQ có 1 dòng):
+10.20.16.0/22 via CN1             10.20.16.0/20 via WAN-router
+10.20.20.0/22 via CN2
+10.20.24.0/22 via CN3
+10.20.28.0/22 via CN4</div>
+
+<h2>2/ Lợi ích</h2>
+<ul>
+  <li><b>Bảng route nhỏ</b> ⇒ tra nhanh, ít RAM (router Internet có ~1 triệu route; không gộp thì không chạy nổi).</li>
+  <li><b>Ổn định</b>: một mạng bên trong CN1 lên xuống (flap) không làm cả công ty phải tính lại, vì route tổng vẫn đứng yên (học kỹ ở OSPF tuần 12–14).</li>
+  <li><b>Cấu hình và rule gọn</b>: một rule firewall "cho phép 10.20.16.0/20" thay vì 4 rule.</li>
+</ul>
+
+<h2>3/ Điều kiện để gộp đẹp</h2>
+<p>Các mạng phải <b>liên tục</b> và <b>bắt đầu ở biên</b> của route tổng. Đó là lý do mục 5 bảo cấp khối cùng kích thước, liên tục, bắt đầu từ bội số.</p>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> Tìm route tổng bằng nhị phân</h1>
+
+<h2>1/ Ba bước</h2>
+<ol>
+  <li>Viết <b>octet khác nhau</b> của các mạng ra nhị phân (các octet giống hệt thì bỏ qua).</li>
+  <li>Đếm số bit <b>giống nhau từ trái sang</b>, dừng ở bit đầu tiên khác.</li>
+  <li>Prefix tổng = số bit của các octet giống hệt + số bit giống ở bước 2. Network tổng = phần bit giống, phần còn lại về 0.</li>
+</ol>
+
+<h3>Ví dụ 1: 10.0.8.0/24 đến 10.0.15.0/24 (8 mạng)</h3>
+<div class="flow">  8 = 0000 1000
+  9 = 0000 1001
+ ...
+ 15 = 0000 1111
+      |<-5->|      5 bit đầu giống nhau (00001)
+Prefix = 8 + 8 + 5 = /21   ⇒   10.0.8.0/21</div>
+<p>Kiểm tra: /21 ⇒ magic 8 ở octet 3 ⇒ 10.0.8.0 – 10.0.15.255. Đúng 8 mạng, không thừa không thiếu.</p>
+
+<h3>Ví dụ 2: 172.16.0.0/24 đến 172.16.3.0/24</h3>
+<p>0 = 0000 00<b>00</b>, 3 = 0000 00<b>11</b> ⇒ 6 bit giống ⇒ /22 ⇒ <b>172.16.0.0/22</b>.</p>
+
+<h3>Ví dụ 3: mạng không tròn số: 172.16.32.0/24 đến 172.16.37.0/24 (6 mạng)</h3>
+<p>32 = 0010 0000, 37 = 0010 0101 ⇒ 5 bit giống (00100) ⇒ /21 ⇒ <b>172.16.32.0/21</b> = 172.16.32.0 – 172.16.39.255. Route tổng này <b>chứa thêm 38 và 39</b> là hai mạng không tồn tại (xem bẫy ở mục 9).</p>
+
+<h2>2/ Cách nhanh không cần nhị phân (khi số mạng là lũy thừa của 2)</h2>
+<p>N mạng /24 liên tục, N = 2<sup>k</sup>, mạng đầu là bội số của N ⇒ route tổng = /(24 − k). Ví dụ 8 mạng (k = 3) từ 10.0.8.0 (8 là bội của 8) ⇒ /21.</p>
+<p><mark>Mạng đầu không phải bội số của N ⇒ không gộp gọn được thành một route.</mark> Ví dụ 192.168.1.0, .2.0, .3.0 (3 mạng, bắt đầu ở 1): route tổng nhỏ nhất chứa cả ba là 192.168.0.0/22, kéo theo cả 192.168.0.0/24 không thuộc mình. Cách đúng: 192.168.1.0/24 + 192.168.2.0/23.</p>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ chưa có <b>Summarization</b>. Thêm mục mới gồm: định nghĩa, ba bước nhị phân, ví dụ 10.0.8.0 → 10.0.15.0 = 10.0.8.0/21, và câu "route tổng có thể chứa cả mạng không tồn tại".</div>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> Bẫy của summarization</h1>
+
+<h2>1/ Route tổng chứa mạng không có ⇒ hố đen (black hole)</h2>
+<p>HQ quảng bá 10.20.16.0/20 về phía Internet/trụ sở, nhưng CN4 (10.20.28.0/22) <b>đang mất kết nối</b>. Gói tới 10.20.28.5 vẫn khớp route tổng ⇒ vẫn được gửi về router tổng ⇒ router đó không có route cụ thể ⇒ <b>bỏ</b>, hoặc tệ hơn gửi theo default route ra ngoài ⇒ có thể <b>lặp vòng</b> giữa hai router.</p>
+<p>⇒ Cách chống: router tạo route tổng thêm một route tới <b>Null0</b> (interface "thùng rác") cho chính route tổng. OSPF/EIGRP tự làm điều này khi summarize. Với static thì tự thêm:</p>
+<pre>R-HQ(config)# ip route 10.20.16.0 255.255.240.0 Null0     ! gói không có route cụ thể hơn sẽ bị bỏ tại đây, không lặp vòng</pre>
+<p>Longest match đảm bảo các route /22 cụ thể vẫn được ưu tiên hơn dòng Null0 /20.</p>
+
+<h2>2/ Gộp quá tay ⇒ hút nhầm lưu lượng</h2>
+<p>Gộp 172.16.32.0–37.0 thành /21 ⇒ nếu một site khác thực sự dùng 172.16.38.0/24 thì lưu lượng tới đó có thể bị hút nhầm về đây (tùy route nào cụ thể hơn và được quảng bá ở đâu). Nguyên tắc: <b>chỉ gộp khối mình sở hữu trọn vẹn</b>.</p>
+
+<h2>3/ Mất chi tiết khi xử lý sự cố</h2>
+<p>Ở xa chỉ thấy route tổng ⇒ không biết mạng con nào đang chết. Đổi lại sự ổn định. Đây là đánh đổi thiết kế, không phải lỗi.</p>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> Wildcard mask</h1>
+
+<h2>1/ Định nghĩa</h2>
+<p><b>Wildcard mask</b> là cách Cisco chỉ ra <b>bit nào phải khớp</b> và <b>bit nào bỏ qua</b> khi so một địa chỉ:</p>
+<ul>
+  <li>Bit <b>0</b> = phải khớp đúng.</li>
+  <li>Bit <b>1</b> = không quan tâm (bất kỳ).</li>
+</ul>
+<p>Ngược với subnet mask. Với dải liền mạch: <mark>wildcard = 255.255.255.255 − subnet mask</mark> (từng octet).</p>
+
+<h2>2/ Bảng wildcard cần thuộc</h2>
+<div class="tbl"><table>
+<tr><th>Prefix</th><th>Subnet mask</th><th>Wildcard</th></tr>
+<tr><td>/32</td><td>255.255.255.255</td><td>0.0.0.0 (một host, viết <code>host</code>)</td></tr>
+<tr><td>/30</td><td>255.255.255.252</td><td><b>0.0.0.3</b></td></tr>
+<tr><td>/29</td><td>255.255.255.248</td><td>0.0.0.7</td></tr>
+<tr><td>/28</td><td>255.255.255.240</td><td>0.0.0.15</td></tr>
+<tr><td>/27</td><td>255.255.255.224</td><td>0.0.0.31</td></tr>
+<tr><td>/26</td><td>255.255.255.192</td><td>0.0.0.63</td></tr>
+<tr><td>/25</td><td>255.255.255.128</td><td>0.0.0.127</td></tr>
+<tr><td>/24</td><td>255.255.255.0</td><td>0.0.0.255</td></tr>
+<tr><td>/22</td><td>255.255.252.0</td><td>0.0.3.255</td></tr>
+<tr><td>/20</td><td>255.255.240.0</td><td>0.0.15.255</td></tr>
+<tr><td>/16</td><td>255.255.0.0</td><td>0.0.255.255</td></tr>
+<tr><td>/0</td><td>0.0.0.0</td><td>255.255.255.255 (mọi địa chỉ, viết <code>any</code>)</td></tr>
+</table></div>
+<p>Mẹo: octet thú vị của wildcard = <b>magic number − 1</b>. /26 magic 64 ⇒ 63.</p>
+
+<h2>3/ Dùng ở đâu</h2>
+<div class="tbl"><table>
+<tr><th>Chỗ dùng</th><th class="l">Ví dụ</th><th class="l">Học kỹ ở</th></tr>
+<tr><td>ACL</td><td class="l"><code>access-list 10 permit 192.168.10.0 0.0.0.63</code></td><td class="l">Tuần 16</td></tr>
+<tr><td>OSPF network</td><td class="l"><code>network 10.20.255.0 0.0.0.3 area 0</code></td><td class="l">Tuần 12</td></tr>
+<tr><td>EIGRP network</td><td class="l"><code>network 10.20.0.0 0.0.255.255</code></td><td class="l">ENARSI</td></tr>
+</table></div>
+<p>Lưu ý: FortiGate, Linux, Windows <b>không dùng wildcard</b>, chỉ dùng mask/prefix. Wildcard là "phương ngữ" của Cisco (và một ít Juniper).</p>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ chưa có <b>Wildcard mask</b>. Thêm mục mới: định nghĩa bit 0/1, công thức 255 − mask, bảng trên, và hai ví dụ ACL/OSPF.</div>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Wildcard cho dải bất kỳ, dùng trong ACL và OSPF</h1>
+
+<h2>1/ Dải liền mạch, tròn biên</h2>
+<p>Dải 10.0.8.0 – 10.0.15.255 ⇒ đó là 10.0.8.0/21 ⇒ wildcard 0.0.7.255 ⇒ <code>10.0.8.0 0.0.7.255</code>.</p>
+<p>Cách tính trực tiếp: wildcard = <b>địa chỉ cuối − địa chỉ đầu</b> (từng octet): 10.0.15.255 − 10.0.8.0 = 0.0.7.255. (Chỉ đúng khi dải tròn biên.)</p>
+
+<h2>2/ Dải không tròn biên ⇒ chia thành nhiều dòng</h2>
+<p>Ví dụ cho phép 192.168.1.10 – 192.168.1.20 (11 địa chỉ) trong ACL: không có một wildcard liền mạch nào trùng đúng. Chia thành khối tròn biên:</p>
+<div class="flow">.10 – .11   ⇒ 192.168.1.10 0.0.0.1
+.12 – .15   ⇒ 192.168.1.12 0.0.0.3
+.16 – .19   ⇒ 192.168.1.16 0.0.0.3
+.20         ⇒ host 192.168.1.20</div>
+
+<h2>3/ Hai từ khóa tắt</h2>
+<ul>
+  <li><code>host 10.1.1.1</code> = <code>10.1.1.1 0.0.0.0</code></li>
+  <li><code>any</code> = <code>0.0.0.0 255.255.255.255</code></li>
+</ul>
+
+<h2>4/ Wildcard không liền mạch (biết để đọc hiểu)</h2>
+<p>Wildcard không bắt buộc liền mạch như mask. <code>192.168.0.0 0.0.254.255</code> khớp mọi 192.168.<b>x</b>.y với x <b>chẵn</b> (bit cuối octet 3 phải bằng 0). Ít dùng, nhưng có trong đề và trong cấu hình cũ "khó hiểu".</p>
+
+<h2>5/ Kiểm tra một IP có khớp không</h2>
+<p>IP khớp <code>A W</code> khi: các bit ở vị trí W = 0 của IP giống hệt bit tương ứng của A. Ví dụ <code>10.20.16.0 0.0.15.255</code> có khớp 10.20.30.1 không? Octet 3: 30 = 0001 1110, 16 = 0001 0000, wildcard 15 = 0000 1111 ⇒ 4 bit đầu phải giống: 0001 = 0001 ⇒ <b>khớp</b>. (Đúng: 10.20.16.0/20 là .16 – .31.)</p>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Lệnh kiểm tra</h1>
+<pre>R1# show ip route                              ! toàn bộ bảng route
+R1# show ip route 10.20.28.5                   ! router sẽ dùng route nào cho IP này (longest match)
+R1# show ip route 10.20.16.0 255.255.240.0 longer-prefixes   ! mọi route nằm trong khối /20
+R1# show ip route summary                      ! đếm số route theo nguồn
+R1# show ip interface brief | exclude unassigned
+R1# show running-config | include ip address   ! liệt kê IP mọi interface để đối chiếu IP plan</pre>
+<p><code>show ip route &lt;ip&gt;</code> là lệnh quan trọng nhất tuần này: trả lời đúng câu "gói tới IP này đi đường nào, theo dòng route nào".</p>
+<pre>R1# show ip route 10.20.28.5
+Routing entry for 10.20.16.0/20
+  Known via "static", distance 1, metric 0
+  Routing Descriptor Blocks:
+  * 10.20.255.2
+      Route metric is 0, traffic share count is 1</pre>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Tình huống thực tế</h1>
+
+<h3>Tình huống 1 · Hai chi nhánh chồng dải IP</h3>
+<p>CN2 được dựng bằng cách chép file cấu hình của CN1, quên sửa dải người dùng: cả hai cùng có 10.20.16.0/25. Người dùng CN2 báo "không vào được hệ thống ở trụ sở", CN1 bình thường.</p>
+<details><summary>Phân tích</summary>
+<ol>
+  <li>Trên router HQ: <code>show ip route 10.20.16.10</code> ⇒ thấy route trỏ về CN1 (hoặc hai route đều có, tùy giao thức). Gói trả lời cho máy CN2 bị gửi sang CN1 ⇒ CN2 không nhận được.</li>
+  <li>Đối chiếu <code>show ip interface brief</code> trên router CN2 với IP plan ⇒ thấy CN2 dùng dải của CN1.</li>
+  <li>Sửa: đổi dải CN2 về 10.20.20.0/25, sửa DHCP scope, máy xin lại IP.</li>
+  <li>Phòng ngừa: mẫu cấu hình có biến (số chi nhánh), checklist "đối chiếu IPAM" trong MOP mở chi nhánh.</li>
+</ol></details>
+
+<h3>Tình huống 2 · Rule firewall viết sai wildcard/mask</h3>
+<p>Một rule cho phép "chi nhánh CN1–CN4" được viết là 10.20.16.0/21. CN3, CN4 không truy cập được server.</p>
+<details><summary>Phân tích</summary>
+<p>/21 chỉ là 10.20.16.0 – 10.20.23.255 (CN1, CN2). CN1–CN4 cần /20 (10.20.16.0 – 10.20.31.255). Luôn kiểm dải thật của prefix trước khi viết rule.</p></details>
+
+<h3>Tình huống 3 · Mất một chi nhánh, CPU router HQ tăng cao</h3>
+<details><summary>Phân tích</summary>
+<p>HQ có route tổng 10.20.16.0/20 trỏ về router WAN, router WAN lại có default route trỏ về HQ. CN4 chết ⇒ gói tới 10.20.28.x khớp route tổng ở HQ, sang router WAN, router WAN không có route /22 nên theo default về HQ ⇒ lặp tới khi TTL = 0. Thêm route Null0 cho khối tổng ở router WAN.</p></details>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>VLSM</td><td class="l">Mỗi mạng một mask vừa đủ · sắp lớn → nhỏ · mỗi mạng bắt đầu ở bội số kích thước của nó · cần giao thức classless</td></tr>
+<tr><td>Link P2P</td><td class="l">/30 (2 host) phổ biến · /31 không lãng phí · loopback /32</td></tr>
+<tr><td>Longest match</td><td class="l">Prefix dài nhất thắng, xét trước AD/metric</td></tr>
+<tr><td>Summarization</td><td class="l">Đếm bit giống từ trái · N = 2<sup>k</sup> mạng /24 bắt đầu ở bội của N ⇒ /(24 − k) · 10.0.8.0–15.0 = 10.0.8.0/21</td></tr>
+<tr><td>Bẫy</td><td class="l">Route tổng chứa mạng không có ⇒ thêm Null0 · chỉ gộp khối mình sở hữu</td></tr>
+<tr><td>Wildcard</td><td class="l">0 = khớp, 1 = bỏ qua · 255 − mask · /30 0.0.0.3 · /24 0.0.0.255 · host = 0.0.0.0 · any = 255.255.255.255</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m15"><span class="no">15.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">VLSM</td><td class="l">chia mạng mask thay đổi</td><td class="l">FLSM</td><td class="l">chia mạng mask cố định</td></tr>
+<tr><td class="l">summarization / aggregation</td><td class="l">gộp route</td><td class="l">supernet</td><td class="l">mạng tổng (prefix ngắn hơn /24 lớp C)</td></tr>
+<tr><td class="l">wildcard mask</td><td class="l">mặt nạ đại diện</td><td class="l">contiguous</td><td class="l">liền mạch</td></tr>
+<tr><td class="l">alignment / boundary</td><td class="l">căn biên / ranh giới</td><td class="l">overlap</td><td class="l">chồng lấn</td></tr>
+<tr><td class="l">black hole</td><td class="l">hố đen (gói bị nuốt)</td><td class="l">routing loop</td><td class="l">vòng lặp định tuyến</td></tr>
+<tr><td class="l">Null0</td><td class="l">interface ảo bỏ gói</td><td class="l">longest prefix match</td><td class="l">khớp tiền tố dài nhất</td></tr>
+<tr><td class="l">IP plan / addressing scheme</td><td class="l">quy hoạch địa chỉ</td><td class="l">IPAM</td><td class="l">quản lý địa chỉ IP</td></tr>
+<tr><td class="l">growth / headroom</td><td class="l">tăng trưởng / dư địa</td><td class="l">hierarchical</td><td class="l">phân cấp</td></tr>
+<tr><td class="l">point-to-point</td><td class="l">điểm nối điểm</td><td class="l">site / branch / HQ</td><td class="l">địa điểm / chi nhánh / trụ sở</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"Branches 1 to 4 can be summarized as 10.20.16.0/20, and we add a Null0 route to avoid loops."</i></p>
+
+<label class="done"><input type="checkbox" id="d15"> Xong mục 15</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m16"><span class="no">16.</span> Bài luyện và câu hỏi tự kiểm tra</h1>
+
+<h2>A/ 5 câu tự kiểm tra trong lịch</h2>
+<details><summary>1. 200 máy cần prefix nào?</summary><p>/24 (254 host). /25 chỉ 126.</p></details>
+<details><summary>2. Chia 192.168.5.0/24 thành 4 mạng bằng nhau: prefix và 4 network?</summary><p>/26: 192.168.5.0, .64, .128, .192.</p></details>
+<details><summary>3. Vì sao VLSM phải cấp mạng lớn trước?</summary><p>Mỗi subnet phải bắt đầu ở bội số kích thước của nó. Cấp lớn trước thì mạng sau tự rơi đúng biên, không để lại khoảng trống; cấp nhỏ trước thì mạng lớn phải nhảy tới biên kế tiếp, phí địa chỉ và có thể không đủ chỗ.</p></details>
+<details><summary>4. Route tổng của 10.0.8.0/24 đến 10.0.15.0/24?</summary><p>10.0.8.0/21.</p></details>
+<details><summary>5. Wildcard của /30?</summary><p>0.0.0.3.</p></details>
+
+<h2>B/ 10 bài VLSM + wildcard (bấm giờ)</h2>
+<ol>
+  <li>Khối 172.16.10.0/24: cần 60, 28, 12, 2, 2. Cấp VLSM.</li>
+  <li>Khối 10.1.0.0/22: cần 300, 120, 60, 2. Cấp VLSM.</li>
+  <li>Route tổng của 192.168.16.0/24, .17.0, .18.0, .19.0.</li>
+  <li>Route tổng của 172.20.64.0/24 đến 172.20.127.0/24.</li>
+  <li>Route tổng nhỏ nhất chứa 10.10.4.0/24 và 10.10.9.0/24. Nó chứa thêm bao nhiêu /24?</li>
+  <li>Wildcard của /27, /22, /19.</li>
+  <li>Viết ACL cho dải 10.20.16.0 – 10.20.31.255 bằng một dòng.</li>
+  <li><code>192.168.1.64 0.0.0.31</code> có khớp 192.168.1.100 không?</li>
+  <li>Viết lệnh OSPF network cho link 10.20.255.4/30 vào area 0.</li>
+  <li>Dải 10.0.0.4 – 10.0.0.11: chia thành bao nhiêu dòng wildcard?</li>
+</ol>
+<details><summary>Đáp án (mở sau khi làm)</summary>
+<ol>
+  <li>60 ⇒ /26 172.16.10.0/26 · 28 ⇒ /27 .64/27 · 12 ⇒ /28 .96/28 · 2 ⇒ /30 .112/30 · 2 ⇒ /30 .116/30.</li>
+  <li>300 ⇒ /23 10.1.0.0/23 · 120 ⇒ /25 10.1.2.0/25 · 60 ⇒ /26 10.1.2.128/26 · 2 ⇒ /30 10.1.2.192/30.</li>
+  <li>192.168.16.0/22.</li>
+  <li>64 mạng từ 64 (bội của 64) ⇒ /24 − 6 = 172.20.64.0/18.</li>
+  <li>4 = 0000 0100, 9 = 0000 1001 ⇒ 4 bit giống ⇒ 10.10.0.0/20 ⇒ chứa 16 mạng /24, tức thêm 14 mạng không phải của mình. Không nên gộp kiểu này.</li>
+  <li>/27 0.0.0.31 · /22 0.0.3.255 · /19 0.0.31.255.</li>
+  <li><code>access-list 20 permit 10.20.16.0 0.0.15.255</code>.</li>
+  <li>Không. .64/27 là .64 – .95.</li>
+  <li><code>network 10.20.255.4 0.0.0.3 area 0</code>.</li>
+  <li><b>2 dòng</b>: 10.0.0.4 0.0.0.3 (.4 – .7) và 10.0.0.8 0.0.0.3 (.8 – .11). Không gộp thành một dòng được vì .4 không phải bội của 8.</li>
+</ol>
+</details>
+
+<h2>C/ Câu hỏi vận hành / phỏng vấn</h2>
+<details><summary>6. Vì sao nhiều công ty cấp mỗi chi nhánh một /22 dù chỉ dùng một /24?</summary><p>Chừa tăng trưởng mà không phá cấu trúc; mọi chi nhánh cùng mẫu; khối liên tục nên gộp route và viết rule gọn.</p></details>
+<details><summary>7. Route tổng có nhược điểm gì khi xử lý sự cố?</summary><p>Ở xa không thấy mạng con nào chết; có thể hút lưu lượng tới mạng không tồn tại (cần Null0). Đánh đổi lấy bảng route nhỏ và ổn định.</p></details>
+<details><summary>8. Bảng route có 10.20.0.0/16 via A, 10.20.16.0/20 via B, 10.20.28.0/22 via C. Gói tới 10.20.29.1, 10.20.17.1, 10.20.40.1 đi đâu?</summary><p>10.20.29.1 ⇒ C (/22: .28–.31). 10.20.17.1 ⇒ B (/20: .16–.31, /22 không chứa). 10.20.40.1 ⇒ A.</p></details>
+
+<label class="done"><input type="checkbox" id="d16"> Xong mục 16</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab và MOP trong <a href="tuan-04.html">giáo án tuần 4</a>. Tuần trước: <a href="tuan-03-kien-thuc.html">sổ tay tuần 3</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan04-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

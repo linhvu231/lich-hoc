@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 4</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 4 · 16/11 – 22/11/2026</div>
+  <h1>VLSM, summarization, wildcard, thiết kế IP</h1>
+  <p>Hướng dẫn từng ngày: đọc gì, thiết kế gì, lab gõ lệnh gì. Khoảng 10,5 giờ cả tuần.</p>
+  <p>Phần đọc sách đã thay bằng <a href="tuan-04-kien-thuc.html">sổ tay tiếng Việt 16 mục</a>, có bài luyện kèm đáp án.</p>
+  <div class="links">
+    <a href="tuan-04-kien-thuc.html">Sổ tay tuần 4 (thay sách)</a>
+    <a href="tuan-03.html">Giáo án tuần 3</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Đầu ra trong lịch: <b>thiết kế VLSM cho 6 site không chồng lấn; tính wildcard 5 dải bất kỳ.</b> Cụ thể:</p>
+<ol>
+  <li>Từ bảng nhu cầu (số máy mỗi VLAN mỗi site) ra bảng quy hoạch VLSM trên giấy trong 30 phút.</li>
+  <li>Tìm route tổng của một nhóm mạng và nói được route đó có chứa mạng "thừa" nào không.</li>
+  <li>Viết wildcard cho dải bất kỳ, kể cả dải phải tách nhiều dòng.</li>
+  <li>Phát hiện hai site chồng dải bằng bảng định tuyến.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  Tuần 3 anh là người <b>tính</b>. Tuần này anh là người <b>thiết kế</b>. Khác biệt: người tính trả lời "IP này thuộc mạng nào"; người thiết kế quyết định "10 năm tới công ty sẽ cấp IP thế nào để không ai phải đánh số lại". Một bảng quy hoạch tốt làm cho định tuyến gọn, rule firewall ngắn, và lúc 2 giờ sáng nhìn IP là biết chi nhánh nào. Đây là kỹ năng phân biệt kỹ sư hạ tầng với kỹ thuật viên.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · VLSM, link P2P, thiết kế nhiều site</a></li>
+    <li><a href="#t3">Thứ 3 · Summarization, wildcard</a></li>
+    <li><a href="#t4">Thứ 4 · Thiết kế IP cho HQ + 5 chi nhánh</a></li>
+    <li><a href="#t5">Thứ 5 · Lab: dựng HQ + 2 chi nhánh, verify</a></li>
+    <li><a href="#t6">Thứ 6 · Ôn lab, sửa sổ tay</a></li>
+    <li><a href="#t7">Thứ 7 · MOP #2 thêm chi nhánh 6, diễn tập chồng dải</a></li>
+    <li><a href="#cn">Chủ nhật · Tự kiểm tra, tự chấm</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày: 10 VLSM + 10 wildcard</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (16/11) · VLSM, link P2P, thiết kế nhiều site</h2>
+<div class="meta"><span><b>1,5 giờ</b> đọc + luyện</span><span>Đầu ra: ví dụ VLSM của riêng anh, thanh địa chỉ vẽ tay</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Sổ tay mục <a href="tuan-04-kien-thuc.html#m1">1</a> đến <a href="tuan-04-kien-thuc.html#m6">6</a>: VLSM, quy tắc, ví dụ, /30–/31, thiết kế nhiều site, longest match</label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Tự đặt đề VLSM (4 mạng số máy khác nhau + 2 link) trong một /24, giải, vẽ thanh địa chỉ</label></li>
+  <li><input type="checkbox" id="t2-3"><label for="t2-3">Thử cấp ngược (nhỏ trước) cho cùng đề để thấy khoảng trống bị phí</label></li>
+</ul>
+<div class="box warn">
+  <strong>Bẫy hay gặp</strong>
+  Đếm thiếu: "50 máy ⇒ /26" đúng, nhưng 50 máy + máy in + AP + gateway + 20% dự phòng = 65 ⇒ phải /25. Đề thi hay cho đúng số, đời thật thì luôn cộng thêm.
+</div>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (17/11) · Summarization và wildcard</h2>
+<div class="meta"><span><b>1,5 giờ</b> đọc + 5 phút tự giảng</span><span>Đầu ra: ghi chú + 5 câu hỏi để hỏi Claude</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Sổ tay mục <a href="tuan-04-kien-thuc.html#m7">7</a>, <a href="tuan-04-kien-thuc.html#m8">8</a>, <a href="tuan-04-kien-thuc.html#m9">9</a>: summarization, cách tìm, bẫy Null0</label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Sổ tay mục <a href="tuan-04-kien-thuc.html#m10">10</a>, <a href="tuan-04-kien-thuc.html#m11">11</a>, <a href="tuan-04-kien-thuc.html#m12">12</a>: wildcard, dải bất kỳ, lệnh kiểm tra</label></li>
+  <li><input type="checkbox" id="t3-3"><label for="t3-3">Tự giảng 5 phút: "vì sao route tổng cần route Null0"</label></li>
+  <li><input type="checkbox" id="t3-4"><label for="t3-4">Làm bài luyện mục <a href="tuan-04-kien-thuc.html#m16">16 phần B</a>, chấm, ghi câu sai</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (18/11) · Thiết kế IP cho HQ + 5 chi nhánh (trên giấy)</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: <code>W04-vlsm-summarization/ip-plan.md</code></span></div>
+
+<h3>Đề bài</h3>
+<p>Khối công ty: <b>10.30.0.0/16</b>. Mỗi chi nhánh phải nằm gọn trong một khối riêng để gộp được route.</p>
+<div class="tbl"><table>
+<thead><tr><th>Site</th><th>Người dùng</th><th>Thoại</th><th>Server / thiết bị</th><th>Mgmt</th></tr></thead>
+<tbody>
+<tr><td>HQ</td><td>250</td><td>120</td><td>Server 100</td><td>30</td></tr>
+<tr><td>CN1 → CN5 (mỗi CN)</td><td>50</td><td>25</td><td>Máy in/camera 10</td><td>6</td></tr>
+<tr><td>Link WAN</td><td colspan="4">HQ nối CN1 → CN5, mỗi link /30</td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1">Chọn kích thước khối cho HQ và cho mỗi chi nhánh (cùng kích thước)</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2">Cấp VLSM bên trong mỗi khối, lớn trước nhỏ sau</label></li>
+  <li><input type="checkbox" id="t4-3"><label for="t4-3">Cấp khối link WAN và loopback</label></li>
+  <li><input type="checkbox" id="t4-4"><label for="t4-4">Viết route tổng cho cả 5 chi nhánh. Nó chừa chỗ cho bao nhiêu chi nhánh nữa?</label></li>
+</ul>
+<details><summary>Một đáp án mẫu (mở sau khi làm; đáp án khác vẫn đúng nếu không chồng lấn và gộp được)</summary>
+<div class="tbl"><table>
+<thead><tr><th>Site / mục</th><th>Subnet</th></tr></thead>
+<tbody>
+<tr><td>HQ khối</td><td>10.30.0.0/21 (dư cho tăng trưởng)</td></tr>
+<tr><td>HQ người dùng 250</td><td>10.30.0.0/24 (254 host, sát; nhiều nơi chọn /23 cho thoải mái)</td></tr>
+<tr><td>HQ thoại 120</td><td>10.30.1.0/25</td></tr>
+<tr><td>HQ server 100</td><td>10.30.1.128/25</td></tr>
+<tr><td>HQ mgmt 30</td><td>10.30.2.0/27</td></tr>
+<tr><td>CN1 → CN5 khối</td><td>10.30.8.0/24, 10.30.9.0/24, 10.30.10.0/24, 10.30.11.0/24, 10.30.12.0/24</td></tr>
+<tr><td>Trong mỗi CN (x = 8…12)</td><td>Người dùng 10.30.x.0/26 · Thoại 10.30.x.64/27 · Thiết bị 10.30.x.96/28 · Mgmt 10.30.x.112/28 · x.128 → x.255 trống</td></tr>
+<tr><td>Link WAN</td><td>10.30.255.0/30 (CN1), .4/30, .8/30, .12/30, .16/30 (CN5)</td></tr>
+<tr><td>Loopback</td><td>10.30.254.1/32 (HQ), .11 (CN1) … .15 (CN5)</td></tr>
+<tr><td>Route tổng 5 CN</td><td>10.30.8.0/21 (10.30.8.0 – 10.30.15.255): chứa CN1–CN5 và chừa 3 chi nhánh (13, 14, 15)</td></tr>
+</tbody>
+</table></div>
+<p>Kiểm tra trong mỗi CN: 64 + 32 + 16 + 16 = 128 địa chỉ, nửa sau của /24 để dành tăng trưởng. Bẫy: mgmt 6 thiết bị <b>cộng gateway là 7</b> ⇒ /29 (6 host) không đủ ⇒ phải /28. Tương tự thiết bị 10 + gateway = 11 ⇒ /28 vẫn đủ (14).</p>
+</details>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (19/11) · Lab: dựng HQ + CN1 + CN2 theo bảng VLSM</h2>
+<div class="meta"><span><b>1,5 giờ</b> lab + verify</span><span>Đầu ra: config 3 router vào git, output verify có giải thích</span></div>
+
+<h3>Mẹo lab: dùng loopback giả lập VLAN</h3>
+<p>Thay vì cắm 4 switch cho 4 VLAN mỗi site, tạo <b>interface loopback</b> mang IP gateway của mỗi VLAN. Loopback luôn up, hiện trong bảng route như mạng connected. Một cổng thật nối switch + PC cho VLAN người dùng để ping thử.</p>
+
+<h3>Cấu hình CN1 (CN2 tương tự với x = 9)</h3>
+<pre>CN1(config)# interface g0/0
+CN1(config-if)# description LAN-NGUOIDUNG
+CN1(config-if)# ip address 10.30.8.1 255.255.255.192
+CN1(config-if)# no shutdown
+CN1(config)# interface loopback 64
+CN1(config-if)# description GW-THOAI
+CN1(config-if)# ip address 10.30.8.65 255.255.255.224
+CN1(config)# interface loopback 96
+CN1(config-if)# description GW-THIETBI
+CN1(config-if)# ip address 10.30.8.97 255.255.255.240
+CN1(config)# interface loopback 112
+CN1(config-if)# description GW-MGMT
+CN1(config-if)# ip address 10.30.8.113 255.255.255.240
+CN1(config)# interface loopback 0
+CN1(config-if)# ip address 10.30.254.11 255.255.255.255
+CN1(config)# interface g0/1
+CN1(config-if)# description WAN-HQ
+CN1(config-if)# ip address 10.30.255.2 255.255.255.252
+CN1(config-if)# no shutdown</pre>
+
+<h3>HQ</h3>
+<pre>HQ(config)# interface g0/1
+HQ(config-if)# description WAN-CN1
+HQ(config-if)# ip address 10.30.255.1 255.255.255.252
+HQ(config-if)# no shutdown
+HQ(config)# interface g0/2
+HQ(config-if)# description WAN-CN2
+HQ(config-if)# ip address 10.30.255.5 255.255.255.252
+HQ(config-if)# no shutdown
+HQ(config)# interface g0/0
+HQ(config-if)# ip address 10.30.0.1 255.255.255.0
+HQ(config-if)# no shutdown
+<span class="c">! Thêm loopback cho thoại, server, mgmt theo bảng</span></pre>
+
+<h3>Verify</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1"><code>show ip route connected</code> trên từng router: đếm đúng số mạng, đúng prefix theo bảng</label></li>
+  <li><input type="checkbox" id="t5-2"><label for="t5-2">Ping trong từng site: PC CN1 → 10.30.8.65, .97, .113; HQ ping 10.30.255.2 và 10.30.255.6</label></li>
+  <li><input type="checkbox" id="t5-3"><label for="t5-3">Thử ping từ PC CN1 tới 10.30.9.65 (CN2): <b>không được</b>. Giải thích (chưa có route; định tuyến học ở tuần 10–11)</label></li>
+</ul>
+
+<h3>Xem trước (không bắt buộc): route tổng và Null0</h3>
+<pre><span class="c">! Route tĩnh học kỹ ở tuần 11. Ở đây chỉ để thấy summarization hoạt động.</span>
+CN1(config)# ip route 0.0.0.0 0.0.0.0 10.30.255.1
+CN2(config)# ip route 0.0.0.0 0.0.0.0 10.30.255.5
+HQ(config)#  ip route 10.30.8.0 255.255.255.0 10.30.255.2
+HQ(config)#  ip route 10.30.9.0 255.255.255.0 10.30.255.6
+HQ#  show ip route 10.30.9.65
+<span class="c">! Nếu có router WAN phía trên HQ, router đó chỉ cần: ip route 10.30.8.0 255.255.248.0 &lt;HQ&gt;</span>
+<span class="c">! và HQ thêm: ip route 10.30.8.0 255.255.248.0 Null0   (chống lặp khi CN chưa tồn tại)</span>
+HQ(config)#  ip route 10.30.8.0 255.255.248.0 Null0
+HQ#  show ip route 10.30.12.5      <span class="c">! CN5 chưa có ⇒ khớp Null0 ⇒ gói bị bỏ tại HQ, không lặp</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-4"><label for="t5-4">Lưu config 3 router và IP plan vào git</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (20/11) · Ôn lab, sửa sổ tay CCNA</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: ghi chú Google Docs đã sửa</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1">Không nhìn đáp án, làm lại IP plan cho đề Thứ 4 với khối 172.18.0.0/16. Bấm giờ, mục tiêu 20 phút</label></li>
+</ul>
+<h3>Sửa sổ tay (3 việc trong lịch)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">Bảng longest match có dòng 192.168.1.0/20 là sai. Mạng /20 chứa 192.168.1.x là 192.168.0.0/20. Sửa lại và thêm câu "route có prefix dài hơn được chọn"</label></li>
+  <li><input type="checkbox" id="t6-3"><label for="t6-3">Thêm mục mới "VLSM" với quy tắc lớn trước nhỏ sau và bảng ví dụ của chính anh</label></li>
+  <li><input type="checkbox" id="t6-4"><label for="t6-4">Thêm mục "Wildcard mask" và "Summarization"</label></li>
+</ul>
+<div class="box warn">
+  <strong>Thêm một lỗi tôi thấy trong sổ</strong>
+  Phần "Hành vi Router" ghi các bước "so IP X với routing table … nếu có đường thì forward". Thiếu ý quan trọng: router <b>không dừng ở dòng đầu tiên khớp</b> như ACL; nó xét <b>mọi</b> dòng khớp rồi chọn prefix dài nhất. ACL (tuần 16) thì ngược lại: dừng ở dòng đầu tiên khớp. Ghi hai câu này cạnh nhau để không bao giờ nhầm.
+</div>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (21/11) · MOP #2 thêm chi nhánh 6, diễn tập chồng dải</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>mop/MOP-002-them-chi-nhanh-6.md</code> và <code>postmortem/W04-chong-dai.md</code></span></div>
+
+<h3>Phần A · MOP #2: thêm chi nhánh 6 vào IP plan</h3>
+<p>Change này chủ yếu là <b>tài liệu</b>: cấp dải, kiểm chồng lấn, cập nhật mọi nơi tham chiếu. Ở công ty thật, làm sai bước này thì mọi cấu hình phía sau đều sai.</p>
+<pre>
+# MOP-002 · Cấp dải IP cho chi nhánh 6 (CN6)
+
+| Mục        | Nội dung                                                  |
+|------------|-----------------------------------------------------------|
+| Mục tiêu   | Cấp khối IP, link WAN, loopback cho CN6 theo chuẩn CN      |
+| Phạm vi    | Tài liệu IP plan; chưa cấu hình thiết bị                   |
+| Ảnh hưởng  | Không ảnh hưởng hệ thống đang chạy                         |
+| Rủi ro     | Chồng lấn với dải đang dùng ⇒ sự cố khi triển khai sau này |
+
+## 1. Pre-check: kiểm chồng lấn (bắt buộc làm cả 3 cách)
+- Tra IP plan: khối 10.30.13.0/24 đang trống?
+- Trên HQ: show ip route 10.30.13.0 255.255.255.0 longer-prefixes   ⇒ phải rỗng
+- Trên HQ: show ip route 10.30.13.1   ⇒ chỉ khớp route tổng/Null0, không khớp mạng cụ thể nào
+- Link WAN 10.30.255.20/30, loopback 10.30.254.16: tra tương tự
+
+## 2. Các bước
+- Ghi vào IP plan: CN6 = 10.30.13.0/24, chia: người dùng .0/26, thoại .64/27, thiết bị .96/28, mgmt .112/28
+- Link WAN HQ–CN6: 10.30.255.20/30 (HQ .21, CN6 .22)
+- Loopback CN6: 10.30.254.16/32
+- Kiểm: CN6 vẫn nằm trong route tổng 10.30.8.0/21 ⇒ không cần sửa route tổng/rule firewall theo khối
+
+## 3. Verify
+- Hai người khác nhau (hoặc tự kiểm sau 1 ngày) đối chiếu không chồng lấn
+- Danh sách nơi cần cập nhật: IP plan, sơ đồ, DHCP scope, rule firewall, nhóm giám sát
+
+## 4. Rollback
+Xóa dòng CN6 khỏi IP plan (chưa có gì trên thiết bị).
+</pre>
+<div class="box">
+  <strong>Góc nhìn hệ thống: một dải IP mới chạm tới đâu</strong>
+  DHCP scope trên server; rule FortiGate (nếu viết theo từng chi nhánh thay vì theo khối thì phải thêm rule); SD-WAN/định tuyến (nếu đã gộp route thì không cần đổi); nhóm host Zabbix; tài liệu sơ đồ; danh sách cho phép ở các hệ thống đối tác (nếu có). Gộp route và viết rule theo khối ngay từ đầu làm cho mở chi nhánh mới gần như không phải sửa gì ở trung tâm.
+</div>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Viết MOP-002, chạy pre-check trên lab, cập nhật IP plan</label></li>
+</ul>
+
+<h3>Phần B · Diễn tập: hai chi nhánh bị chồng dải IP</h3>
+<p>Dùng lab Thứ 5 (đã có route tĩnh ở phần "xem trước"). Gài lỗi: đổi G0/0 của CN2 thành <code>10.30.8.1 255.255.255.192</code> (dải của CN1), thêm trên HQ <code>ip route 10.30.8.0 255.255.255.0 10.30.255.6</code>.</p>
+<ul class="check">
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Từ HQ ping 10.30.8.10 (PC ở CN1). Kết quả? <code>show ip route 10.30.8.10</code> hiện mấy next-hop?</label></li>
+  <li><input type="checkbox" id="t7-3"><label for="t7-3">Tìm ra CN2 dùng dải của CN1 chỉ bằng lệnh <code>show</code> (không xem config trước)</label></li>
+  <li><input type="checkbox" id="t7-4"><label for="t7-4">Sửa, verify, viết postmortem</label></li>
+</ul>
+<details><summary>Gợi ý (mở sau khi làm)</summary>
+<p>Hai route tĩnh cùng prefix, cùng AD ⇒ HQ cân bằng tải (load-share) giữa CN1 và CN2 ⇒ ping 10.30.8.10 lúc được lúc không (một nửa gói đi nhầm sang CN2). <code>show ip route 10.30.8.10</code> thấy hai "Routing Descriptor Blocks". Từ đó <code>show ip interface brief</code> trên CN2 lộ ra IP 10.30.8.1. Ngoài đời, triệu chứng "mất một nửa gói, chập chờn" là dấu hiệu kinh điển của trùng dải hoặc trùng IP.</p>
+</details>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (22/11) · Tự kiểm tra và tự chấm</h2>
+<div class="meta"><span><b>30 phút</b></span><span>Trả lời ra giấy trước, rồi mới mở đáp án. Gửi cho Claude chấm.</span></div>
+
+<h3>Bài đầu ra</h3>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">Nhờ Claude ra một đề 6 site mới; thiết kế VLSM không chồng lấn trong 30 phút</label></li>
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Nhờ Claude cho 5 dải bất kỳ; viết wildcard (có dải phải tách nhiều dòng)</label></li>
+</ul>
+
+<h3>5 câu tự kiểm tra trong lịch</h3>
+<details><summary>1. 200 máy cần prefix nào?</summary><p>/24.</p></details>
+<details><summary>2. Chia 192.168.5.0/24 thành 4 mạng bằng nhau: prefix và 4 network?</summary><p>/26: .0, .64, .128, .192.</p></details>
+<details><summary>3. Vì sao VLSM phải cấp mạng lớn trước?</summary><p>Mỗi mạng phải bắt đầu ở bội số kích thước của nó; lớn trước thì không để lại khoảng trống.</p></details>
+<details><summary>4. Route tổng của 10.0.8.0/24 đến 10.0.15.0/24?</summary><p>10.0.8.0/21.</p></details>
+<details><summary>5. Wildcard của /30?</summary><p>0.0.0.3.</p></details>
+
+<h3>3 câu vặn thêm (mức phỏng vấn)</h3>
+<details><summary>6. Anh tiếp quản một mạng 30 chi nhánh, mỗi chi nhánh một dải ngẫu nhiên. Anh đề xuất gì, và vì sao không làm ngay?</summary><p>Đề xuất quy hoạch lại theo khối liên tục để gộp route và viết rule theo khối. Không làm ngay vì đổi IP ảnh hưởng mọi thứ (DHCP, IP tĩnh máy in/camera, rule, ứng dụng ghi IP cứng); phải làm theo đợt, mỗi chi nhánh một MOP, ưu tiên chi nhánh mới mở theo chuẩn mới.</p></details>
+<details><summary>7. /31 tiết kiệm hơn /30, sao chi nhánh vẫn hay dùng /30?</summary><p>Thiết bị nhà mạng, firewall, thiết bị cũ có thể không hỗ trợ /31; /30 tương thích mọi nơi, và số link chi nhánh ít nên phí không đáng kể.</p></details>
+<details><summary>8. Router có 10.30.8.0/21 → Null0 và 10.30.9.0/24 → CN2. Gói tới 10.30.9.5 đi đâu? Tới 10.30.14.5?</summary><p>10.30.9.5 → CN2 (prefix /24 dài hơn). 10.30.14.5 → Null0, bị bỏ (không có route cụ thể hơn).</p></details>
+
+<h3>Tự chấm cuối tuần</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 4</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>Giải thích VLSM, căn biên, summarization, Null0, wildcard</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>Từ đề ra IP plan 6 site và cấu hình 3 router trong 60 phút</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>Phát hiện chồng dải chỉ bằng lệnh show</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>MOP-002 có kiểm chồng lấn 3 cách và danh sách nơi phải cập nhật</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Giải thích cho người khác vì sao chi nhánh nên dùng khối cùng kích thước</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-3"><label for="cn-3">Tick tuần 4 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày: 10 VLSM + 10 wildcard (khoảng 15–20 phút)</h2>
+<ul>
+  <li><b>10 VLSM nhỏ:</b> một khối /24 hoặc /23 và 3–5 nhu cầu, cấp lớn trước.</li>
+  <li><b>10 wildcard:</b> 5 từ prefix (/27 ⇒ ?), 5 từ dải (10.1.4.0 – 10.1.7.255 ⇒ ?).</li>
+  <li>Xen 5 bài subnet của tuần 3 để không quên.</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">T2</label></li>
+  <li><input type="checkbox" id="mn-2"><label for="mn-2">T3</label></li>
+  <li><input type="checkbox" id="mn-3"><label for="mn-3">T4</label></li>
+  <li><input type="checkbox" id="mn-4"><label for="mn-4">T5</label></li>
+  <li><input type="checkbox" id="mn-5"><label for="mn-5">T6</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 4/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: IPv6 – địa chỉ, NDP, SLAAC, static route.
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan04-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
