@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 7</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 7 (07/12 – 13/12/2026) · <a href="tuan-07.html">Giáo án tuần 7 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 7 (Odom Vol 1, "Spanning Tree Protocol Concepts" và "RSTP and EtherChannel Configuration"). Sổ CCNA của anh <b>chưa có mục STP</b>. Tuần này viết mới. STP là giao thức "vô hình": chạy đúng thì không ai biết, chạy sai thì <b>sập cả tòa nhà trong vài giây</b>. Mục tiêu cuối tuần: nhìn sơ đồ là <b>vẽ được cây STP, chỉ đúng port bị block trước khi gõ lệnh kiểm tra</b>. Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">Vì sao cần STP: loop tầng 2</a></li>
+  <li><a href="#m2">BPDU và Bridge ID</a></li>
+  <li><a href="#m3">Path cost</a></li>
+  <li><a href="#m4">3 bước bầu cây STP</a></li>
+  <li><a href="#m5">Ví dụ đầy đủ: 3 switch tam giác</a></li>
+  <li><a href="#m6">802.1D: trạng thái port và timer</a></li>
+  <li><a href="#m7">Các phiên bản STP</a></li>
+  <li><a href="#m8">RSTP: vai trò, trạng thái, hội tụ nhanh</a></li>
+  <li><a href="#m9">Topology change</a></li>
+  <li><a href="#m10">PortFast, BPDU Guard và các lớp bảo vệ</a></li>
+  <li><a href="#m11">Điều chỉnh: đặt root, cost, priority</a></li>
+  <li><a href="#m12">Lệnh kiểm tra, đọc output</a></li>
+  <li><a href="#m13">Xử lý sự cố loop</a></li>
+  <li><a href="#m14">Tình huống thực tế</a></li>
+  <li><a href="#m15">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m16">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m17">Câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> Vì sao cần STP: loop tầng 2</h1>
+
+<h2>1/ Dự phòng tạo ra vòng</h2>
+<p>Mạng tốt phải có <b>đường dự phòng</b>: hai switch access nối lên hai switch core, hai core nối nhau. Nhưng nhiều đường giữa các switch = <b>vòng lặp (loop)</b> ở tầng 2.</p>
+
+<h2>2/ Ba hậu quả của loop L2</h2>
+<ol>
+  <li><b>Bão broadcast (broadcast storm)</b>: một broadcast bị flood ra mọi port, quay về, lại flood… nhân lên vô hạn. Vài giây là link đầy 100%, CPU switch 100%.</li>
+  <li><b>Bảng MAC không ổn định</b>: cùng MAC nguồn đến từ nhiều port luân phiên ⇒ <b>MAC flapping</b> (tuần 2 mục 5).</li>
+  <li><b>Nhân bản frame</b>: máy nhận cùng một frame nhiều lần.</li>
+</ol>
+
+<h2>3/ Vì sao loop L2 không tự tắt như loop L3</h2>
+<p><mark>Header Ethernet không có TTL.</mark> Gói IP lặp vòng thì mỗi router trừ TTL 1, về 0 là bỏ ⇒ loop L3 tự chết sau tối đa 255 vòng. Frame Ethernet thì <b>lặp mãi mãi</b> cho tới khi có người cắt vòng (rút dây, shutdown port) hoặc STP block.</p>
+
+<h2>4/ STP làm gì</h2>
+<p><b>STP (Spanning Tree Protocol, IEEE 802.1D)</b>: các switch trao đổi thông tin, chọn ra một <b>cây</b> (tree: không có vòng) phủ hết mọi switch, rồi <b>block</b> các port còn lại. Khi link trong cây hỏng, STP mở port đang block để thay thế.</p>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Ở mục Hành vi Switch, nếu tuần 2 chưa sửa: thay câu "1 MAC 1 port chống loop (rất quan trọng trong STP)" bằng <i>"MAC flapping (MAC nhảy qua lại giữa các port) là <b>dấu hiệu có loop</b>. Chống loop là việc của STP."</i></div>
+
+<div class="note"><b>💡 Ví dụ dễ hiểu</b>
+Một khu phố có nhiều đường nối vòng quanh. Nếu mỗi người nhận tin nhắn lại hô to cho mọi ngã đường (flood), tin nhắn sẽ chạy vòng mãi. STP là ban quản lý khu phố: chọn một <b>trung tâm</b> (root), từ trung tâm vẽ ra đường ngắn nhất tới mọi nhà, và <b>rào tạm</b> các đoạn đường thừa. Đường chính hỏng thì mở rào đoạn thừa.</div>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> BPDU và Bridge ID</h1>
+
+<h2>1/ BPDU</h2>
+<p><b>BPDU (Bridge Protocol Data Unit)</b>: bản tin STP. Gửi tới MAC multicast <code>0180.c200.0000</code> (PVST+ của Cisco dùng <code>0100.0ccc.cccd</code>), mặc định <b>mỗi 2 giây</b> (Hello time). Các trường chính:</p>
+<div class="tbl"><table>
+<tr><th>Trường</th><th class="l">Ý nghĩa</th></tr>
+<tr><td>Root Bridge ID</td><td class="l">Switch này đang tin ai là root</td></tr>
+<tr><td>Root Path Cost</td><td class="l">Chi phí từ switch gửi tới root</td></tr>
+<tr><td>Sender Bridge ID</td><td class="l">ID của switch gửi BPDU</td></tr>
+<tr><td>Sender Port ID</td><td class="l">Port gửi: priority (mặc định 128) + số port</td></tr>
+<tr><td>Timers</td><td class="l">Hello 2 s, Max Age 20 s, Forward Delay 15 s (do root quyết định)</td></tr>
+<tr><td>Flags</td><td class="l">TC (topology change), với RSTP thêm proposal/agreement, vai trò port</td></tr>
+</table></div>
+
+<h2>2/ Bridge ID (BID) 8 byte</h2>
+<div class="flow">|  Priority 4 bit  | Extended System ID 12 bit |        MAC 48 bit        |
+|   (bội số 4096)  |      (= số VLAN)          |   MAC base của switch    |
+|<------ Bridge Priority 16 bit -------------->|</div>
+<ul>
+  <li>Priority mặc định <b>32768</b>. Vì chỉ 4 bit cao chỉnh được ⇒ priority phải là <b>bội số của 4096</b>: 0, 4096, 8192, … 61440.</li>
+  <li>Extended System ID = số VLAN ⇒ priority hiển thị = 32768 + VLAN. Ví dụ VLAN 10: <b>32778</b>; VLAN 1: <b>32769</b>.</li>
+  <li><mark>BID nhỏ nhất thắng</mark>: so priority trước, bằng nhau thì so MAC (MAC nhỏ hơn thắng).</li>
+</ul>
+<p>⇒ Không cấu hình gì thì switch có MAC <b>nhỏ nhất</b> (thường là switch <b>cũ nhất</b>) thành root. Switch cũ nhất thường nằm ở tủ access xa nhất ⇒ cây STP rất xấu. Đây là lý do <b>phải chỉ định root</b>.</p>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Path cost</h1>
+<p>Mỗi port có <b>cost</b> theo tốc độ. <b>Root path cost</b> = tổng cost các port <b>nhận vào</b> (port hướng về root) trên đường tới root. Cost thấp = đường tốt.</p>
+<div class="tbl"><table>
+<tr><th>Tốc độ</th><th>Cost short (802.1D-1998, đề CCNA)</th><th>Cost long (802.1D-2004)</th></tr>
+<tr><td>10 Mbps</td><td>100</td><td>2 000 000</td></tr>
+<tr><td>100 Mbps</td><td><b>19</b></td><td>200 000</td></tr>
+<tr><td>1 Gbps</td><td><b>4</b></td><td>20 000</td></tr>
+<tr><td>10 Gbps</td><td><b>2</b></td><td>2 000</td></tr>
+<tr><td>100 Gbps</td><td>— (không phân biệt được)</td><td>200</td></tr>
+</table></div>
+<p><mark>Thuộc cột short: 100 / 19 / 4 / 2.</mark> Một số dòng switch đời mới mặc định dùng long; xem <code>show spanning-tree summary</code> dòng "Pathcost method used". Mọi switch trong mạng nên dùng <b>cùng một method</b>.</p>
+<p>EtherChannel (tuần 8) có cost thấp hơn link đơn vì băng thông cộng dồn.</p>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> 3 bước bầu cây STP</h1>
+
+<h2>Bước 1 · Bầu root bridge (một switch cho cả mạng, mỗi VLAN với PVST+)</h2>
+<p>Mọi switch ban đầu đều tự cho mình là root, gửi BPDU. Nhận BPDU có root BID nhỏ hơn ⇒ công nhận switch đó là root, ngừng tự xưng. Cuối cùng: <b>BID nhỏ nhất = root</b>.</p>
+<p><mark>Mọi port của root bridge đều là designated port (forwarding). Root bridge không có root port.</mark></p>
+
+<h2>Bước 2 · Mỗi switch không phải root chọn đúng MỘT root port</h2>
+<p>Root port (RP) = port có <b>đường tốt nhất về root</b>. So lần lượt, dừng ở tiêu chí đầu tiên phân thắng thua:</p>
+<ol>
+  <li><b>Root path cost</b> thấp nhất.</li>
+  <li><b>Sender Bridge ID</b> thấp nhất (BPDU nhận được từ hàng xóm nào có BID nhỏ hơn).</li>
+  <li><b>Sender Port Priority</b> thấp nhất (priority của port <b>bên kia</b>).</li>
+  <li><b>Sender Port Number</b> thấp nhất (số port <b>bên kia</b>).</li>
+</ol>
+
+<h2>Bước 3 · Mỗi đoạn mạng (segment, mỗi link) chọn đúng MỘT designated port</h2>
+<p>Designated port (DP) = port trên link đó có <b>root path cost thấp nhất</b> (tức là switch gần root hơn). Hòa ⇒ BID thấp hơn thắng ⇒ port priority ⇒ port number.</p>
+<ul>
+  <li>Link nối với root: port phía root luôn là DP.</li>
+  <li>Port nối máy trạm: là DP (máy trạm không gửi BPDU).</li>
+</ul>
+
+<h2>Còn lại</h2>
+<p>Port không phải RP, không phải DP ⇒ <b>blocking</b> (802.1D) / <b>alternate</b> (RSTP). Trên mỗi link dư thừa, đúng <b>một</b> đầu bị block, đầu kia là DP.</p>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+Root: BID nhỏ nhất · Mỗi switch (trừ root): 1 RP · Mỗi link: 1 DP · Còn lại: block · Tie-break: cost → BID gửi → port priority gửi → port number gửi.</div>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Tạo mục STP mới trong sổ, gồm: <b>3 bước bầu cây</b> (ở trên), <b>bảng cost</b> (mục 3), và <b>2 bảng trạng thái</b> (802.1D ở mục 6, RSTP ở mục 8).</div>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Ví dụ đầy đủ: 3 switch tam giác</h1>
+<div class="flow">                 SW1  (priority 32769, MAC 000a)
+               Gi0/1   Gi0/2
+               /           \
+           1 Gbps         1 Gbps
+             /               \
+        Gi0/1                 Gi0/1
+   SW2 (32769, 000b)  ----   SW3 (32769, 000c)
+                 Gi0/2  1 Gbps  Gi0/2</div>
+<p>Cả ba priority mặc định (VLAN 1: 32769), mọi link 1 Gbps (cost 4).</p>
+<ol>
+  <li><b>Root</b>: priority bằng nhau ⇒ so MAC ⇒ 000a nhỏ nhất ⇒ <b>SW1 là root</b>. SW1 Gi0/1, Gi0/2 = DP.</li>
+  <li><b>Root port SW2</b>: qua Gi0/1 (thẳng lên SW1) cost 4; qua Gi0/2 (vòng qua SW3) cost 4 + 4 = 8 ⇒ <b>Gi0/1 = RP</b>. Tương tự <b>SW3 Gi0/1 = RP</b>.</li>
+  <li><b>Link SW2–SW3</b>: SW2 có root path cost 4, SW3 cũng 4 ⇒ hòa ⇒ so BID: SW2 (000b) &lt; SW3 (000c) ⇒ <b>SW2 Gi0/2 = DP</b>, <b>SW3 Gi0/2 = blocking/alternate</b>.</li>
+</ol>
+<div class="tbl"><table>
+<tr><th>Switch</th><th>Gi0/1</th><th>Gi0/2</th></tr>
+<tr><td>SW1 (root)</td><td>DP, FWD</td><td>DP, FWD</td></tr>
+<tr><td>SW2</td><td>RP, FWD</td><td>DP, FWD</td></tr>
+<tr><td>SW3</td><td>RP, FWD</td><td><b>Alternate, BLK</b></td></tr>
+</table></div>
+<p>Muốn port bị block nằm ở chỗ khác ⇒ đổi root (mục 11). Ví dụ đặt SW2 làm root thì port nào bị block? (Tự làm: SW3 Gi0/1 bị block vì SW1 thắng SW3 ở link SW1–SW3 khi hòa cost.)</p>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> 802.1D: trạng thái port và timer</h1>
+<div class="tbl"><table>
+<tr><th>Trạng thái</th><th>Gửi/nhận BPDU</th><th>Học MAC</th><th>Chuyển frame dữ liệu</th><th class="l">Thời gian</th></tr>
+<tr><td><b>Blocking</b></td><td>Nhận</td><td>Không</td><td>Không</td><td class="l">Chờ tới Max Age (20 s) khi mất BPDU</td></tr>
+<tr><td><b>Listening</b></td><td>Gửi + nhận</td><td>Không</td><td>Không</td><td class="l">Forward Delay 15 s</td></tr>
+<tr><td><b>Learning</b></td><td>Gửi + nhận</td><td><b>Có</b></td><td>Không</td><td class="l">Forward Delay 15 s</td></tr>
+<tr><td><b>Forwarding</b></td><td>Gửi + nhận</td><td>Có</td><td><b>Có</b></td><td class="l">Ổn định</td></tr>
+<tr><td>Disabled</td><td>Không</td><td>Không</td><td>Không</td><td class="l">Port shutdown</td></tr>
+</table></div>
+<ul>
+  <li><b>Hello</b> 2 s · <b>Max Age</b> 20 s · <b>Forward Delay</b> 15 s.</li>
+  <li>Port mới cắm (máy tính): listening 15 + learning 15 = <mark>30 giây</mark> mới chuyển được dữ liệu ⇒ PC bật lên xin DHCP có thể thất bại ⇒ cần PortFast (mục 10).</li>
+  <li>Link gián tiếp hỏng (mất BPDU): chờ Max Age 20 + 15 + 15 = <b>50 giây</b> ⇒ quá chậm cho mạng ngân hàng ⇒ RSTP.</li>
+</ul>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Các phiên bản STP</h1>
+<div class="tbl"><table>
+<tr><th>Tên</th><th>Chuẩn</th><th class="l">Số cây</th><th class="l">Hội tụ</th><th class="l">Ghi chú</th></tr>
+<tr><td>STP (CST)</td><td>802.1D</td><td class="l">1 cây cho mọi VLAN</td><td class="l">30–50 s</td><td class="l">Gốc</td></tr>
+<tr><td><b>PVST+</b></td><td>Cisco</td><td class="l">1 cây <b>mỗi VLAN</b></td><td class="l">30–50 s</td><td class="l">Mặc định trên nhiều switch Cisco cũ</td></tr>
+<tr><td>RSTP</td><td>802.1w</td><td class="l">1 cây</td><td class="l">Vài giây, thường &lt; 1 s</td><td class="l">Nay gộp vào 802.1D-2004</td></tr>
+<tr><td><b>Rapid PVST+</b></td><td>Cisco</td><td class="l">1 cây RSTP mỗi VLAN</td><td class="l">Nhanh</td><td class="l">Khuyến nghị cho mạng Cisco; đề CCNA dùng nhiều</td></tr>
+<tr><td>MSTP</td><td>802.1s</td><td class="l">Gom nhiều VLAN vào vài "instance"</td><td class="l">Nhanh</td><td class="l">Mạng lớn, nhiều hãng. Học ở ENCOR</td></tr>
+</table></div>
+<p>PVST+ cho phép <b>chia tải</b>: VLAN 10 root ở core 1, VLAN 20 root ở core 2 ⇒ mỗi uplink chuyển một nửa VLAN thay vì một uplink đứng không.</p>
+<pre>SW1(config)# spanning-tree mode rapid-pvst</pre>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> RSTP: vai trò, trạng thái, hội tụ nhanh</h1>
+
+<h2>1/ Vai trò port (role)</h2>
+<div class="tbl"><table>
+<tr><th>Vai trò</th><th class="l">Ý nghĩa</th></tr>
+<tr><td>Root port</td><td class="l">Như 802.1D</td></tr>
+<tr><td>Designated port</td><td class="l">Như 802.1D</td></tr>
+<tr><td><b>Alternate</b></td><td class="l">Đường <b>dự phòng về root</b>, nhận BPDU tốt từ <b>switch khác</b>. Đang discarding, <b>sẵn sàng thay root port gần như tức thì</b> khi root port hỏng</td></tr>
+<tr><td>Backup</td><td class="l">Dự phòng cho designated port trên cùng một segment (nhận BPDU từ chính switch mình, chỉ gặp khi có hub). Hiếm</td></tr>
+<tr><td>Disabled</td><td class="l">Port tắt</td></tr>
+</table></div>
+
+<h2>2/ Trạng thái: còn 3</h2>
+<div class="tbl"><table>
+<tr><th>802.1D</th><th>RSTP</th></tr>
+<tr><td>Disabled, Blocking, Listening</td><td><b>Discarding</b></td></tr>
+<tr><td>Learning</td><td>Learning</td></tr>
+<tr><td>Forwarding</td><td>Forwarding</td></tr>
+</table></div>
+
+<h2>3/ Loại link</h2>
+<ul>
+  <li><b>Point-to-point</b>: full duplex giữa hai switch ⇒ dùng được cơ chế bắt tay nhanh.</li>
+  <li><b>Shared</b>: half duplex (hub) ⇒ quay về cách chậm của 802.1D.</li>
+  <li><b>Edge</b>: port nối máy trạm (= PortFast) ⇒ forwarding ngay.</li>
+</ul>
+
+<h2>4/ Vì sao RSTP nhanh</h2>
+<ol>
+  <li><b>Không chờ timer</b>: hai switch trên link point-to-point bắt tay <b>proposal/agreement</b> rồi forwarding ngay.</li>
+  <li><b>Alternate có sẵn</b>: root port hỏng ⇒ alternate thành root port ngay, không qua listening/learning.</li>
+  <li><b>Phát hiện mất hàng xóm nhanh</b>: mất 3 hello (6 giây) là coi như mất, thay vì chờ Max Age 20 s. Mất link vật lý thì biết ngay lập tức.</li>
+</ol>
+<p><mark>Alternate (RSTP) = đường dự phòng về root, sẵn sàng thay ngay.</mark></p>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> Topology change</h1>
+<p>Khi một port không phải edge chuyển sang forwarding hoặc mất forwarding, cây thay đổi ⇒ một số MAC trong bảng có thể trỏ sai port.</p>
+<ul>
+  <li><b>802.1D</b>: switch gửi TCN về root; root báo cờ TC cho cả mạng; mọi switch rút aging bảng MAC từ 300 s xuống <b>15 s</b> (forward delay).</li>
+  <li><b>RSTP</b>: switch phát hiện thay đổi <b>xóa ngay</b> MAC học trên các port không phải edge và lan cờ TC ⇒ flood ngắn rồi học lại.</li>
+</ul>
+<p>Hệ quả vận hành: một port nối máy trạm <b>không bật PortFast</b> mà người dùng tắt/bật máy liên tục ⇒ topology change liên tục ⇒ bảng MAC bị xóa liên tục ⇒ flood tăng toàn VLAN. Kiểm: <code>show spanning-tree detail | include ieee|occurr|from</code> (số lần thay đổi, lần cuối, từ port nào).</p>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> PortFast, BPDU Guard và các lớp bảo vệ</h1>
+
+<h2>1/ PortFast</h2>
+<p>Port vào forwarding <b>ngay</b> khi up (bỏ listening/learning), không gây topology change khi lên xuống. Port vẫn gửi BPDU; nhận BPDU thì mất trạng thái PortFast và chạy STP bình thường.</p>
+<ul>
+  <li><mark>Bật ở</mark>: port access nối <b>một thiết bị đầu cuối</b> (PC, máy in, server, AP đơn giản).</li>
+  <li><mark>Không bao giờ bật ở</mark>: port nối <b>switch, hub, bridge</b> khác (sẽ tạo loop tức thời trước khi STP kịp chặn). Ngoại lệ có chủ đích: trunk tới server ảo hóa dùng <code>spanning-tree portfast trunk</code>.</li>
+</ul>
+<pre>SW2(config)# interface range fa0/1 - 24
+SW2(config-if-range)# spanning-tree portfast
+<span class="c">! hoặc toàn cục: mọi port access tự có PortFast</span>
+SW2(config)# spanning-tree portfast default</pre>
+
+<h2>2/ BPDU Guard</h2>
+<p>Port có BPDU Guard <b>nhận một BPDU bất kỳ ⇒ err-disabled ngay</b> (port tắt hẳn). Đi cặp với PortFast: "port này chỉ dành cho máy trạm; có switch cắm vào là tắt".</p>
+<pre>SW2(config-if)# spanning-tree bpduguard enable
+SW2(config)# spanning-tree portfast bpduguard default     ! bật cho mọi port PortFast
+<span class="c">! Log khi vi phạm:</span>
+%SPANTREE-2-BLOCK_BPDUGUARD: Received BPDU on port Fa0/5 with BPDU Guard enabled. Disabling port.
+%PM-4-ERR_DISABLE: bpduguard error detected on Fa0/5, putting Fa0/5 in err-disable state</pre>
+<p>Khôi phục: gỡ nguyên nhân, rồi <code>shutdown</code> / <code>no shutdown</code>. Hoặc tự động: <code>errdisable recovery cause bpduguard</code> + <code>errdisable recovery interval 300</code>.</p>
+
+<h2>3/ Các lớp bảo vệ khác (biết tên, ENCOR học sâu)</h2>
+<div class="tbl"><table>
+<tr><th>Tính năng</th><th class="l">Đặt ở</th><th class="l">Làm gì</th></tr>
+<tr><td>BPDU Filter</td><td class="l">Hạn chế dùng</td><td class="l">Không gửi/không xử lý BPDU. Bật trên interface = tắt STP trên port đó ⇒ <b>nguy hiểm</b></td></tr>
+<tr><td>Root Guard</td><td class="l">Port DP của core nối xuống access</td><td class="l">Nhận BPDU "tốt hơn root hiện tại" ⇒ block (root-inconsistent). Chống switch lạ cướp root</td></tr>
+<tr><td>Loop Guard</td><td class="l">Root/alternate port</td><td class="l">Mất BPDU (do link một chiều) ⇒ không tự chuyển forwarding</td></tr>
+<tr><td>Storm control</td><td class="l">Port access</td><td class="l">Broadcast vượt ngưỡng ⇒ bỏ bớt/tắt port. Lưới an toàn cuối cùng</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Điều chỉnh: đặt root, cost, priority</h1>
+
+<h2>1/ Đặt root bridge (việc quan trọng nhất)</h2>
+<pre>CORE1(config)# spanning-tree vlan 10,20 root primary      ! macro: priority 24576, hoặc thấp hơn root hiện tại 4096
+CORE2(config)# spanning-tree vlan 10,20 root secondary    ! macro: priority 28672
+<span class="c">! hoặc đặt cứng (khuyến nghị: tường minh, không phụ thuộc macro)</span>
+CORE1(config)# spanning-tree vlan 10,20 priority 4096
+CORE2(config)# spanning-tree vlan 10,20 priority 8192</pre>
+<p>Nguyên tắc thiết kế: <mark>root bridge = switch core/distribution, trùng với gateway chính (HSRP active) của VLAN đó</mark>. Như vậy đường tầng 2 tới gateway là đường ngắn nhất, không đi vòng.</p>
+
+<h2>2/ Đổi đường mà không đổi root</h2>
+<pre>SW3(config-if)# spanning-tree vlan 10 cost 2          ! giảm cost port này ⇒ ưu tiên làm root port
+SW1(config-if)# spanning-tree vlan 10 port-priority 64 ! đổi priority port (bội số 16, mặc định 128) ⇒ ảnh hưởng lựa chọn của switch BÊN KIA</pre>
+<p>Port-priority chỉ có tác dụng ở tie-break "sender port priority", tức ảnh hưởng tới quyết định của <b>switch hàng xóm</b>, không phải switch mình.</p>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Lệnh kiểm tra, đọc output</h1>
+<pre>SW3# show spanning-tree vlan 1
+
+VLAN0001
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    32769
+             Address     5000.0001.000a                 ← root là SW1
+             Cost        4                              ← cost từ SW3 tới root
+             Port        1 (GigabitEthernet0/1)         ← root port của SW3
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     5000.0003.000c                 ← chính SW3
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Gi0/1               Root FWD 4         128.1    P2p
+Gi0/2               Altn BLK 4         128.2    P2p          ← port bị block
+Fa0/1               Desg FWD 19        128.3    P2p Edge     ← PortFast (Edge)</pre>
+<div class="tbl"><table>
+<tr><th>Lệnh</th><th class="l">Dùng khi</th></tr>
+<tr><td><code>show spanning-tree</code></td><td class="l">Toàn bộ, mọi VLAN</td></tr>
+<tr><td><code>show spanning-tree vlan 10</code></td><td class="l">Một VLAN</td></tr>
+<tr><td><code>show spanning-tree root</code></td><td class="l">Root của từng VLAN, cost, root port — nhanh nhất để biết root ở đâu</td></tr>
+<tr><td><code>show spanning-tree summary</code></td><td class="l">Mode, pathcost method, PortFast/BPDU Guard mặc định, đếm port theo trạng thái</td></tr>
+<tr><td><code>show spanning-tree interface gi0/2 detail</code></td><td class="l">Chi tiết một port, số BPDU gửi/nhận</td></tr>
+<tr><td><code>show spanning-tree detail | include ieee|occurr|from</code></td><td class="l">Số lần topology change, lần gần nhất, từ port nào</td></tr>
+<tr><td><code>show interfaces status err-disabled</code></td><td class="l">Port bị BPDU Guard tắt</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Xử lý sự cố loop</h1>
+<h2>Dấu hiệu</h2>
+<ul>
+  <li>Cả VLAN (hoặc cả tòa) chậm/mất kết nối đột ngột.</li>
+  <li>Đèn port nhấp nháy dồn dập đồng loạt; CPU switch rất cao, SSH vào chậm hoặc không được.</li>
+  <li>Log <code>MACFLAP_NOTIF</code> liên tục; bộ đếm broadcast/multicast trên port tăng vọt.</li>
+  <li>Zabbix/Grafana: lưu lượng broadcast đột biến, nhiều thiết bị mất kết nối cùng lúc.</li>
+</ul>
+<h2>Xử lý: ưu tiên cắt vòng trước, tìm nguyên nhân sau</h2>
+<ol>
+  <li>Vào được console/SSH: <code>show logging</code> tìm MACFLAP ⇒ có hai port nghi vấn.</li>
+  <li><code>show interfaces | include line protocol|broadcasts</code> ⇒ port có broadcast vào cao bất thường.</li>
+  <li><b>Shutdown một port</b> nghi vấn (port access trước, không phải uplink) ⇒ mạng hồi lại = đúng chỗ.</li>
+  <li>Không vào được thiết bị: rút dây các port access mới cắm gần đây / theo tầng.</li>
+  <li>Sau khi ổn: tìm nguyên nhân (cáp vòng, switch con, PortFast thiếu BPDU Guard, BPDU filter), viết postmortem, bật bảo vệ.</li>
+</ol>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Tình huống thực tế</h1>
+
+<h3>Tình huống 1 · Người dùng cắm hai đầu một sợi cáp vào hai ổ mạng trên bàn</h3>
+<details><summary>Phân tích</summary>
+<p>Hai port cùng switch (hoặc hai switch) nối vòng. Nếu port có PortFast và không có BPDU Guard: port vào forwarding ngay ⇒ loop chạy trong khoảng thời gian trước khi STP nhận BPDU và block (vài giây) ⇒ có thể kịp làm bão. Nếu thêm BPDU filter (hoặc thiết bị ở giữa không chuyển BPDU) ⇒ loop kéo dài vô hạn. Có BPDU Guard ⇒ port tắt ngay khi BPDU đầu tiên quay về. Bài học: PortFast luôn đi kèm BPDU Guard.</p></details>
+
+<h3>Tình huống 2 · Mang switch cũ từ kho ra lắp thêm, cả mạng chậm</h3>
+<details><summary>Phân tích</summary>
+<p>Switch cũ có MAC nhỏ (sản xuất sớm), priority mặc định 32768 ⇒ nếu core cũng để mặc định thì switch cũ <b>thành root</b> ⇒ mọi lưu lượng tầng 2 đổ dồn về một switch access nhỏ, uplink nghẽn. Phòng ngừa: đặt priority thấp cho core ngay từ đầu, Root Guard ở port core nối xuống.</p></details>
+
+<h3>Tình huống 3 · PC bật lên không nhận IP, đợi 30 giây rút cắm lại thì được</h3>
+<details><summary>Phân tích</summary>
+<p>Port không PortFast ⇒ 30 giây listening/learning (802.1D) ⇒ DHCP Discover của PC gửi lúc port chưa forwarding bị bỏ. Bật PortFast (và BPDU Guard) cho port access.</p></details>
+
+<div class="note"><b>Góc nhìn hệ thống</b>
+Ở ngân hàng, một loop tầng 2 ở tầng giao dịch có thể làm cả chi nhánh mất kết nối core banking. Vì vậy chuẩn cấu hình switch (golden config) luôn có: Rapid PVST+, priority tường minh trên core, PortFast + BPDU Guard trên mọi port access, storm-control, errdisable recovery có kiểm soát, và giám sát log STP/topology change qua syslog/Zabbix. Người phỏng vấn hạ tầng rất thích hỏi "anh xử lý sự cố loop thế nào".</div>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m15"><span class="no">15.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>Vì sao</td><td class="l">Ethernet không có TTL ⇒ loop L2 không tự chết</td></tr>
+<tr><td>BID</td><td class="l">Priority (bội 4096, mặc định 32768) + VLAN + MAC · nhỏ nhất thắng</td></tr>
+<tr><td>Cost short</td><td class="l">10M 100 · 100M 19 · 1G 4 · 10G 2</td></tr>
+<tr><td>Bầu cây</td><td class="l">Root (BID min) · RP mỗi switch · DP mỗi link · còn lại block · tie: cost, sender BID, sender port prio, sender port no.</td></tr>
+<tr><td>802.1D</td><td class="l">Blocking → listening 15 → learning 15 → forwarding · Hello 2, Max Age 20, FD 15</td></tr>
+<tr><td>RSTP</td><td class="l">Discarding/learning/forwarding · root, designated, alternate, backup · edge = PortFast · proposal/agreement</td></tr>
+<tr><td>Bảo vệ</td><td class="l">PortFast chỉ cho máy trạm · BPDU Guard ⇒ err-disabled · Root Guard ở core</td></tr>
+<tr><td>Root</td><td class="l">Root không có root port · đặt root = core = gateway chính</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d15"> Xong mục 15</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m16"><span class="no">16.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">loop</td><td class="l">vòng lặp</td><td class="l">broadcast storm</td><td class="l">bão quảng bá</td></tr>
+<tr><td class="l">spanning tree</td><td class="l">cây khung</td><td class="l">root bridge</td><td class="l">cầu gốc</td></tr>
+<tr><td class="l">root port</td><td class="l">cổng gốc (về root)</td><td class="l">designated port</td><td class="l">cổng chỉ định</td></tr>
+<tr><td class="l">alternate port</td><td class="l">cổng thay thế</td><td class="l">blocking / discarding</td><td class="l">chặn / loại bỏ</td></tr>
+<tr><td class="l">path cost</td><td class="l">chi phí đường</td><td class="l">tie-breaker</td><td class="l">tiêu chí phân định khi hòa</td></tr>
+<tr><td class="l">convergence</td><td class="l">hội tụ</td><td class="l">topology change</td><td class="l">thay đổi cấu trúc mạng</td></tr>
+<tr><td class="l">forward delay</td><td class="l">thời gian trễ chuyển trạng thái</td><td class="l">max age</td><td class="l">tuổi tối đa của BPDU</td></tr>
+<tr><td class="l">edge port</td><td class="l">cổng biên (máy trạm)</td><td class="l">err-disabled</td><td class="l">bị tắt do lỗi</td></tr>
+<tr><td class="l">superior BPDU</td><td class="l">BPDU tốt hơn</td><td class="l">redundancy</td><td class="l">dự phòng</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"SW3's Gi0/2 is the alternate port; if the root port fails, it takes over almost immediately with RSTP."</i></p>
+
+<label class="done"><input type="checkbox" id="d16"> Xong mục 16</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m17"><span class="no">17.</span> Câu hỏi tự kiểm tra</h1>
+<p>Trả lời ra giấy hoặc gửi cho Claude <b>trước</b>, rồi mới mở đáp án.</p>
+
+<h3>Mức 1: nhớ</h3>
+<details><summary>1. Root bridge có root port không?</summary><p>Không. Mọi port của root là designated (forwarding).</p></details>
+<details><summary>2. Link 1 Gbps có cost bao nhiêu?</summary><p>4 (short, đề CCNA). Long: 20 000.</p></details>
+<details><summary>3. Ba timer 802.1D và giá trị mặc định?</summary><p>Hello 2 s, Max Age 20 s, Forward Delay 15 s.</p></details>
+<details><summary>4. Priority hiển thị của switch mặc định trong VLAN 20?</summary><p>32768 + 20 = 32788.</p></details>
+
+<h3>Mức 2: hiểu</h3>
+<details><summary>5. Vì sao loop L2 không tự tắt như loop L3?</summary><p>Ethernet header không có TTL; gói IP có TTL bị router trừ dần tới 0 rồi bỏ.</p></details>
+<details><summary>6. Ba switch cùng priority 32768, MAC lần lượt …0a, …0b, …0c. Root là switch nào?</summary><p>Switch MAC …0a (priority bằng nhau, MAC nhỏ nhất thắng).</p></details>
+<details><summary>7. Vai trò "alternate" trong RSTP nghĩa là gì?</summary><p>Port dự phòng về root, nhận BPDU tốt từ switch khác, đang discarding, thay root port gần như tức thì khi root port hỏng.</p></details>
+<details><summary>8. PortFast bật ở port nào, không bao giờ bật ở port nào?</summary><p>Bật ở port access nối thiết bị đầu cuối. Không bao giờ bật ở port nối switch/hub/bridge (trừ portfast trunk tới server có chủ đích).</p></details>
+
+<h3>Mức 3: vận hành / phỏng vấn</h3>
+<details><summary>9. Trong ví dụ mục 5, nếu đặt SW3 làm root (priority 4096), port nào bị block?</summary><p>SW3 Gi0/1, Gi0/2 = DP. SW1 Gi0/2 = RP (cost 4), SW2 Gi0/2 = RP. Link SW1–SW2: SW1 và SW2 đều cost 4 tới root ⇒ hòa ⇒ SW1 (BID nhỏ hơn SW2) thắng DP ⇒ <b>SW2 Gi0/1 bị block</b>.</p></details>
+<details><summary>10. Vì sao nên đặt root bridge ở switch core trùng gateway chính?</summary><p>Đường L2 tới gateway là đường ngắn nhất, không đi vòng qua switch access; tải phân bố đúng thiết kế; dễ dự đoán khi sự cố.</p></details>
+<details><summary>11. Một port access bị err-disabled kèm log BPDU Guard. Anh làm gì?</summary><p>Tìm thiết bị cắm vào (switch con, cáp vòng), gỡ nguyên nhân, rồi shutdown/no shutdown port. Không tắt BPDU Guard để "cho chạy".</p></details>
+<details><summary>12. Cả tầng mạng chậm, CPU switch 99%, log MACFLAP. Ba bước đầu?</summary><p>Xác định hai port trong log; shutdown port access nghi vấn để cắt vòng; xác nhận mạng hồi lại. Sau đó tìm nguyên nhân gốc và bật bảo vệ.</p></details>
+
+<label class="done"><input type="checkbox" id="d17"> Xong mục 17</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab và MOP trong <a href="tuan-07.html">giáo án tuần 7</a>. Tuần trước: <a href="tuan-06-kien-thuc.html">sổ tay tuần 6</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan07-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
