@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 3</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 3 (09/11 – 15/11/2026) · <a href="tuan-03.html">Giáo án tuần 3 (lab, luyện subnet, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 3 (Odom Vol 1, Part IV "IPv4 Addressing"). Tuần này là <b>nền tảng của mọi thứ phía sau</b>: VLAN, định tuyến, OSPF, ACL, firewall đều cần tính subnet nhanh và đúng. Mục tiêu không phải "hiểu", mà là <b>làm được trong 45 giây, không cần máy tính</b>. Chép tay phần <mark>tô vàng</mark>, và làm hết bài luyện ở mục 16.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">IPv4 là gì: 32 bit, 4 octet</a></li>
+  <li><a href="#m2">Đổi nhị phân ↔ thập phân</a></li>
+  <li><a href="#m3">Lớp địa chỉ A, B, C (classful)</a></li>
+  <li><a href="#m4">Địa chỉ đặc biệt: private, loopback, APIPA…</a></li>
+  <li><a href="#m5">Subnet mask và prefix length</a></li>
+  <li><a href="#m6">Network, broadcast, host đầu, host cuối</a></li>
+  <li><a href="#m7">Magic number: đọc subnet trong 4 bước</a></li>
+  <li><a href="#m8">Chia mạng theo số mạng và theo số host</a></li>
+  <li><a href="#m9">Ví dụ đầy đủ: chia /24 cho 4 phòng ban</a></li>
+  <li><a href="#m10">Mỗi VLAN một subnet: bảng quy hoạch</a></li>
+  <li><a href="#m11">Sai mask: thông hay không, vì sao</a></li>
+  <li><a href="#m12">Lệnh cấu hình và kiểm tra</a></li>
+  <li><a href="#m13">Tình huống thực tế</a></li>
+  <li><a href="#m14">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m15">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m16">Bài luyện và câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> IPv4 là gì: 32 bit, 4 octet</h1>
+
+<h2>1/ Định nghĩa</h2>
+<p><b>Địa chỉ IPv4</b> là số <b>32 bit</b> gán cho một interface (card mạng, cổng router, SVI…). Nó cho biết hai thứ: interface nằm ở <b>mạng nào</b> (network) và là <b>máy nào</b> trong mạng đó (host).</p>
+<p>32 bit chia làm <b>4 octet</b> (mỗi octet 8 bit), viết dạng <b>thập phân có dấu chấm</b> (dotted decimal):</p>
+<div class="flow">11000000.10101000.00001010.00001010
+   192  .   168  .   10   .   10        ⇒ 192.168.10.10
+Mỗi octet: 0 – 255 (vì 8 bit: 2⁸ = 256 giá trị)</div>
+<p>Tổng số địa chỉ IPv4: 2³² ≈ <b>4,3 tỷ</b> ⇒ không đủ cho thế giới ⇒ sinh ra địa chỉ private + NAT (tuần 16) và IPv6 (tuần 5).</p>
+
+<h2>2/ Phần network và phần host</h2>
+<p>Địa chỉ IP luôn đi kèm <b>mask</b>. Mask chỉ ra bao nhiêu bit đầu là <b>network</b>, còn lại là <b>host</b>.</p>
+<div class="flow">192.168.10.10 /24
+|<---- network: 24 bit ---->|<- host: 8 bit ->|
+   192    .   168    .  10   .      10</div>
+<ul>
+  <li>Hai máy <b>cùng phần network</b> ⇒ cùng mạng ⇒ nói chuyện trực tiếp (ARP thẳng nhau).</li>
+  <li><b>Khác phần network</b> ⇒ phải đi qua router (gửi cho gateway).</li>
+</ul>
+
+<div class="note"><b>💡 Ví dụ dễ hiểu</b>
+Địa chỉ IP giống <b>"Tòa B – Phòng 305"</b>. "Tòa B" là network, "Phòng 305" là host. Mask là quy ước "bao nhiêu chữ đầu là tên tòa". Hai người cùng tòa thì đi bộ sang nhau; khác tòa thì gửi qua bảo vệ cổng (gateway).</div>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Đổi nhị phân ↔ thập phân</h1>
+
+<h2>1/ Bảng giá trị 8 bit của một octet</h2>
+<p><mark>Học thuộc dòng này: 128 64 32 16 8 4 2 1</mark></p>
+<div class="tbl"><table class="narrow">
+<tr><th>Vị trí bit</th><td>7</td><td>6</td><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td><td>0</td></tr>
+<tr><th>Giá trị</th><td><b>128</b></td><td><b>64</b></td><td><b>32</b></td><td><b>16</b></td><td><b>8</b></td><td><b>4</b></td><td><b>2</b></td><td><b>1</b></td></tr>
+</table></div>
+
+<h2>2/ Thập phân → nhị phân: trừ dần từ trái sang</h2>
+<p>Ví dụ đổi <b>224</b>:</p>
+<ol>
+  <li>224 ≥ 128? Có ⇒ bit 1, còn 224 − 128 = 96.</li>
+  <li>96 ≥ 64? Có ⇒ bit 1, còn 32.</li>
+  <li>32 ≥ 32? Có ⇒ bit 1, còn 0.</li>
+  <li>Các bit còn lại đều 0.</li>
+</ol>
+<p>⇒ 224 = <b>1110 0000</b>.</p>
+<div class="tbl"><table class="narrow">
+<tr><th>Thập phân</th><th>Phép trừ</th><th>Nhị phân</th></tr>
+<tr><td>172</td><td>128 + 32 + 8 + 4</td><td>1010 1100</td></tr>
+<tr><td>168</td><td>128 + 32 + 8</td><td>1010 1000</td></tr>
+<tr><td>200</td><td>128 + 64 + 8</td><td>1100 1000</td></tr>
+<tr><td>130</td><td>128 + 2</td><td>1000 0010</td></tr>
+<tr><td>10</td><td>8 + 2</td><td>0000 1010</td></tr>
+</table></div>
+
+<h2>3/ Nhị phân → thập phân: cộng các vị trí có bit 1</h2>
+<p><code>1011 0001</code> = 128 + 32 + 16 + 1 = <b>177</b>.</p>
+
+<h2>4/ 9 giá trị octet của mask (phải thuộc làu)</h2>
+<p>Mask luôn là các bit 1 liên tiếp từ trái sang. Nên một octet của mask chỉ có thể là một trong 9 giá trị:</p>
+<div class="tbl"><table>
+<tr><th>Số bit 1</th><th>Nhị phân</th><th>Thập phân</th><th>Magic number (256 − giá trị)</th></tr>
+<tr><td>0</td><td>0000 0000</td><td>0</td><td>256</td></tr>
+<tr><td>1</td><td>1000 0000</td><td><b>128</b></td><td>128</td></tr>
+<tr><td>2</td><td>1100 0000</td><td><b>192</b></td><td>64</td></tr>
+<tr><td>3</td><td>1110 0000</td><td><b>224</b></td><td>32</td></tr>
+<tr><td>4</td><td>1111 0000</td><td><b>240</b></td><td>16</td></tr>
+<tr><td>5</td><td>1111 1000</td><td><b>248</b></td><td>8</td></tr>
+<tr><td>6</td><td>1111 1100</td><td><b>252</b></td><td>4</td></tr>
+<tr><td>7</td><td>1111 1110</td><td><b>254</b></td><td>2</td></tr>
+<tr><td>8</td><td>1111 1111</td><td><b>255</b></td><td>1</td></tr>
+</table></div>
+<p>Mẹo: dãy 128, 192, 224, 240, 248, 252, 254, 255 = cứ cộng thêm 64, 32, 16, 8, 4, 2, 1.</p>
+
+<h2>5/ Bảng lũy thừa 2 (đã có trong sổ của anh)</h2>
+<div class="tbl"><table>
+<tr><th>n</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>16</td></tr>
+<tr><th>2ⁿ</th><td>2</td><td>4</td><td>8</td><td>16</td><td>32</td><td>64</td><td>128</td><td>256</td><td>512</td><td>1024</td><td>2048</td><td>4096</td><td>65536</td></tr>
+</table></div>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Bảng 2ⁿ (n = 0 → 16) và bảng Decimal–Binary–Hex trong sổ của anh <b>đúng</b>. Chỉ cần <b>xóa các dòng trống</b> cuối bảng 2ⁿ (bốn dòng <code>| | |</code>) cho gọn. Thêm bên cạnh bảng 9 giá trị mask ở trên vì đó là bảng dùng nhiều nhất khi chia mạng.</div>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+128 64 32 16 8 4 2 1 · Mask octet chỉ có 0/128/192/224/240/248/252/254/255 · Magic = 256 − octet mask.</div>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Lớp địa chỉ A, B, C (classful)</h1>
+
+<p>Trước 1993, mask được <b>suy ra từ octet đầu</b> (classful). Ngày nay dùng <b>classless</b> (CIDR: mask ghi kèm), nhưng đề CCNA và cách gọi "mạng lớp C" vẫn còn, và giao thức cũ (RIPv1) vẫn nghĩ theo lớp.</p>
+<div class="tbl"><table>
+<tr><th>Lớp</th><th>Octet đầu</th><th>Bit đầu</th><th>Mask mặc định</th><th>Số mạng</th><th>Host mỗi mạng</th></tr>
+<tr><td>A</td><td>1 – 126</td><td>0</td><td>255.0.0.0 (/8)</td><td>126</td><td>16 777 214</td></tr>
+<tr><td>B</td><td>128 – 191</td><td>10</td><td>255.255.0.0 (/16)</td><td>16 384</td><td>65 534</td></tr>
+<tr><td>C</td><td>192 – 223</td><td>110</td><td>255.255.255.0 (/24)</td><td>2 097 152</td><td>254</td></tr>
+<tr><td>D</td><td>224 – 239</td><td>1110</td><td>— (multicast)</td><td>—</td><td>—</td></tr>
+<tr><td>E</td><td>240 – 255</td><td>1111</td><td>— (dự trữ)</td><td>—</td><td>—</td></tr>
+</table></div>
+<p><b>127</b> không thuộc lớp A dùng được: dành cho loopback. <b>0</b> cũng dành riêng.</p>
+<p>⇒ Câu hỏi kiểu "172.16.5.4 thuộc lớp nào, mạng classful là gì" ⇒ lớp B ⇒ mạng classful 172.16.0.0/16.</p>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> Địa chỉ đặc biệt: private, loopback, APIPA…</h1>
+
+<h2>1/ Private (RFC 1918): ba dải phải thuộc chính xác</h2>
+<div class="tbl"><table>
+<tr><th>Dải</th><th>Prefix</th><th>Từ – đến</th><th class="l">Thường dùng</th></tr>
+<tr><td>10.0.0.0</td><td><b>/8</b></td><td>10.0.0.0 – 10.255.255.255</td><td class="l">Doanh nghiệp lớn, ngân hàng, datacenter</td></tr>
+<tr><td>172.16.0.0</td><td><b>/12</b></td><td>172.<b>16</b>.0.0 – 172.<b>31</b>.255.255</td><td class="l">Doanh nghiệp vừa, mạng quản trị, Docker</td></tr>
+<tr><td>192.168.0.0</td><td><b>/16</b></td><td>192.168.0.0 – 192.168.255.255</td><td class="l">Văn phòng nhỏ, gia đình</td></tr>
+</table></div>
+<p><mark>172.16.x.x tới 172.31.x.x mới là private.</mark> 172.32.0.1 là địa chỉ public. Đây là chỗ hay nhầm nhất.</p>
+<p>Địa chỉ private <b>không được định tuyến trên Internet</b>. Muốn ra Internet phải qua NAT (tuần 16).</p>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ của anh có mục "IP v4 Private" nhưng <b>chỉ có một dòng "RFC 1918"</b>. Thêm đúng 3 dải ở bảng trên kèm prefix, đặc biệt ghi rõ <b>172.16.0.0/12 = 172.16 → 172.31</b>.</div>
+
+<h2>2/ Các dải đặc biệt khác</h2>
+<div class="tbl"><table>
+<tr><th>Dải</th><th>Tên</th><th class="l">Ý nghĩa, gặp khi nào</th></tr>
+<tr><td>127.0.0.0/8</td><td>Loopback</td><td class="l">Chính máy mình. <code>ping 127.0.0.1</code> thành công = TCP/IP stack trên máy hoạt động (không kiểm card mạng).</td></tr>
+<tr><td><b>169.254.0.0/16</b></td><td><b>APIPA</b> / link-local</td><td class="l">Windows <b>không nhận được DHCP</b> thì tự đặt 169.254.x.x. Thấy địa chỉ này ⇒ <b>lỗi DHCP</b> hoặc lỗi tầng 1/2 (cáp, VLAN sai, port bị chặn).</td></tr>
+<tr><td>0.0.0.0</td><td>"Chưa có địa chỉ" / mọi địa chỉ</td><td class="l">Nguồn của DHCP Discover. Trong bảng route: <code>0.0.0.0/0</code> = default route.</td></tr>
+<tr><td>255.255.255.255</td><td>Limited broadcast</td><td class="l">Broadcast trong mạng hiện tại, router không chuyển tiếp. Đích của DHCP Discover.</td></tr>
+<tr><td>100.64.0.0/10</td><td>CGNAT (RFC 6598)</td><td class="l">Nhà mạng dùng NAT nhiều lớp. Router nhà nhận IP WAN 100.64–100.127.x.x ⇒ không có IP public thật.</td></tr>
+<tr><td>224.0.0.0/4</td><td>Multicast</td><td class="l">224.0.0.5/6 OSPF, 224.0.0.10 EIGRP, 224.0.0.18 VRRP, 224.0.0.102 HSRPv2.</td></tr>
+<tr><td>192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24</td><td>Tài liệu (RFC 5737)</td><td class="l">Dùng trong ví dụ, sách. Khi viết tài liệu public, dùng các dải này thay vì IP thật.</td></tr>
+</table></div>
+
+<div class="note"><b>Góc nhìn hệ thống</b>
+Ở ngân hàng, quy hoạch IP private là tài sản quan trọng: hai ngân hàng sáp nhập, hay kết nối với đối tác qua VPN, mà hai bên cùng dùng 10.0.0.0/8 chồng lấn ⇒ phải NAT hai chiều rất phức tạp. Đó là lý do mạng lớn chia khối 10.x theo vùng/site ngay từ đầu và ghi trong IPAM (tuần 4).</div>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Subnet mask và prefix length</h1>
+
+<h2>1/ Hai cách viết một mask</h2>
+<ul>
+  <li><b>Dotted decimal</b>: 255.255.255.0 (cấu hình trên Cisco IOS, Windows).</li>
+  <li><b>Prefix length</b> (CIDR): /24 = 24 bit 1 đầu tiên (FortiGate, Linux, tài liệu).</li>
+</ul>
+
+<h2>2/ Bảng mask cần thuộc</h2>
+<div class="tbl"><table>
+<tr><th>Prefix</th><th>Mask</th><th>Bit host</th><th>Số địa chỉ</th><th>Host dùng được</th><th>Magic (octet)</th></tr>
+<tr><td>/8</td><td>255.0.0.0</td><td>24</td><td>16 777 216</td><td>16 777 214</td><td>— (octet 1)</td></tr>
+<tr><td>/16</td><td>255.255.0.0</td><td>16</td><td>65 536</td><td>65 534</td><td>— (octet 2)</td></tr>
+<tr><td>/20</td><td>255.255.240.0</td><td>12</td><td>4 096</td><td>4 094</td><td>16 (octet 3)</td></tr>
+<tr><td>/22</td><td>255.255.252.0</td><td>10</td><td>1 024</td><td>1 022</td><td>4 (octet 3)</td></tr>
+<tr><td>/23</td><td>255.255.254.0</td><td>9</td><td>512</td><td>510</td><td>2 (octet 3)</td></tr>
+<tr class="c3"><td><b>/24</b></td><td>255.255.255.0</td><td>8</td><td>256</td><td><b>254</b></td><td>256 (octet 4)</td></tr>
+<tr class="c3"><td><b>/25</b></td><td>255.255.255.128</td><td>7</td><td>128</td><td><b>126</b></td><td>128</td></tr>
+<tr class="c3"><td><b>/26</b></td><td>255.255.255.192</td><td>6</td><td>64</td><td><b>62</b></td><td>64</td></tr>
+<tr class="c3"><td><b>/27</b></td><td>255.255.255.224</td><td>5</td><td>32</td><td><b>30</b></td><td>32</td></tr>
+<tr class="c3"><td><b>/28</b></td><td>255.255.255.240</td><td>4</td><td>16</td><td><b>14</b></td><td>16</td></tr>
+<tr class="c3"><td><b>/29</b></td><td>255.255.255.248</td><td>3</td><td>8</td><td><b>6</b></td><td>8</td></tr>
+<tr class="c3"><td><b>/30</b></td><td>255.255.255.252</td><td>2</td><td>4</td><td><b>2</b></td><td>4</td></tr>
+<tr><td>/31</td><td>255.255.255.254</td><td>1</td><td>2</td><td>2 (chỉ cho link point-to-point)</td><td>2</td></tr>
+<tr><td>/32</td><td>255.255.255.255</td><td>0</td><td>1</td><td>1 (một host: loopback, route host)</td><td>1</td></tr>
+</table></div>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ chưa có bảng mask. <b>Thêm bảng 7 dòng /24 → /30</b> (các dòng tô xanh ở trên): prefix, mask, số host, magic number. Đây là bảng chép tay quan trọng nhất của tuần, viết lại mỗi ngày tới khi thuộc.</div>
+
+<h2>3/ Phép AND: máy tính tìm network thế nào</h2>
+<p>Network = IP <b>AND</b> mask, từng bit (1 AND 1 = 1, còn lại = 0).</p>
+<div class="flow">IP    192.168.1.77   = 11000000.10101000.00000001.01001101
+Mask  255.255.255.224 = 11111111.11111111.11111111.11100000
+AND                   = 11000000.10101000.00000001.01000000 = 192.168.1.64</div>
+<p>⇒ Mạng của 192.168.1.77/27 là <b>192.168.1.64</b>. Máy tính làm phép này mỗi khi gửi gói, để quyết định "cùng mạng hay khác mạng". Con người dùng cách nhanh hơn: magic number (mục 7).</p>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+Host dùng được = 2<sup>bit host</sup> − 2 · /24 254 · /25 126 · /26 62 · /27 30 · /28 14 · /29 6 · /30 2 · Network = IP AND mask.</div>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Network, broadcast, host đầu, host cuối</h1>
+
+<h2>1/ Bốn địa chỉ của một subnet</h2>
+<div class="tbl"><table>
+<tr><th>Tên</th><th>Bit host</th><th class="l">Ý nghĩa</th><th>Ví dụ 192.168.1.64/27</th></tr>
+<tr><td><b>Network</b> (subnet ID)</td><td>toàn 0</td><td class="l">Tên của mạng, <b>không gán cho máy</b></td><td>192.168.1.64</td></tr>
+<tr><td>Host đầu</td><td>0…01</td><td class="l">Network + 1. Hay đặt làm gateway</td><td>192.168.1.65</td></tr>
+<tr><td>Host cuối</td><td>1…10</td><td class="l">Broadcast − 1. Một số nơi đặt gateway ở đây</td><td>192.168.1.94</td></tr>
+<tr><td><b>Broadcast</b></td><td>toàn 1</td><td class="l">Gửi cho mọi máy trong subnet, <b>không gán cho máy</b></td><td>192.168.1.95</td></tr>
+</table></div>
+<p>⇒ Vì sao trừ 2: mất network và broadcast. <mark>Host dùng được = 2<sup>h</sup> − 2</mark>, h = số bit host.</p>
+
+<h2>2/ Hai ngoại lệ</h2>
+<ul>
+  <li><b>/31</b> (RFC 3021): chỉ 2 địa chỉ, cả hai đều dùng làm host, không có network/broadcast. Dùng cho <b>link router–router</b> để tiết kiệm. Cisco IOS hỗ trợ (có cảnh báo khi cấu hình).</li>
+  <li><b>/32</b>: một địa chỉ duy nhất. Dùng cho interface loopback của router (router ID, quản trị) và route tới một host.</li>
+</ul>
+
+<h2>3/ Directed broadcast</h2>
+<p>Broadcast của một subnet ở xa (ví dụ 192.168.1.95 gửi từ mạng khác) gọi là <b>directed broadcast</b>. Router Cisco mặc định <b>không chuyển</b> (<code>no ip directed-broadcast</code>) để chống tấn công khuếch đại (smurf). Wake-on-LAN qua router cần bật lại có kiểm soát.</p>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Magic number: đọc subnet trong 4 bước</h1>
+
+<p>Đây là kỹ năng phải thành phản xạ. Đề CCNA cho 1,5 phút một câu, phỏng vấn kỹ thuật thường bắt tính nhẩm.</p>
+
+<h2>Quy trình 4 bước</h2>
+<ol>
+  <li><b>Tìm octet "thú vị"</b> (interesting octet): octet mà mask <b>không phải 255 cũng không phải 0</b>. (/24 trở lên ⇒ octet 4; /16–/23 ⇒ octet 3; /8–/15 ⇒ octet 2.)</li>
+  <li><b>Magic number</b> = 256 − giá trị mask ở octet đó. Đây là <b>bước nhảy</b> (block size) giữa các subnet.</li>
+  <li><b>Network</b> = bội số lớn nhất của magic number mà ≤ giá trị octet đó của IP. Octet bên phải về 0.</li>
+  <li><b>Broadcast</b> = network kế tiếp − 1 (octet thú vị = network + magic − 1, các octet bên phải = 255). Host đầu = network + 1, host cuối = broadcast − 1.</li>
+</ol>
+
+<h3>Ví dụ 1: 10.0.0.99/29</h3>
+<ol>
+  <li>/29 ⇒ mask 255.255.255.<b>248</b> ⇒ octet 4.</li>
+  <li>Magic = 256 − 248 = <b>8</b> ⇒ subnet: 0, 8, 16, …, 88, <b>96</b>, 104…</li>
+  <li>99 nằm giữa 96 và 104 ⇒ network <b>10.0.0.96</b>.</li>
+  <li>Broadcast = 104 − 1 = <b>10.0.0.103</b>. Host: .97 → .102 (6 host).</li>
+</ol>
+
+<h3>Ví dụ 2: 192.168.1.77/27</h3>
+<p>Mask .224 ⇒ magic 32 ⇒ 0, 32, <b>64</b>, 96 ⇒ network 192.168.1.64, broadcast .95, host .65 → .94 (30 host).</p>
+
+<h3>Ví dụ 3 (octet 3): 172.16.45.130/20</h3>
+<ol>
+  <li>/20 ⇒ 255.255.<b>240</b>.0 ⇒ octet 3.</li>
+  <li>Magic = 16 ⇒ 0, 16, <b>32</b>, 48…</li>
+  <li>45 nằm giữa 32 và 48 ⇒ network <b>172.16.32.0</b> (octet 4 về 0).</li>
+  <li>Broadcast = <b>172.16.47.255</b> (48 − 1 = 47, octet 4 = 255). Host đầu 172.16.32.1, host cuối 172.16.47.254, có 4 094 host.</li>
+</ol>
+
+<h3>Ví dụ 4 (octet 2): 10.20.30.40/12</h3>
+<p>/12 ⇒ 255.<b>240</b>.0.0 ⇒ magic 16 ở octet 2 ⇒ 0, <b>16</b>, 32 ⇒ network 10.16.0.0, broadcast 10.31.255.255.</p>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ chưa có cách đọc subnet. <b>Thêm quy trình 4 bước ở trên</b>, kèm <b>2 ví dụ anh tự nghĩ ra</b> (một ví dụ octet 4, một ví dụ octet 3) và tự giải từng bước bằng chữ của mình. Ví dụ tự nghĩ ra nhớ lâu hơn ví dụ chép.</div>
+
+<div class="note"><b>💡 Ví dụ dễ hiểu</b>
+Magic number giống <b>dãy nhà chia lô đều</b> trên một con phố: mỗi lô rộng 8 số nhà (magic 8). Lô bắt đầu ở số 0, 8, 16… Nhà số 99 nằm trong lô bắt đầu từ 96, lô đó kết thúc ở 103. Số đầu lô là tên lô (network), số cuối lô là loa phát thanh của lô (broadcast).</div>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> Chia mạng theo số mạng và theo số host</h1>
+
+<h2>1/ Theo số mạng cần</h2>
+<p>Mượn <b>s</b> bit từ phần host làm phần subnet ⇒ được <b>2<sup>s</sup></b> mạng con.</p>
+<div class="tbl"><table>
+<tr><th>Cần ít nhất</th><th>Mượn bit</th><th>Từ /24 thành</th><th>Host mỗi mạng</th></tr>
+<tr><td>2 mạng</td><td>1</td><td>/25</td><td>126</td></tr>
+<tr><td>3–4 mạng</td><td>2</td><td>/26</td><td>62</td></tr>
+<tr><td>5–8 mạng</td><td>3</td><td>/27</td><td>30</td></tr>
+<tr><td>9–16 mạng</td><td>4</td><td>/28</td><td>14</td></tr>
+<tr><td>17–32 mạng</td><td>5</td><td>/29</td><td>6</td></tr>
+<tr><td>33–64 mạng</td><td>6</td><td>/30</td><td>2</td></tr>
+</table></div>
+
+<h2>2/ Theo số host cần</h2>
+<p>Tìm h nhỏ nhất sao cho <b>2<sup>h</sup> − 2 ≥ số host</b> ⇒ prefix = 32 − h.</p>
+<div class="tbl"><table>
+<tr><th>Số host cần</th><th>h</th><th>Prefix</th><th>Host được</th></tr>
+<tr><td>2</td><td>2</td><td>/30</td><td>2</td></tr>
+<tr><td>5</td><td>3</td><td>/29</td><td>6</td></tr>
+<tr><td>20</td><td>5</td><td>/27</td><td>30</td></tr>
+<tr><td>50</td><td>6</td><td>/26</td><td>62</td></tr>
+<tr><td>100</td><td>7</td><td>/25</td><td>126</td></tr>
+<tr><td>200</td><td>8</td><td>/24</td><td>254</td></tr>
+<tr><td>500</td><td>9</td><td>/23</td><td>510</td></tr>
+<tr><td>1000</td><td>10</td><td>/22</td><td>1022</td></tr>
+</table></div>
+<p><mark>Nhớ: 62 máy thì /26 vừa khít, 63 máy là phải lên /25.</mark> Và luôn tính thêm: gateway (1 địa chỉ), máy in, AP, camera, dự phòng tăng trưởng 20–30%.</p>
+
+<h2>3/ Liệt kê các subnet</h2>
+<p>Chia 192.168.10.0/24 thành /27 (magic 32): .0, .32, .64, .96, .128, .160, .192, .224 ⇒ <b>8 mạng</b>, mỗi mạng 30 host.</p>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> Ví dụ đầy đủ: chia /24 cho 4 phòng ban</h1>
+<p>Đề lab tuần này: <b>chia 192.168.10.0/24 cho 4 phòng ban</b>, mỗi phòng tối đa 50 máy. 4 mạng ⇒ mượn 2 bit ⇒ <b>/26</b> (62 host, đủ cho 50 + dự phòng).</p>
+<div class="tbl"><table>
+<tr><th>Phòng</th><th>VLAN</th><th>Network</th><th>Gateway (host đầu)</th><th>Dải host</th><th>Broadcast</th></tr>
+<tr><td>Kế toán</td><td>10</td><td>192.168.10.0/26</td><td>192.168.10.1</td><td>.1 – .62</td><td>192.168.10.63</td></tr>
+<tr><td>Kinh doanh</td><td>20</td><td>192.168.10.64/26</td><td>192.168.10.65</td><td>.65 – .126</td><td>192.168.10.127</td></tr>
+<tr><td>IT</td><td>30</td><td>192.168.10.128/26</td><td>192.168.10.129</td><td>.129 – .190</td><td>192.168.10.191</td></tr>
+<tr><td>Nhân sự</td><td>40</td><td>192.168.10.192/26</td><td>192.168.10.193</td><td>.193 – .254</td><td>192.168.10.255</td></tr>
+</table></div>
+<p>Mask cho cả 4 mạng: <b>255.255.255.192</b>. Kiểm tra lại: 4 × 64 = 256 ⇒ dùng hết /24, không chồng lấn.</p>
+<div class="note"><b>Cách bố trí trong mỗi subnet (quy ước nên có)</b>
+.1 gateway · .2–.20 thiết bị tĩnh (máy in, AP, camera) · .21 → hết dải: DHCP cấp. Ghi quy ước này vào tài liệu, mọi người cùng theo ⇒ hết trùng IP như ca tuần 2.</div>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> Mỗi VLAN một subnet: bảng quy hoạch</h1>
+
+<h2>1/ Quy tắc 1 VLAN = 1 subnet = 1 broadcast domain</h2>
+<ul>
+  <li>Một VLAN là một broadcast domain ở tầng 2. Một subnet là một mạng ở tầng 3. <mark>Hai thứ phải khớp nhau một-một.</mark></li>
+  <li>Hai VLAN dùng chung một subnet: máy ARP nhau không được (broadcast không sang VLAN kia) dù "cùng mạng" ⇒ lỗi khó hiểu.</li>
+  <li>Một VLAN chứa hai subnet: chạy được nhưng rối, broadcast lẫn lộn, khó quản lý. Không làm.</li>
+</ul>
+
+<h2>2/ Bảng quy hoạch mẫu (tài liệu bắt buộc phải có)</h2>
+<div class="tbl"><table>
+<tr><th>VLAN</th><th>Tên</th><th>Subnet</th><th>Gateway</th><th>Dải tĩnh</th><th>Dải DHCP</th><th class="l">Ghi chú</th></tr>
+<tr><td>10</td><td>KETOAN</td><td>192.168.10.0/26</td><td>.1</td><td>.2–.20</td><td>.21–.62</td><td class="l">Máy in tầng 3: .5</td></tr>
+<tr><td>20</td><td>KINHDOANH</td><td>192.168.10.64/26</td><td>.65</td><td>.66–.84</td><td>.85–.126</td><td class="l"></td></tr>
+<tr><td>30</td><td>IT</td><td>192.168.10.128/26</td><td>.129</td><td>.130–.148</td><td>.149–.190</td><td class="l"></td></tr>
+<tr><td>40</td><td>NHANSU</td><td>192.168.10.192/26</td><td>.193</td><td>.194–.212</td><td>.213–.254</td><td class="l"></td></tr>
+<tr><td>99</td><td>MGMT</td><td>10.99.0.0/24</td><td>.1</td><td>tất cả</td><td>không</td><td class="l">Quản trị switch, AP</td></tr>
+</table></div>
+
+<div class="note"><b>Góc nhìn hệ thống</b>
+Bảng này là "bản đồ" mà mọi hệ thống khác dựa vào: rule firewall FortiGate viết theo subnet, Zabbix nhóm thiết bị theo subnet, DHCP scope theo subnet, ACL theo subnet. Đổi một subnet là đổi ở năm chỗ. Kỹ sư hạ tầng giữ bảng này cập nhật (Excel, NetBox, phpIPAM) trước khi cấu hình bất cứ thứ gì.</div>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Sai mask: thông hay không, vì sao</h1>
+
+<p>Lab tuần này yêu cầu "ping khi sai mask và giải thích vì sao thông hay không". Nguyên tắc để phân tích: <mark>mỗi máy tự quyết định "cùng mạng hay khác mạng" bằng IP và mask của chính nó</mark>, và <b>phải xét cả hai chiều</b>.</p>
+
+<h3>Trường hợp A: mask rộng hơn đúng (/16 thay vì /24)</h3>
+<p>PC1 192.168.10.10 đặt nhầm /16. Muốn tới 192.168.20.10 (mạng khác thật).</p>
+<ol>
+  <li>PC1 tính: 192.168.20.10 AND /16 = 192.168.0.0 = mạng của mình ⇒ "cùng mạng" ⇒ ARP hỏi thẳng 192.168.20.10, <b>không gửi cho gateway</b>.</li>
+  <li>ARP broadcast không qua router ⇒ server không nhận được.</li>
+  <li>Nếu router bật <b>proxy ARP</b> (mặc định Cisco): router trả lời bằng MAC của nó ⇒ <b>vẫn thông</b>, lỗi bị che. Tắt proxy ARP ⇒ <b>không thông</b>.</li>
+</ol>
+
+<h3>Trường hợp B: mask hẹp hơn đúng (/25 thay vì /24)</h3>
+<p>PC2 192.168.10.200 đặt nhầm /25 (mạng của nó thành 192.168.10.128/25). PC1 192.168.10.10/24 đúng. Gateway 192.168.10.1/24.</p>
+<ol>
+  <li>PC1 → PC2: PC1 thấy cùng mạng, ARP thẳng, gửi được tới PC2.</li>
+  <li>PC2 → PC1 (trả lời): PC2 tính 192.168.10.10 không thuộc 192.168.10.128/25 ⇒ "khác mạng" ⇒ gửi cho gateway. Nhưng gateway .1 cũng nằm ngoài /25 của PC2 ⇒ <b>Windows không chấp nhận gateway khác mạng</b> trong nhiều trường hợp, hoặc gửi được rồi router chuyển ngược lại cùng interface.</li>
+  <li>Kết quả thực tế: <b>một chiều được, chiều về chập chờn hoặc hỏng</b>, phụ thuộc hệ điều hành. Đó là lý do ca "sai mask" rất khó đoán nếu chỉ nhìn một máy.</li>
+</ol>
+
+<h3>Trường hợp C: sai gateway</h3>
+<p>Mask đúng, gateway sai (.254 không tồn tại): mọi máy cùng mạng vẫn ping được nhau; ra ngoài thì không. <code>arp -a</code> không có MAC của gateway; <code>tracert</code> dừng ngay chặng 1.</p>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+Mỗi máy quyết định bằng mask của chính nó · Xét hai chiều · Mask rộng ⇒ ARP thẳng tới máy khác mạng (proxy ARP che lỗi) · Mask hẹp ⇒ chiều về hỏng · Sai gateway ⇒ trong mạng ok, ra ngoài hỏng.</div>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Lệnh cấu hình và kiểm tra</h1>
+
+<h2>1/ Cisco router</h2>
+<pre>R1(config)# interface g0/0
+R1(config-if)# ip address 192.168.10.1 255.255.255.192    ! IOS chỉ nhận mask dạng chấm
+R1(config-if)# no shutdown
+R1# show ip interface brief           ! IP và trạng thái mọi interface
+R1# show ip interface g0/0            ! có dòng "Internet address is 192.168.10.1/26"
+R1# show ip route connected
+C    192.168.10.0/26 is directly connected, GigabitEthernet0/0
+L    192.168.10.1/32 is directly connected, GigabitEthernet0/0</pre>
+<p>Cấu hình IP chồng lấn với interface khác ⇒ IOS báo <code>% 192.168.10.0 overlaps with GigabitEthernet0/1</code> và từ chối. Đây là "lưới an toàn" thứ nhất của quy hoạch.</p>
+
+<h2>2/ Switch (IP quản trị trên SVI)</h2>
+<pre>SW1(config)# interface vlan 99
+SW1(config-if)# ip address 10.99.0.11 255.255.255.0
+SW1(config-if)# no shutdown
+SW1(config)# ip default-gateway 10.99.0.1     ! switch L2 cần gateway để quản trị từ xa</pre>
+
+<h2>3/ Windows</h2>
+<pre>ipconfig /all                                    ! IP, mask, gateway, DHCP server, DNS
+PS&gt; New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 192.168.10.10 -PrefixLength 26 -DefaultGateway 192.168.10.1
+PS&gt; Get-NetIPAddress -AddressFamily IPv4 | ft InterfaceAlias,IPAddress,PrefixLength
+netsh interface ip set address "Ethernet" static 192.168.10.10 255.255.255.192 192.168.10.1
+netsh interface ip set address "Ethernet" dhcp   ! trả về DHCP</pre>
+
+<h2>4/ Linux</h2>
+<pre>ip -4 addr show
+sudo ip addr add 192.168.10.10/26 dev eth0
+ip route show                                    ! "default via ..." là gateway</pre>
+
+<h2>5/ Công cụ tính nhanh để kiểm đáp án (không dùng khi luyện)</h2>
+<pre>$ ipcalc 172.16.45.130/20             ! Linux
+$ python3 -c "import ipaddress as i; n=i.ip_interface('172.16.45.130/20').network; print(n, n.broadcast_address, n.num_addresses-2)"</pre>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Tình huống thực tế</h1>
+
+<h3>Tình huống 1 · Người dùng nhận IP 169.254.x.x</h3>
+<details><summary>Phân tích</summary>
+<p>Máy không nhận được DHCP Offer. Xét theo tầng: (1) link có lên không; (2) port switch đúng VLAN không, có bị port security/802.1X chặn không; (3) VLAN đó có DHCP scope không, router có <code>ip helper-address</code> không (tuần 18); (4) scope có hết địa chỉ không. 169.254 là <b>triệu chứng</b>, nguyên nhân hiếm khi ở chính máy tính.</p></details>
+
+<h3>Tình huống 2 · Máy in phòng Kinh doanh, phòng Kế toán in không được</h3>
+<p>Theo bảng mục 9: Kinh doanh là 192.168.10.64/26, Kế toán là 192.168.10.0/26. Kỹ thuật viên đặt máy in Kinh doanh 192.168.10.70, gateway .65, nhưng mask <b>255.255.255.0</b>. Người Kinh doanh in được; người Kế toán (ví dụ 192.168.10.20) in không được.</p>
+<details><summary>Phân tích</summary>
+<ol>
+  <li>Chiều đi: máy Kế toán thấy .70 khác mạng (/26) ⇒ gửi qua gateway .1 ⇒ router chuyển sang VLAN 20 ⇒ tới máy in. Ổn.</li>
+  <li>Chiều về: máy in tính 192.168.10.20 AND /24 = 192.168.10.0 = "mạng của mình" ⇒ <b>ARP hỏi thẳng .20</b> trong VLAN 20 ⇒ không ai trả lời (máy .20 ở VLAN 10) ⇒ trả lời không bao giờ về.</li>
+  <li>Bài học: kiểm <b>mask</b> trên thiết bị đặt tĩnh, không chỉ kiểm IP; và luôn xét chiều về.</li>
+</ol></details>
+
+<h3>Tình huống 3 · Ghép mạng văn phòng mới vào mạng cũ, IP chồng lấn</h3>
+<details><summary>Phân tích</summary>
+<p>Văn phòng mới tự dùng 192.168.1.0/24 giống hệt một VLAN ở trụ sở. Khi nối VPN về trụ sở: router không thể có hai route khác nhau cho cùng một mạng ⇒ một bên không tới được. Phải đổi dải một bên (tốn công) hoặc NAT. Phòng ngừa: mọi site xin dải từ bảng IPAM chung trước khi triển khai (tuần 4).</p></details>
+
+<h3>Tình huống 4 · "Tôi ping được 127.0.0.1 nên mạng tôi ổn"</h3>
+<details><summary>Phân tích</summary>
+<p>Ping loopback chỉ chứng minh TCP/IP stack trên máy chạy. Gói không hề ra card mạng. Thứ tự kiểm đúng: 127.0.0.1 → IP chính mình → gateway → IP ngoài mạng → tên miền.</p></details>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>Octet</td><td class="l">128 64 32 16 8 4 2 1 · mask octet: 128 192 224 240 248 252 254 255</td></tr>
+<tr><td>Private</td><td class="l">10.0.0.0/8 · 172.16.0.0/12 (172.16–31) · 192.168.0.0/16</td></tr>
+<tr><td>Đặc biệt</td><td class="l">127/8 loopback · 169.254/16 APIPA (lỗi DHCP) · 100.64/10 CGNAT · 224/4 multicast</td></tr>
+<tr><td>Lớp</td><td class="l">A 1–126 /8 · B 128–191 /16 · C 192–223 /24 · D 224–239 · E 240–255</td></tr>
+<tr><td>Host</td><td class="l">2<sup>h</sup> − 2 · /24 254 · /25 126 · /26 62 · /27 30 · /28 14 · /29 6 · /30 2</td></tr>
+<tr><td>Magic</td><td class="l">256 − octet mask · network = bội số ≤ IP · broadcast = network kế − 1</td></tr>
+<tr><td>Đặc biệt</td><td class="l">/31 link P2P (2 host) · /32 một host</td></tr>
+<tr><td>Thiết kế</td><td class="l">1 VLAN = 1 subnet · gateway thống nhất (.1) · dải tĩnh tách dải DHCP</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m15"><span class="no">15.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">octet</td><td class="l">nhóm 8 bit</td><td class="l">binary / decimal</td><td class="l">nhị phân / thập phân</td></tr>
+<tr><td class="l">subnet mask</td><td class="l">mặt nạ mạng con</td><td class="l">prefix length</td><td class="l">độ dài tiền tố (/24)</td></tr>
+<tr><td class="l">network address / subnet ID</td><td class="l">địa chỉ mạng</td><td class="l">broadcast address</td><td class="l">địa chỉ quảng bá</td></tr>
+<tr><td class="l">usable host</td><td class="l">địa chỉ dùng được cho máy</td><td class="l">block size</td><td class="l">bước nhảy subnet</td></tr>
+<tr><td class="l">borrow bits</td><td class="l">mượn bit</td><td class="l">interesting octet</td><td class="l">octet cần tính</td></tr>
+<tr><td class="l">classful / classless</td><td class="l">theo lớp / không theo lớp</td><td class="l">CIDR</td><td class="l">định tuyến không theo lớp</td></tr>
+<tr><td class="l">private / public address</td><td class="l">địa chỉ riêng / công cộng</td><td class="l">loopback</td><td class="l">địa chỉ vòng về chính máy</td></tr>
+<tr><td class="l">overlap</td><td class="l">chồng lấn</td><td class="l">IP plan / IPAM</td><td class="l">bảng quy hoạch IP / công cụ quản lý IP</td></tr>
+<tr><td class="l">default gateway</td><td class="l">cổng mặc định</td><td class="l">bitwise AND</td><td class="l">phép AND từng bit</td></tr>
+<tr><td class="l">point-to-point link</td><td class="l">đường nối hai điểm</td><td class="l">scope</td><td class="l">dải cấp phát DHCP</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"192.168.1.77/27 is in the 192.168.1.64 subnet; the broadcast address is .95."</i></p>
+
+<label class="done"><input type="checkbox" id="d15"> Xong mục 15</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m16"><span class="no">16.</span> Bài luyện và câu hỏi tự kiểm tra</h1>
+
+<h2>A/ 5 câu tự kiểm tra trong lịch</h2>
+<details><summary>1. Đổi 224 sang nhị phân.</summary><p>1110 0000 (128 + 64 + 32).</p></details>
+<details><summary>2. /28 là mask gì, bao nhiêu host?</summary><p>255.255.255.240, 14 host (16 địa chỉ − 2).</p></details>
+<details><summary>3. 172.20.1.1 có phải địa chỉ private không?</summary><p>Có. 172.20 nằm trong 172.16.0.0/12 (172.16 – 172.31).</p></details>
+<details><summary>4. PC nhận địa chỉ 169.254.x.x nghĩa là gì?</summary><p>APIPA: máy không nhận được DHCP nên tự đặt địa chỉ link-local. Kiểm cáp, VLAN, DHCP server/helper, scope.</p></details>
+<details><summary>5. Network và broadcast của 10.0.0.99/29?</summary><p>Magic 8 ⇒ network 10.0.0.96, broadcast 10.0.0.103.</p></details>
+
+<h2>B/ 20 bài luyện bấm giờ (mục tiêu: đúng ≥ 18, mỗi bài &lt; 45 giây)</h2>
+<p>Với mỗi địa chỉ: tìm <b>network, broadcast, host đầu, host cuối</b>. Giấy và bút, không máy tính.</p>
+<div class="tbl"><table>
+<tr><th>#</th><th>Địa chỉ</th><th>#</th><th>Địa chỉ</th></tr>
+<tr><td>1</td><td>192.168.5.33/27</td><td>11</td><td>10.10.10.10/30</td></tr>
+<tr><td>2</td><td>192.168.5.200/26</td><td>12</td><td>172.16.100.1/22</td></tr>
+<tr><td>3</td><td>10.1.1.200/26</td><td>13</td><td>192.168.20.127/25</td></tr>
+<tr><td>4</td><td>172.16.45.130/20</td><td>14</td><td>10.255.0.1/9</td></tr>
+<tr><td>5</td><td>192.168.100.130/25</td><td>15</td><td>192.168.0.15/28</td></tr>
+<tr><td>6</td><td>10.0.0.99/29</td><td>16</td><td>172.18.33.77/21</td></tr>
+<tr><td>7</td><td>172.31.200.10/19</td><td>17</td><td>192.168.1.254/30</td></tr>
+<tr><td>8</td><td>192.168.10.100/28</td><td>18</td><td>10.5.5.5/23</td></tr>
+<tr><td>9</td><td>10.20.30.40/12</td><td>19</td><td>192.168.77.191/26</td></tr>
+<tr><td>10</td><td>192.168.10.65/30</td><td>20</td><td>172.16.0.0/16 (có phải network?)</td></tr>
+</table></div>
+<details><summary>Đáp án 20 bài (mở sau khi làm xong)</summary>
+<div class="tbl"><table>
+<tr><th>#</th><th>Network</th><th>Broadcast</th><th>Host đầu – cuối</th></tr>
+<tr><td>1</td><td>192.168.5.32</td><td>192.168.5.63</td><td>.33 – .62</td></tr>
+<tr><td>2</td><td>192.168.5.192</td><td>192.168.5.255</td><td>.193 – .254</td></tr>
+<tr><td>3</td><td>10.1.1.192</td><td>10.1.1.255</td><td>.193 – .254</td></tr>
+<tr><td>4</td><td>172.16.32.0</td><td>172.16.47.255</td><td>172.16.32.1 – 172.16.47.254</td></tr>
+<tr><td>5</td><td>192.168.100.128</td><td>192.168.100.255</td><td>.129 – .254</td></tr>
+<tr><td>6</td><td>10.0.0.96</td><td>10.0.0.103</td><td>.97 – .102</td></tr>
+<tr><td>7</td><td>172.31.192.0</td><td>172.31.223.255</td><td>172.31.192.1 – 172.31.223.254</td></tr>
+<tr><td>8</td><td>192.168.10.96</td><td>192.168.10.111</td><td>.97 – .110</td></tr>
+<tr><td>9</td><td>10.16.0.0</td><td>10.31.255.255</td><td>10.16.0.1 – 10.31.255.254</td></tr>
+<tr><td>10</td><td>192.168.10.64</td><td>192.168.10.67</td><td>.65 – .66</td></tr>
+<tr><td>11</td><td>10.10.10.8</td><td>10.10.10.11</td><td>.9 – .10</td></tr>
+<tr><td>12</td><td>172.16.100.0</td><td>172.16.103.255</td><td>172.16.100.1 – 172.16.103.254</td></tr>
+<tr><td>13</td><td>192.168.20.0</td><td>192.168.20.127</td><td>.1 – .126 (vậy .127 là broadcast, không gán được)</td></tr>
+<tr><td>14</td><td>10.128.0.0</td><td>10.255.255.255</td><td>10.128.0.1 – 10.255.255.254</td></tr>
+<tr><td>15</td><td>192.168.0.0</td><td>192.168.0.15</td><td>.1 – .14 (vậy .15 là broadcast)</td></tr>
+<tr><td>16</td><td>172.18.32.0</td><td>172.18.39.255</td><td>172.18.32.1 – 172.18.39.254</td></tr>
+<tr><td>17</td><td>192.168.1.252</td><td>192.168.1.255</td><td>.253 – .254</td></tr>
+<tr><td>18</td><td>10.5.4.0</td><td>10.5.5.255</td><td>10.5.4.1 – 10.5.5.254</td></tr>
+<tr><td>19</td><td>192.168.77.128</td><td>192.168.77.191</td><td>.129 – .190 (vậy .191 là broadcast)</td></tr>
+<tr><td>20</td><td>172.16.0.0</td><td>172.16.255.255</td><td>Đúng, đây là chính địa chỉ network, không gán cho máy</td></tr>
+</table></div>
+</details>
+
+<h2>C/ Câu hỏi hiểu và vận hành</h2>
+<details><summary>6. Phòng có 60 máy, 3 máy in, 2 AP, dự phòng 20%. Chọn prefix nào?</summary><p>65 × 1,2 ≈ 78 + gateway ⇒ cần ~79 địa chỉ ⇒ /25 (126 host). /26 (62) không đủ.</p></details>
+<details><summary>7. Vì sao 192.168.20.127/25 không gán được cho máy?</summary><p>/25 magic 128 ⇒ mạng 192.168.20.0, broadcast .127. Gán broadcast cho máy là sai (IOS và Windows đều từ chối).</p></details>
+<details><summary>8. Vì sao link giữa hai router hay dùng /30 hoặc /31?</summary><p>Link chỉ có 2 đầu. /30 cho đúng 2 host, /31 không phí địa chỉ nào. Dùng /24 cho link là lãng phí 252 địa chỉ và dễ chồng lấn.</p></details>
+<details><summary>9. IOS báo "overlaps with GigabitEthernet0/1" khi cấu hình IP. Nghĩa là gì?</summary><p>Subnet anh vừa nhập chồng lên subnet đã có trên interface khác. Router không cho hai interface cùng mạng. Kiểm lại bảng quy hoạch.</p></details>
+<details><summary>10. Máy A 10.1.1.10/24, máy B 10.1.1.200/25, cùng switch, cùng VLAN. A ping B được không?</summary><p>A thấy B cùng mạng, gửi tới B được. B thấy A (10.1.1.10) ngoài mạng 10.1.1.128/25 của nó ⇒ gửi trả lời cho gateway; gateway của B (nếu là 10.1.1.1) cũng nằm ngoài /25 ⇒ thường lỗi. Kết quả: không ổn định / không thông. Sửa mask của B.</p></details>
+
+<label class="done"><input type="checkbox" id="d16"> Xong mục 16</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab trong <a href="tuan-03.html">giáo án tuần 3</a>. Tuần trước: <a href="tuan-02-kien-thuc.html">sổ tay tuần 2</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan03-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

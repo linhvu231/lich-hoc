@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 3</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 3 · 09/11 – 15/11/2026</div>
+  <h1>IPv4, nhị phân, prefix length, subnetting</h1>
+  <p>Hướng dẫn từng ngày: đọc gì, luyện gì, lab gõ lệnh gì. Khoảng 10 giờ cả tuần. Tuần này không có MOP; thời gian đó dồn cho <b>luyện tay subnet</b>.</p>
+  <p>Phần đọc sách đã thay bằng <a href="tuan-03-kien-thuc.html">sổ tay tiếng Việt 16 mục</a>, có sẵn 20 bài luyện kèm đáp án.</p>
+  <div class="links">
+    <a href="tuan-03-kien-thuc.html">Sổ tay tuần 3 (thay sách)</a>
+    <a href="tuan-02.html">Giáo án tuần 2</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Đầu ra trong lịch: <b>20 bài liên tiếp đúng ít nhất 18, mỗi bài dưới 45 giây; viết bảng /24 đến /30 không nhìn tài liệu.</b> Cụ thể:</p>
+<ol>
+  <li>Đổi một octet bất kỳ sang nhị phân và ngược lại dưới 10 giây.</li>
+  <li>Cho IP/prefix bất kỳ: ra network, broadcast, host đầu, host cuối, số host dưới 45 giây.</li>
+  <li>Chia một /24 cho N phòng ban, lập bảng VLAN – subnet – gateway và cấu hình lên lab.</li>
+  <li>Giải thích được vì sao sai mask lúc thông lúc không (xét hai chiều).</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  Subnetting là phép nhân bảng cửu chương của nghề mạng. Không ai phỏng vấn kỹ sư hạ tầng mà bỏ qua nó, và khi đọc rule firewall, bảng route, log FortiGate lúc 2 giờ sáng, anh không có thời gian mở công cụ tính. Cách duy nhất để nhanh là <b>làm nhiều bài bằng tay</b>, mỗi ngày một ít, cho tới khi mắt nhìn /27 là thấy "bước 32" ngay. Tuần này ít lý thuyết mới, nhiều luyện tập. Đừng xem nhẹ.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · Nhị phân, private, mask</a></li>
+    <li><a href="#t3">Thứ 3 · Magic number, chia mạng</a></li>
+    <li><a href="#t4">Thứ 4 · Lab phần 1: 2 VLAN, sai mask</a></li>
+    <li><a href="#t5">Thứ 5 · Lab phần 2: chia /24 cho 4 phòng</a></li>
+    <li><a href="#t6">Thứ 6 · Ôn lab, sửa sổ tay</a></li>
+    <li><a href="#t7">Thứ 7 · Bảng quy hoạch IP và diễn tập</a></li>
+    <li><a href="#cn">Chủ nhật · Bài thi 20 câu, tự chấm</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày: 20 bài subnet</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (09/11) · Nhị phân, private, mask</h2>
+<div class="meta"><span><b>1,5 giờ</b> đọc + luyện</span><span>Đầu ra: bảng 9 giá trị mask và bảng /24–/30 chép tay</span></div>
+
+<h3>Đọc</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Sổ tay mục <a href="tuan-03-kien-thuc.html#m1">1</a>, <a href="tuan-03-kien-thuc.html#m2">2</a>, <a href="tuan-03-kien-thuc.html#m3">3</a>: 32 bit, nhị phân, lớp</label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Sổ tay mục <a href="tuan-03-kien-thuc.html#m4">4</a>, <a href="tuan-03-kien-thuc.html#m5">5</a>, <a href="tuan-03-kien-thuc.html#m6">6</a>: dải đặc biệt, mask, network/broadcast</label></li>
+</ul>
+
+<h3>Luyện 30 phút</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t2-3"><label for="t2-3">Đổi sang nhị phân: 10, 64, 100, 127, 128, 172, 192, 200, 224, 250 (đáp án tự kiểm bằng cách cộng ngược)</label></li>
+  <li><input type="checkbox" id="t2-4"><label for="t2-4">Viết bảng /24 → /30 (mask, số host, magic) ba lần, lần ba không nhìn</label></li>
+  <li><input type="checkbox" id="t2-5"><label for="t2-5">Phân loại: 10.200.1.1, 172.15.0.1, 172.31.255.1, 172.32.0.1, 192.169.1.1, 169.254.3.4, 100.70.1.1 — private, public, hay đặc biệt?</label></li>
+</ul>
+<details><summary>Đáp án phân loại</summary>
+<p>10.200.1.1 private · 172.15.0.1 <b>public</b> · 172.31.255.1 private · 172.32.0.1 <b>public</b> · 192.169.1.1 <b>public</b> · 169.254.3.4 APIPA · 100.70.1.1 CGNAT (100.64/10).</p>
+</details>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (10/11) · Magic number, chia mạng</h2>
+<div class="meta"><span><b>1,5 giờ</b> đọc + 5 phút tự giảng</span><span>Đầu ra: quy trình 4 bước + 2 ví dụ tự nghĩ, 5 câu hỏi để hỏi Claude</span></div>
+
+<h3>Đọc</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Sổ tay mục <a href="tuan-03-kien-thuc.html#m7">7</a>, <a href="tuan-03-kien-thuc.html#m8">8</a>, <a href="tuan-03-kien-thuc.html#m9">9</a>, <a href="tuan-03-kien-thuc.html#m10">10</a>: magic number, chia theo mạng/host, ví dụ 4 phòng, VLAN–subnet</label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Sổ tay mục <a href="tuan-03-kien-thuc.html#m11">11</a>: sai mask (đọc chậm, vẽ hai chiều ra giấy)</label></li>
+  <li><input type="checkbox" id="t3-3"><label for="t3-3">Tự giảng 5 phút (ghi âm): "tìm network và broadcast của 172.16.45.130/20"</label></li>
+  <li><input type="checkbox" id="t3-4"><label for="t3-4">Làm 10 bài đầu trong <a href="tuan-03-kien-thuc.html#m16">mục 16</a>, bấm giờ từng bài</label></li>
+</ul>
+
+<div class="box warn">
+  <strong>Ba lỗi người mới hay mắc</strong>
+  (1) Quên đưa các octet bên phải về 0 (network) hoặc 255 (broadcast) khi octet thú vị là octet 3. (2) Lấy nhầm magic number theo octet sai: /20 thì magic 16 ở <b>octet 3</b>, không phải octet 4. (3) Quên trừ 2 khi đếm host.
+</div>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (11/11) · Lab phần 1: PC ở 2 VLAN, ping khi sai mask</h2>
+<div class="meta"><span><b>1,5 giờ</b> lab</span><span>Đầu ra: config lưu vào git thư mục <code>W03-ipv4-subnetting</code>, bảng kết quả ping có giải thích</span></div>
+
+<h3>Topology</h3>
+<p>R1 có hai interface (hoặc hai sub-interface, sẽ học kỹ ở tuần 6), mỗi bên một switch/VLAN. Tuần này dùng hai cổng vật lý cho đơn giản.</p>
+<div class="tbl"><table>
+<thead><tr><th>Thiết bị</th><th>Cổng</th><th>IP / prefix</th><th>Gateway</th></tr></thead>
+<tbody>
+<tr><td>PC1</td><td>SW1 Fa0/1</td><td>192.168.10.10 /26</td><td>192.168.10.1</td></tr>
+<tr><td>PC2</td><td>SW1 Fa0/2</td><td>192.168.10.20 /26</td><td>192.168.10.1</td></tr>
+<tr><td>R1</td><td>G0/0 → SW1</td><td>192.168.10.1 /26</td><td></td></tr>
+<tr><td>R1</td><td>G0/1 → SW2</td><td>192.168.10.65 /26</td><td></td></tr>
+<tr><td>PC3</td><td>SW2 Fa0/1</td><td>192.168.10.70 /26</td><td>192.168.10.65</td></tr>
+</tbody>
+</table></div>
+
+<h3>Cấu hình R1</h3>
+<pre>R1(config)# interface g0/0
+R1(config-if)# ip address 192.168.10.1 255.255.255.192
+R1(config-if)# no shutdown
+R1(config)# interface g0/1
+R1(config-if)# ip address 192.168.10.65 255.255.255.192
+R1(config-if)# no shutdown
+R1# show ip route connected
+<span class="c">! Thử gõ cố ý chồng lấn để thấy lưới an toàn:</span>
+R1(config)# interface g0/1
+R1(config-if)# ip address 192.168.10.30 255.255.255.0
+<span class="c">! % 192.168.10.0 overlaps with GigabitEthernet0/0</span></pre>
+
+<h3>Thí nghiệm sai mask (làm từng cái, ghi kết quả, giải thích, sửa lại)</h3>
+<div class="tbl"><table>
+<thead><tr><th>#</th><th>Thay đổi</th><th>Ping thử</th><th>Kết quả + vì sao (anh tự điền)</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>PC3 đặt mask /24</td><td>PC3 → PC1</td><td></td></tr>
+<tr><td>2</td><td>Như #1, rồi trên R1 G0/1: <code>no ip proxy-arp</code></td><td>PC3 → PC1</td><td></td></tr>
+<tr><td>3</td><td>PC2 đặt mask /27 (mạng .0/27 vẫn chứa .1 và .20)</td><td>PC2 → PC3, PC1 → PC2</td><td></td></tr>
+<tr><td>4</td><td>PC1 gateway .62 (không tồn tại)</td><td>PC1 → PC2, PC1 → PC3</td><td></td></tr>
+</tbody>
+</table></div>
+<details><summary>Đáp án (mở sau khi làm)</summary>
+<ol>
+  <li>PC3 thấy PC1 (.10) "cùng mạng" /24 ⇒ ARP thẳng. R1 G0/1 bật proxy ARP ⇒ trả lời thay ⇒ <b>thông</b>. Kiểm <code>arp -a</code> trên PC3: IP .10 mang MAC của R1.</li>
+  <li>Tắt proxy ARP ⇒ ARP không ai trả lời ⇒ <b>không thông</b>. (Xóa ARP cache PC3 trước khi thử.)</li>
+  <li>PC2 /27: mạng .0–.31, PC1 (.10) và gateway (.1) vẫn trong mạng ⇒ mọi thứ vẫn <b>thông</b>. Sai mask không phải lúc nào cũng lộ ra; lộ ra khi đích nằm ở phần bị "cắt" (ví dụ nếu có máy .40 cùng VLAN).</li>
+  <li>Trong mạng (PC1 → PC2) <b>thông</b>; ra ngoài (PC1 → PC3) <b>không thông</b>; <code>arp -a</code> không có MAC .62.</li>
+</ol>
+</details>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1">Điền đủ 4 dòng bảng trên bằng lời của anh</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2">Bật lại proxy ARP, trả mọi mask về đúng, ping kiểm tra toàn bộ</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (12/11) · Lab phần 2: chia 192.168.10.0/24 cho 4 phòng ban</h2>
+<div class="meta"><span><b>1,5 giờ</b> lab + verify</span><span>Đầu ra: bảng quy hoạch + output <code>show</code> kèm giải thích</span></div>
+
+<h3>Bước 1 · Quy hoạch trên giấy trước (không mở lab)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1">Lập bảng 4 phòng (Kế toán 10, Kinh doanh 20, IT 30, Nhân sự 40) theo mẫu <a href="tuan-03-kien-thuc.html#m10">sổ tay mục 10</a>: subnet, gateway, dải tĩnh, dải DHCP, broadcast</label></li>
+</ul>
+
+<h3>Bước 2 · Dựng: R1 bốn interface (hoặc 4 router-on-a-stick nếu thiết bị ít cổng)</h3>
+<p>Packet Tracer: router 2911 có 3 cổng Gi; thêm module hoặc dùng 2 router. Gọn nhất trên CML/EVE: IOSv có 4 cổng.</p>
+<pre>R1(config)# interface g0/0
+R1(config-if)# description VLAN10-KETOAN
+R1(config-if)# ip address 192.168.10.1 255.255.255.192
+R1(config-if)# no shutdown
+R1(config)# interface g0/1
+R1(config-if)# description VLAN20-KINHDOANH
+R1(config-if)# ip address 192.168.10.65 255.255.255.192
+R1(config-if)# no shutdown
+R1(config)# interface g0/2
+R1(config-if)# description VLAN30-IT
+R1(config-if)# ip address 192.168.10.129 255.255.255.192
+R1(config-if)# no shutdown
+R1(config)# interface g0/3
+R1(config-if)# description VLAN40-NHANSU
+R1(config-if)# ip address 192.168.10.193 255.255.255.192
+R1(config-if)# no shutdown</pre>
+<p>Mỗi phòng một switch (hoặc một switch chia 4 VLAN, gắn port access tương ứng; trunk học ở tuần 6). Mỗi phòng một PC: đặt IP đầu dải tĩnh + 1.</p>
+
+<h3>Bước 3 · Verify và giải thích</h3>
+<pre>R1# show ip interface brief
+R1# show ip route connected
+<span class="c">! Phải thấy 4 dòng C .../26 và 4 dòng L .../32</span>
+PC-KETOAN&gt; ping 192.168.10.194      <span class="c">! tới PC Nhân sự qua router</span>
+PC-KETOAN&gt; tracert 192.168.10.194   <span class="c">! 2 chặng: gateway rồi đích</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-2"><label for="t5-2">Mọi PC ping được nhau; <code>tracert</code> thấy đúng 1 router ở giữa</label></li>
+  <li><input type="checkbox" id="t5-3"><label for="t5-3">Giải thích bằng chữ: vì sao 4 dòng L là /32</label></li>
+  <li><input type="checkbox" id="t5-4"><label for="t5-4">Lưu config + bảng quy hoạch vào git</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (13/11) · Ôn lab, sửa sổ tay CCNA</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: ghi chú Google Docs đã sửa</span></div>
+
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1">Làm 10 bài cuối mục 16, bấm giờ. Ghi số bài đúng và thời gian trung bình</label></li>
+</ul>
+
+<h3>Sửa sổ tay (4 việc trong lịch)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">Mục "IP v4 Private" mới có dòng "RFC 1918": thêm 3 dải chính xác (10/8, 172.16/12 = 172.16–31, 192.168/16)</label></li>
+  <li><input type="checkbox" id="t6-3"><label for="t6-3">Thêm bảng 7 dòng /24 → /30 (mask, số host, magic number)</label></li>
+  <li><input type="checkbox" id="t6-4"><label for="t6-4">Thêm quy trình 4 bước đọc subnet bằng magic number, kèm 2 ví dụ anh tự nghĩ ra</label></li>
+  <li><input type="checkbox" id="t6-5"><label for="t6-5">Bảng 2ⁿ và bảng hex đã đúng; xóa các dòng trống cuối bảng</label></li>
+</ul>
+<div class="box warn">
+  <strong>Thêm một lỗi tôi thấy trong sổ</strong>
+  Bảng "MAC đích | MAC nguồn | IP nguồn | IP đích" có ba dòng ví dụ (1B 0B…, 2A 2B…, 0A 1A…) nhưng <b>không ghi đó là chặng nào, sơ đồ nào</b>. Một tháng sau đọc lại sẽ không hiểu. Thêm một dòng chú thích "Chặng 1: PC → R1 …" cho từng dòng, hoặc vẽ sơ đồ nhỏ bên cạnh.
+</div>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (14/11) · Bảng quy hoạch IP và diễn tập sai mask, sai gateway</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>docs/ip-plan-lab.md</code> và <code>postmortem/W03-sai-mask.md</code></span></div>
+
+<h3>Phần A · Viết tài liệu quy hoạch IP cho lab (thay cho MOP tuần này)</h3>
+<p>Tuần này không có change. Thay vào đó viết tài liệu mà mọi change sau này sẽ dựa vào. Tài liệu sống: từ tuần 4 trở đi, mỗi lần thêm mạng là cập nhật file này trước.</p>
+<pre>
+# IP plan · Lab của Linh
+
+| VLAN | Tên       | Subnet            | Gateway        | Tĩnh       | DHCP       | Ghi chú |
+|------|-----------|-------------------|----------------|------------|------------|---------|
+| 10   | KETOAN    | 192.168.10.0/26   | 192.168.10.1   | .2–.20     | .21–.62    |         |
+| 20   | KINHDOANH | 192.168.10.64/26  | 192.168.10.65  | .66–.84    | .85–.126   |         |
+| 30   | IT        | 192.168.10.128/26 | 192.168.10.129 | .130–.148  | .149–.190  |         |
+| 40   | NHANSU    | 192.168.10.192/26 | 192.168.10.193 | .194–.212  | .213–.254  |         |
+| 99   | MGMT      | 10.99.0.0/24      | 10.99.0.1      | tất cả     | không      |         |
+
+## Quy ước
+- Gateway luôn là host đầu tiên của subnet.
+- Dải tĩnh: 19 địa chỉ ngay sau gateway. DHCP: phần còn lại.
+- Link router–router: lấy từ 10.255.0.0/24, cắt /30.
+- Không ai đặt IP tĩnh ngoài dải tĩnh. Mọi IP tĩnh ghi vào bảng thiết bị bên dưới.
+
+## Bảng thiết bị tĩnh
+| IP | Thiết bị | Vị trí/port | Người phụ trách | Ngày |
+</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Viết file, commit vào <code>docs/</code></label></li>
+</ul>
+
+<h3>Phần B · Diễn tập: gài sai mask, sai gateway cho chính mình rồi tự sửa</h3>
+<p>Viết 6 lỗi ra 6 mảnh giấy, gấp lại, rút ngẫu nhiên 3. Mỗi lỗi bấm giờ, xử lý theo thứ tự: <code>ipconfig</code> → ping gateway → ping máy cùng mạng → ping máy khác mạng → <code>arp -a</code> → <code>tracert</code>.</p>
+<ol>
+  <li>PC Kế toán mask /24.</li>
+  <li>PC Kinh doanh gateway là .1 (gateway của phòng khác).</li>
+  <li>PC IT đặt IP .191 (broadcast) — Windows có cho không?</li>
+  <li>R1 G0/3 mask /25 (192.168.10.193/25 ⇒ mạng .128/25 chồng lên G0/2?).</li>
+  <li>PC Nhân sự IP .100 (dải của Kinh doanh) nhưng cắm ở switch Nhân sự.</li>
+  <li>PC Kế toán không có gateway.</li>
+</ol>
+<details><summary>Gợi ý (mở sau khi làm)</summary>
+<ol>
+  <li>Trong mạng ổn; ra các mạng khác cùng 192.168.10.x thì ARP thẳng, nhờ proxy ARP có thể vẫn thông. Kiểm <code>arp -a</code>: nhiều IP chung một MAC router.</li>
+  <li>Gateway .1 không nằm trong mạng .64/26 của máy ⇒ Windows thường báo gateway không cùng mạng hoặc ra ngoài không được.</li>
+  <li>Windows từ chối hoặc cảnh báo; nếu đặt được trên thiết bị khác thì không ai liên lạc được với nó đúng cách.</li>
+  <li>IOS báo <code>overlaps with GigabitEthernet0/2</code> và từ chối. Lưới an toàn hoạt động.</li>
+  <li>IP đúng định dạng nhưng sai VLAN/subnet: gateway .65 không ở VLAN 40 ⇒ không ra ngoài được; trong VLAN 40 không ai cùng mạng. Lỗi "IP đúng nhưng cắm sai chỗ".</li>
+  <li>Trong mạng thông, ngoài mạng không; <code>tracert</code> báo lỗi ngay ("transmit failed"/"unreachable").</li>
+</ol>
+</details>
+<ul class="check">
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Diễn tập 3 lỗi, mỗi lỗi dưới 10 phút</label></li>
+  <li><input type="checkbox" id="t7-3"><label for="t7-3">Viết postmortem ngắn cho lỗi khó nhất (mẫu như tuần 1)</label></li>
+</ul>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (15/11) · Bài thi 20 câu và tự chấm</h2>
+<div class="meta"><span><b>30–45 phút</b></span><span>Bấm giờ thật. Gửi kết quả cho Claude chấm và ra đề mới nếu chưa đạt.</span></div>
+
+<h3>Bài thi đầu ra</h3>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">Nhờ Claude ra <b>20 bài mới</b> (không dùng lại bài trong sổ). Làm liên tiếp, ghi thời gian từng bài. Đạt: ≥ 18 đúng, mỗi bài &lt; 45 giây</label></li>
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Viết bảng /24 → /30 ra giấy trắng không nhìn, chụp ảnh lưu repo</label></li>
+</ul>
+
+<h3>5 câu tự kiểm tra trong lịch</h3>
+<details><summary>1. Đổi 224 sang nhị phân.</summary><p>1110 0000.</p></details>
+<details><summary>2. /28 là mask gì, bao nhiêu host?</summary><p>255.255.255.240, 14 host.</p></details>
+<details><summary>3. 172.20.1.1 có phải địa chỉ private không?</summary><p>Có (172.16.0.0/12).</p></details>
+<details><summary>4. PC nhận địa chỉ 169.254.x.x nghĩa là gì?</summary><p>APIPA: không nhận được DHCP.</p></details>
+<details><summary>5. Network và broadcast của 10.0.0.99/29?</summary><p>10.0.0.96 và 10.0.0.103.</p></details>
+
+<h3>3 câu vặn thêm (mức phỏng vấn)</h3>
+<details><summary>6. Tôi cần một mạng cho 300 máy. Prefix nào? Nếu bắt đầu từ 10.20.0.0 thì network, broadcast là gì?</summary><p>/23 (510 host). 10.20.0.0/23: broadcast 10.20.1.255, host 10.20.0.1 – 10.20.1.254.</p></details>
+<details><summary>7. Vì sao không nên dùng một /16 phẳng cho cả tòa nhà 2000 máy?</summary><p>Một broadcast domain quá lớn: ARP, DHCP, broadcast của 2000 máy đổ vào mọi máy; một loop là sập cả tòa; khó áp chính sách bảo mật theo phòng ban. Chia nhiều VLAN/subnet nhỏ.</p></details>
+<details><summary>8. Rule firewall cho phép "192.168.10.64/26". Máy 192.168.10.130 có được phép không?</summary><p>Không. .64/26 là .64 – .127. .130 thuộc .128/26.</p></details>
+
+<h3>Tự chấm cuối tuần</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 3</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>Giải thích magic number, private, APIPA, sai mask hai chiều</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>Từ đề "N phòng, M máy" ra bảng quy hoạch và cấu hình router trong 20 phút</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>Tìm 3 lỗi mask/gateway rút thăm, mỗi lỗi &lt; 10 phút</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>20 bài ≥ 18 đúng, &lt; 45 giây/bài; có tài liệu IP plan</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Dạy người khác chia /24 bằng magic number trong 10 phút</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-3"><label for="cn-3">Tick tuần 3 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày: 20 bài subnet (khoảng 15–20 phút)</h2>
+<ul>
+  <li>Mỗi ngày tự nghĩ 20 địa chỉ ngẫu nhiên (đổi octet và prefix), giải ra giấy, kiểm bằng <code>ipcalc</code> hoặc nhờ Claude chấm.</li>
+  <li>Chia đều: 8 bài octet 4 (/25–/30), 8 bài octet 3 (/17–/23), 4 bài octet 2 (/9–/15).</li>
+  <li>Ghi số bài đúng mỗi ngày vào sổ: nhìn thấy mình tiến bộ là động lực tốt nhất.</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">T2</label></li>
+  <li><input type="checkbox" id="mn-2"><label for="mn-2">T3</label></li>
+  <li><input type="checkbox" id="mn-3"><label for="mn-3">T4</label></li>
+  <li><input type="checkbox" id="mn-4"><label for="mn-4">T5</label></li>
+  <li><input type="checkbox" id="mn-5"><label for="mn-5">T6</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 3/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: VLSM, summarization, wildcard, thiết kế IP.
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan03-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
