@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 14</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 14 (25/01 – 31/01/2027) · <a href="tuan-14.html">Giáo án tuần 14 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 14 (Odom Vol 1, "Implementing Optional OSPF Features" và "OSPF Neighbors and Route Selection"). Tuần cuối của OSPF trong giai đoạn 1: anh học cách <b>điều khiển</b> OSPF: chọn đường bằng cost, không gửi Hello ra LAN người dùng (passive), đưa default route ra Internet vào OSPF, và một quy trình 5 bước để sửa lỗi. Tuần sau là Tết; đây là tuần chốt lại cả khối định tuyến. Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">Cost và reference bandwidth</a></li>
+  <li><a href="#m2">Vấn đề của reference mặc định, auto-cost</a></li>
+  <li><a href="#m3">Đổi cost: ip ospf cost và bandwidth</a></li>
+  <li><a href="#m4">Tính cost đường đi, chọn đường chính</a></li>
+  <li><a href="#m5">Equal-cost load balancing</a></li>
+  <li><a href="#m6">Passive interface</a></li>
+  <li><a href="#m7">Loopback quảng bá /32</a></li>
+  <li><a href="#m8">default-information originate, O*E2, E1 và E2</a></li>
+  <li><a href="#m9">Hội tụ: đo và rút ngắn</a></li>
+  <li><a href="#m10">Quy trình sửa lỗi OSPF 5 bước</a></li>
+  <li><a href="#m11">Có trong database mà không có trong bảng route</a></li>
+  <li><a href="#m12">Đọc show ip ospf interface brief từng cột</a></li>
+  <li><a href="#m13">Tình huống thực tế</a></li>
+  <li><a href="#m14">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m15">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m16">Câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> Cost và reference bandwidth</h1>
+<p><mark>Cost = reference bandwidth / bandwidth của interface</mark>, lấy phần nguyên, nhỏ nhất là 1. Reference bandwidth mặc định trên Cisco là <b>100 Mbps</b>.</p>
+<div class="tbl"><table>
+<tr><th>Interface</th><th>Bandwidth</th><th>Phép tính (ref 100 Mbps)</th><th>Cost</th></tr>
+<tr><td>Serial T1</td><td>1,544 Mbps</td><td>100 / 1,544 = 64,7</td><td>64</td></tr>
+<tr><td>Ethernet</td><td>10 Mbps</td><td>100 / 10</td><td>10</td></tr>
+<tr><td>FastEthernet</td><td>100 Mbps</td><td>100 / 100</td><td><b>1</b></td></tr>
+<tr><td>GigabitEthernet</td><td>1 000 Mbps</td><td>100 / 1000 = 0,1 → tối thiểu</td><td><b>1</b></td></tr>
+<tr><td>10 Gigabit</td><td>10 000 Mbps</td><td>→ tối thiểu</td><td><b>1</b></td></tr>
+</table></div>
+<p>Loopback có cost 1. Cost của đường = <b>tổng cost các interface ra</b> từ router đang tính tới đích (tuần 13 mục 4).</p>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Thêm mục mới <b>"OSPF cost và reference bandwidth"</b> vào sổ, có công thức và ít nhất 3 phép tính (FastEthernet, Gigabit với ref 100, Gigabit với ref 100 000).</div>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Vấn đề của reference mặc định, auto-cost</h1>
+<p>Với ref 100 Mbps: FastEthernet, Gigabit, 10 Gigabit <b>đều cost 1</b> ⇒ OSPF <b>không phân biệt</b> link 100 Mbps với link 10 Gbps ⇒ có thể chọn đường chậm hơn chỉ vì ít chặng hơn. Đây là câu hỏi lịch tuần này.</p>
+<p>Giải pháp: nâng reference bandwidth (đơn vị Mbps), <mark>trên tất cả router trong OSPF domain, cùng một giá trị</mark>:</p>
+<pre>R1(config)# router ospf 1
+R1(config-router)# auto-cost reference-bandwidth 100000     ! 100 Gbps
+% OSPF: Reference bandwidth is changed.
+        Please ensure reference bandwidth is consistent across all routers.</pre>
+<div class="tbl"><table>
+<tr><th>Interface</th><th>Cost (ref 100 Mbps)</th><th>Cost (ref 100 000 Mbps)</th></tr>
+<tr><td>100 Mbps</td><td>1</td><td><b>1000</b></td></tr>
+<tr><td>1 Gbps</td><td>1</td><td><b>100</b></td></tr>
+<tr><td>10 Gbps</td><td>1</td><td><b>10</b></td></tr>
+<tr><td>100 Gbps</td><td>— (1)</td><td><b>1</b></td></tr>
+</table></div>
+<p>Vì sao phải đồng bộ: router A tính link 1G cost 100, router B (ref mặc định) tính link 1G cost 1 ⇒ hai router đánh giá cùng mạng khác nhau ⇒ chọn đường không nhất quán, có thể đi vòng.</p>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Đổi cost: ip ospf cost và bandwidth</h1>
+<div class="tbl"><table>
+<tr><th>Cách</th><th class="l">Lệnh</th><th class="l">Ảnh hưởng</th></tr>
+<tr><td>Đặt cost trực tiếp</td><td class="l"><code>ip ospf cost 50</code> (trên interface)</td><td class="l">Chỉ OSPF. Rõ ràng nhất, khuyến nghị</td></tr>
+<tr><td>Đổi bandwidth</td><td class="l"><code>bandwidth 50000</code> (kbps, trên interface)</td><td class="l">OSPF tính lại cost theo công thức; <b>cũng ảnh hưởng EIGRP, QoS, số liệu giám sát</b>. <b>Không</b> đổi tốc độ thật của cổng</td></tr>
+<tr><td>Reference bandwidth</td><td class="l"><code>auto-cost reference-bandwidth</code></td><td class="l">Mọi interface trên router đó</td></tr>
+</table></div>
+<p>Thứ tự ưu tiên: <code>ip ospf cost</code> (nếu có) thắng mọi tính toán.</p>
+<div class="note"><b>Khi nào dùng bandwidth</b>
+Link WAN thuê 50 Mbps nhưng cắm vào cổng Gigabit ⇒ IOS tưởng 1000 Mbps. Đặt <code>bandwidth 50000</code> để mọi thứ (OSPF, QoS, Zabbix tính % sử dụng) phản ánh đúng băng thông thật. Đó là lý do lệnh này tồn tại, không phải để "chỉnh cost".</div>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> Tính cost đường đi, chọn đường chính</h1>
+<div class="flow">                 Gi (cost 100)
+   LAN1 --- R1 =================== R2 --- LAN2
+             \                      /
+     Fa (1000) \                  / Gi (100)
+                \------ R3 -----/
+  (ref 100 000)   R1–R3 FastEthernet, R3–R2 Gigabit
+R1 → LAN2 qua R2 trực tiếp:  100 (R1 ra) + 1 (R2 ra LAN2, loopback/LAN cost tùy) …
+R1 → LAN2 qua R3:            1000 + 100 + …
+⇒ đường trực tiếp thắng</div>
+<p>Muốn lưu lượng đi qua R3 (ví dụ link trực tiếp là đường thuê đắt, chỉ để dự phòng): tăng cost link trực tiếp ở <b>cả hai đầu</b> (để chiều về cũng đổi):</p>
+<pre>R1(config)# interface g0/1
+R1(config-if)# ip ospf cost 5000
+R2(config)# interface g0/1
+R2(config-if)# ip ospf cost 5000</pre>
+<p><mark>Cost tính ở interface ra, nên mỗi chiều dùng cost của router phía mình.</mark> Chỉ đổi một đầu ⇒ chiều đi đổi, chiều về không đổi ⇒ <b>lưu lượng bất đối xứng</b> (đi một đường, về đường khác). Firewall stateful ở giữa sẽ chặn gói về vì không thấy phiên. Đây là bẫy rất thật.</p>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Equal-cost load balancing</h1>
+<pre>R1# show ip route 192.168.2.0
+Routing entry for 192.168.2.0/24
+  Known via "ospf 1", distance 110, metric 101, type intra area
+  Routing Descriptor Blocks:
+  * 10.0.12.2, from 2.2.2.2, via GigabitEthernet0/1
+      Route metric is 101, traffic share count is 1
+    10.0.13.2, from 2.2.2.2, via GigabitEthernet0/2
+      Route metric is 101, traffic share count is 1
+R1(config-router)# maximum-paths 8         ! mặc định 4 trên nhiều IOS; 1 = tắt ECMP</pre>
+<p>Hai đường cùng cost ⇒ cả hai vào bảng, CEF chia tải theo cặp nguồn–đích (tuần 10 mục 10). OSPF không chia tải theo tỉ lệ đường không bằng nhau (EIGRP thì có, ENARSI).</p>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Passive interface</h1>
+<p><b>Passive interface</b>: OSPF <b>không gửi Hello</b> ra interface đó (⇒ không có hàng xóm nào ở đó), <b>nhưng vẫn quảng bá mạng của interface</b> vào OSPF.</p>
+<p><mark>Passive vẫn quảng bá mạng; chỉ là không tìm hàng xóm.</mark></p>
+<pre>R1(config)# router ospf 1
+R1(config-router)# passive-interface g0/0              ! LAN người dùng
+<span class="c">! Cách an toàn hơn: mặc định passive tất cả, chỉ mở chỗ cần hàng xóm</span>
+R1(config-router)# passive-interface default
+R1(config-router)# no passive-interface g0/1           ! link tới R2
+R1# show ip protocols | section Passive
+R1# show ip ospf interface g0/0 | include passive
+  No Hellos (Passive interface)</pre>
+<h3>Vì sao phải passive LAN người dùng</h3>
+<ol>
+  <li><b>Bảo mật</b>: máy trong LAN không nhận được Hello để biết có OSPF, và một máy chạy phần mềm định tuyến (ví dụ FRR trên Linux) không thể thành neighbor rồi tiêm route giả.</li>
+  <li><b>Gọn</b>: không gửi Hello multicast vô ích mỗi 10 giây ra mạng người dùng.</li>
+</ol>
+<p>Nhầm lẫn hay gặp: passive nhầm link tới router khác ⇒ mất neighbor ⇒ mất route.</p>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Loopback quảng bá /32</h1>
+<p>Interface loopback có network type OSPF là <b>LOOPBACK</b> ⇒ OSPF luôn quảng bá nó như một <b>host route /32</b>, dù cấu hình mask /24.</p>
+<pre>R2(config)# interface loopback 10
+R2(config-if)# ip address 192.168.20.1 255.255.255.0
+R1# show ip route ospf
+O     192.168.20.1/32 [110/2] via 10.0.12.2 …          ← /32 chứ không phải /24
+<span class="c">! Muốn quảng bá đúng /24 (khi dùng loopback giả lập LAN trong lab):</span>
+R2(config-if)# ip ospf network point-to-point
+R1# show ip route ospf
+O     192.168.20.0/24 [110/2] via 10.0.12.2 …</pre>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Ghi câu: <b>"Loopback quảng bá /32 trừ khi đổi network type"</b> (sang point-to-point). Đây là nguồn gốc của rất nhiều câu hỏi "sao lab của tôi route ra /32".</div>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> default-information originate, O*E2, E1 và E2</h1>
+<h2>1/ Đưa default route vào OSPF</h2>
+<p>Router biên (nối ISP) có default route tĩnh. Các router khác cần biết "ra Internet thì về router biên". Không cấu hình static trên từng router; thay vào đó router biên quảng bá default vào OSPF:</p>
+<pre>R-EDGE(config)# ip route 0.0.0.0 0.0.0.0 203.0.113.1
+R-EDGE(config)# router ospf 1
+R-EDGE(config-router)# default-information originate          ! chỉ quảng bá khi chính nó CÓ default route trong bảng
+R-EDGE(config-router)# default-information originate always   ! quảng bá kể cả khi không có (cẩn thận: có thể hút lưu lượng vào hố đen)
+R1# show ip route | include 0.0.0.0
+Gateway of last resort is 10.0.12.2 to network 0.0.0.0
+O*E2  0.0.0.0/0 [110/1] via 10.0.12.2, 00:01:05, GigabitEthernet0/1</pre>
+<ul>
+  <li><b>O*E2</b> = OSPF, ứng viên default (*), External type 2 (route từ ngoài OSPF đưa vào, LSA type 5).</li>
+  <li>Router biên giờ là <b>ASBR</b> (Autonomous System Boundary Router).</li>
+  <li>Không có <code>always</code>: khi ISP chết và static default bị gỡ (nhờ IP SLA tracking, tuần 11), router biên tự rút default khỏi OSPF ⇒ các router khác chuyển sang router biên thứ hai (nếu có). Đây là thiết kế dự phòng hai đường Internet bằng OSPF.</li>
+</ul>
+<h2>2/ E1 và E2</h2>
+<div class="tbl"><table>
+<tr><th>Loại</th><th class="l">Metric</th><th class="l">Khi nào</th></tr>
+<tr><td><b>E2</b> (mặc định)</td><td class="l">Cố định bằng metric lúc đưa vào (mặc định 1 cho default), <b>không cộng</b> cost nội bộ</td><td class="l">Mọi router thấy cùng metric; khi có hai lối ra, OSPF phá hòa bằng cost tới ASBR</td></tr>
+<tr><td>E1</td><td class="l">Metric ngoài <b>cộng</b> cost nội bộ tới ASBR</td><td class="l">Muốn router chọn lối ra gần mình nhất</td></tr>
+</table></div>
+<pre>R-EDGE(config-router)# default-information originate metric 10 metric-type 1</pre>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> Hội tụ: đo và rút ngắn</h1>
+<div class="tbl"><table>
+<tr><th>Kiểu hỏng</th><th class="l">OSPF phát hiện sau</th></tr>
+<tr><td>Rút dây/link down tại chỗ (interface down)</td><td class="l">Gần như <b>tức thì</b>: interface down ⇒ neighbor down ngay ⇒ LSA mới ⇒ SPF</td></tr>
+<tr><td>Hỏng ở giữa (qua switch, nhà mạng), interface vẫn up</td><td class="l"><b>Dead interval</b>: tới 40 giây</td></tr>
+</table></div>
+<p>Cách rút ngắn: giảm hello/dead (ví dụ 1/4; phải khớp hai đầu, tốn CPU hơn), hoặc tốt hơn là <b>BFD</b> (Bidirectional Forwarding Detection: phát hiện mất đường trong mili giây, OSPF đăng ký nhận tin; học ở ENARSI). Giống bài học tuần 11: test bằng hỏng ở xa.</p>
+<pre>R1(config-if)# ip ospf hello-interval 1
+R1(config-if)# ip ospf dead-interval 4
+R1(config-if)# ip ospf dead-interval minimal hello-multiplier 4   ! dead 1 s, hello 250 ms (cẩn thận)</pre>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> Quy trình sửa lỗi OSPF 5 bước</h1>
+<ol>
+  <li><b>Tầng 1–3:</b> interface up/up? Ping IP hàng xóm trên link?</li>
+  <li><b>OSPF có chạy trên interface không:</b> <code>show ip ospf interface brief</code> (không có ⇒ network/ip ospf sai; có nhưng passive?).</li>
+  <li><b>Neighbor:</b> <code>show ip ospf neighbor</code>: không có / Init / ExStart / Full? So tham số hai đầu bằng <code>show ip ospf interface</code> (area, mask, hello/dead, network type, authentication) và MTU.</li>
+  <li><b>LSDB:</b> <code>show ip ospf database</code>: mạng cần có xuất hiện không, do router nào quảng bá?</li>
+  <li><b>Bảng route:</b> <code>show ip route &lt;đích&gt;</code>: route OSPF có vào bảng không, hay bị nguồn khác AD thấp hơn thắng, hay bị route cụ thể hơn che?</li>
+</ol>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Thêm <b>quy trình sửa lỗi 5 bước</b> ở trên vào mục OSPF của sổ. Mỗi bước một lệnh. Quy trình đi từ dưới lên giống bảng xử lý theo tầng của tuần 1.</div>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Có trong database mà không có trong bảng route</h1>
+<p>Câu hỏi lịch tuần này. Mạng có trong <code>show ip ospf database</code> nhưng không có trong <code>show ip route ospf</code>. Nghi theo thứ tự:</p>
+<ol>
+  <li><b>Nguồn khác có AD thấp hơn</b> cùng prefix (static AD 1, EIGRP 90, connected 0) ⇒ OSPF thua, không vào bảng. <code>show ip route &lt;prefix&gt;</code> thấy nguồn khác.</li>
+  <li><b>Network type lệch</b> hai đầu một link (tuần 13 mục 6) ⇒ SPF không dựng được đường dù LSA có.</li>
+  <li><b>Lọc route</b> (distribute-list) trên router ⇒ ENARSI.</li>
+  <li>LSA type 5 có <b>forwarding address</b> không với tới được.</li>
+  <li>LSA cũ đang chờ hết hạn (MaxAge) sau khi router quảng bá đã biến mất.</li>
+</ol>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Đọc show ip ospf interface brief từng cột</h1>
+<pre>R1# show ip ospf interface brief
+Interface    PID   Area            IP Address/Mask    Cost  State Nbrs F/C
+Lo0          1     0               1.1.1.1/32         1     LOOP  0/0
+Gi0/1        1     0               10.0.12.1/30       100   P2P   1/1
+Gi0/2        1     0               10.0.13.1/30       1000  P2P   1/1
+Gi0/0        1     0               192.168.1.1/24     100   DR    0/0</pre>
+<div class="tbl"><table>
+<tr><th>Cột</th><th class="l">Ý nghĩa</th></tr>
+<tr><td>Interface</td><td class="l">Interface đang chạy OSPF (passive vẫn hiện)</td></tr>
+<tr><td>PID</td><td class="l">Process ID</td></tr>
+<tr><td>Area</td><td class="l">Area của interface</td></tr>
+<tr><td>IP Address/Mask</td><td class="l">IP và prefix của interface</td></tr>
+<tr><td>Cost</td><td class="l">Cost OSPF của interface (sau ref bandwidth hoặc ip ospf cost)</td></tr>
+<tr><td>State</td><td class="l">DR, BDR, DROTH (DROther), P2P (point-to-point), LOOP (loopback), WAIT (đang chờ bầu DR), DOWN</td></tr>
+<tr><td>Nbrs F/C</td><td class="l">Số neighbor Full / tổng số neighbor đếm được. Gi0/0 là LAN (0/0) — nên passive</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Tình huống thực tế</h1>
+<h3>Tình huống 1 · Lưu lượng đi đường 100 Mbps thay vì 10 Gbps</h3>
+<details><summary>Phân tích</summary>
+<p>Ref bandwidth mặc định ⇒ mọi link Fast/Gig/10G cost 1 ⇒ OSPF chọn đường ít chặng, kể cả qua link 100 Mbps. Sửa: <code>auto-cost reference-bandwidth 100000</code> trên mọi router (làm trong cửa sổ bảo trì, vì đường đi sẽ thay đổi).</p></details>
+<h3>Tình huống 2 · Đổi cost một đầu, firewall báo drop gói</h3>
+<details><summary>Phân tích</summary>
+<p>Chiều đi theo đường mới, chiều về vẫn đường cũ (cost đầu kia chưa đổi) ⇒ lưu lượng bất đối xứng ⇒ firewall stateful trên một đường chỉ thấy nửa phiên ⇒ drop. Luôn đổi cost hai đầu, và nghĩ tới firewall/NAT trên đường.</p></details>
+<h3>Tình huống 3 · Mất ISP chính, chi nhánh vẫn đi Internet qua router hỏng</h3>
+<details><summary>Phân tích</summary>
+<p>Router biên dùng <code>default-information originate always</code> ⇒ vẫn quảng bá default khi đã mất ISP ⇒ hút lưu lượng vào hố đen. Sửa: bỏ <code>always</code>, gắn IP SLA tracking cho static default (tuần 11) để router tự rút default khỏi OSPF khi ISP chết.</p></details>
+<div class="note"><b>Góc nhìn hệ thống</b>
+Ở ngân hàng, cost OSPF là công cụ <b>kỹ thuật lưu lượng</b>: đường thuê riêng đắt làm chính, đường Internet VPN làm dự phòng, chọn bằng cost. Mọi thay đổi cost là một change có MOP, vì nó dời lưu lượng của cả chi nhánh. FortiGate cũng chạy OSPF với cùng khái niệm cost/passive/default-information; đọc cấu hình FortiGate (ghi chú cá nhân) anh sẽ thấy các từ khóa quen thuộc.</div>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>Cost</td><td class="l">ref BW / BW, tối thiểu 1 · ref mặc định 100 Mbps ⇒ Fa/Gi/10G đều 1</td></tr>
+<tr><td>Chỉnh</td><td class="l"><code>auto-cost reference-bandwidth</code> (mọi router, cùng giá trị) · <code>ip ospf cost</code> · <code>bandwidth</code> (kbps, không đổi tốc độ thật)</td></tr>
+<tr><td>Chọn đường</td><td class="l">Tổng cost interface ra · đổi cost hai đầu để tránh bất đối xứng</td></tr>
+<tr><td>ECMP</td><td class="l"><code>maximum-paths</code>, mặc định 4</td></tr>
+<tr><td>Passive</td><td class="l">Không Hello, vẫn quảng bá mạng · passive LAN người dùng</td></tr>
+<tr><td>Loopback</td><td class="l">Quảng bá /32 trừ khi network type point-to-point</td></tr>
+<tr><td>Default</td><td class="l"><code>default-information originate [always]</code> · O*E2 · LSA type 5 · ASBR</td></tr>
+<tr><td>Sửa lỗi</td><td class="l">L1–3 → interface OSPF → neighbor → database → bảng route</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m15"><span class="no">15.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">reference bandwidth</td><td class="l">băng thông tham chiếu</td><td class="l">cost</td><td class="l">chi phí</td></tr>
+<tr><td class="l">passive interface</td><td class="l">interface thụ động</td><td class="l">equal-cost</td><td class="l">cùng chi phí</td></tr>
+<tr><td class="l">originate</td><td class="l">khởi tạo, phát ra</td><td class="l">external route</td><td class="l">route ngoài</td></tr>
+<tr><td class="l">ASBR</td><td class="l">router biên hệ tự trị</td><td class="l">host route</td><td class="l">route tới một host (/32)</td></tr>
+<tr><td class="l">asymmetric routing</td><td class="l">định tuyến bất đối xứng</td><td class="l">traffic engineering</td><td class="l">điều khiển lưu lượng</td></tr>
+<tr><td class="l">convergence time</td><td class="l">thời gian hội tụ</td><td class="l">BFD</td><td class="l">phát hiện lỗi chuyển tiếp hai chiều</td></tr>
+<tr><td class="l">intra-area / inter-area</td><td class="l">trong area / giữa area</td><td class="l">metric type</td><td class="l">loại metric (E1/E2)</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"We raised the OSPF cost on the leased line at both ends to make the MPLS link primary and avoid asymmetric routing."</i></p>
+
+<label class="done"><input type="checkbox" id="d15"> Xong mục 15</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m16"><span class="no">16.</span> Câu hỏi tự kiểm tra</h1>
+<p>Trả lời ra giấy hoặc gửi cho Claude <b>trước</b>, rồi mới mở đáp án.</p>
+<h3>5 câu trong lịch</h3>
+<details><summary>1. Với reference mặc định, cost của link 1 Gbps và 10 Gbps là bao nhiêu? Vì sao là vấn đề?</summary><p>Cả hai đều 1 (100/1000 và 100/10000 dưới 1 nên lấy tối thiểu 1). OSPF không phân biệt được link nhanh/chậm, có thể chọn đường chậm hơn.</p></details>
+<details><summary>2. Passive interface có còn quảng bá mạng của interface đó không?</summary><p>Có. Chỉ không gửi Hello, không thành neighbor ở đó.</p></details>
+<details><summary>3. O*E2 nghĩa là gì?</summary><p>Route OSPF, ứng viên default (*), External type 2: default route do ASBR đưa vào bằng default-information originate (LSA type 5), metric không cộng cost nội bộ.</p></details>
+<details><summary>4. Neighbor kẹt Init: điều gì đang xảy ra?</summary><p>Hello chỉ đi một chiều: router nghe hàng xóm nhưng hàng xóm không nghe nó (RID mình không có trong Hello của nó).</p></details>
+<details><summary>5. Route có trong show ip ospf database nhưng không có trong bảng định tuyến — nghi gì?</summary><p>Nguồn khác AD thấp hơn cùng prefix; network type lệch; lọc route; forwarding address không với tới; LSA cũ chờ hết hạn.</p></details>
+<h3>Thêm</h3>
+<details><summary>6. Ref bandwidth 100 000. Cost của FastEthernet, Gigabit, 10G?</summary><p>1000, 100, 10.</p></details>
+<details><summary>7. Vì sao đổi cost phải đổi hai đầu link?</summary><p>Cost tính ở interface ra; chỉ đổi một đầu thì chỉ một chiều đổi đường ⇒ bất đối xứng.</p></details>
+<details><summary>8. default-information originate không có "always" thì khi nào mới quảng bá?</summary><p>Khi router đó có default route trong bảng định tuyến của chính nó.</p></details>
+
+<label class="done"><input type="checkbox" id="d16"> Xong mục 16</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab và MOP trong <a href="tuan-14.html">giáo án tuần 14</a>. Tuần trước: <a href="tuan-13-kien-thuc.html">sổ tay tuần 13</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan14-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

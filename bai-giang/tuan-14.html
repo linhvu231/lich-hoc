@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 14</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 14 · 25/01 – 31/01/2027</div>
+  <h1>OSPF 3: cost, passive, default route</h1>
+  <p>Hướng dẫn từng ngày. Khoảng 10,5 giờ. Tuần sau là <b>Tết Đinh Mùi</b>: cố gắng chốt hết lab tuần này trước kỳ nghỉ.</p>
+  <p>Phần đọc sách đã thay bằng <a href="tuan-14-kien-thuc.html">sổ tay tiếng Việt 16 mục</a>.</p>
+  <div class="links">
+    <a href="tuan-14-kien-thuc.html">Sổ tay tuần 14 (thay sách)</a>
+    <a href="tuan-13.html">Giáo án tuần 13</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Đầu ra trong lịch: <b>chuyển đường chính xác bằng cost; giải thích mọi dòng <code>show ip ospf interface brief</code>.</b> Cụ thể:</p>
+<ol>
+  <li>Tính cost với ref mặc định và ref 100 000; đặt ref đồng bộ.</li>
+  <li>Dời đường chính sang đường khác bằng cost hai đầu, đo gián đoạn.</li>
+  <li>Passive LAN người dùng; đưa default route ra ISP giả lập vào OSPF.</li>
+  <li>Đo thời gian hội tụ khi rút dây tại chỗ và khi hỏng ở xa.</li>
+  <li>Xử lý 3 lỗi: hello, dead, MTU.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  Ba tuần OSPF khép lại ở đây. Nếu phải chọn một bài học: <b>OSPF chạy đúng thiết kế khi anh điều khiển nó tường minh</b> (router-id, priority, cost, passive, ref bandwidth), và <b>mọi thay đổi đều phải nghĩ tới chiều về</b>. Cả hai điều đó đều sẽ theo anh tới ENARSI và tới cấu hình SD-WAN, BGP sau này.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · Cost, reference bandwidth, chọn đường</a></li>
+    <li><a href="#t3">Thứ 3 · Passive, loopback, default route, sửa lỗi</a></li>
+    <li><a href="#t4">Thứ 4 · Lab phần 1: dual-link, đổi cost</a></li>
+    <li><a href="#t5">Thứ 5 · Lab phần 2: hội tụ, default route ISP</a></li>
+    <li><a href="#t6">Thứ 6 · Ôn lab, sửa sổ tay</a></li>
+    <li><a href="#t7">Thứ 7 · MOP #10 đổi cost, diễn tập 3 lỗi</a></li>
+    <li><a href="#cn">Chủ nhật · Tự kiểm tra, tự chấm</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày 15 phút</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (25/01) · Cost, reference bandwidth, chọn đường</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: bảng cost hai cột ref chép tay</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Sổ tay mục <a href="tuan-14-kien-thuc.html#m1">1</a> đến <a href="tuan-14-kien-thuc.html#m5">5</a></label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Tính tay đường R1 → LAN2 ở sơ đồ mục 4 với cả hai ref bandwidth</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (26/01) · Passive, loopback /32, default route, quy trình sửa lỗi</h2>
+<div class="meta"><span><b>1,5 giờ</b> + 5 phút tự giảng</span><span>Đầu ra: quy trình 5 bước chép tay</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Sổ tay mục <a href="tuan-14-kien-thuc.html#m6">6</a> đến <a href="tuan-14-kien-thuc.html#m13">13</a></label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Tự giảng 5 phút: "O*E2 trên router chi nhánh đến từ đâu, và khi ISP chết thì nó biến mất thế nào"</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (27/01) · Lab phần 1: dual-link, đổi cost để chuyển đường</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: thư mục <code>W14-ospf-cost-default</code></span></div>
+<div class="flow">        g0/1 (Gi) 10.0.12.0/30
+ LAN1 - R1 ==================== R2 - LAN2
+         \ g0/2               / g0/2
+          \ 10.0.13.0/30     / 10.0.23.0/30
+           \------- R3 -----/
+ (đặt "speed 100" trên link R1–R3 hai đầu để giả lập link chậm)
+ R4 "ISP": nối R2 g0/3 203.0.113.0/30, loopback 8.8.8.8/32</div>
+<h3>Bước 1 · Ref mặc định</h3>
+<pre>R1# show ip ospf interface brief           <span class="c">! cost của Gi và Fa(100) đều 1?</span>
+R1# show ip route 192.168.2.0               <span class="c">! đi thẳng R2 (1 chặng) — đúng nhưng vì "ít chặng", không phải vì "nhanh"</span></pre>
+<h3>Bước 2 · Ref 100 000 trên cả 3 router</h3>
+<pre>R1(config)# router ospf 1
+R1(config-router)# auto-cost reference-bandwidth 100000
+<span class="c">! R2, R3 làm y hệt. Thử quên R3 một lúc: so cost R1 thấy và R3 thấy</span>
+R1# show ip ospf interface brief</pre>
+<h3>Bước 3 · Dời đường chính R1↔R2 sang qua R3</h3>
+<pre>PC-LAN1&gt; ping -t PC-LAN2
+R1(config)# interface g0/1
+R1(config-if)# ip ospf cost 50000
+<span class="c">! Kiểm traceroute từ LAN1 tới LAN2 và từ LAN2 tới LAN1. Hai chiều có giống nhau không?</span>
+R2(config)# interface g0/1
+R2(config-if)# ip ospf cost 50000
+<span class="c">! Kiểm lại hai chiều</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1">Ghi traceroute hai chiều sau khi đổi một đầu (bất đối xứng) và sau khi đổi hai đầu</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2">Passive LAN: <code>passive-interface default</code> + <code>no passive-interface</code> đúng các link; kiểm neighbor vẫn đủ, LAN vẫn được quảng bá</label></li>
+  <li><input type="checkbox" id="t4-3"><label for="t4-3">Thêm loopback 192.168.99.1/24 trên R3: R1 thấy /32 hay /24? Đổi network type để thấy /24</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (28/01) · Lab phần 2: đo hội tụ, default route ra ISP</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: bảng số giây hội tụ, O*E2 trên R1/R3</span></div>
+<h3>Bước 1 · Default route ra ISP giả lập</h3>
+<pre>R2(config)# ip route 0.0.0.0 0.0.0.0 203.0.113.2
+R2(config)# router ospf 1
+R2(config-router)# default-information originate
+R1# show ip route | include 0.0.0.0|Gateway
+R1# show ip ospf database external       <span class="c">! LSA type 5, ADV Router 2.2.2.2</span>
+PC-LAN1&gt; ping 8.8.8.8                     <span class="c">! (R4 cần route về LAN1/LAN2/LAN3: thêm static trên R4 hoặc NAT ở R2 — tuần 16)</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1">Gỡ static default trên R2: O*E2 trên R1 có biến mất không? Thêm lại với <code>always</code>, gỡ static: còn không? Trả về không <code>always</code></label></li>
+</ul>
+<h3>Bước 2 · Đo hội tụ</h3>
+<div class="tbl"><table>
+<thead><tr><th>Cách hỏng</th><th>Gói mất (ping -t)</th><th>Giải thích</th></tr></thead>
+<tbody>
+<tr><td>Shutdown g0/2 trên R3 (đường đang dùng)</td><td></td><td></td></tr>
+<tr><td>Chèn một switch giữa R1–R3, shutdown port switch phía R3 (interface R1 vẫn up)</td><td></td><td></td></tr>
+<tr><td>Như trên nhưng hello 1/dead 4 hai đầu</td><td></td><td></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="t5-2"><label for="t5-2">Điền bảng; trả timer về mặc định sau khi đo</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (29/01) · Ôn lab, sửa sổ tay CCNA</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: mục OSPF trong Google Docs hoàn chỉnh</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1">Không nhìn: giải thích từng cột <code>show ip ospf interface brief</code> của R1 (ghi âm)</label></li>
+</ul>
+<h3>Sửa sổ tay (3 việc trong lịch)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">Thêm mục "OSPF cost và reference bandwidth" có phép tính</label></li>
+  <li><input type="checkbox" id="t6-3"><label for="t6-3">Thêm quy trình sửa lỗi 5 bước</label></li>
+  <li><input type="checkbox" id="t6-4"><label for="t6-4">Ghi câu: "loopback quảng bá /32 trừ khi đổi network type"</label></li>
+</ul>
+<div class="box warn">
+  <strong>Thêm một điều nên ghi kèm</strong>
+  Trong mục RIP cũ của sổ có dòng "Default-information originate chỉ cấu hình trên router gate". Ghi thêm ý tương ứng cho OSPF: không có <code>always</code> thì router chỉ quảng bá khi chính nó có default route; kết hợp IP SLA để rút default khi ISP chết.
+</div>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (30/01) · MOP #10 đổi cost chuyển đường chính, diễn tập 3 lỗi</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>mop/MOP-010-ospf-cost.md</code>, <code>postmortem/W14-ospf-timer-mtu.md</code></span></div>
+
+<h3>Phần A · MOP #10</h3>
+<pre>
+# MOP-010 · Chuyển đường chính LAN1 ↔ LAN2 từ link trực tiếp sang qua R3
+
+| Mục        | Nội dung                                                        |
+|------------|-----------------------------------------------------------------|
+| Mục tiêu   | Link R1–R2 chỉ làm dự phòng (ví dụ: chuẩn bị bảo trì link đó)    |
+| Phạm vi    | R1 g0/1, R2 g0/1 (ip ospf cost)                                  |
+| Ảnh hưởng  | Lưu lượng LAN1↔LAN2 đổi đường; SPF chạy lại; thường không mất gói |
+| Rủi ro     | Bất đối xứng nếu chỉ đổi một đầu; link qua R3 chậm hơn ⇒ kiểm tải |
+
+## 1. Pre-check
+R1/R2# show ip ospf interface brief            ! cost hiện tại
+R1# show ip route 192.168.2.0 ; R2# show ip route 192.168.1.0
+PC-LAN1&gt; tracert PC-LAN2 ; PC-LAN2&gt; tracert PC-LAN1
+- Băng thông link qua R3 có đủ gánh lưu lượng không? (xem số liệu giám sát)
+
+## 2. Dự đoán
+- Sau change: next-hop R1 → LAN2 là R3 (10.0.13.2), metric = ___
+
+## 3. Các bước
+R1(config-if)# ip ospf cost 50000     ! g0/1
+R2(config-if)# ip ospf cost 50000     ! g0/1 (ngay sau R1)
+
+## 4. Verify
+- show ip route hai chiều: next-hop qua R3, metric khớp dự đoán
+- tracert hai chiều đi qua R3
+- Neighbor R1–R2 vẫn FULL (link vẫn là dự phòng)
+
+## 5. Rollback
+R1/R2(config-if)# no ip ospf cost
+</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Viết MOP-010, chạy, verify hai chiều, chạy rollback</label></li>
+</ul>
+
+<h3>Phần B · Diễn tập 3 lỗi: lệch hello/dead và MTU</h3>
+<ol>
+  <li>R3 g0/1: <code>ip ospf hello-interval 5</code> (R2 vẫn 10).</li>
+  <li>R1 g0/2: <code>ip ospf dead-interval 60</code> (R3 vẫn 40).</li>
+  <li>R2 g0/1: <code>ip mtu 1400</code>.</li>
+</ol>
+<details><summary>Gợi ý (mở sau khi làm)</summary>
+<ol>
+  <li>Hello lệch ⇒ IOS cũng tự đổi dead thành 20 ⇒ cả hello và dead lệch ⇒ neighbor R2–R3 rơi sau dead interval và không lên lại. <code>show ip ospf interface</code> hai đầu so "Timer intervals". Log/debug: "Mismatched hello parameters".</li>
+  <li>Chỉ dead lệch (hello vẫn 10) ⇒ cũng không thành neighbor (dead phải khớp). Hay bị bỏ sót vì nhiều người chỉ so hello.</li>
+  <li>MTU lệch ⇒ neighbor R1–R2 kẹt EXSTART/EXCHANGE (nếu đang Full thì có thể giữ tới khi reset; thử <code>clear ip ospf process</code> để thấy).</li>
+</ol>
+</details>
+<ul class="check">
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Xử lý theo quy trình 5 bước, mỗi lỗi &lt; 10 phút; viết postmortem</label></li>
+</ul>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (31/01) · Tự kiểm tra và tự chấm</h2>
+<div class="meta"><span><b>30 phút</b></span><span>Câu hỏi ở <a href="tuan-14-kien-thuc.html#m16">sổ tay mục 16</a>, gửi Claude chấm</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">5 câu trong lịch + 3 câu thêm</label></li>
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Chọn 2 chủ đề (tuần 1–14) đang dưới mức 3 để học lại sau Tết (đúng như lịch tuần Tết yêu cầu)</label></li>
+</ul>
+<h3>Tự chấm cuối tuần</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 14</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>Cost, ref BW, passive, O*E2, E1/E2, quy trình 5 bước</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>3 router OSPF + ref BW + passive + default route trong 20 phút</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>Lệch hello, dead, MTU: mỗi lỗi &lt; 10 phút</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>MOP-010 có dự đoán metric, kiểm hai chiều</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Giải thích cho người khác vì sao ref BW mặc định là vấn đề</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-3"><label for="cn-3">Tick tuần 14 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày 15 phút: ôn lại ghi chú OSPF</h2>
+<ul>
+  <li>T2 tuần 12 (7 trạng thái) · T3 tuần 13 (LSA, DR) · T4 tuần 14 (cost) · T5 tính 3 bài cost · T6 đọc lại quy trình 5 bước.</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">Đủ 5 ngày</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 14/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: nghỉ Tết Đinh Mùi. Sau Tết: HSRP và gateway dự phòng.
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan14-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
