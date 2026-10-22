@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 16</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 16 · 15/02 – 21/02/2027</div>
+  <h1>ACL và NAT</h1>
+  <p>Hướng dẫn từng ngày. Khoảng 10,5 giờ.</p>
+  <p>Phần đọc sách đã thay bằng <a href="tuan-16-kien-thuc.html">sổ tay tiếng Việt 16 mục</a>.</p>
+  <div class="links">
+    <a href="tuan-16-kien-thuc.html">Sổ tay tuần 16 (thay sách)</a>
+    <a href="tuan-15.html">Giáo án tuần 15</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Đầu ra trong lịch: <b>viết ACL đúng ngay lần đầu cho 3 yêu cầu.</b> Cụ thể:</p>
+<ol>
+  <li>Đọc một ACL thành lời, chỉ ra dòng nào khớp một gói cho trước, và cái gì rơi vào implicit deny.</li>
+  <li>Đặt ACL đúng interface, đúng chiều; kiểm bằng hit count.</li>
+  <li>Cấu hình PAT ra Internet và static NAT publish server; đọc bảng NAT.</li>
+  <li>Xử lý sự cố ACL sai chiều và thiếu permit cuối.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  ACL là nơi một dòng gõ sai có thể cắt cả chi nhánh. Thói quen của người làm lâu năm: <b>viết ACL ra giấy trước, đọc thành lời, đọc ngược từ dưới lên để hỏi cái gì bị implicit deny, rồi mới gõ</b>; và luôn có hit count trước/sau. Tuần này tập thói quen đó. Nó áp dụng y nguyên cho policy FortiGate.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · ACL: xử lý, loại, cú pháp</a></li>
+    <li><a href="#t3">Thứ 3 · Chiều in/out, vị trí, NAT</a></li>
+    <li><a href="#t4">Thứ 4 · Lab phần 1: ACL và hit count</a></li>
+    <li><a href="#t5">Thứ 5 · Lab phần 2: PAT, static NAT</a></li>
+    <li><a href="#t6">Thứ 6 · Ôn lab, sửa sổ tay</a></li>
+    <li><a href="#t7">Thứ 7 · MOP #12 thêm rule ACL, sự cố #4</a></li>
+    <li><a href="#cn">Chủ nhật · 3 yêu cầu ACL, tự chấm</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày 15 phút</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (15/02) · ACL: cách xử lý, loại, cú pháp</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: 5 dòng ACL đọc thành lời</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Sổ tay mục <a href="tuan-16-kien-thuc.html#m1">1</a> đến <a href="tuan-16-kien-thuc.html#m4">4</a></label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Tự viết 5 dòng extended khác nhau (tcp/udp/icmp, eq/range, host/any) và đọc thành lời</label></li>
+</ul>
+<div class="box warn">
+  <strong>Bẫy hay gặp</strong>
+  <code>no access-list 110 deny tcp …</code> với numbered ACL không xóa một dòng mà <b>xóa cả ACL 110</b>. Nếu ACL đang gắn trên interface: lúc đó không chặn gì (ACL không tồn tại), rồi gõ lại dòng đầu tiên thì implicit deny chặn hết. Dùng named ACL và xóa theo số thứ tự.
+</div>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (16/02) · Chiều in/out, vị trí, NAT</h2>
+<div class="meta"><span><b>1,5 giờ</b> + 5 phút tự giảng</span><span>Đầu ra: bảng 4 tên gọi NAT, 5 câu hỏi để hỏi Claude</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Sổ tay mục <a href="tuan-16-kien-thuc.html#m5">5</a> đến <a href="tuan-16-kien-thuc.html#m13">13</a></label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Tự giảng 5 phút: "PC 192.168.10.10 mở google.com: PAT đổi gì, bảng NAT nhớ gì, gói trả lời được đổi ngược thế nào"</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (17/02) · Lab phần 1: ACL chặn một subnet vào server, xem hit count</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: thư mục <code>W16-acl-nat</code></span></div>
+<div class="flow">VLAN 10 192.168.10.0/24 (Kế toán) ─┐
+VLAN 30 192.168.30.0/24 (Khách)    ─┼─ R1 (ROAS g0/0.10, .30) ── g0/2 ── SRV 10.1.1.0/24 (10.1.1.10 web+RDP)
+                                     └─ g0/1 ── R-ISP 203.0.113.1 (loopback 8.8.8.8)
+R1 g0/1: 203.0.113.2/30 · R1 có default route về R-ISP · R-ISP KHÔNG có route về 192.168.x (bắt buộc phải NAT)</div>
+<h3>Yêu cầu 1: Khách không được vào dải server, vẫn ra Internet được</h3>
+<pre>R1(config)# ip access-list extended GUEST-IN
+R1(config-ext-nacl)# remark Khach khong vao vung server
+R1(config-ext-nacl)# 10 deny ip 192.168.30.0 0.0.0.255 10.1.1.0 0.0.0.255
+R1(config-ext-nacl)# 20 permit ip any any
+R1(config)# interface g0/0.30
+R1(config-subif)# ip access-group GUEST-IN in
+R1# show access-lists GUEST-IN</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1">Từ PC khách ping/curl 10.1.1.10: bị chặn; ping 203.0.113.1: được. Hit count dòng 10 và 20 tăng đúng?</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2">Từ R1 (ping 10.1.1.10 source 192.168.30.1): có bị ACL chặn không? Giải thích (ACL inbound không lọc gói do router tạo)</label></li>
+</ul>
+<h3>Yêu cầu 2: Kế toán chỉ được HTTPS tới server, không được RDP</h3>
+<pre>R1(config)# ip access-list extended KETOAN-IN
+R1(config-ext-nacl)# 10 permit tcp 192.168.10.0 0.0.0.255 host 10.1.1.10 eq 443
+R1(config-ext-nacl)# 20 deny ip 192.168.10.0 0.0.0.255 10.1.1.0 0.0.0.255
+R1(config-ext-nacl)# 30 permit ip any any
+R1(config)# interface g0/0.10
+R1(config-subif)# ip access-group KETOAN-IN in</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-3"><label for="t4-3">Kiểm bằng <code>Test-NetConnection 10.1.1.10 -Port 443</code> và <code>-Port 3389</code> từ PC kế toán; đọc hit count</label></li>
+  <li><input type="checkbox" id="t4-4"><label for="t4-4">Đảo thứ tự dòng 10 và 20 (resequence hoặc xóa/thêm): kết quả? Vì sao?</label></li>
+</ul>
+<h3>Yêu cầu 3: Chỉ mạng quản trị được SSH vào R1</h3>
+<pre>R1(config)# ip access-list standard MGMT-ONLY
+R1(config-std-nacl)# permit 192.168.10.0 0.0.0.255       <span class="c">! lab: coi VLAN 10 là quản trị</span>
+R1(config)# line vty 0 4
+R1(config-line)# access-class MGMT-ONLY in</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-5"><label for="t4-5">SSH (hoặc telnet nếu chưa có SSH, tuần 19 sẽ chuyển) từ VLAN 30 vào R1: bị từ chối</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (18/02) · Lab phần 2: PAT ra Internet, static NAT publish server</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: output <code>show ip nat translations</code> chú thích 4 cột</span></div>
+<pre>R1(config)# interface g0/0.10
+R1(config-subif)# ip nat inside
+R1(config)# interface g0/0.30
+R1(config-subif)# ip nat inside
+R1(config)# interface g0/2
+R1(config-if)# ip nat inside
+R1(config)# interface g0/1
+R1(config-if)# ip nat outside
+R1(config)# ip access-list standard NAT-INSIDE
+R1(config-std-nacl)# permit 192.168.0.0 0.0.255.255
+R1(config)# ip nat inside source list NAT-INSIDE interface g0/1 overload
+R1(config)# ip nat inside source static 10.1.1.10 203.0.113.10
+<span class="c">! R-ISP cần biết 203.0.113.10 nằm ở R1: thêm static route trên R-ISP: ip route 203.0.113.10 255.255.255.255 203.0.113.2</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1">Trước khi bật NAT: PC ping 8.8.8.8 thất bại (R-ISP không có route về 192.168.x). Sau NAT: thành công</label></li>
+  <li><input type="checkbox" id="t5-2"><label for="t5-2">Hai PC cùng ping 8.8.8.8: <code>show ip nat translations</code> — chỉ ra inside local, inside global, port khác nhau</label></li>
+  <li><input type="checkbox" id="t5-3"><label for="t5-3">Từ R-ISP <code>telnet 203.0.113.10 80</code> (hoặc ping): tới được server qua static NAT. Thử trước và sau khi thêm route trên R-ISP</label></li>
+  <li><input type="checkbox" id="t5-4"><label for="t5-4"><code>show ip nat statistics</code>; <code>clear ip nat translation *</code> rồi xem lại</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (19/02) · Ôn lab, sửa sổ tay CCNA</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: mục ACL và NAT mới trong Google Docs</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1">Gỡ toàn bộ ACL/NAT, viết lại 3 yêu cầu + PAT từ trí nhớ trong 15 phút</label></li>
+</ul>
+<h3>Sửa sổ tay (3 việc trong lịch)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">Tạo mục ACL: ví dụ bảo vệ, bảng standard/extended, quy tắc đặt, cách đọc chiều in/out</label></li>
+  <li><input type="checkbox" id="t6-3"><label for="t6-3">Tạo mục NAT: bảng 4 tên gọi, 3 kiểu NAT</label></li>
+  <li><input type="checkbox" id="t6-4"><label for="t6-4">Mục PPPoE đã có ip nat inside/outside: đánh dấu liên kết sang mục NAT</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (20/02) · MOP #12 thêm rule ACL, sự cố #4</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>mop/MOP-012-them-rule-acl.md</code>, <code>postmortem/W16-acl.md</code></span></div>
+
+<h3>Phần A · MOP #12: cho phép khách vào đúng một web nội bộ 10.1.1.20:443</h3>
+<pre>
+# MOP-012 · Thêm rule vào GUEST-IN: khách vào được 10.1.1.20:443
+
+| Mục        | Nội dung                                                        |
+|------------|-----------------------------------------------------------------|
+| Mục tiêu   | Khách truy cập cổng thông tin nội bộ, vẫn bị chặn phần server khác |
+| Phạm vi    | ACL GUEST-IN trên R1 g0/0.30                                     |
+| Ảnh hưởng  | Không gián đoạn nếu chèn đúng vị trí (sequence)                   |
+| Rủi ro     | Chèn sai thứ tự (sau dòng deny) ⇒ không có tác dụng              |
+
+## 1. Pre-check
+R1# show access-lists GUEST-IN          ! lưu nguyên văn + hit count từng dòng
+R1# clear access-list counters GUEST-IN ! để đo mới
+PC-khach&gt; Test-NetConnection 10.1.1.20 -Port 443   ! False (đang bị chặn) ⇒ dòng 10 tăng 1
+
+## 2. Các bước
+R1(config)# ip access-list extended GUEST-IN
+R1(config-ext-nacl)# 5 permit tcp 192.168.30.0 0.0.0.255 host 10.1.1.20 eq 443
+R1(config-ext-nacl)# remark Cho phep khach vao cong thong tin (ticket #…)
+
+## 3. Verify
+- show access-lists GUEST-IN: dòng 5 đứng trước dòng 10
+- Test lại 443 tới 10.1.1.20: True ⇒ dòng 5 tăng
+- Test 3389 tới 10.1.1.20 và 443 tới 10.1.1.10: vẫn False ⇒ dòng 10 tăng
+- Khách vẫn ra Internet ⇒ dòng 20 tăng
+
+## 4. Rollback
+R1(config-ext-nacl)# no 5
+</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Viết MOP-012, chạy đủ verify với hit count, chạy rollback</label></li>
+</ul>
+
+<h3>Phần B · Sự cố #4: ACL đặt sai hướng, quên permit cuối</h3>
+<p>Người khác gài 2 lỗi trên R1 (không nói trước):</p>
+<ol>
+  <li>GUEST-IN gắn <code>out</code> thay vì <code>in</code> trên g0/0.30.</li>
+  <li>Một ACL mới "chặn khách RDP" gắn vào g0/2 out chỉ có một dòng <code>deny tcp 192.168.30.0 0.0.0.255 any eq 3389</code>.</li>
+</ol>
+<p>Triệu chứng người dùng: "Khách vẫn vào được server" và "Kế toán không vào được web server nữa".</p>
+<details><summary>Gợi ý (mở sau khi làm)</summary>
+<ol>
+  <li><code>show ip interface g0/0.30</code>: "Outgoing access list is GUEST-IN" ⇒ ACL đang lọc gói đi <b>vào</b> mạng khách (nguồn là server/Internet), không khớp dòng deny (nguồn 192.168.30.x) ⇒ khách vẫn vào server. Hit count dòng 10 = 0 là dấu hiệu.</li>
+  <li>ACL trên g0/2 out không có permit cuối ⇒ implicit deny chặn <b>mọi</b> gói đi ra vùng server, kể cả từ Kế toán. <code>show access-lists</code> chỉ có một dòng ⇒ đọc ngược từ dưới lên thấy ngay.</li>
+</ol>
+</details>
+<ul class="check">
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Tìm ra cả 2 lỗi dưới 15 phút chỉ bằng show; sửa; postmortem</label></li>
+</ul>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (21/02) · 3 yêu cầu ACL, tự chấm</h2>
+<div class="meta"><span><b>30–45 phút</b></span><span>Gửi ACL và câu trả lời cho Claude chấm</span></div>
+<h3>Đầu ra tuần: viết ACL đúng ngay lần đầu cho 3 yêu cầu</h3>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">Nhờ Claude ra 3 yêu cầu ACL mới (sơ đồ + chính sách bằng lời). Viết ACL ra giấy: tên, các dòng, interface, chiều. Gửi chấm trước khi gõ lên lab. Đạt: cả 3 đúng ngay lần đầu</label></li>
+</ul>
+<h3>5 câu tự kiểm tra trong lịch</h3>
+<details><summary>1. ACL chỉ có 1 dòng deny host 10.1.1.5. Máy 10.1.1.6 có qua được không?</summary><p>Không (implicit deny).</p></details>
+<details><summary>2. Standard ACL nên đặt gần nguồn hay đích? Vì sao?</summary><p>Gần đích; chỉ khớp nguồn.</p></details>
+<details><summary>3. Wildcard cho "mọi máy trong 192.168.20.0/24"?</summary><p>0.0.0.255.</p></details>
+<details><summary>4. 200 máy ra Internet bằng 1 IP public: kiểu NAT nào?</summary><p>PAT.</p></details>
+<details><summary>5. IP thật của PC trong LAN gọi là gì trong thuật ngữ NAT?</summary><p>Inside local.</p></details>
+<h3>Tự chấm cuối tuần</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 16</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>First match, implicit deny, in/out, vị trí đặt, 4 tên NAT, 3 kiểu NAT</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>3 ACL + PAT + static NAT trong 15 phút</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>Sai chiều và thiếu permit: &lt; 15 phút</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>MOP-012 có hit count trước/sau, chèn đúng sequence</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>So sánh ACL với policy FortiGate cho người khác</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Tick tuần 16 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày 15 phút</h2>
+<ul>
+  <li><b>Hỏi đáp bằng miệng 5 phút:</b> ACL và NAT.</li>
+  <li><b>Một ACL nhỏ mỗi ngày:</b> tự đặt yêu cầu bằng lời, viết ra 2–3 dòng, đọc ngược tìm implicit deny.</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">Đủ 5 ngày</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 16/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: DHCP, DNS, NTP, Syslog, SNMP, QoS cơ bản.
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan16-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

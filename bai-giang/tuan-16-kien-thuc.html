@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 16</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 16 (15/02 – 21/02/2027) · <a href="tuan-16.html">Giáo án tuần 16 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 16 (Odom Vol 2, "Basic IPv4 Access Control Lists", "Advanced IPv4 Access Control Lists", "Network Address Translation"). Đây là tuần <b>gần với công việc firewall</b> nhất của giai đoạn 1: ACL là "rule firewall" phiên bản router, NAT là thứ FortiGate làm cho mọi gói ra Internet. Hiểu ACL/NAT trên Cisco thì đọc policy FortiGate sẽ dễ hơn nhiều. Sổ của anh chưa có mục ACL/NAT riêng, chỉ có <code>ip nat inside/outside</code> trong mục PPPoE. Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">ACL là gì, dùng vào việc gì</a></li>
+  <li><a href="#m2">Cách router xử lý ACL: từ trên xuống, implicit deny</a></li>
+  <li><a href="#m3">Standard, extended, numbered, named</a></li>
+  <li><a href="#m4">Cú pháp extended ACL</a></li>
+  <li><a href="#m5">Chiều in và out</a></li>
+  <li><a href="#m6">Đặt ACL ở đâu</a></li>
+  <li><a href="#m7">Sửa ACL, remark, ACL cho VTY</a></li>
+  <li><a href="#m8">Hit count và log</a></li>
+  <li><a href="#m9">NAT: vì sao, 4 tên gọi địa chỉ</a></li>
+  <li><a href="#m10">3 kiểu NAT: static, dynamic, PAT</a></li>
+  <li><a href="#m11">Cấu hình NAT và kiểm tra</a></li>
+  <li><a href="#m12">Lỗi hay gặp với ACL và NAT</a></li>
+  <li><a href="#m13">Tình huống thực tế, liên hệ firewall</a></li>
+  <li><a href="#m14">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m15">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m16">Câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> ACL là gì, dùng vào việc gì</h1>
+<p><b>ACL (Access Control List)</b>: danh sách các dòng <b>permit/deny</b>, mỗi dòng mô tả một kiểu gói (IP nguồn, IP đích, giao thức, port). ACL là công cụ <b>phân loại gói</b>; việc làm gì với gói "khớp" tùy chỗ ACL được gắn vào:</p>
+<div class="tbl"><table>
+<tr><th>Gắn vào</th><th class="l">Tác dụng</th></tr>
+<tr><td>Interface (<code>ip access-group</code>)</td><td class="l"><b>Lọc gói</b>: cho qua hay bỏ (tuần này)</td></tr>
+<tr><td>VTY (<code>access-class</code>)</td><td class="l">Ai được SSH vào router</td></tr>
+<tr><td>NAT (<code>ip nat inside source list</code>)</td><td class="l">Gói nào được NAT (mục 11)</td></tr>
+<tr><td>QoS, route-map, PBR, SNMP, debug</td><td class="l">Chọn lưu lượng để áp chính sách</td></tr>
+</table></div>
+<div class="note"><b>💡 Ví dụ dễ hiểu: bảo vệ tòa nhà cầm danh sách</b>
+Bảo vệ đứng ở một cửa (interface), theo một chiều (vào hay ra), cầm một tờ danh sách. Gặp ai, bảo vệ đọc danh sách <b>từ trên xuống</b>; dòng đầu tiên khớp với người đó quyết định cho vào hay không, đọc tới đó là dừng. Không khớp dòng nào ⇒ <b>không cho vào</b> (luật ngầm ở cuối danh sách).</div>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Tạo mục ACL mới trong sổ, bắt đầu bằng <b>ví dụ bảo vệ</b> ở trên, sau đó là bảng standard/extended (mục 3), quy tắc đặt (mục 6), cách đọc chiều in/out (mục 5).</div>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Cách router xử lý ACL: từ trên xuống, implicit deny</h1>
+<ol>
+  <li>Đọc dòng từ <b>trên xuống</b>, theo số thứ tự.</li>
+  <li><b>Dừng ở dòng đầu tiên khớp</b> (first match), thực hiện permit/deny của dòng đó. Không đọc tiếp.</li>
+  <li>Không khớp dòng nào ⇒ <b>implicit deny</b>: một dòng <code>deny any</code> vô hình ở cuối mọi ACL.</li>
+</ol>
+<p><mark>First match, rồi dừng. Cuối mọi ACL có deny any vô hình.</mark></p>
+<p>Hai hệ quả kinh điển:</p>
+<ul>
+  <li>ACL chỉ có dòng <code>deny host 10.1.1.5</code> ⇒ 10.1.1.5 bị chặn, nhưng <b>mọi máy khác cũng bị chặn</b> (implicit deny). Muốn chặn một máy, cho phép phần còn lại: thêm <code>permit any</code> ở cuối.</li>
+  <li>Thứ tự quan trọng: dòng rộng đặt trước dòng hẹp ⇒ dòng hẹp không bao giờ được xét (IOS có khi cảnh báo "is already covered").</li>
+</ul>
+<p>Ngược với bảng định tuyến (tuần 10): bảng route xét <b>mọi dòng</b> rồi chọn dài nhất; ACL <b>dừng ở dòng đầu tiên</b>.</p>
+<p>Vài quy tắc khác:</p>
+<ul>
+  <li>Mỗi interface, mỗi <b>chiều</b> (in/out), mỗi giao thức (IPv4/IPv6): tối đa <b>một</b> ACL.</li>
+  <li>ACL outbound <b>không lọc</b> gói do chính router tạo ra (ping, SSH đi từ router).</li>
+  <li>Gắn ACL chưa tồn tại (hoặc rỗng) lên interface trên IOS: không chặn gì. Nhưng ngay khi thêm dòng đầu tiên, implicit deny có hiệu lực ⇒ cẩn thận khi tạo ACL trên interface đang chạy.</li>
+</ul>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Standard, extended, numbered, named</h1>
+<div class="tbl"><table>
+<tr><th></th><th>Standard</th><th>Extended</th></tr>
+<tr><td>Khớp theo</td><td><b>Chỉ IP nguồn</b></td><td>Giao thức, IP nguồn, IP đích, port nguồn/đích, cờ TCP…</td></tr>
+<tr><td>Số (numbered)</td><td>1–99, 1300–1999</td><td>100–199, 2000–2699</td></tr>
+<tr><td>Đặt gần</td><td><b>Đích</b></td><td><b>Nguồn</b></td></tr>
+<tr><td>Ví dụ</td><td><code>access-list 10 permit 192.168.10.0 0.0.0.255</code></td><td><code>access-list 110 deny tcp 192.168.20.0 0.0.0.255 host 10.1.1.10 eq 3389</code></td></tr>
+</table></div>
+<p><b>Named ACL</b> (đặt tên thay vì số) cho cả hai loại; dễ đọc, sửa từng dòng được. Chuẩn hiện nay: <mark>luôn dùng named ACL</mark>.</p>
+<pre>R1(config)# ip access-list standard MGMT-ONLY
+R1(config-std-nacl)# permit 10.99.0.0 0.0.0.255
+R1(config)# ip access-list extended BLOCK-GUEST-TO-SERVER
+R1(config-ext-nacl)# deny ip 192.168.30.0 0.0.0.255 10.1.1.0 0.0.0.255
+R1(config-ext-nacl)# permit ip any any</pre>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> Cú pháp extended ACL</h1>
+<pre>[seq] permit|deny &lt;giao thức&gt; &lt;nguồn&gt; &lt;wildcard&gt; [toán tử port] &lt;đích&gt; &lt;wildcard&gt; [toán tử port] [established] [log]</pre>
+<div class="tbl"><table>
+<tr><th>Thành phần</th><th class="l">Giá trị</th></tr>
+<tr><td>Giao thức</td><td class="l"><code>ip</code> (mọi thứ), <code>tcp</code>, <code>udp</code>, <code>icmp</code>, <code>ospf</code>, <code>esp</code>, <code>gre</code>, hoặc số protocol</td></tr>
+<tr><td>Địa chỉ</td><td class="l"><code>A.B.C.D wildcard</code> · <code>host A.B.C.D</code> · <code>any</code> (tuần 4)</td></tr>
+<tr><td>Toán tử port</td><td class="l"><code>eq</code> bằng · <code>neq</code> khác · <code>gt</code> lớn hơn · <code>lt</code> nhỏ hơn · <code>range a b</code></td></tr>
+<tr><td>Tên port</td><td class="l"><code>www</code> (80), <code>domain</code> (53), <code>22</code> (SSH: gõ số), <code>3389</code></td></tr>
+<tr><td><code>established</code></td><td class="l">Chỉ khớp gói TCP có cờ ACK hoặc RST (gói "trả lời" của phiên đã mở). Lọc trạng thái kiểu thô sơ</td></tr>
+<tr><td><code>log</code></td><td class="l">Ghi log khi khớp (tốn CPU, dùng có chừng mực)</td></tr>
+</table></div>
+<p><mark>Port đứng ngay sau địa chỉ mà nó thuộc về.</mark> <code>… any host 10.1.1.10 eq 443</code> = port <b>đích</b> 443. <code>… host 10.1.1.10 eq 443 any</code> = port <b>nguồn</b> 443 (gói trả lời từ web server). Đặt nhầm chỗ là lỗi rất hay gặp.</p>
+<h3>Ví dụ đọc thành lời</h3>
+<pre>permit tcp 192.168.10.0 0.0.0.255 host 10.1.1.10 eq 443
+<span class="c">! "Cho phép mọi máy trong 192.168.10.0/24 mở kết nối HTTPS tới server 10.1.1.10"</span>
+deny   udp any any eq 53
+<span class="c">! "Chặn mọi truy vấn DNS (UDP) tới bất kỳ đâu"</span>
+permit icmp any any echo-reply
+<span class="c">! "Cho phép gói ICMP echo-reply (trả lời ping)"</span></pre>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Chiều in và out</h1>
+<p>Chiều luôn nhìn <b>từ chính router, tại interface đó</b>:</p>
+<ul>
+  <li><b>in</b>: gói đi <b>vào</b> router qua interface này (từ dây vào router). Xét <b>trước</b> khi tra bảng route.</li>
+  <li><b>out</b>: gói đi <b>ra khỏi</b> router qua interface này (từ router ra dây). Xét <b>sau</b> khi đã định tuyến.</li>
+</ul>
+<div class="flow">  LAN 192.168.10.0/24 ---[g0/0] R1 [g0/1]--- Server 10.1.1.0/24
+  Gói từ LAN tới Server:   vào R1 ở g0/0 (g0/0 IN)  → ra R1 ở g0/1 (g0/1 OUT)
+  Gói trả lời từ Server:   vào R1 ở g0/1 (g0/1 IN)  → ra R1 ở g0/0 (g0/0 OUT)</div>
+<p>Muốn chặn LAN tới Server có bốn chỗ có thể đặt, nhưng chỉ hai chỗ đúng chiều: <b>g0/0 in</b> hoặc <b>g0/1 out</b>. Đặt "g0/0 out" là lọc gói <b>đi vào LAN</b> (chiều ngược) ⇒ chặn nhầm gói trả lời.</p>
+<pre>R1(config)# interface g0/0
+R1(config-if)# ip access-group BLOCK-GUEST-TO-SERVER in
+R1# show ip interface g0/0 | include access list
+  Outgoing access list is not set
+  Inbound  access list is BLOCK-GUEST-TO-SERVER</pre>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Đặt ACL ở đâu</h1>
+<ul>
+  <li><b>Extended: gần nguồn.</b> Vì extended mô tả đủ nguồn + đích + port ⇒ chặn ngay từ đầu, gói bị cấm không tốn băng thông đi xa.</li>
+  <li><b>Standard: gần đích.</b> Vì standard chỉ biết nguồn: đặt gần nguồn sẽ chặn nguồn đó đi <b>mọi nơi</b>, không chỉ tới đích muốn chặn.</li>
+</ul>
+<p><mark>Standard gần đích, extended gần nguồn.</mark></p>
+<div class="note"><b>Thực tế hiện đại</b>
+Quy tắc trên là từ thời băng thông WAN đắt. Ngày nay chính sách giữa các vùng thường đặt <b>tập trung ở firewall</b> (FortiGate) hoặc gateway của vùng, để một chỗ quản lý; ACL trên router/switch dùng cho bảo vệ thiết bị (VTY, SNMP, control plane) và lọc thô ở biên.</div>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Sửa ACL, remark, ACL cho VTY</h1>
+<h2>1/ Sửa named ACL bằng số thứ tự</h2>
+<pre>R1# show access-lists BLOCK-GUEST-TO-SERVER
+Extended IP access list BLOCK-GUEST-TO-SERVER
+    10 deny ip 192.168.30.0 0.0.0.255 10.1.1.0 0.0.0.255 (15 matches)
+    20 permit ip any any (230 matches)
+R1(config)# ip access-list extended BLOCK-GUEST-TO-SERVER
+R1(config-ext-nacl)# 15 permit tcp 192.168.30.0 0.0.0.255 host 10.1.1.20 eq 443   ! chèn giữa 10 và 20
+R1(config-ext-nacl)# no 15                                                       ! xóa đúng một dòng
+R1(config-ext-nacl)# remark Khach chi duoc vao web noi bo 10.1.1.20
+R1(config)# ip access-list resequence BLOCK-GUEST-TO-SERVER 10 10                ! đánh số lại 10, 20, 30…</pre>
+<p>Numbered ACL kiểu cũ (<code>access-list 110 …</code>) <b>không xóa được từng dòng</b> theo cách gõ "no access-list 110 …" (lệnh đó xóa <b>cả ACL</b>!). Đây là thêm một lý do dùng named.</p>
+<h2>2/ ACL cho VTY: ai được SSH vào thiết bị</h2>
+<pre>R1(config)# ip access-list standard MGMT-ONLY
+R1(config-std-nacl)# permit 10.99.0.0 0.0.0.255
+R1(config)# line vty 0 4
+R1(config-line)# access-class MGMT-ONLY in</pre>
+<p>Dùng <code>access-class</code> trên line VTY, không phải <code>access-group</code>. Bảo vệ cơ bản mọi thiết bị mạng: chỉ mạng quản trị được SSH vào.</p>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> Hit count và log</h1>
+<pre>R1# show access-lists                       ! (N matches) sau mỗi dòng
+R1# clear access-list counters BLOCK-GUEST-TO-SERVER
+<span class="c">! implicit deny không có bộ đếm ⇒ muốn thấy, thêm dòng cuối tường minh:</span>
+R1(config-ext-nacl)# 1000 deny ip any any log
+%SEC-6-IPACCESSLOGP: list BLOCK-GUEST-TO-SERVER denied tcp 192.168.30.15(51234) -> 10.1.1.10(3389), 1 packet</pre>
+<p>Hit count dùng cho:</p>
+<ul>
+  <li><b>Kiểm rule mới có tác dụng không</b>: thử lưu lượng, xem bộ đếm dòng mới tăng.</li>
+  <li><b>Dọn rule thừa</b>: dòng 0 match sau nhiều tháng ⇒ ứng viên gỡ (sau khi xác minh).</li>
+  <li>MOP: so hit count trước và sau change (MOP tuần này).</li>
+</ul>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> NAT: vì sao, 4 tên gọi địa chỉ</h1>
+<p><b>NAT (Network Address Translation)</b>: router đổi địa chỉ IP (và có thể port) trong header khi gói đi qua. Lý do chính: địa chỉ <b>private</b> (tuần 3) không đi được trên Internet ⇒ đổi sang IP public khi ra ngoài.</p>
+<h2>4 tên gọi (thi rất hay hỏi)</h2>
+<div class="tbl"><table>
+<tr><th>Tên</th><th class="l">Nghĩa</th><th class="l">Ví dụ (PC ra Google)</th></tr>
+<tr><td><b>Inside local</b></td><td class="l">IP thật của máy bên trong, nhìn từ bên trong</td><td class="l">192.168.10.10 (IP PC)</td></tr>
+<tr><td><b>Inside global</b></td><td class="l">IP của máy bên trong, như bên ngoài nhìn thấy (sau NAT)</td><td class="l">203.0.113.2 (IP public của router)</td></tr>
+<tr><td>Outside local</td><td class="l">IP của máy bên ngoài, như bên trong nhìn thấy</td><td class="l">8.8.8.8 (thường giống outside global)</td></tr>
+<tr><td>Outside global</td><td class="l">IP thật của máy bên ngoài</td><td class="l">8.8.8.8</td></tr>
+</table></div>
+<p><mark>Local = nhìn từ bên trong; Global = nhìn từ bên ngoài. Inside/Outside = máy đó ở phía nào.</mark> IP thật của PC trong LAN là <b>inside local</b>.</p>
+<p>Interface: <code>ip nat inside</code> ở phía LAN, <code>ip nat outside</code> ở phía Internet.</p>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Tạo mục NAT mới gồm <b>bảng 4 tên gọi</b> ở trên và <b>3 kiểu NAT</b> (mục 10). Trong mục PPPoE cũ (đã có <code>ip nat outside</code> trên dialer và <code>ip nat inside</code> trên LAN), <b>đánh dấu liên kết</b> sang mục NAT mới, ví dụ ghi "xem mục NAT: đây là PAT ra Internet".</div>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> 3 kiểu NAT: static, dynamic, PAT</h1>
+<div class="tbl"><table>
+<tr><th>Kiểu</th><th class="l">Ánh xạ</th><th class="l">Dùng khi</th></tr>
+<tr><td><b>Static NAT</b></td><td class="l">1 private ↔ 1 public cố định, hai chiều</td><td class="l"><b>Publish server</b> ra Internet (web, mail): bên ngoài chủ động kết nối vào được</td></tr>
+<tr><td><b>Dynamic NAT</b></td><td class="l">Nhiều private ↔ một <b>pool</b> public, cấp tạm theo nhu cầu, 1–1 trong thời gian dùng</td><td class="l">Hiếm dùng: hết pool là máy sau không ra được</td></tr>
+<tr><td><b>PAT</b> (NAT overload)</td><td class="l">Nhiều private ↔ <b>một</b> public, phân biệt bằng <b>port</b> nguồn</td><td class="l"><b>Phổ biến nhất</b>: cả văn phòng ra Internet bằng một IP (router nhà, FortiGate)</td></tr>
+<tr><td>Static PAT (port forwarding)</td><td class="l">Một public:port ↔ một private:port</td><td class="l">Publish một dịch vụ trên IP public chung (FortiGate gọi là VIP port forward)</td></tr>
+</table></div>
+<h3>PAT hoạt động thế nào</h3>
+<div class="flow">Bên trong                         Router (PAT)                 Bên ngoài
+192.168.10.10:51000 ─┐
+192.168.10.11:51000 ─┼─ đổi nguồn ─▶ 203.0.113.2:1024  ─▶ 8.8.8.8:53
+192.168.10.12:49200 ─┘              203.0.113.2:1025
+                                     203.0.113.2:1026
+Bảng NAT nhớ: 203.0.113.2:1024 ↔ 192.168.10.10:51000 … để đổi ngược gói trả lời</div>
+<p>Một IP có ~64 000 port ⇒ lý thuyết hàng chục nghìn phiên đồng thời. Đây là câu trả lời "200 máy ra Internet bằng 1 IP public: PAT".</p>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Cấu hình NAT và kiểm tra</h1>
+<pre><span class="c">! Đánh dấu phía trong/ngoài</span>
+R1(config)# interface g0/0
+R1(config-if)# ip nat inside
+R1(config)# interface g0/2
+R1(config-if)# ip nat inside
+R1(config)# interface g0/1
+R1(config-if)# ip nat outside
+
+<span class="c">! PAT: mọi máy 192.168.0.0/16 ra Internet bằng IP của g0/1</span>
+R1(config)# ip access-list standard NAT-INSIDE
+R1(config-std-nacl)# permit 192.168.0.0 0.0.255.255
+R1(config)# ip nat inside source list NAT-INSIDE interface g0/1 overload
+
+<span class="c">! Static NAT: publish web server 192.168.20.10 ra 203.0.113.10</span>
+R1(config)# ip nat inside source static 192.168.20.10 203.0.113.10
+
+<span class="c">! Static PAT: chỉ port 443</span>
+R1(config)# ip nat inside source static tcp 192.168.20.10 443 203.0.113.2 443
+
+<span class="c">! Dynamic NAT với pool (biết để đọc)</span>
+R1(config)# ip nat pool PUB 203.0.113.16 203.0.113.30 netmask 255.255.255.240
+R1(config)# ip nat inside source list NAT-INSIDE pool PUB</pre>
+<pre>R1# show ip nat translations
+Pro  Inside global       Inside local        Outside local       Outside global
+icmp 203.0.113.2:3       192.168.10.10:3     8.8.8.8:3           8.8.8.8:3
+tcp  203.0.113.2:1024    192.168.10.10:51000 142.250.4.100:443   142.250.4.100:443
+---  203.0.113.10        192.168.20.10       ---                 ---              ← static
+R1# show ip nat statistics          ! số translation, interface inside/outside, hit/miss
+R1# clear ip nat translation *      ! xóa bản ghi động (không xóa static)</pre>
+<p>ACL trong NAT chỉ để <b>chọn gói nào được NAT</b>, không lọc. Gói không khớp ACL NAT vẫn đi, chỉ là không đổi địa chỉ (và thường chết ở Internet vì IP private).</p>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Lỗi hay gặp với ACL và NAT</h1>
+<div class="tbl"><table>
+<tr><th class="l">Triệu chứng</th><th class="l">Nguyên nhân</th></tr>
+<tr><td class="l">Gắn ACL chặn một máy, cả phòng mất mạng</td><td class="l"><b>Quên permit cuối</b> ⇒ implicit deny chặn hết</td></tr>
+<tr><td class="l">ACL không có tác dụng, hit count = 0</td><td class="l"><b>Sai chiều</b> (in/out) hoặc sai interface; port đặt nhầm vị trí nguồn/đích; dòng rộng hơn ở phía trên đã khớp trước</td></tr>
+<tr><td class="l">Ping qua được, nhưng ứng dụng không chạy</td><td class="l">ACL chỉ permit icmp; hoặc chặn chiều về (thiếu permit established/port nguồn)</td></tr>
+<tr><td class="l">OSPF/HSRP rớt sau khi gắn ACL inbound</td><td class="l">Implicit deny chặn cả gói điều khiển (protocol 89, UDP 1985, multicast) ⇒ thêm permit cho chúng</td></tr>
+<tr><td class="l">PC ra Internet không được, <code>show ip nat translations</code> trống</td><td class="l">Thiếu <code>ip nat inside/outside</code>, ACL NAT không khớp dải, thiếu default route</td></tr>
+<tr><td class="l">Static NAT publish server, bên ngoài vẫn không vào được</td><td class="l">ACL/firewall chặn chiều vào; server sai gateway (chiều về không qua router NAT)</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Tình huống thực tế, liên hệ firewall</h1>
+<h3>Tình huống 1 · Chặn mạng khách vào server nội bộ, Wi-Fi khách mất luôn Internet</h3>
+<details><summary>Phân tích</summary>
+<p>ACL gắn vào gateway VLAN khách chỉ có dòng deny tới dải server, thiếu <code>permit ip any any</code> ⇒ implicit deny chặn cả Internet. Bài học: viết ACL theo khuôn "deny cụ thể → permit phần còn lại", và luôn đọc ACL từ dưới lên một lần để hỏi "cái gì rơi vào implicit deny?".</p></details>
+<h3>Tình huống 2 · Đọc log FortiGate thấy IP lạ</h3>
+<details><summary>Phân tích</summary>
+<p>Log phiên trên firewall biên có thể hiện IP nguồn <b>trước</b> NAT (inside local) hoặc <b>sau</b> NAT (inside global) tùy cột. Biết 4 tên gọi giúp đọc đúng: khi đối tác báo "IP 203.0.113.2 gửi nhiều request", phải tra bảng NAT/log phiên để ra máy bên trong là ai (đã nhắc ở tuần 1).</p></details>
+<div class="note"><b>Góc nhìn hệ thống: ACL Cisco và policy FortiGate</b>
+<div class="tbl"><table>
+<tr><th>Khái niệm</th><th class="l">Cisco ACL</th><th class="l">FortiGate firewall policy</th></tr>
+<tr><td>Thứ tự</td><td class="l">Từ trên xuống, first match</td><td class="l">Từ trên xuống, first match</td></tr>
+<tr><td>Cuối danh sách</td><td class="l">Implicit deny</td><td class="l">Implicit deny (policy 0)</td></tr>
+<tr><td>Trạng thái phiên</td><td class="l">Không (trừ "established" thô sơ) ⇒ phải cho phép cả chiều về</td><td class="l"><b>Stateful</b>: cho phép chiều đi là tự cho chiều về của phiên đó</td></tr>
+<tr><td>Đối tượng</td><td class="l">Địa chỉ + wildcard</td><td class="l">Address object, service object, interface/zone</td></tr>
+<tr><td>NAT</td><td class="l">Lệnh ip nat riêng</td><td class="l">Bật NAT trong policy, IP pool, VIP</td></tr>
+<tr><td>Hit count</td><td class="l"><code>show access-lists</code></td><td class="l">Cột hit count/bytes trên policy</td></tr>
+</table></div>
+Khác biệt lớn nhất: ACL <b>không có trạng thái</b>. Đó là lý do ACL phức tạp hơn khi phải cho phép gói trả lời, và lý do doanh nghiệp đặt chính sách chính trên firewall stateful.</div>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>Xử lý</td><td class="l">Trên xuống, first match, dừng · implicit deny any ở cuối</td></tr>
+<tr><td>Loại</td><td class="l">Standard (nguồn; 1–99, 1300–1999) · extended (100–199, 2000–2699) · named</td></tr>
+<tr><td>Đặt</td><td class="l">Standard gần đích · extended gần nguồn · 1 ACL/interface/chiều/giao thức</td></tr>
+<tr><td>Chiều</td><td class="l">in = vào router (trước định tuyến) · out = ra khỏi router (sau định tuyến)</td></tr>
+<tr><td>Lệnh</td><td class="l"><code>ip access-group X in|out</code> (interface) · <code>access-class X in</code> (VTY)</td></tr>
+<tr><td>NAT tên</td><td class="l">Inside local (IP thật PC) · inside global (IP public đại diện) · outside local/global</td></tr>
+<tr><td>NAT kiểu</td><td class="l">Static (publish server) · dynamic (pool) · PAT overload (nhiều máy 1 IP)</td></tr>
+<tr><td>NAT lệnh</td><td class="l"><code>ip nat inside/outside</code> · <code>ip nat inside source list X interface Y overload</code> · <code>show ip nat translations</code></td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m15"><span class="no">15.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">access control list</td><td class="l">danh sách kiểm soát truy cập</td><td class="l">access control entry (ACE)</td><td class="l">một dòng trong ACL</td></tr>
+<tr><td class="l">permit / deny</td><td class="l">cho phép / từ chối</td><td class="l">implicit deny</td><td class="l">từ chối ngầm</td></tr>
+<tr><td class="l">inbound / outbound</td><td class="l">chiều vào / chiều ra</td><td class="l">first match</td><td class="l">khớp đầu tiên</td></tr>
+<tr><td class="l">hit count / matches</td><td class="l">số lần khớp</td><td class="l">sequence number</td><td class="l">số thứ tự dòng</td></tr>
+<tr><td class="l">stateful / stateless</td><td class="l">có / không theo dõi phiên</td><td class="l">translation</td><td class="l">bản ghi chuyển đổi</td></tr>
+<tr><td class="l">inside local / inside global</td><td class="l">IP trong nhìn từ trong / nhìn từ ngoài</td><td class="l">overload</td><td class="l">dùng chung một IP (PAT)</td></tr>
+<tr><td class="l">port forwarding</td><td class="l">chuyển tiếp port</td><td class="l">publish</td><td class="l">công bố (server) ra ngoài</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"The ACL had no permit at the end, so the implicit deny blocked all guest traffic."</i></p>
+
+<label class="done"><input type="checkbox" id="d15"> Xong mục 15</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m16"><span class="no">16.</span> Câu hỏi tự kiểm tra</h1>
+<p>Trả lời ra giấy hoặc gửi cho Claude <b>trước</b>, rồi mới mở đáp án.</p>
+<details><summary>1. ACL chỉ có 1 dòng deny host 10.1.1.5. Máy 10.1.1.6 có qua được không?</summary><p>Không. Implicit deny ở cuối chặn mọi thứ không khớp dòng permit nào.</p></details>
+<details><summary>2. Standard ACL nên đặt gần nguồn hay đích? Vì sao?</summary><p>Gần đích. Standard chỉ khớp IP nguồn; đặt gần nguồn sẽ chặn nguồn đó đi mọi nơi.</p></details>
+<details><summary>3. Wildcard cho "mọi máy trong 192.168.20.0/24"?</summary><p>192.168.20.0 0.0.0.255.</p></details>
+<details><summary>4. 200 máy ra Internet bằng 1 IP public: kiểu NAT nào?</summary><p>PAT (NAT overload).</p></details>
+<details><summary>5. IP thật của PC trong LAN gọi là gì trong thuật ngữ NAT?</summary><p>Inside local.</p></details>
+<details><summary>6. Viết extended ACL: chặn VLAN 30 (192.168.30.0/24) RDP tới server 10.1.1.10, cho phép mọi thứ khác. Gắn ở đâu?</summary><p><code>ip access-list extended NO-RDP</code> / <code>deny tcp 192.168.30.0 0.0.0.255 host 10.1.1.10 eq 3389</code> / <code>permit ip any any</code>. Gắn <code>in</code> trên interface/SVI gateway của VLAN 30 (gần nguồn).</p></details>
+<details><summary>7. Gắn ACL inbound trên link OSPF, neighbor rớt. Vì sao?</summary><p>Implicit deny chặn gói OSPF (protocol 89). Thêm <code>permit ospf any any</code> trước dòng chặn.</p></details>
+<details><summary>8. "permit tcp any eq 443 host 10.1.1.10" khác "permit tcp any host 10.1.1.10 eq 443" thế nào?</summary><p>Dòng đầu khớp port <b>nguồn</b> 443 (gói từ web server ra), dòng sau khớp port <b>đích</b> 443 (gói tới web server). Port đi sau địa chỉ nó thuộc về.</p></details>
+
+<label class="done"><input type="checkbox" id="d16"> Xong mục 16</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab và MOP trong <a href="tuan-16.html">giáo án tuần 16</a>. Tuần trước: <a href="tuan-15-kien-thuc.html">sổ tay tuần 15</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan16-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
