@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 11</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 11 · 04/01 – 10/01/2027</div>
+  <h1>Static, default, floating static, RIPv2 (lướt)</h1>
+  <p>Hướng dẫn từng ngày. Khoảng 10,5 giờ. Tuần này có bài lớn: <b>dựng lab tổng 4 site dưới 90 phút</b> (tập dượt cho mốc giai đoạn 1).</p>
+  <p>Phần đọc sách đã thay bằng <a href="tuan-11-kien-thuc.html">sổ tay tiếng Việt 15 mục</a>.</p>
+  <div class="links">
+    <a href="tuan-11-kien-thuc.html">Sổ tay tuần 11 (thay sách)</a>
+    <a href="tuan-10.html">Giáo án tuần 10</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Đầu ra trong lịch: <b>dựng lab tổng dưới 90 phút từ máy trống.</b> Cụ thể:</p>
+<ol>
+  <li>Viết đúng static, default, floating static cho chi nhánh có đường chính và dự phòng.</li>
+  <li>Chứng minh được floating static thường <b>không</b> failover khi hỏng ở xa, và sửa bằng IP SLA tracking.</li>
+  <li>Tìm 3 lỗi kinh điển: mask sai, thiếu route chiều về, next-hop không với tới.</li>
+  <li>Dựng lab 4 site (VLAN + static + default + floating) dưới 90 phút.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  "Có đường dự phòng" và "đường dự phòng chạy được khi cần" là hai việc khác nhau. Tôi đã thấy nhiều chi nhánh có hai đường WAN, nhưng ngày đường chính hỏng thì vẫn mất mạng, vì không ai từng thử hỏng đúng kiểu ngoài đời. Tuần này anh học static route, nhưng bài học thật là: <b>test failover bằng cách làm hỏng ở xa</b>, và đo thời gian chuyển.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · Static, default, stub, floating</a></li>
+    <li><a href="#t3">Thứ 3 · IP SLA, Null0, chiều về, distance-vector</a></li>
+    <li><a href="#t4">Thứ 4 · Lab phần 1: chi nhánh hai đường WAN</a></li>
+    <li><a href="#t5">Thứ 5 · Lab phần 2: IP SLA, đo failover</a></li>
+    <li><a href="#t6">Thứ 6 · Lab tổng 4 site (lần 1)</a></li>
+    <li><a href="#t7">Thứ 7 · MOP #7, diễn tập 3 lỗi, lab tổng bấm giờ</a></li>
+    <li><a href="#cn">Chủ nhật · Tự kiểm tra, tự chấm</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày 15 phút</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (04/01) · Static, default, stub, floating</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: ghi chú + sơ đồ chi nhánh–HQ có route hai chiều</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Sổ tay mục <a href="tuan-11-kien-thuc.html#m1">1</a> đến <a href="tuan-11-kien-thuc.html#m4">4</a></label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Vẽ sơ đồ chi nhánh–HQ, ghi đủ route trên cả hai router (chiều đi và chiều về)</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (05/01) · IP SLA, Null0, chiều về, distance-vector</h2>
+<div class="meta"><span><b>1,5 giờ</b> + 5 phút tự giảng</span><span>Đầu ra: 5 câu hỏi để hỏi Claude</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Sổ tay mục <a href="tuan-11-kien-thuc.html#m5">5</a> đến <a href="tuan-11-kien-thuc.html#m12">12</a></label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Tự giảng 5 phút: "vì sao floating static không tự chuyển khi đường hỏng ở phía nhà mạng"</label></li>
+  <li><input type="checkbox" id="t3-3"><label for="t3-3">Liên hệ: đọc lại ghi chú (cá nhân) về SD-WAN health-check ở công ty, so với IP SLA</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (06/01) · Lab phần 1: chi nhánh – HQ có đường chính và dự phòng</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: thư mục <code>W11-static-floating</code></span></div>
+<h3>Topology</h3>
+<div class="flow">LAN-CN 10.20.16.0/24 --- (g0/0) R-CN (g0/1) --- 10.20.255.0/30 --- SW-ISP1 --- (g0/1) R-HQ (g0/0) --- LAN-HQ 10.20.0.0/24
+                                  (g0/2) --- 172.31.0.0/30 --- (g0/2) R-HQ           (đường 2: "Internet/4G")
+SW-ISP1: một switch ở giữa đường chính để giả lập "hỏng phía nhà mạng" (tắt port phía R-HQ)</div>
+<pre><span class="c">! R-CN: default chính + floating</span>
+R-CN(config)# ip route 0.0.0.0 0.0.0.0 10.20.255.1 name WAN-CHINH
+R-CN(config)# ip route 0.0.0.0 0.0.0.0 172.31.0.1 10 name WAN-DUPHONG
+<span class="c">! R-HQ: đường về chi nhánh, chính + floating</span>
+R-HQ(config)# ip route 10.20.16.0 255.255.255.0 10.20.255.2 name CN1-CHINH
+R-HQ(config)# ip route 10.20.16.0 255.255.255.0 172.31.0.2 10 name CN1-DUPHONG</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1">PC-CN ping PC-HQ thông; <code>show ip route static</code> hai router chỉ thấy đường chính</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2">Test 1 (kiểu lab): shutdown g0/1 của R-CN. Failover? Mất mấy gói? Bật lại</label></li>
+  <li><input type="checkbox" id="t4-3"><label for="t4-3">Test 2 (kiểu đời thật): shutdown port của SW-ISP1 nối R-HQ. R-CN g0/1 vẫn up. Failover không? Ghi kết quả</label></li>
+</ul>
+<div class="box warn">
+  <strong>Kết quả mong đợi</strong>
+  Test 1 failover được; Test 2 <b>không</b> (cả hai router vẫn giữ route chính vì interface của mình còn up). Đây là điểm mấu chốt của tuần: hãy tự thấy nó trên lab.
+</div>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (07/01) · Lab phần 2: IP SLA tracking, đo failover</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: số giây failover và failback đo được</span></div>
+<pre>R-CN(config)# ip sla 1
+R-CN(config-ip-sla)# icmp-echo 10.20.255.1 source-interface g0/1
+R-CN(config-ip-sla-echo)# frequency 5
+R-CN(config)# ip sla schedule 1 life forever start-time now
+R-CN(config)# track 1 ip sla 1 reachability
+R-CN(config-track)# delay down 10 up 30
+R-CN(config)# no ip route 0.0.0.0 0.0.0.0 10.20.255.1
+R-CN(config)# ip route 0.0.0.0 0.0.0.0 10.20.255.1 track 1 name WAN-CHINH
+<span class="c">! R-HQ làm tương tự cho route về 10.20.16.0/24 (ping 10.20.255.2)</span>
+R-CN# show track 1
+R-CN# show ip sla statistics</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1">Lặp Test 2: lần này failover. <code>ping -t</code> từ PC-CN: mất ___ gói (≈ frequency + delay down)</label></li>
+  <li><input type="checkbox" id="t5-2"><label for="t5-2">Bật lại port SW-ISP1: failback sau ___ giây (delay up 30). Vì sao nên chờ trước khi quay về?</label></li>
+  <li><input type="checkbox" id="t5-3"><label for="t5-3">Nếu chỉ R-CN có tracking mà R-HQ không: chuyện gì với chiều về? (Thử và giải thích: lưu lượng bất đối xứng)</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (08/01) · Lab tổng 4 site (lần 1, được mở tài liệu)</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: lab tổng chạy, danh sách chỗ vấp</span></div>
+<p>Thay cho phần "sửa sổ tay" (tuần này lịch không có mục sửa): dựng lab tổng lần đầu, chậm cũng được.</p>
+<h3>Đề lab tổng</h3>
+<div class="flow">                      R-HQ  (LAN-HQ: VLAN 10/20 qua switch, ROAS hoặc SVI)
+                    /   |   \
+            CN1 (2 đường)  CN2   CN3
+Mỗi CN: 1 switch, VLAN 10 (người dùng) + VLAN 99 (quản trị), gateway trên router CN (ROAS)
+CN1: hai đường về HQ (chính + dự phòng có IP SLA); CN2, CN3: một đường
+IP: dùng IP plan tuần 4 (10.20.x), link WAN 10.20.255.x/30</div>
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1">VLAN, trunk, ROAS ở mỗi site</label></li>
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">CN2, CN3: default route về HQ. CN1: default chính + floating + tracking</label></li>
+  <li><input type="checkbox" id="t6-3"><label for="t6-3">HQ: route về từng chi nhánh (hoặc route tổng 10.20.16.0/20 + Null0, và route cụ thể /22 mỗi CN)</label></li>
+  <li><input type="checkbox" id="t6-4"><label for="t6-4">Mọi PC ping được mọi PC; failover CN1 hoạt động</label></li>
+  <li><input type="checkbox" id="t6-5"><label for="t6-5">Ghi danh sách chỗ phải mở tài liệu, lưu toàn bộ config vào git</label></li>
+</ul>
+<div class="box warn">
+  <strong>Ôn lại sổ tay tuần 1–4 (mục 15 phút của lịch tuần này)</strong>
+  Trong lúc dựng, mỗi lần tính IP/mask/wildcard là một lần ôn tuần 3–4. Đừng dùng công cụ tính.
+</div>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (09/01) · MOP #7, diễn tập 3 lỗi, lab tổng bấm giờ</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>mop/MOP-007-floating-static.md</code>, <code>postmortem/W11-static.md</code>, thời gian lab tổng</span></div>
+
+<h3>Phần A · MOP #7: thêm route + floating static dự phòng (CN2 có thêm đường 4G)</h3>
+<pre>
+# MOP-007 · Thêm đường dự phòng cho CN2 bằng floating static + IP SLA
+
+| Mục        | Nội dung                                                         |
+|------------|------------------------------------------------------------------|
+| Mục tiêu   | CN2 tự chuyển sang đường dự phòng khi đường chính hỏng ở bất kỳ đâu |
+| Phạm vi    | R-CN2 (route + IP SLA), R-HQ (route về CN2 dự phòng)              |
+| Ảnh hưởng  | Không gián đoạn khi thêm (route mới AD cao, chưa dùng)            |
+| Rủi ro     | Gỡ route chính để gắn track ⇒ có vài giây không có default route  |
+
+## 1. Pre-check
+R-CN2# show ip route static
+R-CN2# show running-config | include ip route|ip sla|track
+R-HQ#  show ip route 10.20.20.0 255.255.252.0 longer-prefixes
+PC-CN2&gt; ping -t PC-HQ
+
+## 2. Các bước (thêm cái mới TRƯỚC, gỡ cái cũ SAU)
+R-CN2(config)# ip route 0.0.0.0 0.0.0.0 &lt;next-hop 4G&gt; 10 name WAN-DUPHONG
+R-CN2(config)# ip sla 1 … / ip sla schedule 1 … / track 1 ip sla 1 reachability
+R-CN2(config)# ip route 0.0.0.0 0.0.0.0 &lt;next-hop chính&gt; track 1 name WAN-CHINH
+   ! IOS: dòng có track thay thế dòng cũ cùng prefix + next-hop
+R-HQ(config)#  ip route 10.20.20.0 255.255.252.0 &lt;CN2 qua 4G&gt; 10 name CN2-DUPHONG
+
+## 3. Verify
+- show track 1: Up · show ip route static: chỉ đường chính
+- Test hỏng ở xa (shutdown phía HQ của đường chính): ping mất &lt; 20 s rồi hồi
+- Khôi phục: failback sau delay up
+
+## 4. Rollback
+R-CN2(config)# no ip route 0.0.0.0 0.0.0.0 &lt;4G&gt; 10
+R-CN2(config)# ip route 0.0.0.0 0.0.0.0 &lt;chính&gt;            ! bỏ track
+R-CN2(config)# no track 1 / no ip sla 1
+R-HQ(config)#  no ip route 10.20.20.0 255.255.252.0 &lt;CN2 qua 4G&gt; 10
+</pre>
+<div class="box">
+  <strong>Góc nhìn hệ thống: hai chiều phải cùng failover</strong>
+  Chi nhánh chuyển sang 4G nhưng trụ sở vẫn gửi chiều về qua đường chính đã chết ⇒ lưu lượng một chiều, kết nối vẫn hỏng. Mọi thiết kế dự phòng phải trả lời "chiều về chuyển thế nào". Với static, cần tracking ở cả hai đầu; với định tuyến động (OSPF tuần 12–14) hoặc SD-WAN, giao thức tự lo phần này. Đây là một lý do mạng lớn dùng định tuyến động.
+</div>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Viết MOP-007, chạy, đo failover, chạy rollback</label></li>
+</ul>
+
+<h3>Phần B · Diễn tập 3 lỗi (trong lịch)</h3>
+<p>Rút thăm thứ tự, gài từng lỗi lên lab tổng:</p>
+<ol>
+  <li>R-HQ: route về CN3 dùng mask 255.255.0.0 thay vì đúng mask.</li>
+  <li>R-HQ: xóa route về CN2 (thiếu chiều về).</li>
+  <li>R-CN1: next-hop của default chính gõ sai thành 10.20.255.5 (không với tới từ CN1).</li>
+</ol>
+<details><summary>Gợi ý (mở sau khi làm)</summary>
+<ol>
+  <li>Route /16 trùng/hút cả khối 10.20.0.0/16 về CN3 ⇒ những mạng không có route cụ thể hơn (có thể cả CN khác nếu chỉ dùng route tổng) bị gửi nhầm. <code>show ip route static</code> thấy prefix lạ.</li>
+  <li>PC-CN2 ping HQ timeout; traceroute từ CN2 tới HQ đi tới R-HQ. <code>ping … source</code> trên R-CN2 thất bại, trên R-HQ <code>show ip route 10.20.20.10</code> không có (hoặc khớp default/Null0).</li>
+  <li>Route có trong config, không có trong bảng (next-hop không tra ra) ⇒ floating nổi lên, CN1 tự chạy qua đường dự phòng ⇒ "mạng chạy được nhưng sai đường". Chỉ phát hiện nếu nhìn <code>show ip route static</code> và thấy AD 10 đang dùng. Đây là lý do cần cảnh báo khi đang chạy trên đường dự phòng.</li>
+</ol>
+</details>
+<ul class="check">
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Xử lý 3 lỗi, mỗi lỗi &lt; 10 phút; viết postmortem</label></li>
+</ul>
+
+<h3>Phần C · Lab tổng bấm giờ (đầu ra tuần)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t7-3"><label for="t7-3">Xóa sạch, dựng lại lab tổng 4 site không tài liệu. Thời gian: ___ (mục tiêu &lt; 90 phút)</label></li>
+</ul>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (10/01) · Tự kiểm tra và tự chấm</h2>
+<div class="meta"><span><b>30 phút</b></span><span>Trả lời 8 câu ở <a href="tuan-11-kien-thuc.html#m15">sổ tay mục 15</a>, gửi Claude chấm</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">8 câu tự kiểm tra sổ tay mục 15</label></li>
+</ul>
+<h3>2 câu vặn thêm (mức phỏng vấn)</h3>
+<details><summary>1. Chi nhánh có 2 ISP. Anh thiết kế default route thế nào để dự phòng chứ không chia tải?</summary><p>Default chính AD 1 gắn track IP SLA (ping đích qua ISP1), default phụ AD cao hơn qua ISP2. Không để hai default cùng AD (ECMP, lỗi phiên do NAT khác nhau). Thêm cảnh báo khi đang chạy đường dự phòng.</p></details>
+<details><summary>2. Vì sao test failover bằng cách rút dây tại router là chưa đủ?</summary><p>Rút dây tại chỗ làm interface down ⇒ route tự mất. Ngoài đời đường hỏng ở giữa, interface vẫn up ⇒ cần test bằng cách làm hỏng ở xa để kiểm tracking.</p></details>
+<h3>Tự chấm cuối tuần</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 11</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>Ba kiểu next-hop, floating, vì sao cần tracking, chiều về, split horizon</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>Lab tổng 4 site &lt; 90 phút</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>3 lỗi static, mỗi lỗi &lt; 10 phút</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>MOP-007 có test hỏng ở xa, đo failover/failback, chiều về</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Giảng cho người khác vì sao floating static "không chạy" khi hỏng phía nhà mạng</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Tick tuần 11 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày 15 phút: ôn lại ghi chú tuần 1–4</h2>
+<ul>
+  <li>T2 tuần 1 (OSI, gói qua router) · T3 tuần 2 (MAC, ARP, TCP) · T4 tuần 3 (10 bài subnet) · T5 tuần 4 (5 VLSM + 5 wildcard) · T6 đọc lại bảng lỗi kinh điển tuần 9.</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">Đủ 5 ngày</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 11/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: OSPF 1 – khái niệm và neighbor.
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan11-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

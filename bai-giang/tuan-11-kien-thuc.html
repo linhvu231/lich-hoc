@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 11</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 11 (04/01 – 10/01/2027) · <a href="tuan-11.html">Giáo án tuần 11 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 11 (Odom Vol 1, phần static route). Sổ của anh đã có mục "Định tuyến tĩnh: ưu nhược điểm, triển khai" với 4 ý (default route, mạng nhỏ, stub network, floating static). Tuần này đi sâu từng ý, thêm <b>IP SLA tracking</b> (thứ làm floating static thực sự hoạt động ở đời thật), và lỗi kinh điển nhất: <b>quên route chiều về</b>. Cuối sổ lướt distance-vector/RIPv2 để hiểu nguyên lý, không lab sâu. Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">Static hay dynamic: khi nào dùng gì</a></li>
+  <li><a href="#m2">Cú pháp ip route, ba kiểu next-hop</a></li>
+  <li><a href="#m3">Default route và stub network</a></li>
+  <li><a href="#m4">Floating static</a></li>
+  <li><a href="#m5">Vì sao floating static không tự failover: IP SLA tracking</a></li>
+  <li><a href="#m6">Route trỏ vào Null0</a></li>
+  <li><a href="#m7">Route chiều về: lỗi hay gặp nhất</a></li>
+  <li><a href="#m8">Static route IPv6 (nhắc lại)</a></li>
+  <li><a href="#m9">Distance-vector: nguyên lý và các cơ chế chống loop</a></li>
+  <li><a href="#m10">RIPv2 lướt qua</a></li>
+  <li><a href="#m11">Lệnh kiểm tra và xử lý sự cố</a></li>
+  <li><a href="#m12">Tình huống thực tế</a></li>
+  <li><a href="#m13">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m14">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m15">Câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> Static hay dynamic: khi nào dùng gì</h1>
+<p>Sổ của anh liệt kê ưu nhược đúng. Tóm lại thành bảng để so:</p>
+<div class="tbl"><table>
+<tr><th></th><th class="l">Static</th><th class="l">Dynamic (OSPF, EIGRP, BGP…)</th></tr>
+<tr><td>Tài nguyên</td><td class="l">Không trao đổi bản tin, không tốn CPU/băng thông</td><td class="l">Tốn một ít (hello, cập nhật, tính SPF)</td></tr>
+<tr><td>Bảo mật</td><td class="l">Không ai "tiêm" route giả được</td><td class="l">Cần xác thực (authentication) để chống route giả</td></tr>
+<tr><td>Kiểm soát</td><td class="l">Admin biết chính xác đường đi</td><td class="l">Giao thức tự chọn theo metric</td></tr>
+<tr><td>Thay đổi topology</td><td class="l"><b>Không tự thích nghi</b> (trừ khi interface down, hoặc có tracking)</td><td class="l">Tự tìm đường mới</td></tr>
+<tr><td>Mở rộng</td><td class="l">Mạng lớn: hàng trăm dòng, dễ sai</td><td class="l">Thêm mạng là tự quảng bá</td></tr>
+</table></div>
+<p>Thực tế doanh nghiệp: <mark>dùng cả hai</mark> (sổ ghi đúng). Ví dụ: chi nhánh dùng default route tĩnh về trụ sở/ISP; lõi trụ sở chạy OSPF; firewall biên dùng static + SD-WAN.</p>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Cú pháp ip route, ba kiểu next-hop</h1>
+<pre>ip route &lt;mạng đích&gt; &lt;mask&gt; { &lt;next-hop IP&gt; | &lt;interface&gt; | &lt;interface&gt; &lt;next-hop IP&gt; } [AD] [name &lt;tên&gt;] [permanent] [track &lt;số&gt;]</pre>
+<div class="tbl"><table>
+<tr><th>Kiểu</th><th class="l">Ví dụ</th><th class="l">Route vào bảng khi</th><th class="l">Ghi chú</th></tr>
+<tr><td><b>Next-hop</b> (recursive)</td><td class="l"><code>ip route 10.9.0.0 255.255.0.0 10.0.12.2</code></td><td class="l">Next-hop tra được trong bảng</td><td class="l">Phổ biến nhất. Phụ thuộc route tới next-hop (tuần 10 mục 9)</td></tr>
+<tr><td><b>Exit interface</b> (directly attached)</td><td class="l"><code>ip route 10.9.0.0 255.255.0.0 Serial0/0/0</code></td><td class="l">Interface up/up</td><td class="l">Tốt cho link point-to-point (serial, tunnel). <b>Trên Ethernet: tránh</b>, vì router coi mọi đích là "cắm trực tiếp", phải ARP cho từng IP đích, dựa vào proxy ARP của hàng xóm</td></tr>
+<tr><td><b>Fully specified</b></td><td class="l"><code>ip route 10.9.0.0 255.255.0.0 Gi0/1 10.0.12.2</code></td><td class="l">Interface up/up</td><td class="l">An toàn nhất trên Ethernet; bắt buộc khi next-hop là link-local IPv6</td></tr>
+</table></div>
+<p>Thêm <b>name</b> để người sau hiểu: <code>ip route 10.9.0.0 255.255.0.0 10.0.12.2 name DEN-CN2</code>. Đây là thói quen tốt: cấu hình tự giải thích.</p>
+<p><mark>Mask trong ip route là subnet mask, không phải wildcard.</mark> Mask sai (ví dụ 255.255.0.0 thay vì 255.255.255.0) ⇒ route hút nhầm cả khối lớn hơn.</p>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Default route và stub network</h1>
+
+<h2>1/ Default route</h2>
+<pre>R-CN(config)# ip route 0.0.0.0 0.0.0.0 10.20.255.1
+R-CN# show ip route | include Gateway|0.0.0.0
+Gateway of last resort is 10.20.255.1 to network 0.0.0.0
+S*    0.0.0.0/0 [1/0] via 10.20.255.1</pre>
+<p>Khớp mọi đích, nhưng prefix dài 0 ⇒ chỉ dùng khi không có route nào cụ thể hơn.</p>
+
+<h2>2/ Stub network và stub router</h2>
+<p>Sổ ghi: "stub network: mạng cụt là mạng kết nối với 1 router cụt (stub router là router chỉ có 1 hàng xóm duy nhất)". Đúng. Chi nhánh có <b>một đường duy nhất</b> ra ngoài ⇒ chỉ cần <b>một default route</b>, không cần biết từng mạng ở xa. Trụ sở thì cần route cụ thể <b>về</b> chi nhánh (hoặc route tổng).</p>
+<div class="flow">  LAN-CN 10.20.16.0/24 --- [R-CN] ===== WAN ===== [R-HQ] --- mạng trụ sở, Internet
+  R-CN:  ip route 0.0.0.0 0.0.0.0 &lt;R-HQ&gt;              (đi đâu cũng về HQ)
+  R-HQ:  ip route 10.20.16.0 255.255.255.0 &lt;R-CN&gt;    (đường về chi nhánh)</div>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> Floating static</h1>
+<p>Sổ gọi "chìm nổi": đúng hình ảnh. <b>Floating static</b> là static route có <b>AD cao hơn</b> route chính, nên bình thường "chìm" (không vào bảng); khi route chính biến mất khỏi bảng thì nó "nổi" lên.</p>
+<pre>R-CN(config)# ip route 0.0.0.0 0.0.0.0 10.20.255.1            ! chính: qua kênh thuê riêng (AD 1)
+R-CN(config)# ip route 0.0.0.0 0.0.0.0 172.31.0.1 10          ! dự phòng: qua Internet/4G (AD 10)
+R-CN# show ip route static
+S*    0.0.0.0/0 [1/0] via 10.20.255.1                           ! chỉ thấy đường chính</pre>
+<ul>
+  <li>Dự phòng cho route OSPF: floating static phải có AD &gt; 110 (ví dụ 130).</li>
+  <li>Dự phòng cho static chính: AD &gt; 1.</li>
+</ul>
+<p><mark>Floating static chỉ "nổi" khi route chính biến mất khỏi bảng định tuyến.</mark> Câu này là chìa khóa của mục 5.</p>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Vì sao floating static không tự failover: IP SLA tracking</h1>
+
+<h2>1/ Vấn đề</h2>
+<p>Static route chính (next-hop 10.20.255.1) chỉ biến mất khỏi bảng khi <b>interface của mình down</b>. Nhưng thực tế thường hỏng ở <b>giữa đường</b>: switch nhà mạng, router đầu bên kia, đường truyền phía xa. Interface của mình vẫn up/up ⇒ route chính vẫn nằm trong bảng ⇒ floating static <b>không bao giờ nổi</b> ⇒ chi nhánh mất kết nối dù có đường dự phòng.</p>
+<p>Lab hay "thành công giả": test bằng cách shutdown interface của chính router ⇒ thấy failover ⇒ tưởng xong. Ngoài đời không như vậy.</p>
+
+<h2>2/ Giải pháp: IP SLA + track</h2>
+<p>Router chủ động ping một đích qua đường chính; ping thất bại ⇒ "track" chuyển sang down ⇒ route chính gắn track bị gỡ khỏi bảng ⇒ floating nổi lên.</p>
+<pre>R-CN(config)# ip sla 1
+R-CN(config-ip-sla)# icmp-echo 10.20.255.1 source-interface GigabitEthernet0/1
+R-CN(config-ip-sla-echo)# frequency 5                    ! ping mỗi 5 giây
+R-CN(config)# ip sla schedule 1 life forever start-time now
+R-CN(config)# track 1 ip sla 1 reachability
+R-CN(config-track)# delay down 10 up 30                  ! chống chập chờn: down sau 10 s, up lại sau 30 s ổn định
+R-CN(config)# ip route 0.0.0.0 0.0.0.0 10.20.255.1 track 1
+R-CN(config)# ip route 0.0.0.0 0.0.0.0 172.31.0.1 10
+
+R-CN# show ip sla statistics
+R-CN# show track 1
+Track 1
+  IP SLA 1 reachability
+  Reachability is Up
+R-CN# show ip route static</pre>
+<p><b>Chọn đích để ping</b> là quyết định thiết kế: ping next-hop chỉ kiểm được chặng đầu; ping một IP sâu hơn trong trụ sở (ví dụ loopback router lõi) kiểm được cả đường, nhưng phải chắc đích đó chỉ đi qua đường chính (thêm route /32 tới đích đó qua đường chính).</p>
+
+<div class="note"><b>Góc nhìn hệ thống</b>
+Đây chính là ý tưởng của <b>SD-WAN health-check</b> trên FortiGate: liên tục đo latency, jitter, packet loss tới một đích qua từng đường WAN, đường nào kém thì chuyển lưu lượng sang đường khác. IP SLA là "phiên bản thủ công" của cùng một nguyên lý. Hiểu IP SLA là hiểu vì sao cấu hình SD-WAN ở công ty có mục "performance SLA" với các đích ping.</div>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Route trỏ vào Null0</h1>
+<pre>R-HQ(config)# ip route 10.20.16.0 255.255.240.0 Null0     ! khối tổng của các chi nhánh
+R-HQ(config)# ip route 192.0.2.0 255.255.255.0 Null0      ! "hố đen" có chủ đích</pre>
+<p>Hai công dụng:</p>
+<ol>
+  <li><b>Chống loop khi gộp route</b> (tuần 4 mục 9): gói tới phần khối chưa có route cụ thể bị bỏ ngay, không lặp giữa hai router có default route trỏ nhau.</li>
+  <li><b>Chặn nhanh</b> một dải (ví dụ đang bị tấn công) mà không cần ACL: router bỏ gói theo bảng route, nhẹ hơn ACL. Kỹ thuật này mở rộng thành "remotely triggered black hole" ở nhà mạng.</li>
+</ol>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Route chiều về: lỗi hay gặp nhất</h1>
+<p><mark>Mỗi router chỉ biết bảng của chính nó.</mark> Gói đi tới được đích nhờ route chiều đi; trả lời về được hay không phụ thuộc <b>bảng route của các router trên chiều về</b>, hoàn toàn độc lập.</p>
+<div class="flow">PC-A 192.168.1.10 --- R1 --- R2 --- R3 --- PC-C 192.168.3.10
+R1: ip route 192.168.3.0 /24 via R2        ✓ chiều đi
+R2: ip route 192.168.3.0 /24 via R3        ✓ chiều đi
+R3: (không có route về 192.168.1.0/24)     ✗ chiều về
+⇒ PC-A ping PC-C: echo request tới nơi, echo reply bị R3 bỏ ⇒ "Request timed out"</div>
+<p>Dấu hiệu nhận biết: <b>traceroute đi được tới chặng cuối</b> (hoặc tới tận đích) nhưng ping timeout; Wireshark ở phía đích thấy request đến và reply đi. Giống tuần 1 (sai gateway của server): <b>luôn kiểm cả hai chiều</b>.</p>
+<p>Cách kiểm nhanh trên router: <code>ping 192.168.3.10 source 192.168.1.1</code> (dùng IP nguồn trong LAN1 để giả lập máy PC-A; ping không source dùng IP interface ra, có thể thành công vì mạng link đã có route).</p>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> Static route IPv6 (nhắc lại)</h1>
+<pre>R1(config)# ipv6 route 2001:db8:acad:3::/64 g0/1 fe80::2       ! next-hop link-local phải kèm interface
+R1(config)# ipv6 route ::/0 2001:db8:acad:12::2                  ! default, next-hop GUA
+R1(config)# ipv6 route ::/0 g0/2 fe80::9 10                      ! floating</pre>
+<p>Chi tiết ở <a href="tuan-05-kien-thuc.html#m12">tuần 5 mục 12</a>.</p>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> Distance-vector: nguyên lý và các cơ chế chống loop</h1>
+<p>Phần này đọc để <b>hiểu nguyên lý</b> (nền cho EIGRP ở ENARSI và cách BGP chống loop), không lab sâu.</p>
+
+<h2>1/ Distance-vector là gì</h2>
+<p>Mỗi router chỉ biết <b>khoảng cách (distance)</b> và <b>hướng (vector: hàng xóm nào)</b> tới mỗi mạng, học từ hàng xóm ("hàng xóm bảo mạng X cách nó 2 bước, vậy cách tôi 3 bước qua nó"). Không router nào có bản đồ toàn mạng. Ví như <b>hỏi đường người qua đường</b>: tin lời người kế bên, không có bản đồ.</p>
+<p>Ngược lại, <b>link-state</b> (OSPF, tuần 12) mỗi router có <b>bản đồ toàn bộ</b> rồi tự tính đường.</p>
+
+<h2>2/ Vấn đề "đếm tới vô cùng" (counting to infinity)</h2>
+<p>Mạng X sau R3 chết. R2 vẫn nghe R1 nói "tôi tới X 2 bước" (thực ra R1 học từ chính R2) ⇒ R2 tưởng đi qua R1 được ⇒ R1 lại học từ R2 ⇒ metric tăng dần 3, 4, 5… mãi. Gói tới X lặp giữa R1 và R2.</p>
+
+<h2>3/ Các cơ chế chống loop</h2>
+<div class="tbl"><table>
+<tr><th>Cơ chế</th><th class="l">Cách làm</th></tr>
+<tr><td><b>Maximum metric</b></td><td class="l">RIP: 16 = vô cùng = không tới được ⇒ đếm tới 16 thì dừng</td></tr>
+<tr><td><b>Split horizon</b></td><td class="l">Không quảng bá một route ngược ra chính interface đã học route đó</td></tr>
+<tr><td><b>Route poisoning</b></td><td class="l">Mạng chết ⇒ quảng bá ngay với metric vô cùng (16) thay vì im lặng</td></tr>
+<tr><td><b>Poison reverse</b></td><td class="l">Ngoại lệ của split horizon: gửi ngược route đã học với metric vô cùng, để chắc chắn hàng xóm không dùng mình làm đường</td></tr>
+<tr><td><b>Hold-down timer</b></td><td class="l">Route vừa bị báo chết thì trong một thời gian bỏ qua thông tin "tốt hơn nhưng đáng ngờ" về nó</td></tr>
+<tr><td><b>Triggered update</b></td><td class="l">Có thay đổi thì gửi ngay, không chờ chu kỳ</td></tr>
+</table></div>
+<p>BGP chống loop bằng cách khác (AS-path: thấy số AS của mình trong đường thì bỏ), học ở ENARSI. Ý tưởng "đừng tin thông tin quay về chính mình" là chung.</p>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> RIPv2 lướt qua</h1>
+<div class="tbl"><table>
+<tr><th>Đặc điểm</th><th class="l">RIPv2</th></tr>
+<tr><td>Loại</td><td class="l">Distance-vector, classless (gửi mask)</td></tr>
+<tr><td>Metric</td><td class="l">Hop count, tối đa 15, 16 = unreachable</td></tr>
+<tr><td>AD</td><td class="l">120</td></tr>
+<tr><td>Gửi cập nhật</td><td class="l">Toàn bộ bảng mỗi 30 giây, multicast 224.0.0.9, UDP 520</td></tr>
+<tr><td>Timer</td><td class="l">Update 30 · invalid 180 · hold-down 180 · flush 240 (giây)</td></tr>
+<tr><td>Hội tụ</td><td class="l">Chậm (có thể vài phút)</td></tr>
+</table></div>
+<pre>R1(config)# router rip
+R1(config-router)# version 2
+R1(config-router)# no auto-summary              ! không tự gộp theo lớp (bắt buộc với VLSM)
+R1(config-router)# network 192.168.10.0         ! RIP nhận network theo lớp, không có wildcard
+R1(config-router)# passive-interface g0/0       ! không gửi cập nhật ra LAN người dùng
+R1(config-router)# default-information originate   ! quảng bá default route (chỉ trên router biên)</pre>
+<p>Sổ của anh có đúng cấu hình này. Ghi chú thêm: <code>default-information originate</code> chỉ đặt trên router có đường ra ngoài (sổ ghi "chỉ cấu hình trên router gate" — đúng ý).</p>
+<p>RIP <b>không còn trong blueprint CCNA 200-301</b>; biết để đọc cấu hình cũ và hiểu distance-vector là đủ.</p>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Lệnh kiểm tra và xử lý sự cố</h1>
+<pre>show ip route static
+show ip route 0.0.0.0
+show running-config | include ip route
+show ip route &lt;next-hop&gt;                  ! next-hop có với tới không
+show ip sla statistics / show track
+ping &lt;đích&gt; source &lt;IP LAN&gt;              ! kiểm cả chiều về
+traceroute &lt;đích&gt; source &lt;IP LAN&gt;</pre>
+<h2>3 lỗi kinh điển của static route (diễn tập Thứ 7)</h2>
+<div class="tbl"><table>
+<tr><th>Lỗi</th><th class="l">Triệu chứng</th><th class="l">Phát hiện</th></tr>
+<tr><td>Mask sai</td><td class="l">Một phần dải tới được, phần khác không; hoặc hút nhầm lưu lượng</td><td class="l"><code>show ip route static</code>: prefix lạ (/16 thay vì /24)</td></tr>
+<tr><td>Thiếu route chiều về</td><td class="l">Traceroute tới gần đích, ping timeout</td><td class="l">Ping có source; kiểm bảng route của router ở chiều về</td></tr>
+<tr><td>Next-hop không với tới</td><td class="l">Route có trong config nhưng không có trong bảng (hoặc có nhưng gói đi sai do next-hop tra qua default)</td><td class="l"><code>show ip route &lt;next-hop&gt;</code>, <code>show ip arp</code> Incomplete</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Tình huống thực tế</h1>
+
+<h3>Tình huống 1 · Đường thuê riêng chi nhánh hỏng, có 4G dự phòng mà vẫn mất kết nối</h3>
+<details><summary>Phân tích</summary>
+<p>Router chi nhánh cấu hình floating static qua 4G (AD 10) nhưng không có IP SLA. Kênh thuê riêng hỏng ở phía nhà mạng, cổng WAN của router vẫn up ⇒ route chính vẫn trong bảng ⇒ không failover. Sửa: IP SLA ping tới đầu bên kia/loopback trụ sở + track. Phòng ngừa: test failover bằng cách <b>làm hỏng ở xa</b> (shutdown phía trụ sở, chặn ping), không chỉ rút dây tại chỗ.</p></details>
+
+<h3>Tình huống 2 · Thêm VLAN mới ở chi nhánh, trụ sở không truy cập được</h3>
+<details><summary>Phân tích</summary>
+<p>Chi nhánh dùng default route nên ra được trụ sở; nhưng router trụ sở chỉ có route cụ thể cho các VLAN cũ của chi nhánh ⇒ thiếu route chiều về cho VLAN mới. Sửa: thêm route (hoặc dùng route tổng cho cả khối chi nhánh ngay từ đầu, tuần 4). Bài học: MOP thêm mạng phải có mục "router nào cần biết đường về mạng mới".</p></details>
+
+<h3>Tình huống 3 · Hai default route bằng nhau, Internet chập chờn</h3>
+<details><summary>Phân tích</summary>
+<p>Ai đó thêm default route thứ hai (cùng AD 1) qua ISP2 để "dự phòng" ⇒ ECMP chia tải theo cặp nguồn-đích qua hai ISP ⇒ NAT/IP public khác nhau ⇒ một số trang web (ngân hàng, đăng nhập) đứt phiên. Muốn dự phòng thì AD phải khác nhau (floating) + tracking.</p></details>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>Cú pháp</td><td class="l"><code>ip route mạng mask next-hop|interface|interface next-hop [AD]</code> · mask là subnet mask</td></tr>
+<tr><td>Default</td><td class="l"><code>ip route 0.0.0.0 0.0.0.0 …</code> · S* · gateway of last resort</td></tr>
+<tr><td>Floating</td><td class="l">AD cao hơn route chính · chỉ nổi khi route chính biến khỏi bảng</td></tr>
+<tr><td>Tracking</td><td class="l">IP SLA icmp-echo + track + <code>ip route … track N</code></td></tr>
+<tr><td>Null0</td><td class="l">Chống loop route tổng · chặn nhanh một dải</td></tr>
+<tr><td>Chiều về</td><td class="l">Mỗi router chỉ biết bảng của nó · ping có source để kiểm</td></tr>
+<tr><td>DV</td><td class="l">Split horizon · route poisoning · poison reverse · hold-down · triggered update · RIP 15/16, AD 120</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">static route</td><td class="l">route tĩnh</td><td class="l">default route</td><td class="l">route mặc định</td></tr>
+<tr><td class="l">floating static</td><td class="l">route tĩnh dự phòng (AD cao)</td><td class="l">stub network / stub router</td><td class="l">mạng cụt / router cụt</td></tr>
+<tr><td class="l">fully specified</td><td class="l">ghi đủ interface + next-hop</td><td class="l">directly attached</td><td class="l">gắn thẳng interface</td></tr>
+<tr><td class="l">tracking / IP SLA</td><td class="l">theo dõi / đo chất lượng</td><td class="l">failover / failback</td><td class="l">chuyển sang dự phòng / quay về</td></tr>
+<tr><td class="l">return path</td><td class="l">đường chiều về</td><td class="l">black hole</td><td class="l">hố đen</td></tr>
+<tr><td class="l">distance vector</td><td class="l">vectơ khoảng cách</td><td class="l">link state</td><td class="l">trạng thái liên kết</td></tr>
+<tr><td class="l">split horizon</td><td class="l">chia tầm nhìn (không gửi ngược)</td><td class="l">route poisoning</td><td class="l">đầu độc route</td></tr>
+<tr><td class="l">hold-down</td><td class="l">giữ không tin</td><td class="l">counting to infinity</td><td class="l">đếm tới vô cùng</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"The floating static never kicked in because the primary interface stayed up; we added IP SLA tracking."</i></p>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m15"><span class="no">15.</span> Câu hỏi tự kiểm tra</h1>
+<p>Trả lời ra giấy hoặc gửi cho Claude <b>trước</b>, rồi mới mở đáp án.</p>
+<details><summary>1. Viết default route qua 10.0.0.1 và một floating default qua 172.31.0.1.</summary><p><code>ip route 0.0.0.0 0.0.0.0 10.0.0.1</code> và <code>ip route 0.0.0.0 0.0.0.0 172.31.0.1 10</code> (AD bất kỳ &gt; 1).</p></details>
+<details><summary>2. Floating static làm dự phòng cho route OSPF thì AD tối thiểu bao nhiêu?</summary><p>Lớn hơn 110 (ví dụ 111 trở lên, hay dùng 130).</p></details>
+<details><summary>3. Vì sao static route chỉ ghi exit interface Ethernet là không nên?</summary><p>Router coi mọi đích như cắm trực tiếp, phải ARP cho từng IP đích, dựa vào proxy ARP của hàng xóm; tốn ARP cache, dễ hỏng nếu hàng xóm tắt proxy ARP.</p></details>
+<details><summary>4. Đường WAN chính hỏng ở phía nhà mạng, cổng vẫn up. Floating static có nổi không? Sửa thế nào?</summary><p>Không, vì route chính vẫn trong bảng. Thêm IP SLA + track vào route chính.</p></details>
+<details><summary>5. Traceroute từ LAN1 tới LAN3 thấy đủ chặng tới router cuối, nhưng ping timeout. Nghi gì?</summary><p>Thiếu route chiều về (hoặc firewall/ACL chặn chiều về, hoặc đích sai gateway).</p></details>
+<details><summary>6. Split horizon là gì?</summary><p>Không quảng bá route ngược ra interface đã học route đó.</p></details>
+<details><summary>7. RIP metric 16 nghĩa là gì?</summary><p>Không tới được (infinity).</p></details>
+<details><summary>8. Vì sao nên kiểm ping với "source" trên router?</summary><p>Ping mặc định dùng IP interface ra (thường là mạng link đã có route), có thể thành công giả. Source IP LAN giả lập đúng máy người dùng, kiểm luôn chiều về của LAN đó.</p></details>
+
+<label class="done"><input type="checkbox" id="d15"> Xong mục 15</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab và MOP trong <a href="tuan-11.html">giáo án tuần 11</a>. Tuần trước: <a href="tuan-10-kien-thuc.html">sổ tay tuần 10</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan11-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
