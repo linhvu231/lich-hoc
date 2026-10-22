@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 13</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 13 · 18/01 – 24/01/2027</div>
+  <h1>OSPF 2: LSDB, DR/BDR</h1>
+  <p>Hướng dẫn từng ngày. Khoảng 10,5 giờ.</p>
+  <p>Phần đọc sách đã thay bằng <a href="tuan-13-kien-thuc.html">sổ tay tiếng Việt 14 mục</a>.</p>
+  <div class="links">
+    <a href="tuan-13-kien-thuc.html">Sổ tay tuần 13 (thay sách)</a>
+    <a href="tuan-12.html">Giáo án tuần 12</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Đầu ra trong lịch: <b>vẽ LSDB của lab bằng tay, chỉ ra router DR.</b> Cụ thể:</p>
+<ol>
+  <li>Đọc <code>show ip ospf database</code>, nhận ra LSA type 1 và 2, đếm được router và đoạn mạng.</li>
+  <li>Dự đoán DR/BDR trên đoạn 4 router, đổi priority, hiểu vì sao không preempt.</li>
+  <li>Đổi link sang point-to-point đúng cách (hai đầu), thấy LSA type 2 biến mất.</li>
+  <li>Tìm và sửa DR bầu sai do priority/RID.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  LSDB là "sự thật" của OSPF: bảng route chỉ là hệ quả. Khi bảng route lạ, kỹ sư giỏi mở LSDB để xem router nào đang nói gì. Và DR là ví dụ hoàn hảo về một thiết kế "không tự sửa": không preempt, nên ai bật trước thì làm trưởng nhóm. Muốn mạng chạy đúng thiết kế, anh phải <b>đặt tường minh</b> (priority) chứ không để ngẫu nhiên.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · LSA, LSDB, SPF</a></li>
+    <li><a href="#t3">Thứ 3 · Network type, DR/BDR</a></li>
+    <li><a href="#t4">Thứ 4 · Lab phần 1: 4 router trên 1 switch</a></li>
+    <li><a href="#t5">Thứ 5 · Lab phần 2: point-to-point, đọc database</a></li>
+    <li><a href="#t6">Thứ 6 · Ôn lab, vẽ LSDB</a></li>
+    <li><a href="#t7">Thứ 7 · MOP #9 đổi network type, diễn tập DR sai</a></li>
+    <li><a href="#cn">Chủ nhật · Tự kiểm tra, tự chấm</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày 15 phút</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (18/01) · LSA, LSDB, SPF</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: bảng LSA 1/2/3 chép tay, ví dụ SPF tính tay</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Sổ tay mục <a href="tuan-13-kien-thuc.html#m1">1</a> đến <a href="tuan-13-kien-thuc.html#m5">5</a></label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Tự vẽ một sơ đồ 4 router có cost khác nhau, tính tay đường ngắn nhất từ R1 tới mọi mạng</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (19/01) · Network type, DR/BDR</h2>
+<div class="meta"><span><b>1,5 giờ</b> + 5 phút tự giảng</span><span>Đầu ra: 5 câu hỏi để hỏi Claude</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Sổ tay mục <a href="tuan-13-kien-thuc.html#m6">6</a> đến <a href="tuan-13-kien-thuc.html#m11">11</a></label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Tự giảng 5 phút: "vì sao cần DR, bầu thế nào, vì sao không preempt gây rắc rối"</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (20/01) · Lab phần 1: 4 router trên 1 switch, đổi priority</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: thư mục <code>W13-ospf-dr-bdr</code>, bảng dự đoán DR/BDR</span></div>
+<div class="flow">         SW (VLAN 1, mạng 10.0.0.0/24)
+     /     |      |      \
+   R1     R2     R3     R4        g0/0 của mỗi router: 10.0.0.1 … 10.0.0.4
+  RID 1.1.1.1 … 4.4.4.4 (loopback), mỗi router thêm 1 LAN loopback 192.168.X.1/24</div>
+<pre>R1(config)# router ospf 1
+R1(config-router)# router-id 1.1.1.1
+R1(config)# interface g0/0
+R1(config-if)# ip ospf 1 area 0
+<span class="c">! làm tương tự R2–R4; bật cả 4 cùng lúc (CML/EVE: start all)</span></pre>
+<div class="tbl"><table>
+<thead><tr><th>#</th><th>Thí nghiệm</th><th>Dự đoán DR/BDR</th><th>Thực tế</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Mặc định, bật cùng lúc</td><td></td><td></td></tr>
+<tr><td>2</td><td>R1 <code>ip ospf priority 100</code> (không reset gì)</td><td></td><td></td></tr>
+<tr><td>3</td><td>Như 2, <code>clear ip ospf process</code> trên DR hiện tại</td><td></td><td></td></tr>
+<tr><td>4</td><td>Tiếp tục reset cho tới khi R1 là DR, R2 (priority 50) là BDR</td><td></td><td></td></tr>
+<tr><td>5</td><td>R4 <code>ip ospf priority 0</code>, shutdown/no shutdown g0/0 của R4</td><td></td><td></td></tr>
+<tr><td>6</td><td>Tắt hẳn R1 (DR)</td><td></td><td></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1">Điền bảng; ở mỗi bước chạy <code>show ip ospf neighbor</code> trên R3, đếm số FULL và 2WAY</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2">Wireshark trên switch: thấy DROther gửi LSU tới 224.0.0.6, DR gửi lại 224.0.0.5</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (21/01) · Lab phần 2: point-to-point, đọc database</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: output database trước/sau đổi network type, chú thích</span></div>
+<p>Dùng lại lab 3 router nối tiếp của tuần 12 (R1–R2–R3, link /30).</p>
+<pre>R1# show ip ospf database
+R1# show ip ospf database network     <span class="c">! có 2 LSA type 2 (mỗi link một DR)</span>
+R1# show ip ospf interface brief      <span class="c">! State DR/BDR trên link</span>
+<span class="c">! Đổi cả hai đầu link R1–R2 sang point-to-point (shutdown trước để không lệch):</span>
+R1(config)# interface g0/1
+R1(config-if)# shutdown
+R1(config-if)# ip ospf network point-to-point
+R2(config)# interface g0/0
+R2(config-if)# ip ospf network point-to-point
+R1(config-if)# no shutdown
+R1# show ip ospf neighbor             <span class="c">! FULL/  -</span>
+R1# show ip ospf database network     <span class="c">! còn 1 LSA type 2</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1">Đo thời gian lên Full sau no shutdown: broadcast (≈ 40 s wait) và point-to-point (vài giây)</label></li>
+  <li><input type="checkbox" id="t5-2"><label for="t5-2"><code>show ip ospf database router 1.1.1.1</code>: so mô tả link trước/sau (transit network ⇒ point-to-point + stub network)</label></li>
+  <li><input type="checkbox" id="t5-3"><label for="t5-3">Thử lệch: chỉ đổi R2–R3 ở đầu R2. Neighbor? Route tới LAN3 trên R1? Ghi kết quả rồi sửa khớp</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (22/01) · Ôn lab, vẽ LSDB bằng tay</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: hình vẽ LSDB (chụp, lưu repo)</span></div>
+<p>Tuần này lịch không có mục sửa sổ tay riêng: dùng giờ này để làm đầu ra của tuần và bổ sung mục OSPF trong sổ.</p>
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1">Từ output <code>show ip ospf database</code> (lab 4 router + lab 3 router), vẽ sơ đồ: mỗi LSA type 1 là một nút router, mỗi LSA type 2 là một nút "đoạn mạng" nối các router, ghi cost trên cạnh, đánh dấu DR</label></li>
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">Thêm vào sổ Google Docs: bảng LSA 1/2/3, bảng network type, quy tắc bầu DR (3 dòng) và câu "không preempt"</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (23/01) · MOP #9 đổi network type sang point-to-point, diễn tập DR sai</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>mop/MOP-009-ospf-p2p.md</code>, <code>postmortem/W13-dr-sai.md</code></span></div>
+
+<h3>Phần A · MOP #9</h3>
+<pre>
+# MOP-009 · Đổi link R2–R3 sang OSPF point-to-point
+
+| Mục        | Nội dung                                                         |
+|------------|------------------------------------------------------------------|
+| Mục tiêu   | Bỏ bầu DR trên link 2 router, hội tụ nhanh hơn, LSDB gọn hơn       |
+| Phạm vi    | R2 g0/1, R3 g0/0                                                  |
+| Ảnh hưởng  | Neighbor R2–R3 rơi và lên lại: route qua link mất vài giây       |
+|            | (nếu có đường khác thì lưu lượng tạm đi đường đó)                 |
+
+## 1. Pre-check
+R2/R3# show ip ospf interface g0/x | include Network Type|State
+R2#    show ip ospf neighbor
+R1#    show ip route ospf              ! lưu lại
+PC-LAN1&gt; ping -t PC-LAN3
+
+## 2. Các bước (hai đầu sát nhau)
+R2(config)# interface g0/1
+R2(config-if)# ip ospf network point-to-point
+R3(config)# interface g0/0
+R3(config-if)# ip ospf network point-to-point
+
+## 3. Verify
+- show ip ospf neighbor: FULL/ - ở cả hai đầu
+- show ip ospf database network: không còn LSA type 2 của link 10.0.23.0
+- R1 show ip route ospf: giống pre-check (cùng mạng, cùng metric)
+- ping -t: số gói mất ___
+
+## 4. Rollback
+R2/R3(config-if)# no ip ospf network point-to-point     ! về broadcast (mặc định Ethernet)
+</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Viết MOP-009, chạy, ghi số gói mất, chạy rollback rồi chạy lại</label></li>
+</ul>
+
+<h3>Phần B · Diễn tập: DR bầu sai do priority/router ID</h3>
+<p>Trên lab 4 router: thiết kế yêu cầu R1 là DR, R2 là BDR, R3/R4 không bao giờ làm DR/BDR. Người khác (hoặc Claude) gài trạng thái sai, ví dụ: R1 priority 100 nhưng R4 đang là DR (vì bật trước), R3 router-id trùng thiết kế khác, R2 priority 0.</p>
+<ul class="check">
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Chỉ bằng <code>show ip ospf interface</code> và <code>show ip ospf neighbor</code>, viết ra: DR/BDR hiện tại, vì sao sai thiết kế, cần đổi gì</label></li>
+  <li><input type="checkbox" id="t7-3"><label for="t7-3">Sửa: đặt priority đúng (R1 100, R2 50, R3 0, R4 0), reset process theo thứ tự hợp lý, đếm số lần reset cần thiết</label></li>
+  <li><input type="checkbox" id="t7-4"><label for="t7-4">Postmortem: vì sao xảy ra, cần gì để không tái diễn (priority tường minh trong golden config)</label></li>
+</ul>
+<details><summary>Gợi ý thứ tự reset (mở sau khi làm)</summary>
+<p>Đặt priority xong trước. Reset DR sai (R4) ⇒ BDR hiện tại lên DR. Nếu BDR hiện tại không phải R1, reset tiếp nó. Priority 0 trên R3, R4 làm chúng không được chọn lại. Mục tiêu: ít lần reset nhất, vì mỗi lần là một lần mất route ngắn.</p>
+</details>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (24/01) · Tự kiểm tra và tự chấm</h2>
+<div class="meta"><span><b>30 phút</b></span><span>7 câu ở <a href="tuan-13-kien-thuc.html#m14">sổ tay mục 14</a>, gửi Claude chấm</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">Trả lời 7 câu tự kiểm tra</label></li>
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Gửi Claude hình vẽ LSDB, hỏi chấm</label></li>
+</ul>
+<h3>Tự chấm cuối tuần</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 13</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>LSA 1/2/3, SPF, network type, bầu DR, không preempt</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>4 router trên switch với DR/BDR đúng thiết kế ngay lần đầu</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>Sửa DR sai với số lần reset ít nhất</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>MOP-009 đổi network type hai đầu, đo gián đoạn</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Vẽ và giải thích LSDB cho người khác</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-3"><label for="cn-3">Tick tuần 13 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày 15 phút</h2>
+<ul>
+  <li><b>Tự hỏi đáp bằng miệng:</b> LSA 1/2/3 (ai tạo, mô tả gì, lan đâu); quy tắc bầu DR.</li>
+  <li>Một bài nhỏ: cho priority + RID của 4 router, nói DR/BDR trong 30 giây.</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">Đủ 5 ngày</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 13/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: OSPF 3 – cost, passive, default route.
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan13-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

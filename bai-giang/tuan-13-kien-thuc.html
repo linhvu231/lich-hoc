@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 13</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 13 (18/01 – 24/01/2027) · <a href="tuan-13.html">Giáo án tuần 13 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 13 (Odom Vol 2/Vol 1 phần OSPF: LSDB, DR/BDR, network type). Tuần 12 anh đã có hàng xóm. Tuần này nhìn vào <b>bản đồ</b> mà các hàng xóm chia sẻ cho nhau (LSDB, các loại LSA), cách OSPF biến bản đồ thành bảng route (SPF), và chuyện <b>ai làm "trưởng nhóm" trên một đoạn mạng chung</b> (DR/BDR). Mục tiêu cuối tuần: <b>vẽ LSDB của lab bằng tay, chỉ ra router DR</b>. Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">LSA và LSDB</a></li>
+  <li><a href="#m2">LSA type 1, 2, 3 (và biết tên 4, 5, 7)</a></li>
+  <li><a href="#m3">Đọc show ip ospf database</a></li>
+  <li><a href="#m4">SPF: từ bản đồ ra bảng route</a></li>
+  <li><a href="#m5">Flooding, số thứ tự, làm mới LSA</a></li>
+  <li><a href="#m6">Network type: broadcast, point-to-point, loopback</a></li>
+  <li><a href="#m7">Vì sao cần DR/BDR</a></li>
+  <li><a href="#m8">Bầu DR/BDR</a></li>
+  <li><a href="#m9">Đổi DR và đổi network type</a></li>
+  <li><a href="#m10">Lệnh kiểm tra</a></li>
+  <li><a href="#m11">Tình huống thực tế</a></li>
+  <li><a href="#m12">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m13">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m14">Câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> LSA và LSDB</h1>
+<ul>
+  <li><b>LSA (Link-State Advertisement)</b>: một "mảnh bản đồ": router này có những link nào, nối tới ai, cost bao nhiêu, mạng nào.</li>
+  <li><b>LSDB (Link-State Database)</b>: tập hợp mọi LSA trong area. Là <b>bản đồ toàn area</b>.</li>
+  <li><mark>Mọi router trong cùng một area có LSDB giống hệt nhau.</mark> Đó là mục tiêu của trạng thái Full (tuần 12).</li>
+  <li>Mỗi router tự chạy SPF trên LSDB của mình ⇒ mỗi router ra bảng route riêng (vì đứng ở vị trí khác nhau trên cùng bản đồ).</li>
+</ul>
+<p>LSA được mang trong gói LSU (tuần 12 mục 5). Mỗi LSA có tiêu đề: <b>type</b>, <b>Link ID</b>, <b>Advertising Router</b> (RID người tạo), <b>sequence number</b>, <b>age</b>, checksum.</p>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> LSA type 1, 2, 3 (và biết tên 4, 5, 7)</h1>
+<div class="tbl"><table>
+<tr><th>Type</th><th>Tên</th><th class="l">Ai tạo</th><th class="l">Mô tả gì</th><th class="l">Lan trong</th><th class="l">Link ID</th></tr>
+<tr><td><b>1</b></td><td><b>Router LSA</b></td><td class="l"><b>Mọi router</b>, mỗi area một cái</td><td class="l">Các link của chính router trong area: nối point-to-point tới ai, nối vào mạng transit nào (có DR), mạng stub nào (LAN không hàng xóm, loopback)</td><td class="l">Area đó</td><td class="l">RID của router</td></tr>
+<tr><td><b>2</b></td><td><b>Network LSA</b></td><td class="l"><b>DR</b> của mỗi đoạn mạng multi-access</td><td class="l">Đoạn mạng chung đó (subnet/mask) và danh sách router gắn vào</td><td class="l">Area đó</td><td class="l">IP interface của DR</td></tr>
+<tr><td><b>3</b></td><td><b>Summary LSA</b></td><td class="l"><b>ABR</b></td><td class="l">Mạng ở area khác (chỉ prefix và cost, không chi tiết topology)</td><td class="l">Sang area khác</td><td class="l">Network</td></tr>
+<tr><td>4</td><td>ASBR Summary</td><td class="l">ABR</td><td class="l">Đường tới ASBR</td><td class="l">Area khác</td><td class="l">RID của ASBR</td></tr>
+<tr><td>5</td><td>External</td><td class="l">ASBR</td><td class="l">Route từ ngoài OSPF (static, BGP, default route bằng <code>default-information originate</code>)</td><td class="l">Toàn domain</td><td class="l">Network</td></tr>
+<tr><td>7</td><td>NSSA External</td><td class="l">ASBR trong NSSA</td><td class="l">Như type 5 nhưng trong area NSSA</td><td class="l">Area NSSA</td><td class="l">Network</td></tr>
+</table></div>
+<p><mark>Type 1: mọi router mô tả chính nó. Type 2: DR mô tả đoạn mạng chung. Type 3: ABR tóm tắt mạng area khác.</mark> CCNA chỉ cần hiểu 1, 2, 3 ở mức khái niệm; 4, 5, 7 biết tên (ENARSI học sâu).</p>
+<p>Single-area (cả lab đều area 0): chỉ thấy type 1 và 2; tuần 14 khi có <code>default-information originate</code> sẽ thấy thêm type 5.</p>
+
+<div class="note"><b>💡 Ví dụ dễ hiểu</b>
+Type 1: mỗi nhà tự khai "nhà tôi có cửa ra đường A và B". Type 2: tổ trưởng của một khu chung cư khai "khu này có 4 nhà: 1, 2, 3, 4". Type 3: trưởng phường bên cạnh báo "phường tôi có các ngõ X, Y, cách đây 20 phút", không kể chi tiết từng nhà.</div>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Đọc show ip ospf database</h1>
+<pre>R1# show ip ospf database
+            OSPF Router with ID (1.1.1.1) (Process ID 1)
+
+                Router Link States (Area 0)                       ← LSA type 1
+Link ID         ADV Router      Age         Seq#       Checksum Link count
+1.1.1.1         1.1.1.1         412         0x80000005 0x00A1B2 3
+2.2.2.2         2.2.2.2         398         0x80000007 0x00C3D4 4
+3.3.3.3         3.3.3.3         390         0x80000004 0x00E5F6 3
+
+                Net Link States (Area 0)                          ← LSA type 2
+Link ID         ADV Router      Age         Seq#       Checksum
+10.0.12.2       2.2.2.2         398         0x80000002 0x001122     ← DR của 10.0.12.0/30 là 2.2.2.2 (IP .2)
+10.0.23.3       3.3.3.3         390         0x80000002 0x003344</pre>
+<ul>
+  <li>Đếm dòng Router Link States = số router trong area (mỗi router một type 1).</li>
+  <li>Mỗi dòng Net Link States = một đoạn multi-access có DR; Link ID là IP của DR, ADV Router là RID của DR ⇒ <b>đọc ra ngay ai là DR</b>.</li>
+  <li><code>Seq#</code> tăng mỗi khi router tạo bản mới của LSA đó; <code>Age</code> tính bằng giây.</li>
+</ul>
+<pre>R1# show ip ospf database router 2.2.2.2       ! chi tiết type 1 của R2: từng link, cost
+R1# show ip ospf database network               ! chi tiết type 2: "Attached Router" là ai
+R1# show ip ospf database summary               ! type 3 (khi có nhiều area)</pre>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> SPF: từ bản đồ ra bảng route</h1>
+<ol>
+  <li>Router đặt <b>chính mình làm gốc</b> của cây.</li>
+  <li>Dùng thuật toán <b>Dijkstra</b> trên LSDB: lần lượt chọn nút có tổng cost nhỏ nhất từ gốc, mở rộng ra hàng xóm của nó.</li>
+  <li>Kết quả: <b>cây đường ngắn nhất</b> (SPT) tới mọi router và mạng trong area.</li>
+  <li>Mỗi mạng ⇒ một route với metric = tổng cost, next-hop = chặng đầu trên cây ⇒ đưa vào bảng route (nếu AD 110 thắng các nguồn khác).</li>
+</ol>
+<h3>Ví dụ tính tay</h3>
+<div class="flow">         cost 1            cost 1
+   R1 ----------- R2 ----------- R3 --- LAN3 (cost 1)
+    \                            /
+     \--------- cost 10 --------/
+R1 tới LAN3:  qua R2: 1 + 1 + 1 = 3     qua link trực tiếp R1–R3: 10 + 1 = 11
+⇒ chọn qua R2, metric 3:  O 192.168.3.0/24 [110/3] via R2</div>
+<p>Cost cộng ở <b>interface ra</b> trên đường đi (tuần 14 học cách tính cost từ bandwidth). Mạng đích (LAN3) cũng cộng cost interface của R3 nối LAN3.</p>
+<p>Khi một link thay đổi: LSA mới lan đi ⇒ mọi router chạy lại SPF (trong area). Area nhỏ ⇒ SPF nhẹ ⇒ lý do chia area ở mạng lớn.</p>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Flooding, số thứ tự, làm mới LSA</h1>
+<ul>
+  <li><b>Flooding</b>: router nhận LSU có LSA mới ⇒ gửi LSAck ⇒ chuyển tiếp LSA ra mọi interface OSPF khác (trong area). LSA lan khắp area trong chớp mắt.</li>
+  <li><b>Sequence number</b>: LSA mới hơn có số thứ tự lớn hơn ⇒ router biết bản nào mới, bỏ bản cũ.</li>
+  <li><b>LSRefresh</b>: router tạo lại LSA của mình mỗi <b>30 phút</b> dù không có thay đổi (để LSDB không "già").</li>
+  <li><b>MaxAge</b>: LSA không được làm mới tới <b>60 phút</b> ⇒ bị xóa khỏi LSDB.</li>
+</ul>
+<p>Đây là lý do OSPF không gửi cả bảng mỗi 30 giây như RIP: chỉ gửi khi thay đổi, và làm mới thưa.</p>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Network type: broadcast, point-to-point, loopback</h1>
+<div class="tbl"><table>
+<tr><th>Network type</th><th class="l">Mặc định trên</th><th class="l">DR/BDR</th><th class="l">Hello/Dead</th><th class="l">Ghi chú</th></tr>
+<tr><td><b>Broadcast</b></td><td class="l">Ethernet</td><td class="l"><b>Có</b> bầu</td><td class="l">10/40</td><td class="l">Có type 2 LSA. Chờ bầu DR (wait = dead interval 40 s) khi interface lên</td></tr>
+<tr><td><b>Point-to-point</b></td><td class="l">Serial (HDLC/PPP), tunnel</td><td class="l"><b>Không</b></td><td class="l">10/40</td><td class="l">Lên Full ngay, không chờ bầu, không type 2</td></tr>
+<tr><td>Non-broadcast (NBMA)</td><td class="l">Frame Relay cũ</td><td class="l">Có</td><td class="l">30/120</td><td class="l">Neighbor khai báo tay. Biết tên</td></tr>
+<tr><td>Point-to-multipoint</td><td class="l">Cấu hình tay</td><td class="l">Không</td><td class="l">30/120</td><td class="l">Biết tên</td></tr>
+<tr><td><b>Loopback</b></td><td class="l">Interface loopback</td><td class="l">—</td><td class="l">—</td><td class="l"><b>Luôn quảng bá /32</b> dù cấu hình mask gì (tuần 14)</td></tr>
+</table></div>
+<p>Link Ethernet giữa đúng hai router (rất phổ biến: router–router, switch L3–firewall) vẫn mặc định là broadcast ⇒ tốn công bầu DR, chờ 40 s, thêm LSA type 2 không cần thiết. ⇒ Chuẩn vận hành: <mark>link Ethernet chỉ có 2 router thì đổi sang point-to-point</mark> (cả hai đầu).</p>
+<pre>R1(config)# interface g0/1
+R1(config-if)# ip ospf network point-to-point</pre>
+<div class="note"><b>Phải khớp hai đầu</b>
+Một đầu point-to-point, một đầu broadcast: hello/dead vẫn 10/40 nên neighbor vẫn có thể lên Full, nhưng hai bên mô tả link khác nhau trong LSA ⇒ SPF không khớp ⇒ <b>route bị thiếu</b> dù neighbor Full. Đây là lỗi khó thấy (tuần 14 hỏi: route có trong database nhưng không có trong bảng).</div>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Vì sao cần DR/BDR</h1>
+<p>N router trên một switch chung (một đoạn multi-access). Nếu mọi cặp đều lên Full: số adjacency = <b>N(N−1)/2</b>. 5 router ⇒ 10; 10 router ⇒ 45. Mỗi thay đổi bị flood qua lại rất nhiều lần.</p>
+<p>Giải pháp: bầu <b>DR (Designated Router)</b> làm "trưởng nhóm" và <b>BDR (Backup DR)</b> làm "phó":</p>
+<ul>
+  <li>Mọi router (DROther) chỉ lên <b>Full với DR và BDR</b>; với nhau dừng ở 2-Way (tuần 12).</li>
+  <li>DROther gửi cập nhật tới <b>224.0.0.6</b> (chỉ DR/BDR nghe); DR phát lại cho mọi người qua <b>224.0.0.5</b>.</li>
+  <li>DR tạo LSA type 2 cho đoạn mạng.</li>
+  <li>BDR theo dõi sẵn, DR chết thì BDR lên thay ngay (không phải đồng bộ lại).</li>
+</ul>
+<p><mark>DR/BDR là theo từng đoạn mạng (từng interface), không phải theo router.</mark> Một router có thể là DR trên link này, DROther trên link khác.</p>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> Bầu DR/BDR</h1>
+<ol>
+  <li><b>Priority</b> (0–255, mặc định <b>1</b>) cao nhất ⇒ DR; cao thứ hai ⇒ BDR.</li>
+  <li>Hòa priority ⇒ <b>Router ID cao nhất</b> thắng.</li>
+  <li><b>Priority 0</b> ⇒ không bao giờ làm DR/BDR (DROther vĩnh viễn).</li>
+</ol>
+<p><mark>Không có preemption.</mark> DR đã bầu thì giữ vị trí dù sau đó có router priority/RID cao hơn tham gia. Chỉ bầu lại khi DR chết (BDR lên DR, bầu BDR mới) hoặc process OSPF trên DR bị reset.</p>
+<p>⇒ Hệ quả: router nào <b>khởi động trước</b> thường thành DR, bất kể priority. Trên lab, bật router không cùng lúc sẽ ra DR "sai" theo thiết kế ⇒ phải <code>clear ip ospf process</code> theo thứ tự để bầu lại.</p>
+<pre>R1(config)# interface g0/0
+R1(config-if)# ip ospf priority 100            ! muốn R1 làm DR
+R4(config-if)# ip ospf priority 0              ! R4 không bao giờ làm DR/BDR
+R1# show ip ospf interface g0/0 | include State|Priority|Designated
+  Transmit Delay is 1 sec, State DR, Priority 100
+  Designated Router (ID) 1.1.1.1, Interface address 10.0.0.1
+  Backup Designated router (ID) 3.3.3.3, Interface address 10.0.0.3</pre>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> Đổi DR và đổi network type</h1>
+<h2>1/ Ép bầu lại DR (có gián đoạn)</h2>
+<ol>
+  <li>Đặt priority mong muốn.</li>
+  <li><code>clear ip ospf process</code> trên DR hiện tại ⇒ BDR lên DR (chưa đúng ý nếu BDR không phải router mong muốn) ⇒ có thể phải reset tiếp BDR.</li>
+  <li>Mỗi lần reset là neighbor rơi về Down rồi lên lại ⇒ <b>route bị rút tạm thời</b> ⇒ làm trong cửa sổ bảo trì.</li>
+</ol>
+<h2>2/ Đổi network type sang point-to-point</h2>
+<p>Đổi network type làm neighbor trên interface đó <b>rơi và lên lại</b> (vài giây). Làm từng đầu sẽ có lúc lệch type ⇒ nên làm hai đầu sát nhau, hoặc shutdown interface trước, đổi cả hai đầu, rồi bật lại.</p>
+<pre>R1# show ip ospf interface g0/1 | include Network Type
+  Process ID 1, Router ID 1.1.1.1, Network Type POINT_TO_POINT, Cost: 1
+R1# show ip ospf neighbor
+2.2.2.2   0   FULL/  -    00:00:36   10.0.12.2   GigabitEthernet0/1     ← "/ -": không còn DR/BDR</pre>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> Lệnh kiểm tra</h1>
+<div class="tbl"><table>
+<tr><th>Lệnh</th><th class="l">Xem gì</th></tr>
+<tr><td><code>show ip ospf database</code></td><td class="l">Tóm tắt LSDB theo type</td></tr>
+<tr><td><code>show ip ospf database router [RID]</code></td><td class="l">Type 1 chi tiết: các link, cost</td></tr>
+<tr><td><code>show ip ospf database network</code></td><td class="l">Type 2: DR và router gắn vào</td></tr>
+<tr><td><code>show ip ospf interface [brief]</code></td><td class="l">Network type, cost, State DR/BDR/DROTHER/P2P, priority, DR/BDR là ai</td></tr>
+<tr><td><code>show ip ospf neighbor</code></td><td class="l">FULL/DR, FULL/BDR, 2WAY/DROTHER, FULL/ -</td></tr>
+<tr><td><code>show ip ospf</code></td><td class="l">Số lần SPF đã chạy, thời điểm lần cuối (SPF chạy liên tục = mạng chập chờn)</td></tr>
+<tr><td><code>show ip route ospf</code></td><td class="l">Kết quả cuối cùng</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Tình huống thực tế</h1>
+<h3>Tình huống 1 · DR là router chi nhánh yếu nhất</h3>
+<details><summary>Phân tích</summary>
+<p>Trên VLAN chuyển tiếp (transit) ở trụ sở có 4 router (2 core, 2 WAN). Sau một lần mất điện, router WAN nhỏ bật lên trước ⇒ thành DR (không preemption) ⇒ CPU nó phải xử lý flooding cho cả đoạn. Sửa: priority cao cho 2 core (DR/BDR), priority 0 cho router WAN; reset theo thứ tự trong cửa sổ bảo trì. Phòng ngừa: đặt priority tường minh ngay từ đầu.</p></details>
+<h3>Tình huống 2 · Neighbor Full mà thiếu route</h3>
+<details><summary>Phân tích</summary>
+<p>Một đầu link đã đổi sang point-to-point, đầu kia vẫn broadcast. Neighbor Full (timer giống nhau) nhưng LSA mô tả link không khớp ⇒ SPF không dùng được link ⇒ route qua link đó biến mất. <code>show ip ospf interface</code> hai đầu so dòng Network Type.</p></details>
+<h3>Tình huống 3 · SPF chạy liên tục, CPU cao</h3>
+<details><summary>Phân tích</summary>
+<p><code>show ip ospf</code> thấy "SPF algorithm executed 3000 times", lần cuối vài giây trước. Một link chập chờn (flap) liên tục tạo LSA mới ⇒ cả area tính lại SPF. Tìm bằng log ADJCHG hoặc <code>show ip ospf database</code> (LSA có Seq# tăng nhanh, Age nhỏ). Sửa link, hoặc giảm ảnh hưởng bằng chia area (ENARSI).</p></details>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>LSDB</td><td class="l">Mọi router cùng area có LSDB giống hệt · mỗi router chạy SPF từ vị trí của mình</td></tr>
+<tr><td>LSA</td><td class="l">1 Router (mọi router) · 2 Network (DR) · 3 Summary (ABR) · 5 External (ASBR)</td></tr>
+<tr><td>Refresh</td><td class="l">LSRefresh 30 phút · MaxAge 60 phút</td></tr>
+<tr><td>Network type</td><td class="l">Broadcast (Ethernet) có DR · P2P không DR · loopback quảng bá /32 · phải khớp hai đầu</td></tr>
+<tr><td>DR/BDR</td><td class="l">Theo từng đoạn mạng · DROther Full với DR/BDR, 2-Way với nhau · 224.0.0.6 tới DR/BDR</td></tr>
+<tr><td>Bầu</td><td class="l">Priority cao nhất (mặc định 1) → RID cao nhất · priority 0 không tham gia · không preempt</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">link-state advertisement</td><td class="l">bản tin trạng thái liên kết</td><td class="l">link-state database</td><td class="l">cơ sở dữ liệu trạng thái liên kết</td></tr>
+<tr><td class="l">router LSA / network LSA / summary LSA</td><td class="l">LSA loại 1 / 2 / 3</td><td class="l">advertising router</td><td class="l">router quảng bá</td></tr>
+<tr><td class="l">flooding</td><td class="l">lan truyền</td><td class="l">sequence number</td><td class="l">số thứ tự</td></tr>
+<tr><td class="l">shortest path tree</td><td class="l">cây đường ngắn nhất</td><td class="l">multi-access</td><td class="l">đa truy cập (nhiều router chung đoạn)</td></tr>
+<tr><td class="l">designated router</td><td class="l">router chỉ định</td><td class="l">backup designated router</td><td class="l">router chỉ định dự phòng</td></tr>
+<tr><td class="l">DROther</td><td class="l">router thường (không DR/BDR)</td><td class="l">priority</td><td class="l">độ ưu tiên</td></tr>
+<tr><td class="l">preemption</td><td class="l">giành quyền khi tốt hơn</td><td class="l">network type</td><td class="l">kiểu mạng</td></tr>
+<tr><td class="l">point-to-point</td><td class="l">điểm nối điểm</td><td class="l">transit network</td><td class="l">mạng trung chuyển</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"R1 became the DR because it booted first; OSPF has no preemption, so we reset the process during the maintenance window."</i></p>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Câu hỏi tự kiểm tra</h1>
+<p>Trả lời ra giấy hoặc gửi cho Claude <b>trước</b>, rồi mới mở đáp án.</p>
+<details><summary>1. LSA type 1, 2, 3 do ai tạo, mô tả gì?</summary><p>Type 1: mọi router, mô tả link của chính nó trong area. Type 2: DR, mô tả đoạn multi-access và router gắn vào. Type 3: ABR, mô tả mạng ở area khác.</p></details>
+<details><summary>2. Nhìn show ip ospf database, làm sao biết DR của một đoạn mạng?</summary><p>Dòng Net Link States (type 2): Link ID là IP interface của DR, ADV Router là RID của DR.</p></details>
+<details><summary>3. Bốn router priority mặc định, RID 1.1.1.1, 2.2.2.2, 3.3.3.3, 4.4.4.4, bật cùng lúc. DR, BDR?</summary><p>DR 4.4.4.4, BDR 3.3.3.3 (priority bằng nhau ⇒ RID cao nhất).</p></details>
+<details><summary>4. Sau đó thêm router RID 9.9.9.9 priority 255. Nó có thành DR không?</summary><p>Không, OSPF không preempt. Nó thành DROther cho tới khi DR/BDR hiện tại mất hoặc bị reset.</p></details>
+<details><summary>5. Vì sao link Ethernet giữa hai router nên đổi sang point-to-point?</summary><p>Không cần bầu DR (không chờ 40 s), không có LSA type 2, LSDB gọn, hội tụ nhanh hơn.</p></details>
+<details><summary>6. Priority 0 nghĩa là gì?</summary><p>Router không bao giờ làm DR/BDR trên đoạn mạng đó.</p></details>
+<details><summary>7. Mọi router trong area có bảng route giống nhau không?</summary><p>Không. LSDB giống nhau, nhưng mỗi router chạy SPF từ vị trí của chính nó nên bảng route khác nhau (next-hop, metric khác).</p></details>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab và MOP trong <a href="tuan-13.html">giáo án tuần 13</a>. Tuần trước: <a href="tuan-12-kien-thuc.html">sổ tay tuần 12</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan13-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
