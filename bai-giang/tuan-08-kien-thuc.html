@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 8</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 8 (14/12 – 20/12/2026) · <a href="tuan-08.html">Giáo án tuần 8 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 8 (Odom Vol 1, "RSTP and EtherChannel Configuration"; Vol 2, "Implementing Switch Port Security" và "Device Management Protocols"). Ba chủ đề tuần này đều là thứ anh <b>nhìn thấy hằng ngày</b>: uplink giữa switch access và core là port-channel, CDP là công cụ anh đã dùng để dò máy nhận VLAN 4, port security là thứ bảo vệ ổ mạng ở quầy giao dịch. Sổ của anh có mục EtherChannel với <b>4 chỗ cần sửa</b> và một bước đang dở. Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">EtherChannel là gì, vì sao cần</a></li>
+  <li><a href="#m2">Ba cách gộp: on, PAgP, LACP</a></li>
+  <li><a href="#m3">Điều kiện để gộp được</a></li>
+  <li><a href="#m4">Cấu hình EtherChannel L2 và L3</a></li>
+  <li><a href="#m5">Chia tải (load balancing)</a></li>
+  <li><a href="#m6">Đọc show etherchannel summary</a></li>
+  <li><a href="#m7">LACP chi tiết và EtherChannel ngoài switch</a></li>
+  <li><a href="#m8">CDP</a></li>
+  <li><a href="#m9">LLDP và so sánh với CDP</a></li>
+  <li><a href="#m10">Port security: khái niệm</a></li>
+  <li><a href="#m11">Port security: sticky, violation, khôi phục</a></li>
+  <li><a href="#m12">Lệnh kiểm tra và xử lý sự cố</a></li>
+  <li><a href="#m13">Tình huống thực tế</a></li>
+  <li><a href="#m14">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m15">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m16">Câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> EtherChannel là gì, vì sao cần</h1>
+
+<h2>1/ Vấn đề</h2>
+<p>Muốn uplink giữa hai switch nhanh hơn và có dự phòng ⇒ nối 2 dây. Nhưng 2 dây song song = loop ⇒ STP block một dây (tuần 7) ⇒ chỉ dùng được 1 dây, dây kia đứng không.</p>
+
+<h2>2/ Giải pháp</h2>
+<p><b>EtherChannel</b> (còn gọi port-channel, link aggregation, LAG, bonding/teaming bên server) gộp <b>2–8 port vật lý thành 1 interface logic</b> (<code>Port-channel1</code>).</p>
+<ul>
+  <li><b>STP coi cả bó là một link</b> ⇒ không block dây nào, mọi dây cùng chuyển dữ liệu.</li>
+  <li>Băng thông cộng dồn (2 × 1 Gbps = 2 Gbps tổng).</li>
+  <li>Một dây đứt: bó vẫn sống, lưu lượng dồn sang dây còn lại trong mili giây, <b>STP không phải tính lại</b>.</li>
+  <li>Cấu hình một lần trên port-channel, áp xuống mọi port thành viên.</li>
+</ul>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ ghi "Etherchannel <b>ko can thiệp vào cách vận hành của stp</b>". <b>Chưa đúng</b>. EtherChannel có ảnh hưởng: <i>"STP coi cả bó là một link logic"</i> (một port, một cost thấp hơn link đơn, không block thành viên nào). Đó chính là lý do EtherChannel tồn tại. Sửa lại câu.</div>
+
+<div class="note"><b>💡 Ví dụ dễ hiểu</b>
+Hai làn đường song song giữa hai thành phố. Không gộp: cảnh sát (STP) chặn một làn để khỏi rối. Gộp thành một <b>đường cao tốc 2 làn</b>: bản đồ chỉ vẽ một con đường, xe chạy cả hai làn, một làn sửa chữa thì xe dồn sang làn kia mà không phải đổi lộ trình.</div>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Ba cách gộp: on, PAgP, LACP</h1>
+<div class="tbl"><table>
+<tr><th>Cách</th><th>Chuẩn</th><th class="l">Mode</th><th class="l">Ghi chú</th></tr>
+<tr><td><b>LACP</b></td><td>IEEE 802.3ad / 802.1AX</td><td class="l"><b>active</b> (chủ động mời) · <b>passive</b> (chờ mời)</td><td class="l"><b>Dùng cái này</b>: mọi hãng hỗ trợ (FortiGate, server, NAS, VMware)</td></tr>
+<tr><td>PAgP</td><td>Cisco</td><td class="l"><b>desirable</b> (chủ động) · <b>auto</b> (chờ)</td><td class="l">Chỉ Cisco với Cisco, cũ</td></tr>
+<tr><td><b>on</b></td><td>—</td><td class="l">Ép gộp, <b>không thương lượng</b></td><td class="l">Không kiểm tra gì; cấu hình sai một đầu dễ gây loop. Tránh dùng</td></tr>
+</table></div>
+
+<h3>Bảng kết hợp hai đầu</h3>
+<div class="tbl"><table>
+<tr><th>A \ B</th><th>on</th><th>active</th><th>passive</th><th>desirable</th><th>auto</th></tr>
+<tr><th>on</th><td>Lên</td><td>Không</td><td>Không</td><td>Không</td><td>Không</td></tr>
+<tr><th>active</th><td>Không</td><td><b>Lên</b></td><td><b>Lên</b></td><td>Không</td><td>Không</td></tr>
+<tr><th>passive</th><td>Không</td><td><b>Lên</b></td><td><b>Không</b></td><td>Không</td><td>Không</td></tr>
+<tr><th>desirable</th><td>Không</td><td>Không</td><td>Không</td><td>Lên</td><td>Lên</td></tr>
+<tr><th>auto</th><td>Không</td><td>Không</td><td>Không</td><td>Lên</td><td><b>Không</b></td></tr>
+</table></div>
+<p><mark>passive + passive và auto + auto không lên</mark> (không ai mời). <b>on</b> chỉ đi với <b>on</b>. Không trộn LACP với PAgP. Giống logic DTP auto + auto ở tuần 6.</p>
+<p>Chuẩn vận hành: <b>active ở cả hai đầu</b> (không phụ thuộc ai chủ động).</p>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Điều kiện để gộp được</h1>
+<p>Mọi port thành viên (cả hai đầu) phải <b>giống nhau</b> ở:</p>
+<ol>
+  <li><b>Tốc độ</b> và <b>duplex</b>.</li>
+  <li><b>Switchport mode</b>: cùng access hoặc cùng trunk (hoặc cùng routed port nếu L3).</li>
+  <li>Access: cùng <b>access VLAN</b>. Trunk: cùng <b>native VLAN</b> và cùng <b>allowed VLAN</b>.</li>
+  <li>Cùng cấu hình STP trên port (cost, port-priority…) — an toàn nhất là để mặc định.</li>
+  <li>Không port nào là đích SPAN.</li>
+</ol>
+<p>Port lệch ⇒ bị <b>suspended</b> (cờ <code>s</code>), không tham gia bó, log <code>%EC-5-CANNOT_BUNDLE2</code>.</p>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ ghi "Etherchannel không cho mix giữa các loại cổng khác nhau (<b>fa phải đi với fa, gi đi với gi</b>)". <b>Sai tiêu chí</b>: tên cổng không quan trọng; điều kiện thật là <i>"cùng tốc độ, duplex, mode, VLAN (native/allowed nếu trunk)"</i>. Một cổng Gi chạy 100 Mbps vẫn gộp được với cổng Fa 100 Mbps về lý thuyết (thực tế phụ thuộc phần cứng); hai cổng Gi một cái 1000, một cái 100 thì không gộp.</div>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> Cấu hình EtherChannel L2 và L3</h1>
+
+<h2>1/ L2 (trunk giữa hai switch), LACP</h2>
+<pre><span class="c">! Bước 1: đưa các port vào nhóm (cùng một số channel-group, cùng mode)</span>
+SW1(config)# interface range gi0/1 - 2
+SW1(config-if-range)# channel-group 1 mode active
+Creating a port-channel interface Port-channel 1
+
+<span class="c">! Bước 2: cấu hình trên interface port-channel (tự áp xuống thành viên)</span>
+SW1(config)# interface port-channel 1
+SW1(config-if)# switchport mode trunk
+SW1(config-if)# switchport nonegotiate
+SW1(config-if)# switchport trunk native vlan 999
+SW1(config-if)# switchport trunk allowed vlan 10,20,30,99
+SW1(config-if)# description UPLINK-to-SW2
+
+<span class="c">! SW2 làm y hệt. Kiểm tra:</span>
+SW1# show etherchannel summary
+SW1# show interfaces trunk          ! thấy Po1 thay vì Gi0/1, Gi0/2</pre>
+<p>Thứ tự an toàn: cấu hình port thành viên giống nhau trước (hoặc để trống), rồi <code>channel-group</code>, rồi cấu hình trên port-channel. Sửa cấu hình về sau: <b>sửa trên port-channel</b>, không sửa trên từng thành viên.</p>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ đang dở ở "Bước 1: Nhóm cổng / Int ran f0/1-4 / Channel-group 1 mode" (thiếu mode). Viết nốt: <code>channel-group 1 mode active</code> (LACP), kèm Bước 2 cấu hình trên <code>interface port-channel 1</code> và Bước 3 kiểm tra <code>show etherchannel summary</code>, theo khung trên.</div>
+
+<h2>2/ L3 (port-channel có IP, giữa switch L3 và router/firewall)</h2>
+<pre>DSW1(config)# interface range gi1/0/23 - 24
+DSW1(config-if-range)# no switchport                    ! phải làm TRƯỚC channel-group
+DSW1(config-if-range)# channel-group 2 mode active
+DSW1(config)# interface port-channel 2
+DSW1(config-if)# no switchport
+DSW1(config-if)# ip address 10.255.0.1 255.255.255.252</pre>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Chia tải (load balancing)</h1>
+
+<h2>1/ Không chia theo gói, mà theo luồng</h2>
+<p>Switch tính <b>hash</b> từ một số trường (MAC, IP, port) của frame ⇒ ra số thứ tự dây. <b>Cùng một luồng</b> (cùng nguồn/đích) luôn ra <b>cùng một dây</b> để giữ thứ tự gói.</p>
+<p><mark>Một luồng không bao giờ nhanh hơn tốc độ một dây.</mark> Tải một file 10 GB từ một server qua bó 4 × 1 Gbps vẫn tối đa ~1 Gbps. Lợi ích của bó là khi có <b>nhiều</b> luồng (nhiều máy, nhiều kết nối).</p>
+
+<h2>2/ Chọn thuật toán</h2>
+<pre>SW1(config)# port-channel load-balance src-dst-ip      ! cấu hình toàn cục cho cả switch
+SW1# show etherchannel load-balance</pre>
+<div class="tbl"><table>
+<tr><th>Phương pháp</th><th class="l">Hợp khi</th></tr>
+<tr><td>src-mac (mặc định trên nhiều dòng như 2960)</td><td class="l">Nhiều máy trạm khác nhau gửi lên</td></tr>
+<tr><td>src-dst-ip</td><td class="l">Phổ biến nhất cho uplink; tốt khi lưu lượng đi qua router (MAC nguồn/đích luôn là router ⇒ hash theo MAC sẽ dồn một dây)</td></tr>
+<tr><td>src-dst-port (L4, nếu switch hỗ trợ)</td><td class="l">Ít máy nhưng nhiều kết nối (server với server)</td></tr>
+</table></div>
+
+<h2>3/ Vì sao nên dùng 2, 4, 8 dây</h2>
+<p>Hash chia lưu lượng vào 8 "ngăn" (bucket) rồi gán ngăn cho dây. 8 ngăn chia đều cho 2, 4, 8 dây; với 3 dây thì 3/3/2 ⇒ lệch. Sổ của anh ghi ý này đúng ("nên nhóm số cổng là 2 mũ n").</p>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Đọc show etherchannel summary</h1>
+<pre>SW1# show etherchannel summary
+Flags:  D - down        P - bundled in port-channel
+        I - stand-alone s - suspended
+        H - Hot-standby (LACP only)
+        R - Layer3      S - Layer2
+        U - in use      f - failed to allocate aggregator
+        M - not in use, minimum links not met
+        w - waiting to be aggregated
+Number of channel-groups in use: 1
+Number of aggregators:           1
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+1      Po1(SU)         LACP      Gi0/1(P)    Gi0/2(P)    Gi0/3(s)</pre>
+<div class="tbl"><table>
+<tr><th>Cờ</th><th class="l">Đọc thế nào</th><th class="l">Làm gì</th></tr>
+<tr><td><b>Po1(SU)</b></td><td class="l">Layer 2, in use: bó đang chạy tốt</td><td class="l">Trạng thái mong muốn</td></tr>
+<tr><td>Po1(SD)</td><td class="l">Layer 2 nhưng down: không thành viên nào gộp được</td><td class="l">Kiểm mode hai đầu, dây</td></tr>
+<tr><td>Po2(RU)</td><td class="l">Layer 3, in use</td><td class="l"></td></tr>
+<tr><td><b>(P)</b></td><td class="l">Port đã vào bó</td><td class="l"></td></tr>
+<tr><td><b>(s)</b></td><td class="l">Suspended: lệch cấu hình/tốc độ với các port khác</td><td class="l">So <code>show run interface</code> và speed/duplex</td></tr>
+<tr><td><b>(I)</b></td><td class="l">Stand-alone: đầu kia không nói LACP (ví dụ đầu kia không cấu hình, hoặc mode lệch)</td><td class="l">Port chạy như port đơn, STP xử lý riêng</td></tr>
+<tr><td>(D)</td><td class="l">Port down (dây, shutdown)</td><td class="l">Kiểm tầng 1</td></tr>
+<tr><td>(H)</td><td class="l">LACP hot-standby: thừa so với số active cho phép</td><td class="l">Bình thường nếu có chủ đích (max-bundle)</td></tr>
+<tr><td>(w)</td><td class="l">Đang chờ gộp</td><td class="l">Chờ vài giây</td></tr>
+</table></div>
+<p>Lệnh chi tiết hơn: <code>show etherchannel 1 detail</code>, <code>show lacp neighbor</code> (đầu kia gửi gì), <code>show interfaces port-channel 1</code> (BW cộng dồn).</p>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> LACP chi tiết và EtherChannel ngoài switch</h1>
+
+<h2>1/ Số port tối đa</h2>
+<ul>
+  <li><b>LACP</b>: tối đa <b>16 port</b> trong một nhóm: <b>8 active</b> + <b>8 hot-standby</b>. Port standby tự vào thay khi port active hỏng.</li>
+  <li>PAgP và mode on: tối đa 8 port.</li>
+  <li>Số nhóm (port-channel) trên một switch tùy dòng máy.</li>
+</ul>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ ghi "Trên mỗi Port Channel tối đa gom được <b>tối đa 8 port</b> vật lý". Ghi đầy đủ: <i>"LACP cho tối đa 16 port, trong đó 8 active và 8 dự phòng (hot-standby). PAgP/on tối đa 8."</i></div>
+
+<h2>2/ Tham số LACP hay gặp</h2>
+<pre>SW1(config)# lacp system-priority 100                  ! switch có giá trị thấp hơn quyết định port nào active
+SW1(config-if)# lacp port-priority 100                 ! port giá trị thấp hơn được ưu tiên active
+SW1(config-if)# lacp rate fast                         ! gửi LACPDU mỗi 1 s thay vì 30 s ⇒ phát hiện lỗi nhanh
+SW1(config)# interface port-channel 1
+SW1(config-if)# port-channel min-links 2               ! dưới 2 dây sống thì tắt cả bó (để đường khác gánh)</pre>
+
+<h2>3/ EtherChannel không chỉ trên switch</h2>
+<ul>
+  <li><b>Router Cisco</b> (ISR, ASR) có <code>interface Port-channel</code>.</li>
+  <li><b>Firewall</b>: FortiGate gọi là <b>aggregate interface</b> (802.3ad), hay dùng để nối lên switch core.</li>
+  <li><b>Server</b>: NIC teaming (Windows), bonding (Linux mode 4 = 802.3ad), VMware LAG.</li>
+  <li><b>Hai switch đầu xa</b> (một bó nối tới hai switch khác nhau): cần công nghệ gộp khung như StackWise, VSS, vPC (Nexus), MLAG. Hai switch độc lập thường <b>không</b> gộp được chung một bó.</li>
+</ul>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ ghi "(chỉ trên switch managed <b>không có trên router</b>)" và "Etherchannel chỉ hoạt động trên switch, không hoạt động trên Router". <b>Sai</b>. Router Cisco (ISR, ASR) cũng có port-channel; firewall và server cũng gộp link bằng LACP. Sửa hai câu này.</div>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> CDP</h1>
+
+<h2>1/ CDP là gì</h2>
+<p><b>CDP (Cisco Discovery Protocol)</b>: thiết bị Cisco tự giới thiệu với <b>hàng xóm nối trực tiếp</b> ở tầng 2: tên, model, cổng, IP quản trị, phiên bản IOS, native VLAN, duplex. Gửi tới MAC multicast <code>0100.0ccc.cccc</code>, mỗi <b>60 giây</b>, holdtime <b>180 giây</b>. Bật sẵn mặc định trên thiết bị Cisco.</p>
+<p>CDP <b>không đi qua</b> switch/router: chỉ thấy hàng xóm sát bên.</p>
+
+<h2>2/ Lệnh</h2>
+<pre>SW1# show cdp neighbors
+Device ID   Local Intrfce   Holdtme   Capability  Platform    Port ID
+SW2         Gig 0/1         152       S I         WS-C2960X   Gig 0/1
+R1          Gig 0/3         140       R B S I     ISR4331     Gig 0/0/0
+SW1# show cdp neighbors detail            ! có IP quản trị, version, native VLAN, duplex
+SW1# show cdp entry SW2
+SW1# show cdp interface
+SW1(config)# no cdp run                   ! tắt toàn switch
+SW1(config-if)# no cdp enable             ! tắt trên một port</pre>
+<p>Cột <b>Capability</b>: R router, S switch, I IGMP, B source-route bridge, H host, P phone.</p>
+
+<h2>3/ Dùng trong vận hành</h2>
+<ul>
+  <li>Vẽ lại sơ đồ mạng không có tài liệu: đi từ core, <code>show cdp neighbors</code>, lần theo từng port.</li>
+  <li>Dò vị trí máy (đã làm ở tuần 2): MAC ⇒ port uplink ⇒ CDP ⇒ switch kế tiếp.</li>
+  <li>CDP báo lệch native VLAN, lệch duplex (tuần 2, 6).</li>
+  <li>Điện thoại IP Cisco nhận voice VLAN qua CDP.</li>
+</ul>
+
+<h2>4/ Bảo mật</h2>
+<p>CDP gửi thông tin rõ (model, IOS, IP) ⇒ kẻ tấn công cắm máy vào là biết thiết bị chạy phiên bản nào để tìm lỗ hổng. Chuẩn: <b>tắt CDP trên port nối ra Internet, nhà mạng, đối tác, và port người dùng</b> (trừ port có điện thoại cần CDP); giữ trên port giữa các thiết bị mạng nội bộ.</p>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> LLDP và so sánh với CDP</h1>
+
+<h2>1/ LLDP</h2>
+<p><b>LLDP (Link Layer Discovery Protocol, IEEE 802.1AB)</b>: chuẩn mở, cùng mục đích với CDP. Mỗi <b>30 giây</b>, holdtime <b>120 giây</b>. Trên Cisco IOS <b>tắt mặc định</b>.</p>
+<pre>SW1(config)# lldp run                     ! bật toàn cục
+SW1(config-if)# no lldp transmit          ! tắt gửi trên một port
+SW1(config-if)# no lldp receive           ! tắt nhận trên một port
+SW1# show lldp neighbors
+SW1# show lldp neighbors detail</pre>
+<p><b>LLDP-MED</b>: mở rộng cho điện thoại IP, camera (báo voice VLAN, PoE, vị trí) giữa các hãng khác nhau.</p>
+
+<h2>2/ So sánh</h2>
+<div class="tbl"><table>
+<tr><th></th><th>CDP</th><th>LLDP</th></tr>
+<tr><td>Chuẩn</td><td>Cisco độc quyền</td><td>IEEE 802.1AB, mọi hãng</td></tr>
+<tr><td>Mặc định trên Cisco</td><td>Bật</td><td>Tắt</td></tr>
+<tr><td>Timer / holdtime</td><td>60 s / 180 s</td><td>30 s / 120 s</td></tr>
+<tr><td>Điều khiển trên port</td><td><code>cdp enable</code> (một lệnh)</td><td><code>lldp transmit</code>, <code>lldp receive</code> (tách hai chiều)</td></tr>
+<tr><td>Khi nào dùng</td><td>Mạng toàn Cisco, điện thoại Cisco</td><td>Mạng nhiều hãng: FortiGate/FortiSwitch, HPE/Aruba, server, VMware, camera</td></tr>
+</table></div>
+<p><mark>CDP và LLDP khác nhau ở chỗ: CDP của Cisco, bật sẵn; LLDP chuẩn IEEE, nhiều hãng, tắt sẵn trên Cisco.</mark></p>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> Port security: khái niệm</h1>
+
+<h2>1/ Port security làm gì</h2>
+<p>Giới hạn <b>MAC nguồn nào, bao nhiêu MAC</b> được phép đi vào một port. Frame có MAC nguồn không hợp lệ ⇒ <b>vi phạm (violation)</b> ⇒ switch xử lý theo chế độ đã cấu hình.</p>
+<p>Chống: cắm máy lạ vào ổ mạng ở quầy/phòng họp, cắm switch con mở rộng trái phép, tấn công làm tràn bảng MAC (MAC flooding).</p>
+
+<h2>2/ Ba kiểu MAC được phép</h2>
+<div class="tbl"><table>
+<tr><th>Kiểu</th><th class="l">Cách có</th><th class="l">Lưu ở đâu</th></tr>
+<tr><td>Static</td><td class="l">Gõ tay <code>switchport port-security mac-address aaaa.bbbb.cccc</code></td><td class="l">Running-config</td></tr>
+<tr><td>Dynamic</td><td class="l">Tự học (tới mức maximum)</td><td class="l">Chỉ RAM, mất khi port down/reboot</td></tr>
+<tr><td><b>Sticky</b></td><td class="l">Tự học rồi <b>tự ghi thành dòng cấu hình</b></td><td class="l">Running-config (phải <code>write memory</code> để giữ qua reboot)</td></tr>
+</table></div>
+
+<h2>3/ Mặc định khi chỉ gõ <code>switchport port-security</code></h2>
+<ul>
+  <li>Maximum = <b>1</b> MAC.</li>
+  <li>Violation = <b>shutdown</b>.</li>
+  <li>Port phải là <b>access</b> (hoặc trunk) cố định: port <code>dynamic auto/desirable</code> không bật được port security.</li>
+</ul>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Port security: sticky, violation, khôi phục</h1>
+
+<h2>1/ Cấu hình chuẩn cho port máy trạm có điện thoại IP</h2>
+<pre>SW2(config)# interface fa0/5
+SW2(config-if)# switchport mode access
+SW2(config-if)# switchport access vlan 10
+SW2(config-if)# switchport voice vlan 110
+SW2(config-if)# switchport port-security
+SW2(config-if)# switchport port-security maximum 2          ! PC + điện thoại (một số dòng cần 3 vì điện thoại xuất hiện ở cả 2 VLAN)
+SW2(config-if)# switchport port-security mac-address sticky
+SW2(config-if)# switchport port-security violation restrict
+SW2(config-if)# switchport port-security aging time 0       ! (mặc định) không hết hạn</pre>
+
+<h2>2/ Ba chế độ vi phạm</h2>
+<div class="tbl"><table>
+<tr><th>Chế độ</th><th>Frame vi phạm</th><th>Log / SNMP trap</th><th>Tăng bộ đếm vi phạm</th><th>Port</th></tr>
+<tr><td><b>protect</b></td><td>Bỏ</td><td>Không</td><td>Không</td><td>Vẫn sống</td></tr>
+<tr><td><b>restrict</b></td><td>Bỏ</td><td><b>Có</b></td><td><b>Có</b></td><td><b>Vẫn sống</b></td></tr>
+<tr><td><b>shutdown</b> (mặc định)</td><td>Bỏ</td><td>Có</td><td>Có</td><td><b>err-disabled</b> (tắt hẳn)</td></tr>
+</table></div>
+<p><mark>restrict = port vẫn sống nhưng có log.</mark> Hợp cho quầy giao dịch: máy hợp lệ không bị mất mạng vì ai đó cắm thêm thiết bị, nhưng đội vận hành biết. shutdown hợp cho phòng máy chủ, ổ mạng công cộng.</p>
+
+<h2>3/ Khôi phục port err-disabled</h2>
+<pre>SW2# show interfaces status err-disabled
+Port   Name   Status       Reason               Err-disabled Vlans
+Fa0/5         err-disabled psecure-violation
+<span class="c">! 1) Gỡ nguyên nhân (tháo thiết bị lạ). 2) Nếu đổi máy hợp lệ: xóa MAC sticky cũ</span>
+SW2# clear port-security sticky interface fa0/5
+<span class="c">! 3) Bật lại</span>
+SW2(config)# interface fa0/5
+SW2(config-if)# shutdown
+SW2(config-if)# no shutdown
+<span class="c">! Hoặc tự động sau 300 s (cân nhắc: tự mở lại cả khi kẻ lạ vẫn cắm)</span>
+SW2(config)# errdisable recovery cause psecure-violation
+SW2(config)# errdisable recovery interval 300</pre>
+
+<h2>4/ Kiểm tra</h2>
+<pre>SW2# show port-security                       ! tổng hợp mọi port
+SW2# show port-security interface fa0/5
+Port Security              : Enabled
+Port Status                : Secure-up
+Violation Mode             : Restrict
+Maximum MAC Addresses      : 2
+Total MAC Addresses        : 2
+Sticky MAC Addresses       : 2
+Last Source Address:Vlan   : aaaa.bbbb.0099:10      ← MAC gần nhất (kể cả kẻ vi phạm)
+Security Violation Count   : 3
+SW2# show port-security address               ! các MAC được phép</pre>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Lệnh kiểm tra và xử lý sự cố</h1>
+
+<h2>EtherChannel không lên: kiểm theo thứ tự</h2>
+<ol>
+  <li>Dây và port up? (<code>show interfaces status</code>)</li>
+  <li>Mode hai đầu có kết hợp được không (bảng mục 2)? <code>show etherchannel summary</code> trên <b>cả hai</b> switch, <code>show lacp neighbor</code>.</li>
+  <li>Port bị <code>(s)</code>: so speed/duplex/VLAN/trunk từng thành viên (<code>show interfaces gi0/x switchport</code>, <code>show run interface</code>).</li>
+  <li>Port bị <code>(I)</code>: đầu kia không chạy LACP trên port đó.</li>
+  <li>Log: <code>show logging | include EC-|ETHCHNL|LACP</code>.</li>
+</ol>
+
+<h2>Port người dùng mất mạng sau khi đổi máy</h2>
+<ol>
+  <li><code>show interfaces status</code>: err-disabled? Reason psecure-violation?</li>
+  <li><code>show port-security interface</code>: MAC sticky cũ, MAC mới bị chặn.</li>
+  <li>Xác nhận máy mới hợp lệ (ticket), <code>clear port-security sticky interface</code>, shut/no shut.</li>
+</ol>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Tình huống thực tế</h1>
+
+<h3>Tình huống 1 · Uplink 2 Gbps mà sao lưu dữ liệu vẫn chỉ 1 Gbps</h3>
+<details><summary>Phân tích</summary>
+<p>Sao lưu là một luồng (một server nguồn, một NAS đích) ⇒ hash luôn chọn cùng một dây ⇒ tối đa 1 Gbps. Đúng thiết kế, không phải lỗi. Muốn nhanh hơn: link 10 Gbps, hoặc ứng dụng mở nhiều luồng song song (SMB multichannel), và load-balance theo L4 nếu switch hỗ trợ.</p></details>
+
+<h3>Tình huống 2 · Thêm dây thứ 3 vào bó, dây mới không vào bó</h3>
+<details><summary>Phân tích</summary>
+<p>Port mới có cấu hình riêng còn sót (VLAN khác, description, speed cố định) hoặc đầu kia chưa cấu hình ⇒ <code>(s)</code> hoặc <code>(I)</code>. Cách đúng: <code>default interface gi0/3</code> trên cả hai đầu, rồi <code>channel-group 1 mode active</code>; port tự nhận cấu hình từ port-channel. Đó là MOP tuần này.</p></details>
+
+<h3>Tình huống 3 · Nhân viên mang laptop cá nhân cắm vào ổ mạng quầy giao dịch</h3>
+<details><summary>Phân tích</summary>
+<p>Port security sticky maximum 1–2, violation restrict: laptop không ra được mạng, máy quầy vẫn chạy, log/SNMP trap báo về hệ thống giám sát ⇒ đội IT biết. Trong ngân hàng, đây là kiểm soát cơ bản (cùng với 802.1X/NAC nếu có).</p></details>
+
+<h3>Tình huống 4 · Dò thiết bị bằng CDP (ca máy nhận VLAN 4)</h3>
+<details><summary>Phân tích lại</summary>
+<p>Đúng quy trình: MAC ⇒ port trên core ⇒ <code>show cdp neighbors</code> cho biết port đó nối switch access nào (tên, port bên kia) ⇒ lặp lại. Nếu switch access là hãng khác (không CDP) thì dùng <code>show lldp neighbors</code> (phải bật LLDP). Nếu cả hai đều tắt, chỉ còn tài liệu sơ đồ/đi dây ⇒ lý do giữ CDP/LLDP trên port giữa các thiết bị mạng.</p></details>
+
+<div class="note"><b>Góc nhìn hệ thống</b>
+Ba thứ tuần này liên kết với giám sát: port-channel phải giám sát <b>từng thành viên</b> (bó vẫn "up" khi mất một dây, chỉ còn nửa băng thông ⇒ cần cảnh báo riêng trong Zabbix); vi phạm port security gửi SNMP trap/syslog; CDP/LLDP là nguồn để công cụ tự vẽ sơ đồ. Kỹ sư hạ tầng nghĩ: "<b>lỗi này có ai biết không?</b>" chứ không chỉ "cấu hình có chạy không?".</div>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>EtherChannel</td><td class="l">STP coi bó là 1 link · LACP active/passive · PAgP desirable/auto · on chỉ với on · passive+passive, auto+auto không lên</td></tr>
+<tr><td>Điều kiện</td><td class="l">Cùng speed, duplex, mode, access VLAN / native + allowed · lệch ⇒ (s)</td></tr>
+<tr><td>Số port</td><td class="l">LACP 16 (8 active + 8 standby) · PAgP/on 8</td></tr>
+<tr><td>Chia tải</td><td class="l">Theo luồng (hash), một luồng ≤ một dây · 2/4/8 dây chia đều</td></tr>
+<tr><td>Summary</td><td class="l">SU tốt · P bundled · s suspended · I stand-alone · D down · H hot-standby</td></tr>
+<tr><td>CDP / LLDP</td><td class="l">CDP Cisco 60/180 bật sẵn · LLDP IEEE 30/120 tắt sẵn · <code>lldp run</code></td></tr>
+<tr><td>Port security</td><td class="l">Mặc định max 1, shutdown · sticky ghi vào running-config · protect/restrict/shutdown · khôi phục shut/no shut</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m15"><span class="no">15.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">link aggregation</td><td class="l">gộp đường</td><td class="l">bundle</td><td class="l">bó</td></tr>
+<tr><td class="l">member port</td><td class="l">cổng thành viên</td><td class="l">suspended</td><td class="l">bị treo</td></tr>
+<tr><td class="l">stand-alone</td><td class="l">đứng riêng</td><td class="l">hot-standby</td><td class="l">dự phòng nóng</td></tr>
+<tr><td class="l">hash</td><td class="l">hàm băm</td><td class="l">load balancing</td><td class="l">chia tải</td></tr>
+<tr><td class="l">flow</td><td class="l">luồng</td><td class="l">neighbor</td><td class="l">hàng xóm</td></tr>
+<tr><td class="l">discovery protocol</td><td class="l">giao thức phát hiện</td><td class="l">holdtime</td><td class="l">thời gian giữ</td></tr>
+<tr><td class="l">port security</td><td class="l">bảo mật cổng</td><td class="l">sticky</td><td class="l">dính (tự ghi cấu hình)</td></tr>
+<tr><td class="l">violation</td><td class="l">vi phạm</td><td class="l">protect / restrict / shutdown</td><td class="l">bảo vệ / hạn chế / tắt</td></tr>
+<tr><td class="l">err-disabled</td><td class="l">bị tắt do lỗi</td><td class="l">recovery</td><td class="l">khôi phục</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"Gi0/3 is suspended because its speed doesn't match the other members of Port-channel 1."</i></p>
+
+<label class="done"><input type="checkbox" id="d15"> Xong mục 15</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m16"><span class="no">16.</span> Câu hỏi tự kiểm tra</h1>
+<p>Trả lời ra giấy hoặc gửi cho Claude <b>trước</b>, rồi mới mở đáp án.</p>
+
+<h3>Mức 1: nhớ</h3>
+<details><summary>1. LACP passive + passive có lên không?</summary><p>Không. Cần ít nhất một đầu active.</p></details>
+<details><summary>2. CDP và LLDP khác nhau ở điểm nào?</summary><p>CDP của Cisco, bật sẵn, 60/180 s. LLDP chuẩn IEEE 802.1AB, nhiều hãng, tắt sẵn trên Cisco, 30/120 s.</p></details>
+<details><summary>3. Chế độ vi phạm nào giữ port sống nhưng vẫn ghi log?</summary><p>restrict.</p></details>
+<details><summary>4. LACP gộp tối đa bao nhiêu port?</summary><p>16: 8 active + 8 hot-standby.</p></details>
+
+<h3>Mức 2: hiểu</h3>
+<details><summary>5. Vì sao một luồng tải file không nhanh hơn khi thêm dây vào bó?</summary><p>Chia tải theo hash của luồng; một luồng luôn đi một dây để giữ thứ tự gói ⇒ tối đa tốc độ một dây.</p></details>
+<details><summary>6. Port bị err-disabled do port security, khôi phục thế nào?</summary><p>Gỡ nguyên nhân (thiết bị lạ, hoặc xóa sticky nếu đổi máy hợp lệ), rồi shutdown/no shutdown; hoặc errdisable recovery tự động.</p></details>
+<details><summary>7. Vì sao uplink nên dùng load-balance src-dst-ip thay vì src-mac?</summary><p>Lưu lượng đi qua router có MAC nguồn/đích luôn là router ⇒ hash theo MAC dồn một dây; theo IP thì phân tán nhiều luồng.</p></details>
+
+<h3>Mức 3: vận hành / phỏng vấn</h3>
+<details><summary>8. show etherchannel summary: Po1(SD), Gi0/1(I), Gi0/2(I). Nghi gì?</summary><p>Đầu kia không chạy LACP (chưa cấu hình, hoặc mode on/PAgP). Port chạy như port đơn; bó down.</p></details>
+<details><summary>9. Một thành viên của bó đứt, người dùng không thấy gì. Có cần làm gì không?</summary><p>Có: bó chỉ còn nửa băng thông và mất dự phòng. Cần giám sát từng thành viên, cảnh báo, và sửa dây/module sớm.</p></details>
+<details><summary>10. Vì sao tắt CDP trên port nối nhà mạng?</summary><p>CDP gửi thông tin thiết bị (model, IOS, IP) cho bên ngoài; không cần thiết, tăng rủi ro.</p></details>
+<details><summary>11. Port security sticky đã học MAC; switch reboot thì MAC mất. Vì sao?</summary><p>Sticky ghi vào running-config, chưa <code>write memory</code> thì mất khi reboot.</p></details>
+
+<label class="done"><input type="checkbox" id="d16"> Xong mục 16</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab và MOP trong <a href="tuan-08.html">giáo án tuần 8</a>. Tuần trước: <a href="tuan-07-kien-thuc.html">sổ tay tuần 7</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan08-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

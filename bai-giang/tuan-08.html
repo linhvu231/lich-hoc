@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 8</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 8 · 14/12 – 20/12/2026</div>
+  <h1>EtherChannel, CDP/LLDP, port security</h1>
+  <p>Hướng dẫn từng ngày: đọc gì, lab gõ lệnh gì, nộp ra cái gì. Khoảng 10,5 giờ cả tuần.</p>
+  <p>Phần đọc sách đã thay bằng <a href="tuan-08-kien-thuc.html">sổ tay tiếng Việt 16 mục</a>.</p>
+  <div class="links">
+    <a href="tuan-08-kien-thuc.html">Sổ tay tuần 8 (thay sách)</a>
+    <a href="tuan-07.html">Giáo án tuần 7</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Đầu ra trong lịch: <b>đọc <code>show etherchannel summary</code> và giải thích từng cờ.</b> Cụ thể:</p>
+<ol>
+  <li>Dựng LACP 2 dây giữa 2 switch, thêm dây thứ 3 không gián đoạn.</li>
+  <li>Gây và sửa lỗi bó không lên (lệch mode, lệch speed).</li>
+  <li>Dùng CDP và LLDP vẽ lại sơ đồ lab không nhìn sơ đồ.</li>
+  <li>Cấu hình port security sticky, thử vi phạm ở cả 3 chế độ, khôi phục port.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  Port-channel che giấu lỗi: mất một dây, bó vẫn "up", không ai kêu, cho tới hôm dây thứ hai đứt. Port security không có log thì giống khóa cửa mà không có chuông báo. CDP bật trên port ra Internet là treo bảng tên thiết bị cho người lạ đọc. Tuần này mỗi tính năng anh học thêm câu hỏi: <b>khi nó hỏng một nửa, ai biết, bằng cách nào?</b>
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · EtherChannel</a></li>
+    <li><a href="#t3">Thứ 3 · CDP, LLDP, port security</a></li>
+    <li><a href="#t4">Thứ 4 · Lab phần 1: LACP 2 dây</a></li>
+    <li><a href="#t5">Thứ 5 · Lab phần 2: CDP/LLDP, port security</a></li>
+    <li><a href="#t6">Thứ 6 · Ôn lab, sửa sổ tay</a></li>
+    <li><a href="#t7">Thứ 7 · MOP #6 thêm dây thứ 3, sự cố #2</a></li>
+    <li><a href="#cn">Chủ nhật · Tự kiểm tra, tự chấm</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày 15 phút</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (14/12) · EtherChannel</h2>
+<div class="meta"><span><b>1,5 giờ</b> đọc</span><span>Đầu ra: bảng kết hợp mode chép tay, bảng cờ summary</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Sổ tay mục <a href="tuan-08-kien-thuc.html#m1">1</a> đến <a href="tuan-08-kien-thuc.html#m7">7</a></label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Chép tay bảng kết hợp 5×5 (on/active/passive/desirable/auto)</label></li>
+  <li><input type="checkbox" id="t2-3"><label for="t2-3">Chép tay bảng cờ: S, R, U, D, P, s, I, H, w</label></li>
+</ul>
+<div class="box warn">
+  <strong>Bẫy hay gặp</strong>
+  Cấu hình trunk trên từng port thành viên rồi mới <code>channel-group</code>, sau đó sửa allowed VLAN trên <b>một</b> thành viên ⇒ port đó lệch ⇒ suspended. Quy tắc: sau khi đã có bó, <b>mọi thay đổi làm trên port-channel</b>.
+</div>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (15/12) · CDP, LLDP, port security</h2>
+<div class="meta"><span><b>1,5 giờ</b> đọc + 5 phút tự giảng</span><span>Đầu ra: ghi chú + 5 câu hỏi để hỏi Claude</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Sổ tay mục <a href="tuan-08-kien-thuc.html#m8">8</a> đến <a href="tuan-08-kien-thuc.html#m13">13</a></label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Chép tay bảng 3 chế độ vi phạm (frame, log, bộ đếm, port)</label></li>
+  <li><input type="checkbox" id="t3-3"><label for="t3-3">Tự giảng 5 phút: "nhân viên cắm laptop lạ vào ổ mạng quầy giao dịch: port security xử lý thế nào, ai biết"</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (16/12) · Lab phần 1: LACP 2 dây giữa 2 switch</h2>
+<div class="meta"><span><b>1,5 giờ</b> lab</span><span>Đầu ra: config vào git thư mục <code>W08-etherchannel-portsec</code></span></div>
+
+<h3>Topology</h3>
+<div class="flow">SW1 Gi0/1 ========= Gi0/1 SW2
+SW1 Gi0/2 ========= Gi0/2 SW2
+SW1 Gi0/3 --------- Gi0/3 SW2   (dây thứ 3: cắm sẵn nhưng shutdown, dùng cho MOP Thứ 7)
+PC-A (Fa0/1 SW1, VLAN 10)        PC-B (Fa0/1 SW2, VLAN 10)</div>
+
+<h3>Bước 1 · Trước khi gộp: xem STP block một dây</h3>
+<pre>SW1(config)# interface range gi0/1 - 2
+SW1(config-if-range)# switchport mode trunk
+SW2(config)# interface range gi0/1 - 2
+SW2(config-if-range)# switchport mode trunk
+SW2# show spanning-tree vlan 10        <span class="c">! một trong hai port: Altn BLK</span></pre>
+
+<h3>Bước 2 · Gộp LACP</h3>
+<pre><span class="c">! Đưa thành viên về mặc định trước để chắc chắn giống nhau</span>
+SW1(config)# default interface range gi0/1 - 2
+SW1(config)# interface range gi0/1 - 2
+SW1(config-if-range)# channel-group 1 mode active
+SW1(config)# interface port-channel 1
+SW1(config-if)# switchport mode trunk
+SW1(config-if)# switchport nonegotiate
+SW1(config-if)# switchport trunk native vlan 999
+SW1(config-if)# switchport trunk allowed vlan 10,20,99
+<span class="c">! SW2 làm y hệt</span>
+SW1(config)# port-channel load-balance src-dst-ip</pre>
+
+<h3>Bước 3 · Verify và giải thích</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1"><code>show etherchannel summary</code>: giải thích từng cờ thấy được</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2"><code>show spanning-tree vlan 10</code>: giờ chỉ thấy Po1 (không còn Gi0/1, Gi0/2), cost bao nhiêu?</label></li>
+  <li><input type="checkbox" id="t4-3"><label for="t4-3"><code>show lacp neighbor</code>, <code>show interfaces port-channel 1</code> (BW = ?)</label></li>
+  <li><input type="checkbox" id="t4-4"><label for="t4-4">PC-A <code>ping -t</code> PC-B, rút một dây trong bó: mất mấy gói? So với STP tuần 7</label></li>
+</ul>
+
+<h3>Bước 4 · Thử các kết hợp mode (dự đoán trước)</h3>
+<div class="tbl"><table>
+<thead><tr><th>SW1</th><th>SW2</th><th>Dự đoán</th><th>Thực tế + cờ thấy được</th></tr></thead>
+<tbody>
+<tr><td>active</td><td>passive</td><td></td><td></td></tr>
+<tr><td>passive</td><td>passive</td><td></td><td></td></tr>
+<tr><td>on</td><td>active</td><td></td><td></td></tr>
+<tr><td>desirable</td><td>active</td><td></td><td></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="t4-5"><label for="t4-5">Điền bảng, trả về active/active, lưu config</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (17/12) · Lab phần 2: CDP/LLDP, port security</h2>
+<div class="meta"><span><b>1,5 giờ</b> lab + verify</span><span>Đầu ra: sơ đồ vẽ lại chỉ bằng CDP/LLDP, bảng kết quả 3 chế độ vi phạm</span></div>
+
+<h3>Bước 1 · Vẽ lại sơ đồ bằng CDP và LLDP</h3>
+<pre>SW1# show cdp neighbors
+SW1# show cdp neighbors detail       <span class="c">! IP quản trị, IOS, native VLAN</span>
+SW1(config)# lldp run                <span class="c">! cả hai switch</span>
+SW1# show lldp neighbors
+SW1(config)# interface fa0/1
+SW1(config-if)# no cdp enable        <span class="c">! port máy trạm: tắt CDP</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1">Vẽ sơ đồ lab (thiết bị, port hai đầu) chỉ từ output, so với sơ đồ thật</label></li>
+</ul>
+
+<h3>Bước 2 · Port security sticky</h3>
+<pre>SW1(config)# interface fa0/1
+SW1(config-if)# switchport mode access
+SW1(config-if)# switchport access vlan 10
+SW1(config-if)# switchport port-security
+SW1(config-if)# switchport port-security maximum 1
+SW1(config-if)# switchport port-security mac-address sticky
+PC-A&gt; ping &lt;gateway hoặc PC-B&gt;            <span class="c">! để switch học MAC</span>
+SW1# show port-security interface fa0/1
+SW1# show running-config interface fa0/1   <span class="c">! thấy dòng "...mac-address sticky aaaa.bbbb.cccc"</span></pre>
+
+<h3>Bước 3 · Thử vi phạm ở 3 chế độ</h3>
+<p>Thay PC-A bằng PC khác (hoặc đổi MAC của PC-A: Packet Tracer cho đổi MAC trong Config; Linux <code>ip link set eth0 address …</code>).</p>
+<div class="tbl"><table>
+<thead><tr><th>Chế độ</th><th>PC lạ ping được?</th><th>Log?</th><th>Violation count</th><th>Port status</th></tr></thead>
+<tbody>
+<tr><td>protect</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>restrict</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>shutdown</td><td></td><td></td><td></td><td></td></tr>
+</tbody>
+</table></div>
+<pre>SW1(config-if)# switchport port-security violation protect   <span class="c">! đổi lần lượt</span>
+SW1# show port-security interface fa0/1
+SW1# show logging | include PSECURE
+SW1# show interfaces status err-disabled</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-2"><label for="t5-2">Điền bảng 3 chế độ</label></li>
+  <li><input type="checkbox" id="t5-3"><label for="t5-3">Khôi phục port err-disabled đúng quy trình (gỡ nguyên nhân → clear sticky nếu đổi máy hợp lệ → shut/no shut)</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (18/12) · Ôn lab, sửa sổ tay CCNA</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: mục EtherChannel trong Google Docs đã sửa</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1">Xóa port-channel trên cả hai switch, dựng lại LACP từ trí nhớ dưới 10 phút</label></li>
+</ul>
+<h3>Sửa sổ tay (5 việc trong lịch)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">"EtherChannel chỉ trên switch, không có trên router" là sai. Router Cisco (ISR, ASR) cũng có port-channel</label></li>
+  <li><input type="checkbox" id="t6-3"><label for="t6-3">"Tối đa 8 port" → LACP cho tối đa 16 port, trong đó 8 active và 8 dự phòng</label></li>
+  <li><input type="checkbox" id="t6-4"><label for="t6-4">"Không mix fa với gi" → ghi đúng điều kiện: cùng tốc độ, duplex, mode, VLAN</label></li>
+  <li><input type="checkbox" id="t6-5"><label for="t6-5">"EtherChannel không can thiệp STP" → sửa: STP coi cả bó là một link logic</label></li>
+  <li><input type="checkbox" id="t6-6"><label for="t6-6">Viết nốt bước 1 đang dở ("channel-group 1 mode") theo lab</label></li>
+</ul>
+<div class="box warn">
+  <strong>Thêm một điều nên ghi kèm</strong>
+  Sổ có câu "nên cấu hình trên kênh cổng (port channel) ⇒ sẽ được áp dụng trên all cổng thành phần". Đúng; ghi thêm vế ngược: <b>không sửa riêng một thành viên</b> sau khi đã gộp, sẽ làm port đó bị suspended.
+</div>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (19/12) · MOP #6 thêm dây thứ 3 vào bó, sự cố #2</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>mop/MOP-006-them-link-port-channel.md</code>, <code>postmortem/W08-etherchannel-suspended.md</code></span></div>
+
+<h3>Phần A · MOP #6: thêm link thứ 3 vào EtherChannel không gián đoạn</h3>
+<pre>
+# MOP-006 · Thêm Gi0/3 vào Port-channel 1 giữa SW1 và SW2
+
+| Mục        | Nội dung                                                     |
+|------------|--------------------------------------------------------------|
+| Mục tiêu   | Tăng băng thông uplink từ 2 lên 3 dây                         |
+| Phạm vi    | SW1 Gi0/3, SW2 Gi0/3, Po1                                    |
+| Ảnh hưởng  | Không gián đoạn nếu làm đúng thứ tự (bó hiện tại vẫn chạy)    |
+| Lưu ý      | 3 dây chia hash không đều (3/3/2) — chấp nhận, hoặc dùng 4     |
+
+## 1. Pre-check
+SW1/SW2# show etherchannel summary        ! Po1(SU), Gi0/1(P), Gi0/2(P)
+SW1/SW2# show interfaces gi0/3 status     ! cùng speed/duplex với Gi0/1
+SW1/SW2# show running-config interface gi0/3   ! phải sạch
+PC-A&gt; ping -t PC-B                          ! chạy suốt
+
+## 2. Các bước (đầu này xong mới làm đầu kia)
+SW1(config)# default interface gi0/3
+SW1(config)# interface gi0/3
+SW1(config-if)# shutdown
+SW1(config-if)# channel-group 1 mode active      ! port nhận cấu hình từ Po1
+SW2: làm y hệt
+SW1(config-if)# no shutdown
+SW2(config-if)# no shutdown
+
+## 3. Verify
+- show etherchannel summary: Gi0/3(P) ở cả hai đầu
+- show interfaces port-channel 1: BW 3000000 Kbit
+- ping -t không mất gói
+
+## 4. Rollback
+SW1/SW2(config)# interface gi0/3
+SW1/SW2(config-if)# shutdown
+SW1/SW2(config-if)# no channel-group 1
+</pre>
+<div class="box">
+  <strong>Góc nhìn hệ thống</strong>
+  Vì sao <code>shutdown</code> trước khi <code>channel-group</code>: nếu đầu này đã vào bó mà đầu kia chưa, port có thể lên ở trạng thái stand-alone và tham gia STP như một link riêng, gây tính lại cây trong lúc làm. Tắt trước, cấu hình cả hai đầu, rồi mới bật: thay đổi chỉ diễn ra một lần, có kiểm soát.
+</div>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Viết MOP-006, chạy, ghi số gói mất (mục tiêu 0)</label></li>
+</ul>
+
+<h3>Phần B · Sự cố #2: lệch mode và lệch speed làm port bị suspended</h3>
+<p>Người khác gài 2 lỗi (lần lượt):</p>
+<ol>
+  <li>SW2 Gi0/1: <code>no channel-group 1</code> rồi <code>channel-group 1 mode on</code> (SW1 vẫn active).</li>
+  <li>SW1 Gi0/2: <code>speed 100</code>.</li>
+</ol>
+<details><summary>Gợi ý (mở sau khi làm)</summary>
+<ol>
+  <li>on không nói LACP ⇒ SW1 Gi0/1 không nhận LACPDU ⇒ thường thành <code>(I)</code> stand-alone hoặc <code>(s)</code>; SW2 Gi0/1 có thể <code>(P)</code> một phía ⇒ nguy cơ loop/lệch. Log dạng <code>%EC-5-…</code> báo port không gộp được. Sửa: active hai đầu.</li>
+  <li>Gi0/2 lệch speed với các thành viên ⇒ <code>(s)</code>, log CANNOT_BUNDLE2 nêu lý do speed. Sửa: <code>no speed</code> hai đầu.</li>
+</ol>
+</details>
+<ul class="check">
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Xử lý cả 2 lỗi, mỗi lỗi &lt; 10 phút, chỉ bằng show + log</label></li>
+  <li><input type="checkbox" id="t7-3"><label for="t7-3">Viết postmortem; ghi đề xuất giám sát: cảnh báo khi số thành viên (P) của Po1 giảm</label></li>
+</ul>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (20/12) · Tự kiểm tra và tự chấm</h2>
+<div class="meta"><span><b>30 phút</b></span><span>Trả lời ra giấy trước, rồi mới mở đáp án. Gửi cho Claude chấm.</span></div>
+
+<h3>Bài đầu ra</h3>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">Nhờ Claude đưa 3 output <code>show etherchannel summary</code> có lỗi; giải thích từng cờ và nguyên nhân</label></li>
+</ul>
+
+<h3>5 câu tự kiểm tra trong lịch</h3>
+<details><summary>1. LACP passive + passive có lên không?</summary><p>Không.</p></details>
+<details><summary>2. Vì sao một luồng tải file không nhanh hơn khi thêm dây vào bó?</summary><p>Hash theo luồng; một luồng đi một dây.</p></details>
+<details><summary>3. CDP và LLDP khác nhau ở điểm nào?</summary><p>CDP Cisco, bật sẵn; LLDP IEEE, nhiều hãng, tắt sẵn trên Cisco; timer khác nhau.</p></details>
+<details><summary>4. Chế độ vi phạm nào giữ port sống nhưng vẫn ghi log?</summary><p>restrict.</p></details>
+<details><summary>5. Port bị err-disabled do port security, khôi phục thế nào?</summary><p>Gỡ nguyên nhân, (clear sticky nếu cần), shutdown/no shutdown hoặc errdisable recovery.</p></details>
+
+<h3>2 câu vặn thêm (mức phỏng vấn)</h3>
+<details><summary>6. Uplink port-channel 2 dây, Zabbix chỉ giám sát Po1 "up/down". Rủi ro gì?</summary><p>Mất một dây không ai biết (Po1 vẫn up), mất dự phòng và nửa băng thông. Giám sát từng thành viên và băng thông Po1.</p></details>
+<details><summary>7. Ổ mạng quầy giao dịch: anh chọn violation mode nào, vì sao?</summary><p>Thường restrict: máy hợp lệ vẫn chạy, thiết bị lạ bị chặn, có log/trap cho đội giám sát. shutdown cho nơi rủi ro cao/không người trực tiếp.</p></details>
+
+<h3>Tự chấm cuối tuần</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 8</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>Kết hợp mode, điều kiện gộp, hash, cờ summary, CDP vs LLDP, 3 chế độ vi phạm</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>LACP + port security trong 15 phút</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>Lệch mode/speed, port err-disabled: mỗi lỗi &lt; 10 phút</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>MOP-006 thêm dây không mất gói; đề xuất giám sát thành viên</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Giải thích cho người khác vì sao bó 2 Gbps không làm sao lưu nhanh gấp đôi</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Tick tuần 8 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày 15 phút</h2>
+<ul>
+  <li><b>Hỏi đáp bằng miệng 5 phút:</b> EtherChannel, CDP/LLDP, port security.</li>
+  <li><b>Ôn lại ghi chú 5 phút.</b></li>
+  <li><b>Soi ở công ty (chỉ quan sát):</b> uplink switch access của tầng anh ngồi là port-channel hay dây đơn? Có mấy dây? (Hỏi đồng nghiệp hạ tầng nếu được, không tự gõ lệnh trên thiết bị không thuộc quyền.)</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">Đủ 5 ngày</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 8/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: ôn nhớ subnetting, IPv6, VLAN, STP, EtherChannel.
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan08-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
