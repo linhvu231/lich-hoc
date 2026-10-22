@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 2</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 2 · 02/11 – 08/11/2026</div>
+  <h1>Ethernet, MAC, ARP, TCP và UDP</h1>
+  <p>Hướng dẫn từng ngày: đọc gì, lab gõ lệnh gì, nộp ra cái gì. Khoảng 10,5 giờ cả tuần.</p>
+  <p>Phần đọc sách đã thay bằng <a href="tuan-02-kien-thuc.html">sổ tay tiếng Việt 19 mục</a>, mỗi mục 10–20 phút. Sách Odom để tra cứu khi cần.</p>
+  <div class="links">
+    <a href="tuan-02-kien-thuc.html">Sổ tay tuần 2 (thay sách)</a>
+    <a href="tuan-01.html">Giáo án tuần 1</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Hết tuần anh phải làm được 4 việc sau mà <b>không nhìn tài liệu</b>:</p>
+<ol>
+  <li>Đọc <code>show mac address-table</code> và giải thích vì sao từng dòng có mặt, port nào là uplink, port nào là máy trạm.</li>
+  <li>Giải thích switch học MAC, chuyển, lọc, flood bằng một ví dụ hai PC ping nhau lần đầu.</li>
+  <li>Bắt gói ARP request/reply và bắt tay TCP trong Wireshark, chỉ đúng từng trường (opcode, seq, ack, cờ).</li>
+  <li>Xử lý ticket "trùng IP" từ cảnh báo Windows tới port switch của máy kia.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  Ba mươi năm vận hành, phần lớn sự cố "mạng chập chờn" tôi gặp không nằm ở định tuyến phức tạp mà ở ba chỗ của tuần này: <b>tầng 2</b> (loop, lệch duplex, sai VLAN), <b>ARP</b> (trùng IP, cache cũ sau khi thay thiết bị) và <b>tầng 4</b> (firewall drop SYN, ứng dụng không nghe port). Kỹ sư giỏi không đoán; anh ta nhìn bảng MAC, bảng ARP và một file Wireshark 30 giây rồi nói chính xác gói dừng ở đâu. Tuần này anh tập ba công cụ đó cho thành phản xạ.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · Ethernet, frame, MAC, switch</a></li>
+    <li><a href="#t3">Thứ 3 · ARP, TCP, UDP, port</a></li>
+    <li><a href="#t4">Thứ 4 · Lab phần 1: bảng MAC và ARP</a></li>
+    <li><a href="#t5">Thứ 5 · Lab phần 2: TCP trong Wireshark</a></li>
+    <li><a href="#t6">Thứ 6 · Ôn lab, sửa sổ tay</a></li>
+    <li><a href="#t7">Thứ 7 · MOP #1 và diễn tập trùng IP</a></li>
+    <li><a href="#cn">Chủ nhật · Tự kiểm tra, tự chấm</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày 15 phút</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (02/11) · Ethernet, frame, MAC, switch</h2>
+<div class="meta"><span><b>1,5 giờ</b> đọc</span><span>Đầu ra: ghi chú tay + sơ đồ frame vẽ lại</span></div>
+
+<h3>Đọc</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Sổ tay mục <a href="tuan-02-kien-thuc.html#m1">1</a>, <a href="tuan-02-kien-thuc.html#m2">2</a>, <a href="tuan-02-kien-thuc.html#m3">3</a>: Ethernet, frame, MAC</label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Sổ tay mục <a href="tuan-02-kien-thuc.html#m4">4</a>, <a href="tuan-02-kien-thuc.html#m5">5</a>, <a href="tuan-02-kien-thuc.html#m6">6</a>: switch học/chuyển/flood, bảng MAC, duplex</label></li>
+  <li><input type="checkbox" id="t2-3"><label for="t2-3">Vẽ tay frame Ethernet II với độ dài từng trường, tính lại 64 và 1518</label></li>
+</ul>
+
+<h3>5 điểm phải nắm hôm nay</h3>
+<ol>
+  <li><b>Switch học MAC nguồn, chuyển theo MAC đích.</b> Hai việc khác nhau, dùng hai trường khác nhau.</li>
+  <li><b>Flood luôn ở trong một VLAN.</b> Switch không bao giờ gửi frame sang VLAN khác; muốn sang thì phải có router (tuần 6).</li>
+  <li><b>Bảng MAC là trạng thái, không phải cấu hình.</b> Khóa là (VLAN, MAC), sống 300 giây nếu im lặng, reboot là mất.</li>
+  <li><b>MAC flapping là triệu chứng, không phải cơ chế.</b> Thấy nó thì nghĩ ngay tới loop.</li>
+  <li><b>Auto một đầu, cứng một đầu là lệch duplex.</b> Link vẫn lên nên rất khó nhận ra nếu không đọc bộ đếm lỗi.</li>
+</ol>
+
+<div class="box warn">
+  <strong>Bẫy hay gặp</strong>
+  "Switch flood ra tất cả các port" là câu sai hay viết. Đúng: <b>mọi port cùng VLAN, trừ port nhận vào</b>. Câu hỏi CCNA hay cài bẫy bằng sơ đồ có hai VLAN và hỏi "PC nào nhận được frame broadcast".
+</div>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (03/11) · ARP, TCP, UDP, port</h2>
+<div class="meta"><span><b>1,5 giờ</b> đọc + 5 phút tự giảng</span><span>Đầu ra: ghi chú + 5 câu hỏi để hỏi Claude</span></div>
+
+<h3>Đọc</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Sổ tay mục <a href="tuan-02-kien-thuc.html#m7">7</a>, <a href="tuan-02-kien-thuc.html#m8">8</a>: ARP, GARP, proxy ARP, trùng IP</label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Sổ tay mục <a href="tuan-02-kien-thuc.html#m9">9</a> đến <a href="tuan-02-kien-thuc.html#m14">14</a>: port, TCP header, bắt tay, tin cậy, UDP, bảng port</label></li>
+  <li><input type="checkbox" id="t3-3"><label for="t3-3">Tự giảng 5 phút (ghi âm): "PC ping server khác mạng lần đầu tiên: ARP gì, bảng MAC đổi gì"</label></li>
+  <li><input type="checkbox" id="t3-4"><label for="t3-4">Viết ra 5 câu hỏi còn lấn cấn để hỏi Claude</label></li>
+</ul>
+
+<h3>Thuộc trong 10 phút: bảng port</h3>
+<div class="tbl"><table>
+<thead><tr><th>Nhóm</th><th>Port</th></tr></thead>
+<tbody>
+<tr><td>Quản trị</td><td>SSH 22/TCP · Telnet 23/TCP</td></tr>
+<tr><td>Tên và địa chỉ</td><td>DNS 53/UDP+TCP · DHCP 67, 68/UDP · TFTP 69/UDP</td></tr>
+<tr><td>Giờ và giám sát</td><td>NTP 123/UDP · SNMP 161, 162/UDP · Syslog 514/UDP</td></tr>
+<tr><td>Web</td><td>HTTP 80/TCP · HTTPS 443/TCP</td></tr>
+<tr><td>Windows/AD</td><td>Kerberos 88 · LDAP 389 · SMB 445 · RDP 3389</td></tr>
+</tbody>
+</table></div>
+
+<div class="box ok">
+  <strong>Một câu nối cả tuần</strong>
+  PC muốn mở web khác mạng: <b>ARP</b> hỏi MAC gateway (tầng 2–3) → switch <b>học MAC</b> của PC và gateway → PC gửi <b>SYN</b> tới port 443 (tầng 4) → server trả <b>SYN-ACK</b> → PC <b>ACK</b> → bắt đầu TLS. Tối nay đọc xong, anh phải kể được câu này với đủ từng bước.
+</div>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (04/11) · Lab phần 1: bảng MAC và ARP</h2>
+<div class="meta"><span><b>1,5 giờ</b> lab</span><span>Đầu ra: config lưu vào git thư mục <code>W02-ethernet-arp-tcp</code>, ảnh chụp bảng MAC trước/sau</span></div>
+
+<h3>Topology và bảng địa chỉ</h3>
+<p>Dùng lại topology tuần 1, thêm PC2 để thấy switch học hai MAC cùng VLAN.</p>
+<div class="tbl"><table>
+<thead><tr><th>Thiết bị</th><th>Cổng</th><th>IP / mask</th><th>Gateway</th></tr></thead>
+<tbody>
+<tr><td>PC1</td><td>NIC → SW1 Fa0/1</td><td>192.168.10.10 /24</td><td>192.168.10.1</td></tr>
+<tr><td>PC2</td><td>NIC → SW1 Fa0/2</td><td>192.168.10.20 /24</td><td>192.168.10.1</td></tr>
+<tr><td>SW1</td><td>Fa0/1, Fa0/2 → PC · Gi0/1 → R1</td><td>VLAN 1 (mặc định)</td><td></td></tr>
+<tr><td>R1</td><td>G0/0 → SW1 · G0/1 → SRV</td><td>192.168.10.1 /24 · 192.168.20.1 /24</td><td></td></tr>
+<tr><td>SRV</td><td>NIC → R1 G0/1</td><td>192.168.20.10 /24</td><td>192.168.20.1</td></tr>
+</tbody>
+</table></div>
+
+<h3>Bước 1 · Bảng MAC lúc trống</h3>
+<pre>SW1# clear mac address-table dynamic
+SW1# show mac address-table dynamic
+<span class="c">! Có thể đã có MAC của R1 ngay: router gửi gói định kỳ (CDP, keepalive)</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1">Chụp lại bảng lúc trống, ghi MAC nào đã có và vì sao</label></li>
+</ul>
+
+<h3>Bước 2 · PC1 ping PC2, xem switch học</h3>
+<pre>PC1&gt; ping 192.168.10.20
+SW1# show mac address-table dynamic
+Vlan    Mac Address       Type        Ports
+   1    aaaa.aaaa.0001    DYNAMIC     Fa0/1
+   1    aaaa.aaaa.0002    DYNAMIC     Fa0/2
+SW1# show mac address-table interface fa0/1
+SW1# show mac address-table address &lt;MAC của PC2 viết kiểu Cisco&gt;</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-2"><label for="t4-2">Viết lại từng bước: frame nào làm switch học MAC nào (ARP request học PC1, ARP reply học PC2)</label></li>
+</ul>
+
+<h3>Bước 3 · Xóa ARP và bắt gói ARP</h3>
+<p>Bật Wireshark trên link PC1–SW1 (Packet Tracer: chế độ Simulation, lọc ARP và ICMP).</p>
+<pre>PC1&gt; arp -d *                             <span class="c">! Windows, cần quyền Admin. Packet Tracer: lệnh arp -d</span>
+R1#  clear ip arp
+PC1&gt; ping 192.168.20.10
+<span class="c">! Wireshark lọc: arp</span>
+<span class="c">! Thấy: PC1 hỏi "Who has 192.168.10.1?" (không hỏi 192.168.20.10). R1 trả lời.</span>
+<span class="c">! Phía R1 G0/1: R1 hỏi "Who has 192.168.20.10?"</span>
+R1#  show ip arp</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-3"><label for="t4-3">Trong gói ARP request, chỉ ra Opcode = 1, Target MAC = 00:00:00:00:00:00, MAC đích frame = ff:ff:ff:ff:ff:ff</label></li>
+  <li><input type="checkbox" id="t4-4"><label for="t4-4">Trong ARP reply: Opcode = 2, MAC đích frame là MAC của PC1 (unicast)</label></li>
+  <li><input type="checkbox" id="t4-5"><label for="t4-5">Giải thích kết quả <code>.!!!!</code> nếu ping từ R1 lần đầu</label></li>
+</ul>
+
+<h3>Bước 4 · Nhìn thấy flood unknown unicast</h3>
+<pre>SW1(config)# mac address-table aging-time 10     <span class="c">! chỉ trên lab, để MAC hết hạn nhanh</span>
+<span class="c">! Đợi 10 giây không có lưu lượng; PC2 vẫn còn ARP của PC1</span>
+PC2&gt; ping 192.168.10.10
+<span class="c">! Wireshark trên một PC3 (nếu có) cắm Fa0/3 sẽ thấy frame unicast không gửi cho mình: đó là flood</span>
+SW1(config)# no mac address-table aging-time 10   <span class="c">! trả về 300 giây</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-6"><label for="t4-6">Lưu config SW1, R1 vào git (<code>show running-config</code> chép ra file)</label></li>
+</ul>
+
+<div class="box">
+  <strong>Liên hệ thực tế</strong>
+  Bước 2 chính là cách anh dò máy nhận VLAN 4. Ở hệ thống thật, khi tra MAC trên core, dòng trả về thường là cổng uplink (port-channel hoặc Gi1/0/x) chứ không phải máy cuối. Nhìn số MAC trên port: một hai MAC là máy trạm, hàng trăm MAC là uplink sang switch khác.
+</div>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (05/11) · Lab phần 2: bắt tay TCP và UDP trong Wireshark</h2>
+<div class="meta"><span><b>1,5 giờ</b> lab + verify</span><span>Đầu ra: file .pcapng có chú thích từng gói, ghi chú giải thích output</span></div>
+
+<h3>Bước 1 · Mở web, bắt bắt tay 3 bước</h3>
+<pre><span class="c">! SRV chạy web (Packet Tracer: Server-PT bật HTTP; EVE/CML: python3 -m http.server 80)</span>
+PC1&gt; curl -I http://192.168.20.10/     <span class="c">! hoặc mở trình duyệt</span>
+<span class="c">! Wireshark lọc: tcp.port == 80</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1">Chú thích gói 1, 2, 3: cờ, seq, ack (relative), port nguồn ephemeral, MSS trong option SYN</label></li>
+  <li><input type="checkbox" id="t5-2"><label for="t5-2">Tìm gói HTTP GET: seq của nó là bao nhiêu, server ACK lại số mấy, đúng công thức ack = seq + độ dài?</label></li>
+  <li><input type="checkbox" id="t5-3"><label for="t5-3">Tìm 4 gói đóng kết nối (FIN/ACK hai chiều). Bên nào đóng trước?</label></li>
+</ul>
+
+<h3>Bước 2 · SYN gặp RST và SYN không ai trả lời</h3>
+<pre>PC1&gt; Test-NetConnection 192.168.20.10 -Port 8080    <span class="c">! port không có dịch vụ ⇒ RST</span>
+<span class="c">! Trên R1 chặn tạm port 80 để thấy SYN không trả lời (ACL học kỹ ở tuần 16):</span>
+R1(config)# ip access-list extended BLOCK-WEB
+R1(config-ext-nacl)# deny tcp any host 192.168.20.10 eq 80
+R1(config-ext-nacl)# permit ip any any
+R1(config)# interface g0/0
+R1(config-if)# ip access-group BLOCK-WEB in
+PC1&gt; curl -I http://192.168.20.10/     <span class="c">! thấy SYN gửi lại nhiều lần</span>
+R1(config)# interface g0/0
+R1(config-if)# no ip access-group BLOCK-WEB in     <span class="c">! gỡ ngay sau khi xem</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-4"><label for="t5-4">So sánh hai trường hợp: thời gian chờ, gói thấy được, kết luận cho người dùng</label></li>
+</ul>
+<div class="box warn">
+  <strong>Ghi chú chính xác</strong>
+  ACL Cisco khi deny mặc định gửi về nguồn gói ICMP "administratively prohibited" (type 3 code 13), không phải RST. Một số thiết bị/IOS giới hạn số ICMP này. Firewall thường cấu hình drop im lặng. Đây là lý do cùng là "bị chặn" mà triệu chứng mỗi nơi một khác.
+</div>
+
+<h3>Bước 3 · Một luồng UDP: DNS</h3>
+<pre>PC1&gt; nslookup www.example.com 192.168.20.10   <span class="c">! nếu SRV có DNS; hoặc dùng mạng nhà</span>
+<span class="c">! Wireshark lọc: udp.port == 53. Chỉ 2 gói: query và response. Không bắt tay, không ACK.</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-5"><label for="t5-5">Chỉ ra UDP header 8 byte: port nguồn, port đích 53, length, checksum</label></li>
+  <li><input type="checkbox" id="t5-6"><label for="t5-6">Chạy <code>netstat -ano</code> trên PC1 trong lúc mở web, tìm dòng ESTABLISHED tới port 80</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (06/11) · Ôn lab, sửa sổ tay CCNA</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: ghi chú Google Docs đã sửa</span></div>
+
+<h3>Ôn lab trong 20 phút</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1">Xóa bảng MAC và ARP, ping lại, kể to từng frame switch học được gì. Không nhìn ghi chú</label></li>
+</ul>
+
+<h3>Sửa sổ tay (5 việc trong lịch)</h3>
+<p>Sửa bằng lời của anh, không chép nguyên câu dưới đây.</p>
+<ul class="check">
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">Bảng MAC tính theo từng VLAN: mỗi dòng là VLAN + MAC + port. Cùng một MAC có thể có ở hai VLAN</label></li>
+  <li><input type="checkbox" id="t6-3"><label for="t6-3">Bỏ câu "1 MAC = 1 port để chống loop trong STP". Đúng: MAC nhảy qua lại giữa hai port (MAC flapping) là <b>triệu chứng</b> của loop</label></li>
+  <li><input type="checkbox" id="t6-4"><label for="t6-4">Flood là gửi ra mọi port cùng VLAN, trừ port nhận vào</label></li>
+  <li><input type="checkbox" id="t6-5"><label for="t6-5">Thêm mục mới: ARP (4 bước) và TCP/UDP (bảng so sánh + bắt tay 3 bước)</label></li>
+  <li><input type="checkbox" id="t6-6"><label for="t6-6">Mục "Layer 4 Transport" đang trống: viết lại bằng lời của anh (3 việc của tầng 4)</label></li>
+</ul>
+<div class="box warn">
+  <strong>Thêm một lỗi tôi thấy trong sổ</strong>
+  Danh sách "Switch flood khi" trong sổ có dòng "Port vừa reset". Chính xác hơn: port reset làm <b>các dòng MAC học trên port đó bị xóa</b>; sau đó frame gửi tới những MAC ấy mới bị flood cho tới khi học lại. Và dòng "Topology thay đổi (STP TCN)" đúng nhưng cần thêm ý: TCN làm aging rút xuống 15 giây, không xóa ngay toàn bộ bảng (trừ khi dùng RSTP, tuần 7).
+</div>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (07/11) · MOP #1 và diễn tập trùng IP</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>mop/MOP-001-clear-mac-arp.md</code> và <code>postmortem/W02-trung-ip.md</code></span></div>
+
+<h3>Phần A · MOP #1: xóa bảng MAC và ARP trên thiết bị lab</h3>
+<p>Thao tác này nghe vô hại nhưng trên production nó gây <b>flood</b> tạm thời và một loạt ARP request cùng lúc. Viết MOP để tập thói quen cân nhắc ảnh hưởng.</p>
+<pre>
+# MOP-001 · Xóa bảng MAC (SW1) và ARP (R1)
+
+| Mục            | Nội dung                                                         |
+|----------------|------------------------------------------------------------------|
+| Mục tiêu       | Làm sạch dòng MAC/ARP cũ sau khi thay máy in (giả lập)           |
+| Phạm vi        | SW1: VLAN 1 · R1: G0/0                                           |
+| Ảnh hưởng      | Flood unknown unicast vài giây; ARP request tăng; không mất kết nối |
+| Mức rủi ro     | Thấp (lab). Production: trung bình nếu switch nhiều nghìn MAC     |
+| Thời gian      | 15 phút                                                          |
+
+## 1. Pre-check
+SW1# show mac address-table count
+SW1# show mac address-table dynamic          ! lưu ra file
+R1#  show ip arp                             ! lưu ra file
+PC1&gt; ping 192.168.20.10                       ! xác nhận đang thông
+
+## 2. Các bước (ưu tiên phạm vi hẹp nhất)
+R1#  clear ip arp 192.168.10.20              ! chỉ một IP, không xóa cả bảng
+SW1# clear mac address-table dynamic address &lt;mac PC2&gt;
+
+## 3. Verify
+- PC1 ping PC2 và SRV được
+- show ip arp có lại dòng 192.168.10.20 với MAC đúng
+- show mac address-table count tương đương pre-check sau 1 phút
+
+## 4. Rollback
+Không có "rollback" cho lệnh xóa trạng thái: bảng tự học lại.
+Nếu mất kết nối sau 2 phút: kiểm port, VLAN, ARP như mục Xử lý sự cố (sổ tay mục 15).
+
+## 5. Kết quả
+</pre>
+<div class="box">
+  <strong>Góc nhìn hệ thống: phạm vi hẹp nhất</strong>
+  Trên switch core của một ngân hàng, <code>clear mac address-table dynamic</code> không tham số làm switch flood mọi unicast trong vài giây trên mọi VLAN; <code>clear ip arp</code> toàn bộ trên gateway làm hàng nghìn máy bị hỏi lại cùng lúc. Nguyên tắc: <b>xóa đúng một dòng</b> cần xóa. MOP tốt luôn ghi rõ phạm vi và vì sao chọn phạm vi đó.
+</div>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Viết MOP-001 vào repo, chạy đúng theo MOP</label></li>
+</ul>
+
+<h3>Phần B · Diễn tập sự cố: trùng IP giữa hai PC</h3>
+<p>Đặt PC2 IP tĩnh 192.168.10.10 (trùng PC1). Quan sát như một kỹ sư đang trực.</p>
+<ul class="check">
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Trên PC (Windows thật): xem cảnh báo trùng IP và Event Viewer → System → Tcpip, Event ID 4199</label></li>
+  <li><input type="checkbox" id="t7-3"><label for="t7-3">Wireshark lọc <code>arp</code>: tìm ARP probe (Sender IP 0.0.0.0) và gratuitous ARP của PC2, và reply của PC1 bảo vệ IP</label></li>
+  <li><input type="checkbox" id="t7-4"><label for="t7-4">Trên R1: <code>show ip arp 192.168.10.10</code> vài lần, sau khi ping từ SRV. MAC có đổi không?</label></li>
+  <li><input type="checkbox" id="t7-5"><label for="t7-5">Từ MAC lạ ⇒ <code>show mac address-table address</code> ⇒ ra port Fa0/2 ⇒ "tìm thấy máy"</label></li>
+</ul>
+<details>
+<summary>Gợi ý: những gì thường thấy (mở sau khi làm)</summary>
+<ol>
+  <li>Windows khi đặt IP tĩnh trùng thường phát hiện ngay nhờ ARP probe và <b>không dùng IP đó</b> (hiện "Duplicate" trong <code>ipconfig</code>, có thể tự lấy 169.254.x.x). Máy giữ IP trước (PC1) vẫn chạy.</li>
+  <li>Nếu cả hai máy đều đã "giữ" IP (ví dụ một máy tắt lúc máy kia đặt IP, sau đó bật lên), gateway sẽ trỏ IP về máy nào gửi ARP gần nhất ⇒ kết nối chập chờn luân phiên.</li>
+  <li>Packet Tracer không mô phỏng đầy đủ phát hiện trùng IP; dùng VM Windows/Linux trên EVE/CML để thấy đúng.</li>
+</ol>
+</details>
+
+<h3>Mẫu postmortem</h3>
+<pre>
+# Postmortem W02 · Trùng IP
+
+- Thời điểm phát hiện / xử lý xong / tổng thời gian:
+- Triệu chứng người dùng thấy:
+- Dấu hiệu kỹ thuật: Event 4199, ARP trên gateway, MAC lạ
+- Cách lần ra máy kia: MAC → switch → port → vị trí
+- Nguyên nhân gốc: (ví dụ IP tĩnh nằm trong dải DHCP)
+- Khắc phục:
+- Phòng ngừa: exclusion DHCP, bảng quản lý IP tĩnh, (sau này) DHCP snooping + DAI
+</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t7-6"><label for="t7-6">Viết postmortem, commit vào <code>postmortem/</code></label></li>
+</ul>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (08/11) · Tự kiểm tra và tự chấm</h2>
+<div class="meta"><span><b>30 phút</b></span><span>Trả lời ra giấy trước, rồi mới mở đáp án. Gửi câu trả lời cho Claude chấm.</span></div>
+
+<h3>Bài vẽ (đầu ra bắt buộc)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">Vẽ tay chuỗi gói khi PC1 mở web trên SRV lần đầu: 2 ARP (hai đoạn mạng) + 3 gói bắt tay, ghi MAC/IP/port từng gói</label></li>
+</ul>
+
+<h3>6 câu tự kiểm tra trong lịch</h3>
+<details><summary>1. Switch học MAC nguồn hay MAC đích?</summary><p>MAC nguồn. MAC đích dùng để quyết định gửi đi đâu.</p></details>
+<details><summary>2. Khi nào switch flood?</summary><p>Unknown unicast, broadcast, multicast (khi không có IGMP snooping). Ra mọi port cùng VLAN trừ port nhận vào.</p></details>
+<details><summary>3. PC 192.168.1.10/24 muốn tới 8.8.8.8. Nó gửi ARP hỏi MAC của ai?</summary><p>Của default gateway, vì 8.8.8.8 khác mạng.</p></details>
+<details><summary>4. ARP request là broadcast hay unicast? ARP reply thì sao?</summary><p>Request broadcast, reply unicast.</p></details>
+<details><summary>5. Ba gói bắt tay TCP tên là gì, theo thứ tự?</summary><p>SYN, SYN-ACK, ACK.</p></details>
+<details><summary>6. DNS, DHCP, SSH, RDP dùng port nào?</summary><p>DNS 53 (UDP, TCP khi trả lời lớn), DHCP UDP 67/68, SSH TCP 22, RDP TCP 3389.</p></details>
+
+<h3>4 câu vặn thêm (mức phỏng vấn)</h3>
+<details><summary>7. Port access có 25 MAC. Anh nghĩ gì, làm gì?</summary><p>Có switch con/hub hoặc AP không quản lý phía sau. Rủi ro loop và thiết bị lạ. Kiểm CDP/LLDP, đi tới vị trí, xử lý theo chính sách (port security giới hạn số MAC, tuần 8).</p></details>
+<details><summary>8. Người dùng báo "ping server được nhưng phần mềm báo không kết nối". Ba lệnh đầu tiên?</summary><p><code>Test-NetConnection &lt;server&gt; -Port &lt;port ứng dụng&gt;</code>; <code>netstat -ano</code> trên server xem port có LISTENING; Wireshark xem SYN có SYN-ACK hay RST hay không trả lời.</p></details>
+<details><summary>9. Sau khi failover firewall cụm HA, vài máy mất mạng 2 phút rồi tự hồi. Liên quan gì tới ARP?</summary><p>Firewall mới active phải gửi gratuitous ARP để switch và máy trạm cập nhật MAC của IP gateway. Nếu GARP bị mất hoặc thiết bị không xử lý, máy giữ ARP cũ cho tới khi hết hạn. (FortiGate HA dùng MAC ảo chung nên thường không bị, nhưng switch vẫn phải học lại port.)</p></details>
+<details><summary>10. Link giữa hai switch tải file chậm, ping 0% loss. Bộ đếm phía A có late collision. Kết luận?</summary><p>Lệch duplex: phía A đang half. Kiểm speed/duplex hai đầu, đặt auto cả hai hoặc cứng cả hai.</p></details>
+
+<h3>Tự chấm cuối tuần</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 2</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>Kể switch học/chuyển/flood, ARP 4 bước, bắt tay 3 bước không nhìn tài liệu</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>Dựng lại topology tuần 2, bắt đủ gói ARP + TCP trong 20 phút</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>Tìm ra trùng IP, port không có dịch vụ, lệch duplex do người khác gài</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>MOP-001 ghi phạm vi hẹp nhất; nói được ảnh hưởng của clear MAC/ARP trên production</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Giảng 10 phút và trả lời câu 7–10</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Gửi câu trả lời 1–10 cho Claude chấm, ghi câu sai vào sổ</label></li>
+  <li><input type="checkbox" id="cn-3"><label for="cn-3">Tick tuần 2 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày 15 phút (đi đường hoặc trước khi ngủ)</h2>
+<ul>
+  <li><b>Hỏi đáp bằng miệng 5 phút:</b> Ethernet, MAC, ARP, TCP và UDP. Ví dụ: "frame 64 byte gồm những gì", "ACK của segment seq 1001 dài 500 là bao nhiêu", "port 389 là gì".</li>
+  <li><b>Ôn lại ghi chú 5 phút</b>, chép thêm một dòng vào bảng port.</li>
+  <li><b>Một lệnh mỗi ngày trên máy mình:</b> T2 <code>getmac /v</code> (tra OUI card mạng), T3 <code>arp -a</code> trước và sau khi mở một web, T4 <code>netstat -ano | findstr ESTABLISHED</code>, T5 <code>Test-NetConnection google.com -Port 443</code>, T6 <code>Get-NetAdapter | ft Name,LinkSpeed</code>.</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">Đã chạy đủ 5 lệnh và ghi 5 điều mới thấy</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 2/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: IPv4, nhị phân, prefix length, subnetting.
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan02-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

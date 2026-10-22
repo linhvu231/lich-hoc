@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 2</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 2 (02/11 – 08/11/2026) · <a href="tuan-02.html">Giáo án tuần 2 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 2 (Odom Vol 1: "Fundamentals of Ethernet LANs", "Analyzing Ethernet LAN Switching"; Vol 2: "TCP/IP Transport and Applications"). Tuần 1 anh đã nhìn tổng thể 7 tầng. Tuần này đi sâu vào <b>tầng 2 (Ethernet, MAC, switch)</b>, <b>cây cầu giữa tầng 2 và 3 (ARP)</b> và <b>tầng 4 (TCP, UDP)</b>. Chép tay phần <mark>tô vàng</mark> và các bảng "Ghi nhớ nhanh". Mỗi mục 10–20 phút, xong tick ô "Xong".</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">Ethernet: chuẩn, cáp, tốc độ</a></li>
+  <li><a href="#m2">Khung Ethernet (frame) mổ từng trường</a></li>
+  <li><a href="#m3">Địa chỉ MAC</a></li>
+  <li><a href="#m4">Switch làm việc thế nào: học, chuyển, lọc, flood</a></li>
+  <li><a href="#m5">Bảng MAC: aging, theo VLAN, MAC flapping</a></li>
+  <li><a href="#m6">Speed, duplex, autonegotiation, collision</a></li>
+  <li><a href="#m7">ARP chi tiết</a></li>
+  <li><a href="#m8">Gratuitous ARP, Proxy ARP, ARP spoofing, trùng IP</a></li>
+  <li><a href="#m9">Tầng 4: port, socket, phân kênh</a></li>
+  <li><a href="#m10">TCP header mổ từng trường</a></li>
+  <li><a href="#m11">TCP: bắt tay 3 bước, đóng kết nối, RST, trạng thái</a></li>
+  <li><a href="#m12">TCP tin cậy: sequence, ACK, gửi lại, window</a></li>
+  <li><a href="#m13">UDP và so sánh với TCP</a></li>
+  <li><a href="#m14">Port hay gặp trong vận hành</a></li>
+  <li><a href="#m15">Lệnh kiểm tra và xử lý sự cố</a></li>
+  <li><a href="#m16">Tình huống thực tế</a></li>
+  <li><a href="#m17">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m18">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m19">Câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> Ethernet: chuẩn, cáp, tốc độ</h1>
+
+<h2>1/ Ethernet là gì</h2>
+<p><b>Ethernet</b> là họ công nghệ mạng LAN có dây, chuẩn hóa bởi <b>IEEE 802.3</b>. Ethernet định nghĩa cả <b>tầng 1</b> (cáp, đầu nối, tín hiệu, tốc độ) lẫn <b>tầng 2</b> (định dạng frame, địa chỉ MAC, cách phát hiện lỗi).</p>
+<p>⇒ Khi nói "cổng Ethernet" là nói cả hai: đèn link sáng (L1) và frame đi qua được (L2).</p>
+
+<h2>2/ Tên chuẩn đọc thế nào</h2>
+<p>Tên chuẩn có dạng <b>[tốc độ]BASE-[loại cáp]</b>. "BASE" = baseband (một tín hiệu trên dây).</p>
+<div class="tbl"><table>
+<tr><th>Tên thường gọi</th><th>Chuẩn IEEE</th><th>Tốc độ</th><th>Cáp</th><th>Khoảng cách tối đa</th></tr>
+<tr><td>Fast Ethernet</td><td>100BASE-TX (802.3u)</td><td>100 Mbps</td><td>UTP Cat5 trở lên, 2 cặp dây</td><td>100 m</td></tr>
+<tr><td>Gigabit Ethernet</td><td>1000BASE-T (802.3ab)</td><td>1 Gbps</td><td>UTP Cat5e trở lên, cả 4 cặp</td><td>100 m</td></tr>
+<tr><td>Gigabit quang</td><td>1000BASE-SX / LX</td><td>1 Gbps</td><td>SX: quang multimode · LX: singlemode</td><td>SX ~550 m · LX ~5–10 km</td></tr>
+<tr><td>10 Gigabit đồng</td><td>10GBASE-T (802.3an)</td><td>10 Gbps</td><td>Cat6a (Cat6 chỉ ~55 m)</td><td>100 m</td></tr>
+<tr><td>10 Gigabit quang</td><td>10GBASE-SR / LR</td><td>10 Gbps</td><td>SR: multimode · LR: singlemode</td><td>SR ~300–400 m · LR 10 km</td></tr>
+</table></div>
+<p><mark>Cáp đồng UTP tối đa 100 m cho mọi tốc độ thường gặp.</mark> Xa hơn thì dùng quang hoặc thêm switch ở giữa.</p>
+
+<h2>3/ Cáp thẳng, cáp chéo và Auto-MDIX</h2>
+<ul>
+  <li><b>Straight-through</b> (cáp thẳng): hai đầu bấm cùng chuẩn (T568B–T568B). Nối thiết bị <b>khác loại</b>: PC–switch, router–switch.</li>
+  <li><b>Crossover</b> (cáp chéo): một đầu T568A, một đầu T568B. Ngày xưa nối thiết bị <b>cùng loại</b>: switch–switch, PC–PC, router–router, PC–router.</li>
+  <li><b>Auto-MDIX</b>: cổng tự đảo cặp dây gửi/nhận ⇒ cáp nào cũng chạy. Switch Cisco đời mới bật sẵn. Gigabit (1000BASE-T) dùng cả 4 cặp, gần như luôn có Auto-MDIX.</li>
+</ul>
+<div class="note"><b>💡 Vì sao đề CCNA vẫn hỏi cáp chéo</b>
+Thiết bị cũ hoặc cổng bị cấu hình cứng speed/duplex có thể tắt Auto-MDIX. Khi gặp "cắm cáp, đèn không lên" giữa hai switch cũ, cáp chéo vẫn là một khả năng.</div>
+
+<h2>4/ Module quang (SFP)</h2>
+<p>Cổng quang trên switch thường là khe <b>SFP</b> (1G) hoặc <b>SFP+</b> (10G). Module phải đúng loại hai đầu: SX nói chuyện với SX (multimode), LX với LX (singlemode). Sai loại module hoặc sai loại sợi ⇒ link không lên hoặc lên nhưng lỗi CRC tăng.</p>
+<pre>Switch# show interfaces transceiver           ! nhiệt độ, công suất phát/thu của module quang
+Switch# show inventory                        ! module gì đang cắm ở khe nào</pre>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+Ethernet = IEEE 802.3, gồm L1 + L2 · UTP tối đa 100 m · 1000BASE-T dùng 4 cặp dây · Auto-MDIX làm cáp thẳng/chéo đều chạy · Module quang phải cùng loại hai đầu.</div>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Khung Ethernet (frame) mổ từng trường</h1>
+
+<h2>1/ Cấu trúc frame Ethernet II</h2>
+<div class="tbl"><table>
+<tr><th>Trường</th><th>Độ dài</th><th class="l">Ý nghĩa</th><th class="l">Dùng gì khi vận hành</th></tr>
+<tr><td>Preamble</td><td>7 byte</td><td class="l">Chuỗi 10101010… để bên nhận đồng bộ đồng hồ bit</td><td class="l">Không thấy trong Wireshark (card mạng bỏ đi)</td></tr>
+<tr><td>SFD<br>(Start Frame Delimiter)</td><td>1 byte</td><td class="l">10101011: báo "frame bắt đầu từ byte sau"</td><td class="l">Không thấy trong Wireshark</td></tr>
+<tr><td><b>MAC đích</b></td><td>6 byte</td><td class="l">Frame gửi cho ai trên đoạn mạng này</td><td class="l">Switch tra bảng MAC theo trường này</td></tr>
+<tr><td><b>MAC nguồn</b></td><td>6 byte</td><td class="l">Ai gửi frame</td><td class="l">Switch <b>học</b> trường này</td></tr>
+<tr><td>802.1Q tag (tùy chọn)</td><td>4 byte</td><td class="l">Chỉ có trên đường trunk: TPID 0x8100 + PCP (CoS) + VLAN ID</td><td class="l">Học kỹ ở tuần 6</td></tr>
+<tr><td><b>EtherType</b></td><td>2 byte</td><td class="l">Payload là giao thức gì</td><td class="l"><code>0x0800</code> IPv4 · <code>0x0806</code> ARP · <code>0x86DD</code> IPv6 · <code>0x8100</code> có tag VLAN</td></tr>
+<tr><td><b>Payload</b> (data)</td><td>46–1500 byte</td><td class="l">Gói IP hoặc ARP ở trong</td><td class="l">1500 = MTU</td></tr>
+<tr><td><b>FCS</b></td><td>4 byte</td><td class="l">CRC-32 tính trên toàn frame (từ MAC đích tới hết payload)</td><td class="l">Sai FCS ⇒ drop, đếm vào <code>CRC</code> trên cổng</td></tr>
+</table></div>
+
+<div class="flow">| Preamble 7 | SFD 1 | MAC đích 6 | MAC nguồn 6 | Type 2 | Payload 46–1500 | FCS 4 |
+                    |<-------------- frame được tính kích thước: 64 – 1518 byte ------------->|</div>
+
+<h2>2/ Vì sao frame tối thiểu 64 byte</h2>
+<ol>
+  <li>Thời Ethernet dùng chung dây (half duplex), máy gửi phải còn đang gửi khi tín hiệu va chạm quay về, để nó <b>biết</b> mình bị va chạm. 64 byte (512 bit) là đủ dài cho đoạn cáp tối đa thời đó.</li>
+  <li>Phép tính: 6 + 6 + 2 + <b>46</b> + 4 = 64. ⇒ <mark>Payload tối thiểu 46 byte</mark>. Payload ngắn hơn (ví dụ gói ARP chỉ 28 byte) thì card mạng tự <b>đệm thêm (padding)</b> số 0 cho đủ 46.</li>
+  <li>Frame nhỏ hơn 64 byte gọi là <b>runt</b> (thường do va chạm hoặc lỗi). Frame lớn hơn 1518 byte (không tag) mà không cấu hình jumbo gọi là <b>giant</b>.</li>
+</ol>
+
+<h2>3/ Ethernet II và IEEE 802.3: phân biệt bằng một con số</h2>
+<p>Hai byte sau MAC nguồn có hai cách hiểu:</p>
+<ul>
+  <li>Giá trị <b>≥ 0x0600 (1536)</b> ⇒ đó là <b>EtherType</b> (frame Ethernet II). Gần như toàn bộ lưu lượng IP dùng kiểu này.</li>
+  <li>Giá trị <b>≤ 0x05DC (1500)</b> ⇒ đó là <b>Length</b> (frame 802.3 gốc, có thêm header LLC). Gặp ở STP BPDU, CDP.</li>
+</ul>
+<p>⇒ Khi Wireshark hiện "IEEE 802.3 Ethernet" cho gói STP, không phải lỗi; chỉ là kiểu frame khác.</p>
+
+<h2>4/ Khoảng nghỉ giữa các frame</h2>
+<p>Sau mỗi frame phải nghỉ <b>12 byte</b> (96 bit time), gọi là <b>Interframe Gap</b>. Cộng thêm 8 byte preamble/SFD ⇒ mỗi frame tốn thêm 20 byte "trên dây" mà không ai thấy. Đó là lý do đo tốc độ thực tế không bao giờ đạt đúng 1000 Mbps dữ liệu.</p>
+
+<div class="note"><b>💡 Ví dụ dễ hiểu</b>
+Frame giống <b>phong bì thư nội bộ</b> trong một tòa nhà. Mặt trước ghi phòng nhận (MAC đích) và phòng gửi (MAC nguồn), ô "loại hồ sơ" (EtherType) cho biết bên trong là đơn IP hay đơn ARP. Dấu niêm phong ở đáy (FCS) bị rách thì người nhận vứt luôn, không hỏi lại. Phong bì chỉ dùng trong tòa nhà (một đoạn mạng); muốn gửi sang tòa khác thì bưu điện (router) bỏ phong bì cũ, cho thư vào phong bì mới.</div>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+Frame 64–1518 byte (không tag), 1522 (có tag) · Payload 46–1500 · FCS là CRC-32, chỉ phát hiện lỗi, không sửa · Type ≥ 0x0600 là EtherType · Runt &lt; 64, giant &gt; 1518.</div>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Địa chỉ MAC</h1>
+
+<h2>1/ MAC là gì</h2>
+<p><b>MAC address</b> (Media Access Control) là địa chỉ <b>48 bit (6 byte)</b> của card mạng, dùng để giao frame <b>trong một đoạn mạng</b> (một broadcast domain). Viết dạng hex, ba cách viết cùng một địa chỉ:</p>
+<ul>
+  <li>Windows: <code>00-1A-2B-3C-4D-5E</code></li>
+  <li>Linux, Wireshark: <code>00:1a:2b:3c:4d:5e</code></li>
+  <li>Cisco IOS: <code>001a.2b3c.4d5e</code> (khi tìm trên switch phải gõ đúng kiểu này)</li>
+</ul>
+
+<h2>2/ Cấu trúc 48 bit</h2>
+<div class="tbl"><table>
+<tr><th>Phần</th><th>Độ dài</th><th class="l">Ý nghĩa</th></tr>
+<tr><td><b>OUI</b><br>(Organizationally Unique Identifier)</td><td>24 bit đầu</td><td class="l">Mã hãng sản xuất do IEEE cấp. Ví dụ OUI <code>00:50:56</code> là VMware. Tra OUI để biết thiết bị lạ là của hãng nào.</td></tr>
+<tr><td>Phần thiết bị</td><td>24 bit sau</td><td class="l">Hãng tự đánh số, không trùng trong cùng OUI.</td></tr>
+</table></div>
+
+<h3>Hai bit đặc biệt ở byte đầu tiên</h3>
+<ul>
+  <li><b>Bit I/G</b> (bit thấp nhất của byte đầu): 0 = unicast (một máy), 1 = <b>group</b> (multicast/broadcast). ⇒ byte đầu là số <b>lẻ</b> thì đó là địa chỉ nhóm.</li>
+  <li><b>Bit U/L</b> (bit thứ hai từ phải): 0 = địa chỉ hãng cấp (universal), 1 = <b>địa chỉ đặt tay/ngẫu nhiên</b> (local). iPhone, Android, Windows bật "Random hardware address" cho Wi-Fi sẽ có bit này = 1, ví dụ byte đầu là <code>x2</code>, <code>x6</code>, <code>xA</code>, <code>xE</code>.</li>
+</ul>
+
+<h2>3/ Các loại MAC đích</h2>
+<div class="tbl"><table>
+<tr><th>Loại</th><th>Ví dụ</th><th class="l">Switch xử lý thế nào</th></tr>
+<tr><td>Unicast</td><td><code>001a.2b3c.4d5e</code></td><td class="l">Có trong bảng MAC ⇒ gửi đúng một port. Chưa có ⇒ flood (unknown unicast).</td></tr>
+<tr><td>Broadcast</td><td><code>ffff.ffff.ffff</code></td><td class="l">Luôn flood ra mọi port cùng VLAN trừ port nhận vào. ARP request, DHCP Discover dùng kiểu này.</td></tr>
+<tr><td>Multicast IPv4</td><td><code>0100.5exx.xxxx</code></td><td class="l">Mặc định flood như broadcast. Có IGMP snooping thì chỉ gửi tới port có máy đăng ký nhận.</td></tr>
+<tr><td>Multicast IPv6</td><td><code>3333.xxxx.xxxx</code></td><td class="l">Như trên (MLD snooping). Gặp lại ở tuần 5.</td></tr>
+<tr><td>Multicast giao thức Cisco/IEEE</td><td><code>0180.c200.0000</code> (STP), <code>0100.0ccc.cccc</code> (CDP)</td><td class="l">Switch nhận và xử lý cho chính nó.</td></tr>
+</table></div>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Ghi chép cũ (mục Hành vi Switch): "MAC chỉ nằm trên 1 port … (Chống spoofing / loop – rất quan trọng trong STP)". <b>Sai ở vế sau.</b> Một MAC chỉ có một dòng trong bảng (cho mỗi VLAN) là <b>quy tắc ghi bảng</b>, không phải cơ chế chống loop. Khi cùng một MAC liên tục nhảy qua lại giữa hai port (<b>MAC flapping</b>), đó là <b>triệu chứng</b> của loop hoặc của thiết bị nối hai đường. Chống loop là việc của STP (tuần 7). Viết lại: <i>"1 MAC chỉ có 1 port trong bảng MAC của một VLAN; MAC nhảy port liên tục là dấu hiệu có loop."</i></div>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+MAC 48 bit = OUI 24 + thiết bị 24 · Cisco viết <code>xxxx.xxxx.xxxx</code> · Byte đầu lẻ = group · Bit U/L = 1 là MAC ngẫu nhiên · Broadcast <code>ffff.ffff.ffff</code> · Multicast IPv4 bắt đầu <code>01:00:5e</code>.</div>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> Switch làm việc thế nào: học, chuyển, lọc, flood</h1>
+
+<p>Switch có 3 việc với mỗi frame: <b>học (learn)</b>, <b>quyết định chuyển (forward/filter)</b>, <b>tránh vòng lặp (loop avoidance, việc của STP)</b>. Tuần này nói hai việc đầu.</p>
+
+<h2>1/ Học MAC (MAC learning)</h2>
+<ol>
+  <li>Frame đi vào port Fa0/1, thuộc VLAN 10.</li>
+  <li>Switch đọc <b>MAC nguồn</b> ⇒ ghi vào bảng: <code>VLAN 10 | MAC nguồn | Fa0/1 | DYNAMIC</code>, bộ đếm aging đặt lại về 0.</li>
+  <li>MAC đó đã có ở port khác trong cùng VLAN ⇒ <b>cập nhật</b> sang port mới (máy bị chuyển chỗ cắm, hoặc có loop).</li>
+</ol>
+<p><mark>Switch chỉ học MAC nguồn, không bao giờ học MAC đích.</mark> Lý do: MAC nguồn cho biết "máy này đang ở sau port này"; MAC đích chỉ là nơi frame muốn tới, chưa chắc tồn tại.</p>
+
+<h2>2/ Quyết định chuyển (forwarding decision)</h2>
+<p>Switch đọc <b>MAC đích</b> và tra bảng MAC <b>của VLAN đó</b>:</p>
+<div class="tbl"><table>
+<tr><th>Trường hợp</th><th>Hành động</th><th class="l">Ghi chú</th></tr>
+<tr><td>MAC đích có trong bảng, port khác port nhận</td><td><b>Forward</b></td><td class="l">Gửi ra đúng một port (known unicast)</td></tr>
+<tr><td>MAC đích có trong bảng, <b>trùng</b> port nhận</td><td><b>Filter</b> (bỏ)</td><td class="l">Hai máy cùng sau một hub/switch con, nói chuyện với nhau không cần đi qua</td></tr>
+<tr><td>MAC đích chưa có trong bảng</td><td><b>Flood</b></td><td class="l">Unknown unicast</td></tr>
+<tr><td>MAC đích là broadcast</td><td><b>Flood</b></td><td class="l">Luôn luôn</td></tr>
+<tr><td>MAC đích multicast</td><td><b>Flood</b> (hoặc theo IGMP snooping)</td><td class="l">Xem mục 3</td></tr>
+</table></div>
+<p><mark>Flood = gửi ra mọi port thuộc cùng VLAN, trừ port nhận vào.</mark> Port trunk mang VLAN đó cũng nhận bản flood.</p>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Ghi chép cũ: "Flooding làm tràn: bắn bản tin ra all cổng trừ cổng đến" và bảng tóm tắt "Không biết MAC đích → bắn ra tất cả các port". <b>Thiếu điều kiện VLAN.</b> Switch không bao giờ flood sang VLAN khác. Viết lại: <i>"Flood là gửi ra mọi port cùng VLAN (kể cả trunk mang VLAN đó), trừ port nhận vào."</i></div>
+
+<h2>3/ Ví dụ từng bước: PC1 ping PC2 lần đầu</h2>
+<p>PC1 (MAC <code>aaaa.aaaa.0001</code>, Fa0/1) và PC2 (MAC <code>aaaa.aaaa.0002</code>, Fa0/2) cùng VLAN 10, bảng MAC đang trống.</p>
+<ol>
+  <li>PC1 gửi ARP request (MAC đích <code>ffff.ffff.ffff</code>). Switch học <code>0001 → Fa0/1</code>, flood ra Fa0/2, Fa0/3… (VLAN 10).</li>
+  <li>PC2 gửi ARP reply unicast tới <code>0001</code>. Switch học <code>0002 → Fa0/2</code>, tra bảng thấy <code>0001</code> ở Fa0/1 ⇒ forward đúng một port.</li>
+  <li>PC1 gửi ICMP echo tới <code>0002</code> ⇒ switch đã biết ⇒ forward Fa0/2. Từ đây không còn flood.</li>
+</ol>
+
+<h2>4/ Ba cách chuyển frame</h2>
+<div class="tbl"><table>
+<tr><th>Cách</th><th class="l">Làm gì</th><th class="l">Ưu / nhược</th></tr>
+<tr><td><b>Store-and-forward</b></td><td class="l">Nhận hết frame, kiểm FCS, đúng mới gửi</td><td class="l">Không chuyển frame lỗi. Mặc định trên đa số switch Cisco Catalyst.</td></tr>
+<tr><td><b>Cut-through</b></td><td class="l">Đọc xong MAC đích (6 byte đầu) là gửi luôn</td><td class="l">Độ trễ thấp nhất, nhưng frame lỗi cũng đi tiếp. Dùng ở switch datacenter (Nexus).</td></tr>
+<tr><td><b>Fragment-free</b></td><td class="l">Đọc đủ 64 byte đầu rồi gửi</td><td class="l">Lọc được runt do va chạm. Trung gian.</td></tr>
+</table></div>
+
+<div class="note"><b>💡 Ví dụ dễ hiểu</b>
+Switch như <b>lễ tân tòa nhà mới</b>. Ban đầu không biết ai ngồi phòng nào. Ai mang thư xuống, lễ tân ghi "anh A ở phòng 1" (học MAC nguồn). Thư gửi cho người lễ tân chưa biết thì photo phát cho mọi phòng trong tầng (flood trong VLAN). Ai trả lời thì lễ tân ghi thêm. Sau vài ngày, thư nào cũng đưa thẳng đúng phòng.</div>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+Học MAC <b>nguồn</b> · Chuyển theo MAC <b>đích</b> · 3 trường hợp flood: unknown unicast, broadcast, multicast · Flood trong cùng VLAN, trừ port vào · Store-and-forward kiểm FCS trước khi gửi.</div>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Bảng MAC: aging, theo VLAN, MAC flapping</h1>
+
+<h2>1/ Bảng MAC nằm ở đâu</h2>
+<p>Bảng MAC còn gọi là <b>bảng CAM</b> (Content Addressable Memory), nằm trên phần cứng chuyên dụng của switch để tra cứu cực nhanh. Đây là <b>trạng thái</b>, không phải cấu hình ⇒ reboot là mất, switch học lại từ đầu (trừ dòng static nằm trong config).</p>
+
+<h2>2/ Một dòng trong bảng có 4 cột</h2>
+<pre>SW1# show mac address-table
+          Mac Address Table
+-------------------------------------------
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+ All    0100.0ccc.cccc    STATIC      CPU         ! CDP, switch tự xử lý
+  10    aaaa.aaaa.0001    DYNAMIC     Fa0/1
+  10    aaaa.aaaa.0002    DYNAMIC     Fa0/2
+  20    aaaa.aaaa.0001    DYNAMIC     Gi0/1       ! cùng MAC nhưng VLAN khác: dòng riêng
+  10    5000.0001.0000    DYNAMIC     Gi0/1       ! MAC router, học qua cổng uplink
+Total Mac Addresses for this criterion: 5</pre>
+<p><mark>Khóa của bảng là cặp (VLAN, MAC).</mark> Cùng một MAC có thể có ở hai VLAN với hai port khác nhau. Ví dụ: router dùng một MAC cho nhiều sub-interface, hoặc máy chủ ảo hóa.</p>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Ghi chép cũ: bảng CAM "ghi lại thông tin port và MAC". <b>Thiếu cột VLAN.</b> Viết lại: <i>"Mỗi dòng bảng MAC = VLAN + MAC + loại (dynamic/static) + port. Bảng tách riêng theo từng VLAN."</i></div>
+
+<h2>3/ Aging time</h2>
+<ul>
+  <li>Dòng DYNAMIC không thấy frame nào từ MAC đó trong <b>300 giây</b> (mặc định Cisco) ⇒ bị xóa.</li>
+  <li>Sau khi xóa, frame gửi tới MAC đó sẽ bị flood cho tới khi máy kia lên tiếng lại.</li>
+  <li>Khi STP báo thay đổi topology (TCN), switch rút aging xuống bằng forward delay (15 giây) để quên nhanh đường cũ (tuần 7).</li>
+</ul>
+<pre>SW1# show mac address-table aging-time
+SW1(config)# mac address-table aging-time 600          ! đổi aging (hiếm khi cần)
+SW1# clear mac address-table dynamic                    ! xóa toàn bộ dòng dynamic
+SW1# clear mac address-table dynamic interface fa0/1    ! xóa riêng một port</pre>
+
+<h2>4/ Lệnh lọc bảng MAC (dùng hằng ngày)</h2>
+<pre>SW1# show mac address-table address aaaa.aaaa.0001     ! máy này đang ở port nào
+SW1# show mac address-table interface fa0/1             ! port này có những MAC nào
+SW1# show mac address-table vlan 10                     ! toàn bộ MAC trong VLAN 10
+SW1# show mac address-table count                       ! đếm số MAC mỗi VLAN
+SW1# show mac address-table dynamic | include Gi0/1     ! MAC học qua uplink</pre>
+
+<h2>5/ Port có nhiều MAC là gì</h2>
+<ul>
+  <li>Port access có 1 MAC: một máy tính.</li>
+  <li>Port access có 2 MAC: máy tính cắm sau điện thoại IP (VLAN data + VLAN voice), hoặc máy có máy ảo.</li>
+  <li>Port access có hàng chục MAC: có ai đó cắm thêm <b>switch con/hub</b> dưới bàn. Đây là điều kỹ sư cần biết vì switch con không quản lý có thể gây loop.</li>
+  <li>Port uplink/trunk có hàng trăm MAC: bình thường, đó là mọi máy phía sau switch kia.</li>
+</ul>
+
+<h2>6/ MAC flapping: triệu chứng của loop</h2>
+<pre>%SW_MATM-4-MACFLAP_NOTIF: Host aaaa.aaaa.0001 in vlan 10 is flapping between port Fa0/5 and port Fa0/6</pre>
+<p>Ý nghĩa: frame có MAC nguồn đó vào switch liên tục qua hai port. Nguyên nhân hay gặp:</p>
+<ol>
+  <li>Có <b>loop L2</b> (ví dụ người dùng cắm hai đầu một sợi cáp vào hai ổ mạng, hoặc switch con nối hai đường) ⇒ broadcast quay vòng, CPU switch tăng, mạng chậm toàn VLAN.</li>
+  <li>Máy chủ có hai card mạng teaming sai chế độ.</li>
+  <li>Máy ảo di chuyển giữa hai host (bình thường nếu chỉ thỉnh thoảng).</li>
+</ol>
+<p>⇒ Thấy log này lặp lại nhiều lần mỗi giây: <b>xử lý ngay như sự cố loop</b>, tìm hai port, rút một đầu.</p>
+
+<h2>7/ MAC tĩnh</h2>
+<pre>SW1(config)# mac address-table static aaaa.aaaa.0009 vlan 10 interface fa0/9</pre>
+<p>Dòng tĩnh không bị aging, nằm trong config. Ít dùng; thường thay bằng port security (tuần 8).</p>
+
+<div class="note"><b>Góc nhìn hệ thống</b>
+Bảng MAC là công cụ dò vị trí thiết bị mạnh nhất của kỹ sư mạng: từ một MAC lạ trên cảnh báo, anh lần ra switch nào, port nào, ổ mạng nào. Ở ngân hàng, đây là bước đầu của xử lý "thiết bị lạ cắm vào mạng". Kết hợp <code>show mac address-table address</code> với <code>show cdp neighbors</code> để đi từ core xuống access, đúng cách anh đã làm với máy nhận VLAN 4.</div>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+Bảng MAC = (VLAN, MAC) → port · Aging 300 s · Reboot mất dòng dynamic · Một port nhiều MAC = phía sau có thiết bị khác · MACFLAP = nghi loop.</div>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Speed, duplex, autonegotiation, collision</h1>
+
+<h2>1/ Half duplex và full duplex</h2>
+<ul>
+  <li><b>Half duplex</b>: tại một thời điểm chỉ gửi <b>hoặc</b> nhận. Dùng với hub, dây chung. Phải dùng <b>CSMA/CD</b> để tránh va chạm.</li>
+  <li><b>Full duplex</b>: gửi và nhận <b>cùng lúc</b>, hai cặp dây riêng. Switch–máy tính ngày nay đều full duplex ⇒ <mark>không còn va chạm, không cần CSMA/CD</mark>.</li>
+</ul>
+
+<h2>2/ CSMA/CD (chỉ ở half duplex)</h2>
+<ol>
+  <li><b>Carrier Sense</b>: nghe dây, rảnh mới gửi.</li>
+  <li><b>Multiple Access</b>: nhiều máy dùng chung dây.</li>
+  <li><b>Collision Detection</b>: đang gửi mà thấy va chạm ⇒ gửi tín hiệu jam, dừng.</li>
+  <li>Chờ ngẫu nhiên (<b>backoff</b>) rồi thử lại.</li>
+</ol>
+
+<h2>3/ Collision domain</h2>
+<p>Mỗi port switch là một collision domain riêng. Hub: cả hub là một collision domain. (Đã học tuần 1 mục 8.)</p>
+
+<h2>4/ Autonegotiation (tự thỏa thuận)</h2>
+<p>Hai đầu gửi xung báo khả năng (10/100/1000, half/full), chọn mức cao nhất cả hai cùng hỗ trợ. Mặc định cổng Cisco là <code>speed auto</code>, <code>duplex auto</code>.</p>
+<div class="tbl"><table>
+<tr><th>Đầu A</th><th>Đầu B</th><th class="l">Kết quả</th></tr>
+<tr><td>auto</td><td>auto</td><td class="l">Tốt nhất. Ra 1000/full nếu cả hai hỗ trợ.</td></tr>
+<tr><td>auto</td><td>cứng 100/full</td><td class="l">A đo được tốc độ 100 nhưng <b>không nhận được thông tin duplex</b> ⇒ theo chuẩn, A chọn <b>half</b> (với 10/100). ⇒ <b>Lệch duplex</b>.</td></tr>
+<tr><td>cứng 100/full</td><td>cứng 100/full</td><td class="l">Chạy được, nhưng phải nhớ cấu hình cứng cả hai đầu.</td></tr>
+</table></div>
+<p>⇒ Quy tắc vận hành: <mark>hoặc để auto cả hai đầu, hoặc cấu hình cứng cả hai đầu. Không bao giờ một đầu auto, một đầu cứng.</mark></p>
+
+<h2>5/ Lệch duplex (duplex mismatch): dấu hiệu</h2>
+<ul>
+  <li>Link vẫn lên, ping được, nhưng <b>chậm</b>, tải file lớn rất lâu.</li>
+  <li>Phía <b>half</b>: bộ đếm <code>late collision</code> tăng.</li>
+  <li>Phía <b>full</b>: <code>CRC</code>, <code>runts</code>, <code>input errors</code> tăng.</li>
+  <li>Log CDP: <code>%CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on Fa0/1 (not half duplex)</code>.</li>
+</ul>
+<pre>SW1# show interfaces fa0/1
+FastEthernet0/1 is up, line protocol is up (connected)
+  Hardware is Fast Ethernet, address is 0019.e8aa.0101
+  MTU 1500 bytes, BW 100000 Kbit/sec, DLY 100 usec,
+  Full-duplex, 100Mb/s, media type is 10/100BaseTX     ! đọc dòng này trước
+  ...
+     5 minute input rate 2000 bits/sec, 3 packets/sec
+     0 runts, 0 giants, 0 throttles
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored
+     0 late collision, 0 deferred                       ! khác 0 trên link full duplex là bất thường
+SW1# show interfaces status                            ! bảng gọn: port, VLAN, duplex, speed
+Port      Name   Status       Vlan  Duplex  Speed Type
+Fa0/1            connected    10    a-full  a-100 10/100BaseTX   ! "a-" = có được nhờ auto</pre>
+
+<h2>6/ Cấu hình speed/duplex</h2>
+<pre>SW1(config)# interface fa0/1
+SW1(config-if)# speed 100
+SW1(config-if)# duplex full
+SW1(config-if)# description PC-ke-toan-01
+SW1(config-if)# end</pre>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+Full duplex = không va chạm · CSMA/CD chỉ dùng ở half duplex · auto + cứng ⇒ lệch duplex · Late collision bên half, CRC/runt bên full · <code>show interfaces status</code>: <code>a-full</code> nghĩa là auto ra full.</div>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> ARP chi tiết</h1>
+
+<h2>1/ ARP để làm gì</h2>
+<p><b>ARP (Address Resolution Protocol)</b>: biết IP của máy cùng đoạn mạng ⇒ hỏi ra MAC của máy đó để đóng frame. ARP nằm "giữa" tầng 2 và 3: được đóng thẳng trong frame Ethernet (EtherType <code>0x0806</code>), <b>không có IP header</b> ⇒ <mark>ARP không đi qua router</mark>.</p>
+
+<h2>2/ Máy tính hỏi MAC của ai</h2>
+<ol>
+  <li>Máy lấy IP đích AND mask của chính nó, so với mạng của nó.</li>
+  <li><b>Cùng mạng</b> ⇒ ARP hỏi MAC của <b>chính IP đích</b>.</li>
+  <li><b>Khác mạng</b> ⇒ ARP hỏi MAC của <b>default gateway</b>. Không bao giờ ARP hỏi MAC của IP ở mạng khác.</li>
+</ol>
+<p>Ví dụ: PC <code>192.168.1.10/24</code>, gateway <code>192.168.1.1</code>, muốn tới <code>8.8.8.8</code> ⇒ khác mạng ⇒ ARP hỏi <b>"Ai là 192.168.1.1?"</b>.</p>
+
+<h2>3/ 4 bước một lần ARP</h2>
+<ol>
+  <li><b>Tra ARP cache</b> trước. Có rồi thì đóng frame luôn, không hỏi.</li>
+  <li><b>ARP request</b>: MAC đích <code>ffff.ffff.ffff</code> (<b>broadcast</b>), nội dung: "Ai có IP 192.168.1.1, hãy báo cho 192.168.1.10 (MAC aaaa.aaaa.0001)".</li>
+  <li>Mọi máy trong VLAN nhận được. Chỉ máy có IP đó trả <b>ARP reply</b> <b>unicast</b> thẳng về MAC người hỏi: "192.168.1.1 là MAC 5000.0001.0000". Máy được hỏi cũng tiện tay lưu MAC của người hỏi.</li>
+  <li>Người hỏi lưu vào ARP cache, đóng frame và gửi gói IP đang chờ.</li>
+</ol>
+<div class="flow">PC1 192.168.1.10                         GW 192.168.1.1
+  | --- ARP request (broadcast ffff.ffff.ffff) ------> |   "Who has 192.168.1.1? Tell 192.168.1.10"
+  | <-- ARP reply (unicast tới aaaa.aaaa.0001) ------- |   "192.168.1.1 is at 5000.0001.0000"
+  | --- ICMP echo (MAC đích 5000.0001.0000) ---------> |</div>
+
+<h2>4/ Gói ARP mổ từng trường (28 byte)</h2>
+<div class="tbl"><table>
+<tr><th>Trường</th><th>Độ dài</th><th class="l">Giá trị thường gặp</th></tr>
+<tr><td>Hardware type</td><td>2</td><td class="l">1 = Ethernet</td></tr>
+<tr><td>Protocol type</td><td>2</td><td class="l"><code>0x0800</code> = IPv4</td></tr>
+<tr><td>Hardware size / Protocol size</td><td>1 + 1</td><td class="l">6 (MAC) / 4 (IPv4)</td></tr>
+<tr><td><b>Opcode</b></td><td>2</td><td class="l"><b>1 = request, 2 = reply</b></td></tr>
+<tr><td>Sender MAC / Sender IP</td><td>6 + 4</td><td class="l">Người gửi gói ARP này</td></tr>
+<tr><td>Target MAC / Target IP</td><td>6 + 4</td><td class="l">Request: Target MAC = <code>00:00:00:00:00:00</code> (chưa biết)</td></tr>
+</table></div>
+<p>28 byte &lt; 46 ⇒ card mạng đệm thêm 18 byte cho đủ frame 64 byte (mục 2).</p>
+
+<h2>5/ ARP cache: xem, xóa, sống bao lâu</h2>
+<div class="tbl"><table>
+<tr><th>Hệ điều hành</th><th class="l">Xem</th><th class="l">Xóa</th><th class="l">Thời gian sống</th></tr>
+<tr><td>Windows</td><td class="l"><code>arp -a</code><br><code>Get-NetNeighbor</code></td><td class="l"><code>arp -d *</code> (Admin)<br><code>netsh interface ip delete arpcache</code></td><td class="l">Ngắn: vài chục giây không dùng là chuyển "stale", sau đó hỏi lại</td></tr>
+<tr><td>Linux</td><td class="l"><code>ip neigh</code></td><td class="l"><code>ip neigh flush all</code></td><td class="l">Tương tự Windows (REACHABLE ~30 s, rồi STALE)</td></tr>
+<tr><td>Cisco IOS</td><td class="l"><code>show ip arp</code></td><td class="l"><code>clear ip arp</code><br><code>clear arp-cache</code></td><td class="l"><b>4 giờ</b> (14400 s), chỉnh bằng <code>arp timeout</code> trên interface</td></tr>
+</table></div>
+<pre>R1# show ip arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  192.168.1.1             -   5000.0001.0000  ARPA   GigabitEthernet0/0   ! "-" = IP của chính router
+Internet  192.168.1.10           12   aaaa.aaaa.0001  ARPA   GigabitEthernet0/0   ! học được 12 phút trước
+Internet  192.168.1.20            0   Incomplete      ARPA                        ! đã hỏi mà chưa ai trả lời</pre>
+<p><b>Incomplete</b> = router đã gửi ARP request nhưng không có reply ⇒ máy đó tắt, sai VLAN, sai IP, hoặc firewall trên máy chặn.</p>
+
+<div class="note"><b>💡 Vì sao ping lần đầu hay mất gói đầu tiên</b>
+Trên router Cisco, lần ping đầu ra kết quả <code>.!!!!</code>: gói đầu bị bỏ trong lúc router chờ ARP. Không phải lỗi mạng. Windows thì giữ gói lại chờ ARP nên ít thấy hiện tượng này.</div>
+
+<div class="note"><b>💡 Ví dụ dễ hiểu</b>
+ARP giống <b>gọi loa trong văn phòng</b>: "Ai là anh Hùng (IP), cho tôi xin số bàn (MAC)!". Cả phòng nghe (broadcast), chỉ anh Hùng đi tới bàn người hỏi và nói nhỏ (unicast). Người ở tòa khác không nghe loa phòng này được (ARP không qua router). Muốn gửi đồ sang tòa khác thì hỏi số bàn của <b>bảo vệ cổng</b> (gateway).</div>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+ARP: IP → MAC, EtherType 0x0806 · Request broadcast, reply unicast · Opcode 1/2 · Khác mạng ⇒ hỏi MAC gateway · Cisco ARP 4 giờ, MAC table 300 s · Incomplete = hỏi không ai trả lời.</div>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> Gratuitous ARP, Proxy ARP, ARP spoofing, trùng IP</h1>
+
+<h2>1/ Gratuitous ARP (GARP)</h2>
+<p>Là gói ARP <b>không ai hỏi mà tự gửi</b>, trong đó Sender IP = Target IP = IP của chính máy gửi, gửi broadcast. Hai công dụng:</p>
+<ol>
+  <li><b>Thông báo "MAC của IP này vừa đổi"</b> để mọi máy cập nhật cache ngay: gateway dự phòng HSRP/VRRP chuyển sang router khác (tuần 15), firewall cụm HA (FortiGate HA) chuyển active, máy ảo vMotion sang host khác, card mạng teaming đổi card.</li>
+  <li><b>Phát hiện trùng IP</b>: máy khi nhận IP thì gửi ARP hỏi chính IP của mình. Có ai trả lời ⇒ IP đã có người dùng.</li>
+</ol>
+<div class="note"><b>Chi tiết chính xác (để không viết sai)</b>
+Windows hiện nay dùng <b>ARP probe</b> (RFC 5227) để kiểm tra trùng: Sender IP = <code>0.0.0.0</code>, Target IP = IP định dùng, để không làm hỏng cache của máy khác nếu IP đã có người dùng. Sau đó mới gửi gratuitous ARP thông báo. Trong Wireshark, bộ lọc <code>arp.isgratuitous</code> và <code>arp.src.proto_ipv4 == 0.0.0.0</code> giúp tìm hai loại này.</div>
+
+<h2>2/ Trùng IP (IP conflict): nhận diện</h2>
+<ul>
+  <li>Windows báo: <i>"Windows has detected an IP address conflict"</i>; Event Viewer → System, nguồn <b>Tcpip</b>, Event ID <b>4199</b>, có ghi MAC của máy kia.</li>
+  <li>Máy bị trùng mạng chập chờn: lúc vào được, lúc không, vì cache ARP của gateway lúc trỏ máy này, lúc trỏ máy kia.</li>
+  <li>Trên gateway/router: <code>show ip arp 192.168.1.50</code> nhiều lần thấy MAC nhảy qua lại. Router Cisco còn ghi log <code>%IP-4-DUPADDR</code> nếu trùng với chính IP của nó.</li>
+</ul>
+<p><b>Xử lý</b>: lấy MAC lạ ⇒ <code>show mac address-table address &lt;mac&gt;</code> ⇒ ra port ⇒ tìm máy ⇒ đổi IP hoặc sửa DHCP reservation. Nguyên nhân hay gặp: ai đó đặt IP tĩnh nằm trong dải DHCP cấp phát.</p>
+
+<h2>3/ Proxy ARP</h2>
+<p>Router <b>trả lời ARP thay</b> cho một IP ở mạng khác, đưa MAC của chính nó. Xảy ra khi máy có <b>mask sai</b> (ví dụ /16 thay vì /24), tưởng đích cùng mạng nên ARP hỏi thẳng. Cisco bật proxy ARP mặc định trên interface (<code>ip proxy-arp</code>).</p>
+<p>⇒ Hệ quả vận hành: máy cấu hình sai mask vẫn "chạy được" nhờ proxy ARP, che giấu lỗi. Bảng ARP của máy đó có rất nhiều IP cùng một MAC (MAC router). Nhiều nơi tắt proxy ARP vì lý do bảo mật: <code>no ip proxy-arp</code>.</p>
+
+<h2>4/ ARP spoofing (giả mạo ARP)</h2>
+<p>ARP không có xác thực: ai gửi reply cũng được tin. Kẻ tấn công gửi ARP giả "IP gateway là MAC của tôi" ⇒ máy nạn nhân gửi mọi gói qua kẻ tấn công (man-in-the-middle). Biện pháp chống: <b>Dynamic ARP Inspection (DAI)</b> kết hợp DHCP snooping trên switch (tuần 19).</p>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+GARP: tự thông báo, dùng khi đổi MAC (HSRP, HA, VM) · Trùng IP: Event ID 4199, MAC nhảy trong ARP gateway · Proxy ARP che giấu lỗi sai mask · ARP không xác thực ⇒ chống bằng DAI.</div>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> Tầng 4: port, socket, phân kênh</h1>
+
+<h2>1/ Tầng 4 làm gì</h2>
+<ol>
+  <li><b>Phân biệt ứng dụng</b> trên cùng một máy bằng <b>port</b> (số 16 bit, 0–65535).</li>
+  <li><b>Chia dữ liệu</b> thành đoạn (segment) vừa MSS.</li>
+  <li>Tùy giao thức: <b>tin cậy</b> (TCP: đánh số, xác nhận, gửi lại, điều khiển luồng) hoặc <b>nhanh, không bảo đảm</b> (UDP).</li>
+</ol>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Ghi chép cũ: mục "Layer 4 Transport" chỉ có một dòng "Diễn ra quá trình Encapsulation và De-encapsulation". <b>Mục đang gần như trống.</b> Câu đó đúng với mọi tầng, không nói gì riêng về tầng 4. Anh viết lại bằng lời của mình theo 3 ý trên, cộng bảng TCP/UDP ở mục 13 và bắt tay 3 bước ở mục 11.</div>
+
+<h2>2/ Ba dải port</h2>
+<div class="tbl"><table>
+<tr><th>Dải</th><th>Tên</th><th class="l">Dùng cho</th></tr>
+<tr><td>0 – 1023</td><td>Well-known</td><td class="l">Dịch vụ chuẩn: 22, 53, 80, 443…</td></tr>
+<tr><td>1024 – 49151</td><td>Registered</td><td class="l">Ứng dụng đăng ký: 1433 (SQL Server), 3389 (RDP), 10050 (Zabbix agent)…</td></tr>
+<tr><td>49152 – 65535</td><td>Dynamic / ephemeral</td><td class="l">Port <b>nguồn</b> tạm thời phía client. Windows dùng đúng dải này; Linux mặc định 32768–60999</td></tr>
+</table></div>
+
+<h2>3/ Socket và 5-tuple</h2>
+<p><b>Socket</b> = IP + port + giao thức. Một kết nối được xác định duy nhất bởi <b>5-tuple</b>:</p>
+<div class="flow">(IP nguồn, port nguồn, IP đích, port đích, giao thức)
+Ví dụ: (192.168.1.10, 51234, 172.16.5.20, 443, TCP)</div>
+<p>⇒ Một PC mở 10 tab cùng một website: 10 kết nối, khác nhau ở <b>port nguồn</b>.</p>
+<p>⇒ Firewall stateful (FortiGate) lưu bảng <b>session</b> theo đúng 5-tuple này. Gói trả về khớp session đã có thì được cho qua mà không cần rule chiều ngược.</p>
+
+<h2>4/ Phân kênh (demultiplexing) ở bên nhận</h2>
+<ol>
+  <li>EtherType <code>0x0800</code> ⇒ đưa lên IPv4.</li>
+  <li>IP Protocol <code>6</code> ⇒ đưa lên TCP (<code>17</code> ⇒ UDP).</li>
+  <li>Port đích <code>443</code> ⇒ đưa cho tiến trình đang <b>lắng nghe</b> (listen) port 443, ví dụ IIS hoặc nginx.</li>
+  <li>Không có tiến trình nào nghe port đó ⇒ TCP trả <b>RST</b>, UDP trả <b>ICMP Port Unreachable</b> (type 3 code 3).</li>
+</ol>
+
+<div class="note"><b>💡 Ví dụ dễ hiểu</b>
+IP là <b>địa chỉ tòa nhà</b>, port là <b>số phòng</b>. Thư tới đúng tòa nhưng ghi phòng không có người ⇒ bị trả lại (RST / Port Unreachable). Người gửi (client) lấy đại một số phòng tạm (port ephemeral) để người nhận biết gửi trả lời về đâu.</div>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+Port 16 bit · Well-known 0–1023 · Ephemeral 49152–65535 (Windows) · 5-tuple xác định kết nối · Không ai nghe port: TCP trả RST, UDP trả ICMP port unreachable.</div>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> TCP header mổ từng trường</h1>
+
+<p>TCP header tối thiểu <b>20 byte</b>, tối đa <b>60 byte</b> (có option). IP Protocol = <b>6</b>.</p>
+
+<div class="hdr-wrap"><div class="hdr">
+  <div style="grid-column:span 16">Source Port<small>16 bit</small></div>
+  <div style="grid-column:span 16">Destination Port<small>16 bit</small></div>
+  <div style="grid-column:span 32">Sequence Number<small>32 bit</small></div>
+  <div style="grid-column:span 32">Acknowledgment Number<small>32 bit</small></div>
+  <div style="grid-column:span 4">Data Offset<small>4</small></div>
+  <div style="grid-column:span 4" class="opt">Reserved<small>4</small></div>
+  <div style="grid-column:span 8" class="fl">Flags<small>CWR ECE URG ACK PSH RST SYN FIN</small></div>
+  <div style="grid-column:span 16">Window<small>16 bit</small></div>
+  <div style="grid-column:span 16">Checksum<small>16 bit</small></div>
+  <div style="grid-column:span 16" class="opt">Urgent Pointer<small>16 bit</small></div>
+  <div style="grid-column:span 32" class="opt">Options (0–40 byte): MSS, Window Scale, SACK, Timestamps</div>
+</div></div>
+
+<div class="tbl"><table>
+<tr><th>Trường</th><th>Độ dài</th><th class="l">Ý nghĩa</th><th class="l">Dùng gì khi vận hành</th></tr>
+<tr><td>Source / Destination Port</td><td>16 + 16 bit</td><td class="l">Ứng dụng gửi / nhận</td><td class="l">Rule firewall, ACL khớp port đích</td></tr>
+<tr><td><b>Sequence Number</b></td><td>32 bit</td><td class="l">Số thứ tự byte đầu tiên trong segment này. Bắt đầu từ số ngẫu nhiên (ISN)</td><td class="l">Wireshark hiện "relative" (bắt đầu từ 0) cho dễ đọc</td></tr>
+<tr><td><b>Acknowledgment Number</b></td><td>32 bit</td><td class="l">"Tôi đã nhận đủ tới byte X−1, gửi tiếp từ byte X". Chỉ có nghĩa khi cờ ACK = 1</td><td class="l">Ack đứng yên, cùng số lặp lại = mất gói</td></tr>
+<tr><td>Data Offset</td><td>4 bit</td><td class="l">Độ dài header theo đơn vị 4 byte. 5 ⇒ 20 byte</td><td class="l">Giống IHL của IP</td></tr>
+<tr><td><b>Flags</b></td><td>8 bit</td><td class="l">SYN, ACK, FIN, RST, PSH, URG, ECE, CWR</td><td class="l">Xem bảng dưới</td></tr>
+<tr><td><b>Window</b></td><td>16 bit</td><td class="l">Bên nhận còn nhận thêm được bao nhiêu byte</td><td class="l">Window = 0 ⇒ bên nhận quá tải (ứng dụng xử lý chậm)</td></tr>
+<tr><td>Checksum</td><td>16 bit</td><td class="l">Kiểm lỗi header + data (kèm "pseudo header" chứa IP nguồn/đích)</td><td class="l">Wireshark báo sai checksum ở gói <b>gửi đi</b> thường do card mạng tự tính (offload), không phải lỗi</td></tr>
+<tr><td>Urgent Pointer</td><td>16 bit</td><td class="l">Dùng với cờ URG, gần như không dùng</td><td class="l">—</td></tr>
+<tr><td>Options</td><td>0–40 byte</td><td class="l"><b>MSS</b> (chỉ trong SYN), Window Scale, SACK, Timestamps</td><td class="l">MSS thấy trong gói SYN: 1460 trên Ethernet thường</td></tr>
+</table></div>
+
+<h2>Các cờ (flags) cần thuộc</h2>
+<div class="tbl"><table>
+<tr><th>Cờ</th><th class="l">Nghĩa</th><th class="l">Khi nào thấy</th></tr>
+<tr><td><b>SYN</b></td><td class="l">Synchronize: xin mở kết nối, gửi ISN</td><td class="l">Gói 1, 2 của bắt tay</td></tr>
+<tr><td><b>ACK</b></td><td class="l">Trường Acknowledgment có giá trị</td><td class="l">Mọi gói sau gói SYN đầu tiên</td></tr>
+<tr><td><b>FIN</b></td><td class="l">Tôi gửi xong, xin đóng chiều của tôi</td><td class="l">Đóng kết nối bình thường</td></tr>
+<tr><td><b>RST</b></td><td class="l">Reset: hủy ngay, không bàn thêm</td><td class="l">Port không có dịch vụ; firewall chủ động cắt; ứng dụng crash</td></tr>
+<tr><td>PSH</td><td class="l">Đẩy dữ liệu lên ứng dụng ngay, không gom</td><td class="l">Gói chứa dữ liệu tương tác</td></tr>
+<tr><td>URG</td><td class="l">Có dữ liệu khẩn</td><td class="l">Hiếm</td></tr>
+<tr><td>ECE / CWR</td><td class="l">Báo nghẽn (ECN)</td><td class="l">Mạng có hỗ trợ ECN</td></tr>
+</table></div>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+TCP header 20–60 byte · Seq đánh số <b>byte</b>, không đánh số gói · Ack = byte tiếp theo muốn nhận · Window = còn nhận được bao nhiêu · MSS nằm trong option của gói SYN · RST = hủy ngay.</div>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> TCP: bắt tay 3 bước, đóng kết nối, RST, trạng thái</h1>
+
+<h2>1/ Bắt tay 3 bước (three-way handshake)</h2>
+<div class="flow">Client 192.168.1.10:51234                     Server 172.16.5.20:443
+   |  1. SYN        seq=0             (ISN client)      |
+   | -------------------------------------------------> |   client: SYN-SENT
+   |  2. SYN, ACK   seq=0  ack=1      (ISN server)      |   server: SYN-RECEIVED
+   | <------------------------------------------------- |
+   |  3. ACK        seq=1  ack=1                        |
+   | -------------------------------------------------> |   cả hai: ESTABLISHED
+   |  (dữ liệu bắt đầu, ví dụ TLS Client Hello)         |
+(số seq/ack là "relative" như Wireshark hiển thị)</div>
+<ol>
+  <li><mark><b>SYN</b> → <b>SYN-ACK</b> → <b>ACK</b></mark>. Tên ba gói theo thứ tự.</li>
+  <li>Mỗi bên chọn ISN ngẫu nhiên (chống đoán số để chèn gói giả).</li>
+  <li>SYN "tốn" 1 số thứ tự dù không có dữ liệu ⇒ ack = ISN + 1.</li>
+  <li>Hai bên trao đổi <b>MSS</b>, Window Scale, SACK trong gói SYN và SYN-ACK.</li>
+</ol>
+
+<h2>2/ Đọc kết quả bắt tay khi xử lý sự cố</h2>
+<div class="tbl"><table>
+<tr><th>Wireshark phía client thấy</th><th class="l">Ý nghĩa</th><th class="l">Nghi gì</th></tr>
+<tr><td>SYN, SYN, SYN (gửi lại sau ~1 s, ~2 s, ~4 s…), không có trả lời</td><td class="l">Gói đi mất hoặc bị <b>drop</b> âm thầm</td><td class="l">Firewall chặn kiểu deny (drop), sai route, server tắt, chiều về hỏng</td></tr>
+<tr><td>SYN → <b>RST, ACK</b></td><td class="l">Tới được máy đích nhưng <b>không có dịch vụ</b> nghe port đó</td><td class="l">Dịch vụ chưa chạy, sai port. Hoặc firewall cấu hình "reject" trả RST</td></tr>
+<tr><td>SYN → SYN-ACK → ACK, rồi RST</td><td class="l">Kết nối mở được rồi bị cắt</td><td class="l">Ứng dụng từ chối, NGFW chặn theo ứng dụng/IPS, lỗi TLS</td></tr>
+<tr><td>Bắt tay xong, dữ liệu nhỏ đi được, gói lớn treo</td><td class="l">Gói lớn bị bỏ</td><td class="l">MTU/MSS (tuần 1 mục 12)</td></tr>
+</table></div>
+
+<h2>3/ Đóng kết nối: 4 gói</h2>
+<div class="flow">Bên A                                   Bên B
+  | --- FIN, ACK ------------------------> |   A: FIN-WAIT-1    (A không gửi nữa)
+  | <-- ACK ------------------------------ |   A: FIN-WAIT-2    B: CLOSE-WAIT
+  | <-- FIN, ACK ------------------------- |   B gửi nốt dữ liệu rồi mới FIN; B: LAST-ACK
+  | --- ACK -----------------------------> |   A: TIME-WAIT     B: CLOSED
+  (A chờ 2 × MSL rồi mới CLOSED)</div>
+<ul>
+  <li>Mỗi chiều đóng riêng ⇒ 4 gói. Gói 2 và 3 có thể gộp ⇒ thấy 3 gói.</li>
+  <li><b>TIME-WAIT</b>: bên đóng trước chờ 2 × MSL (Windows mặc định 240 giây, Linux 60 giây) để gói lạc đường không lẫn vào kết nối mới.</li>
+  <li>Server có hàng nghìn kết nối <b>CLOSE-WAIT</b> ⇒ <b>ứng dụng trên server</b> không chịu đóng socket (lỗi phần mềm), không phải lỗi mạng.</li>
+</ul>
+
+<h2>4/ RST khác FIN thế nào</h2>
+<p>FIN là "chào tạm biệt lịch sự", dữ liệu còn đang gửi vẫn được gửi xong. RST là "cúp máy": hủy ngay, dữ liệu dở dang bị bỏ, không có ACK cho RST.</p>
+
+<h2>5/ Xem trạng thái kết nối trên máy</h2>
+<pre>C:\&gt; netstat -ano | findstr :443          ! kết nối tới/từ port 443, kèm PID
+  TCP  192.168.1.10:51234  172.16.5.20:443  ESTABLISHED  4820
+  TCP  192.168.1.10:51240  172.16.5.20:443  SYN_SENT     4820    ! đang chờ SYN-ACK: nghi bị chặn
+C:\&gt; netstat -ano | findstr LISTENING     ! máy này đang mở những port nào
+PS&gt; Get-NetTCPConnection -State Listen | Sort LocalPort
+PS&gt; Test-NetConnection 172.16.5.20 -Port 443     ! thử bắt tay TCP
+
+$ ss -tan                                  ! Linux: mọi kết nối TCP
+$ ss -tlnp                                 ! Linux: port đang nghe, kèm tiến trình</pre>
+
+<div class="note"><b>💡 Ví dụ dễ hiểu</b>
+Bắt tay 3 bước như <b>gọi điện</b>: "Alo, nghe rõ không?" (SYN) – "Nghe rõ, anh nghe tôi rõ không?" (SYN-ACK) – "Rõ" (ACK). Sau đó mới nói chuyện chính. FIN là "thôi em cúp nhé" – "ừ"; RST là bị ngắt máy giữa chừng.</div>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+SYN → SYN-ACK → ACK · SYN không trả lời = bị drop · SYN → RST = tới nơi nhưng không có dịch vụ · Đóng: FIN/ACK hai chiều, 4 gói · CLOSE-WAIT nhiều = lỗi ứng dụng · TIME-WAIT ở bên đóng trước.</div>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> TCP tin cậy: sequence, ACK, gửi lại, window</h1>
+
+<h2>1/ Đánh số theo byte</h2>
+<p>Client gửi 3 segment, mỗi segment 1000 byte, seq bắt đầu 1:</p>
+<div class="tbl"><table>
+<tr><th>Segment</th><th>Seq</th><th>Độ dài</th><th class="l">ACK server trả</th></tr>
+<tr><td>1</td><td>1</td><td>1000</td><td class="l">ack = 1001</td></tr>
+<tr><td>2</td><td>1001</td><td>1000</td><td class="l">ack = 2001</td></tr>
+<tr><td>3</td><td>2001</td><td>1000</td><td class="l">ack = 3001</td></tr>
+</table></div>
+<p><mark>ack = seq + độ dài dữ liệu</mark> = byte tiếp theo bên nhận muốn. TCP còn dùng <b>ACK tích lũy</b>: một ACK 3001 xác nhận cả ba segment.</p>
+
+<h2>2/ Mất gói và gửi lại</h2>
+<ol>
+  <li>Segment 2 (seq 1001) mất. Server nhận segment 3 (seq 2001) nhưng thiếu đoạn giữa ⇒ vẫn trả <b>ack = 1001</b> (duplicate ACK).</li>
+  <li>Client nhận <b>3 duplicate ACK</b> ⇒ gửi lại ngay segment 1001 (<b>fast retransmit</b>), không chờ hết giờ.</li>
+  <li>Không nhận được ACK nào trong thời gian RTO ⇒ gửi lại khi hết giờ (<b>retransmission timeout</b>), và RTO tăng gấp đôi sau mỗi lần thất bại.</li>
+</ol>
+<p>Wireshark tô màu các gói này: <code>[TCP Dup ACK]</code>, <code>[TCP Retransmission]</code>, <code>[TCP Fast Retransmission]</code>. Bộ lọc <code>tcp.analysis.flags</code> hiện tất cả gói bất thường.</p>
+
+<h2>3/ Window: điều khiển luồng (flow control)</h2>
+<ul>
+  <li>Bên nhận báo Window = số byte còn nhận được. Bên gửi được gửi tối đa chừng đó byte <b>chưa được ACK</b>.</li>
+  <li>Window 16 bit ⇒ tối đa 65535 byte. Mạng nhanh cần lớn hơn ⇒ option <b>Window Scale</b> nhân lên (tối đa hệ số 2<sup>14</sup>, ~1 GB).</li>
+  <li><b>Window = 0</b> (Wireshark: <code>[TCP ZeroWindow]</code>): bên nhận bảo "dừng, tôi chưa xử lý kịp". <mark>Lỗi nằm ở máy nhận/ứng dụng, không phải ở mạng.</mark></li>
+</ul>
+
+<h2>4/ Kiểm soát nghẽn (congestion control), mức CCNA</h2>
+<p>Ngoài window của bên nhận, bên gửi tự giữ một "cửa sổ nghẽn": bắt đầu nhỏ (<b>slow start</b>), tăng dần khi mọi thứ trơn tru, <b>giảm mạnh khi mất gói</b>. ⇒ Đường truyền có tỷ lệ mất gói chỉ 1–2% đã làm tốc độ TCP giảm rõ rệt. Đây là lý do link ISP "ping thấy ổn" nhưng tải file chậm.</p>
+
+<div class="note"><b>Góc nhìn hệ thống</b>
+Khi người dùng kêu "ứng dụng chậm", câu hỏi đầu tiên: chậm do <b>mạng</b> (retransmission, độ trễ cao, mất gói) hay do <b>máy chủ</b> (ZeroWindow, server trả lời chậm sau khi nhận đủ request)? Một file Wireshark 1 phút trả lời câu này rõ hơn mọi tranh cãi giữa team mạng và team ứng dụng. Trên SD-WAN, health-check đo <b>latency, jitter, packet loss</b> cũng chính vì ba thứ này quyết định hiệu năng TCP.</div>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+ack = seq + số byte · ACK tích lũy · 3 dup ACK ⇒ fast retransmit · Hết RTO ⇒ gửi lại, RTO nhân đôi · ZeroWindow = máy nhận quá tải · Mất gói làm TCP tự giảm tốc.</div>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> UDP và so sánh với TCP</h1>
+
+<h2>1/ UDP header: chỉ 8 byte</h2>
+<div class="hdr-wrap"><div class="hdr">
+  <div style="grid-column:span 16">Source Port<small>16 bit</small></div>
+  <div style="grid-column:span 16">Destination Port<small>16 bit</small></div>
+  <div style="grid-column:span 16">Length<small>16 bit (header + data)</small></div>
+  <div style="grid-column:span 16">Checksum<small>16 bit</small></div>
+</div></div>
+<p>IP Protocol = <b>17</b>. Không bắt tay, không đánh số, không ACK, không gửi lại, không window. Mất thì thôi; ứng dụng tự lo nếu cần.</p>
+
+<h2>2/ Bảng so sánh</h2>
+<div class="tbl"><table>
+<tr><th>Tiêu chí</th><th>TCP</th><th>UDP</th></tr>
+<tr><td>Kết nối</td><td>Có (bắt tay 3 bước)</td><td>Không (connectionless)</td></tr>
+<tr><td>Tin cậy</td><td>Có: seq, ACK, gửi lại</td><td>Không</td></tr>
+<tr><td>Thứ tự</td><td>Sắp xếp đúng thứ tự</td><td>Không bảo đảm</td></tr>
+<tr><td>Điều khiển luồng / nghẽn</td><td>Có (window, slow start)</td><td>Không</td></tr>
+<tr><td>Header</td><td>20–60 byte</td><td>8 byte</td></tr>
+<tr><td>IP Protocol</td><td>6</td><td>17</td></tr>
+<tr><td>PDU</td><td>Segment</td><td>Datagram</td></tr>
+<tr><td>Dùng cho</td><td>Web, email, file, SSH, RDP, database, LDAP</td><td>DNS (truy vấn thường), DHCP, NTP, SNMP, syslog, TFTP, thoại/video (RTP), VPN IKE/IPsec NAT-T</td></tr>
+</table></div>
+
+<h2>3/ Vì sao thoại/video dùng UDP</h2>
+<p>Gói thoại đến muộn thì <b>vô dụng</b>: gửi lại một đoạn tiếng nói của 1 giây trước chỉ làm cuộc gọi tệ hơn. Ứng dụng chấp nhận mất một ít gói (nghe rè) hơn là trễ.</p>
+
+<h2>4/ UDP và firewall</h2>
+<p>UDP không có SYN/FIN ⇒ firewall không biết "phiên" bắt đầu hay kết thúc lúc nào ⇒ dùng <b>timeout</b> (ví dụ phiên UDP không có gói trong 180 giây thì xóa). Đây là lý do một số ứng dụng UDP lâu lâu mới gửi gói (SIP, VPN) cần gửi <b>keepalive</b> để giữ phiên qua firewall/NAT.</p>
+
+<h2>5/ DNS dùng cả UDP lẫn TCP</h2>
+<p>Truy vấn thông thường: <b>UDP 53</b>. Câu trả lời quá lớn (bị đánh dấu truncated) hoặc đồng bộ zone giữa các DNS server: <b>TCP 53</b>. ⇒ Rule firewall cho DNS nên mở cả hai, đặc biệt giữa các Domain Controller.</p>
+
+<div class="sum"><b>Ghi nhớ nhanh</b>
+UDP header 8 byte, Protocol 17 · Không bắt tay, không gửi lại · Thoại/video, DNS, DHCP, NTP, SNMP, syslog dùng UDP · Firewall theo dõi UDP bằng timeout · DNS: UDP 53 và TCP 53.</div>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Port hay gặp trong vận hành</h1>
+
+<p><mark>Học thuộc cột "Port" và "Giao thức L4".</mark> Đề CCNA hỏi, phỏng vấn hỏi, và viết rule firewall dùng hằng ngày.</p>
+<div class="tbl"><table>
+<tr><th>Dịch vụ</th><th>Port</th><th>L4</th><th class="l">Gặp ở đâu trong công việc</th></tr>
+<tr><td>FTP</td><td>20 (data), 21 (control)</td><td>TCP</td><td class="l">Truyền file cũ, gửi nhận file đối tác</td></tr>
+<tr><td><b>SSH</b></td><td><b>22</b></td><td>TCP</td><td class="l">Quản trị switch, router, Linux, FortiGate CLI</td></tr>
+<tr><td>Telnet</td><td>23</td><td>TCP</td><td class="l">Không mã hóa, phải tắt trên thiết bị</td></tr>
+<tr><td>SMTP</td><td>25 (587 cho client gửi)</td><td>TCP</td><td class="l">Mail server gửi thư, máy in scan-to-mail</td></tr>
+<tr><td><b>DNS</b></td><td><b>53</b></td><td>UDP + TCP</td><td class="l">Domain Controller, phân giải tên</td></tr>
+<tr><td><b>DHCP</b></td><td><b>67</b> (server), <b>68</b> (client)</td><td>UDP</td><td class="l">Cấp IP; qua router cần <code>ip helper-address</code> (tuần 18)</td></tr>
+<tr><td>TFTP</td><td>69</td><td>UDP</td><td class="l">Chép IOS/config, điện thoại IP lấy cấu hình</td></tr>
+<tr><td>Kerberos</td><td>88</td><td>TCP + UDP</td><td class="l">Đăng nhập domain AD</td></tr>
+<tr><td><b>HTTP</b></td><td><b>80</b></td><td>TCP</td><td class="l">Web không mã hóa</td></tr>
+<tr><td>NTP</td><td>123</td><td>UDP</td><td class="l">Đồng bộ giờ: lệch giờ thì Kerberos lỗi, log lệch</td></tr>
+<tr><td>SNMP</td><td>161 (poll), 162 (trap)</td><td>UDP</td><td class="l">Zabbix, công cụ giám sát hỏi thiết bị</td></tr>
+<tr><td><b>LDAP</b></td><td><b>389</b> (636 LDAPS)</td><td>TCP + UDP</td><td class="l">Ứng dụng xác thực vào AD</td></tr>
+<tr><td><b>HTTPS</b></td><td><b>443</b></td><td>TCP (HTTP/3 dùng UDP 443)</td><td class="l">Gần như mọi ứng dụng web, Microsoft 365</td></tr>
+<tr><td><b>SMB</b></td><td><b>445</b></td><td>TCP</td><td class="l">Chia sẻ file Windows, NAS, DFS</td></tr>
+<tr><td>Syslog</td><td>514</td><td>UDP (TCP tùy cấu hình)</td><td class="l">Thiết bị gửi log về máy chủ log/SIEM</td></tr>
+<tr><td>IKE / IPsec NAT-T</td><td>500, 4500</td><td>UDP</td><td class="l">VPN site-to-site, FortiGate IPsec</td></tr>
+<tr><td>SQL Server</td><td>1433</td><td>TCP</td><td class="l">Ứng dụng nội bộ nối database</td></tr>
+<tr><td>Global Catalog</td><td>3268</td><td>TCP</td><td class="l">Tìm kiếm trong AD nhiều domain, Exchange</td></tr>
+<tr><td><b>RDP</b></td><td><b>3389</b></td><td>TCP (+ UDP)</td><td class="l">Remote Desktop vào máy chủ, máy người dùng</td></tr>
+<tr><td>Zabbix</td><td>10050 (agent), 10051 (server/trapper)</td><td>TCP</td><td class="l">Giám sát máy chủ</td></tr>
+</table></div>
+
+<div class="note"><b>Mẹo nhớ theo nhóm</b>
+"Quản trị" 22-23 · "Thư" 25-110-143 · "Tên và địa chỉ" 53-67-68 · "Giờ và giám sát" 123-161-514 · "Web" 80-443 · "Windows/AD" 88-389-445-3389.</div>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m15"><span class="no">15.</span> Lệnh kiểm tra và xử lý sự cố</h1>
+
+<h2>1/ Trên switch Cisco</h2>
+<pre>show interfaces status                       ! port nào up/down, VLAN, speed, duplex
+show interfaces fa0/1                        ! lỗi CRC, runts, collision, input/output errors
+show interfaces fa0/1 counters errors        ! chỉ bộ đếm lỗi
+show mac address-table address &lt;mac&gt;        ! máy ở port nào
+show mac address-table interface fa0/1       ! port có những MAC nào
+show cdp neighbors [detail]                  ! port này nối tới thiết bị nào
+show logging | include MACFLAP|DUPLEX        ! log loop và lệch duplex
+clear counters fa0/1                         ! xóa bộ đếm để theo dõi lỗi mới</pre>
+
+<h2>2/ Trên router</h2>
+<pre>show ip arp                                  ! bảng ARP
+show ip arp 192.168.1.50                     ! một IP cụ thể (chạy nhiều lần để xem MAC có nhảy)
+clear ip arp 192.168.1.50                    ! xóa một dòng
+debug arp                                    ! chỉ dùng trên lab</pre>
+
+<h2>3/ Trên Windows</h2>
+<pre>arp -a                                       ! bảng ARP
+arp -d *                                     ! xóa (cần quyền Admin)
+getmac /v                                    ! MAC từng card mạng
+netstat -ano                                 ! kết nối và port đang nghe
+Test-NetConnection &lt;ip&gt; -Port &lt;port&gt;        ! thử TCP tới một port
+Get-NetAdapter | ft Name,Status,LinkSpeed,MacAddress</pre>
+
+<h2>4/ Bộ lọc Wireshark tuần này</h2>
+<div class="tbl"><table>
+<tr><th>Bộ lọc</th><th class="l">Hiện gì</th></tr>
+<tr><td><code>arp</code></td><td class="l">Mọi gói ARP</td></tr>
+<tr><td><code>arp.opcode == 1</code> / <code>== 2</code></td><td class="l">Chỉ request / chỉ reply</td></tr>
+<tr><td><code>arp.duplicate-address-detected</code></td><td class="l">Wireshark phát hiện trùng IP</td></tr>
+<tr><td><code>eth.dst == ff:ff:ff:ff:ff:ff</code></td><td class="l">Mọi broadcast</td></tr>
+<tr><td><code>tcp.flags.syn == 1 &amp;&amp; tcp.flags.ack == 0</code></td><td class="l">Chỉ gói SYN đầu tiên (ai đang mở kết nối)</td></tr>
+<tr><td><code>tcp.flags.reset == 1</code></td><td class="l">Gói RST</td></tr>
+<tr><td><code>tcp.analysis.flags</code></td><td class="l">Gói bất thường: retransmission, dup ack, zero window</td></tr>
+<tr><td><code>tcp.port == 443</code> / <code>udp.port == 53</code></td><td class="l">Theo port</td></tr>
+<tr><td>Chuột phải gói → Follow → TCP Stream</td><td class="l">Gom cả một kết nối</td></tr>
+</table></div>
+
+<h2>5/ Thứ tự xử lý "máy không vào mạng được" ở tầng 2</h2>
+<ol>
+  <li>Port có <b>up</b> không? (<code>show interfaces status</code>; <code>notconnect</code> = L1)</li>
+  <li>Port đúng <b>VLAN</b> không?</li>
+  <li>Switch có <b>học được MAC</b> của máy trên port đó không? Không ⇒ máy không gửi gì ra, hoặc cáp/card lỗi.</li>
+  <li>Bộ đếm <b>lỗi</b> có tăng không? (CRC, late collision ⇒ cáp, duplex)</li>
+  <li>Máy có <b>ARP</b> được gateway không? (<code>arp -a</code> trên máy thấy MAC gateway)</li>
+  <li>Gateway có ARP thấy máy không? (<code>show ip arp</code>: có MAC hay <code>Incomplete</code>)</li>
+</ol>
+
+<label class="done"><input type="checkbox" id="d15"> Xong mục 15</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m16"><span class="no">16.</span> Tình huống thực tế</h1>
+<p>Đọc tình huống, tự trả lời câu hỏi trước khi mở phân tích. Không có IP, tên thiết bị thật.</p>
+
+<h3>Tình huống 1 · Máy cắm dây nhận nhầm VLAN (ca anh đã xử lý)</h3>
+<p>Máy mới cắm vào ổ mạng ở văn phòng nhận IP của VLAN 4, trong khi phòng đó dùng VLAN 6. Không biết ổ mạng nối vào switch nào.</p>
+<details><summary>Phân tích lại bằng kiến thức tuần 2</summary>
+<ol>
+  <li>Máy nhận IP VLAN 4 ⇒ DHCP Discover (broadcast) của máy đã đi trong VLAN 4 ⇒ port switch nối máy đang là <code>access vlan 4</code>. IP sai là triệu chứng tầng 3, nguyên nhân ở tầng 2.</li>
+  <li>Switch core học MAC của máy qua cổng uplink Gi1/0/13 (vì frame từ máy đi lên qua uplink) ⇒ <code>show mac address-table address</code> trên core chỉ ra <b>hướng</b>, không phải ổ mạng cuối.</li>
+  <li><code>show cdp neighbors</code> ⇒ Gi1/0/13 nối switch access nào ⇒ lặp lại tra MAC trên switch access ⇒ ra Fa0/4 là port cuối (port access thường chỉ có 1–2 MAC).</li>
+  <li>Đổi VLAN ⇒ máy phải <b>xin lại IP</b> (<code>ipconfig /release</code>, <code>/renew</code> hoặc rút cắm cáp) vì IP cũ của VLAN 4 không còn dùng được ở VLAN 6.</li>
+  <li><b>Làm tốt hơn</b>: trước khi đổi, kiểm port đó có thiết bị nào khác không (<code>show mac address-table interface fa0/4</code>), ghi lại cấu hình cũ (rollback), cập nhật mô tả port (<code>description</code>) và sơ đồ ổ mạng.</li>
+</ol></details>
+
+<h3>Tình huống 2 · Hai máy trùng IP</h3>
+<p>Người dùng báo mạng chập chờn, Windows hiện cảnh báo trùng IP. Máy dùng IP tĩnh.</p>
+<details><summary>Phân tích</summary>
+<ol>
+  <li>Event Viewer → System → Event ID 4199 cho MAC của máy kia.</li>
+  <li><code>show mac address-table address &lt;mac lạ&gt;</code> trên switch ⇒ ra port ⇒ tìm máy.</li>
+  <li>Trên gateway, <code>show ip arp &lt;ip&gt;</code> vài lần: MAC đổi qua lại giữa hai máy ⇒ đúng là trùng.</li>
+  <li>Nguyên nhân gốc thường gặp: IP tĩnh đặt trong dải DHCP. Phòng ngừa: tách dải tĩnh khỏi dải DHCP, đặt <b>exclusion</b> trên DHCP server, ghi IP tĩnh vào bảng quản lý IP.</li>
+</ol></details>
+
+<h3>Tình huống 3 · Đổi máy in, mọi người vẫn in vào "máy cũ"</h3>
+<p>Thay máy in hỏng bằng máy in mới, đặt đúng IP cũ. 10 phút đầu nhiều máy không in được, sau đó tự hết.</p>
+<details><summary>Phân tích</summary>
+<p>Máy tính và gateway còn giữ <b>ARP cache</b> trỏ IP máy in tới MAC của máy in cũ. Hết thời gian cache (hoặc khi máy in mới gửi gratuitous ARP lúc khởi động) thì mới đúng. Với router Cisco, ARP sống 4 giờ ⇒ người ở <b>mạng khác</b> có thể không in được rất lâu. Cách xử lý nhanh: <code>clear ip arp &lt;ip máy in&gt;</code> trên gateway; trên máy người dùng <code>arp -d</code>.</p></details>
+
+<h3>Tình huống 4 · Mở RDP vào máy chủ không được, ping vẫn được</h3>
+<details><summary>Phân tích</summary>
+<ol>
+  <li>Ping được = tầng 3 thông. RDP là TCP 3389 ⇒ kiểm tầng 4: <code>Test-NetConnection &lt;ip&gt; -Port 3389</code>.</li>
+  <li>Wireshark/kết quả: SYN không trả lời ⇒ firewall giữa đường hoặc Windows Firewall trên máy chủ <b>drop</b>. SYN → RST ⇒ dịch vụ Remote Desktop không chạy hoặc đổi port.</li>
+  <li>Trên máy chủ: <code>netstat -ano | findstr :3389</code> xem có LISTENING không.</li>
+</ol></details>
+
+<h3>Tình huống 5 · Cả tầng mạng chậm, đèn switch nhấp nháy liên tục</h3>
+<details><summary>Phân tích</summary>
+<p>Dấu hiệu loop L2: log <code>MACFLAP_NOTIF</code>, broadcast tăng vọt, CPU switch cao. Thường do ai đó cắm cáp vòng hai ổ mạng hoặc switch con. Tìm hai port trong log, <code>shutdown</code> một port, mạng hồi lại ngay. Phòng ngừa: STP, BPDU guard trên port access (tuần 7), storm-control.</p></details>
+
+<div class="note"><b>Góc nhìn hệ thống: một port switch ảnh hưởng tới đâu</b>
+Đổi VLAN một port tưởng chỉ ảnh hưởng một máy. Nhưng: nếu sau port có switch con hay điện thoại IP thì nhiều thiết bị cùng đổi; Zabbix có thể báo mất kết nối thiết bị; NAC/802.1X (nếu có) có thể chặn; log thay đổi cấu hình gửi về syslog phải khớp ticket. Thói quen kỹ sư: <b>xem port đó có gì</b>, <b>ghi lại trước</b>, <b>thay đổi</b>, <b>kiểm tra sau</b>, <b>cập nhật tài liệu</b>.</div>
+
+<label class="done"><input type="checkbox" id="d16"> Xong mục 16</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m17"><span class="no">17.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>Frame Ethernet</td><td class="l">MAC đích 6 · MAC nguồn 6 · Type 2 · Data 46–1500 · FCS 4 ⇒ 64–1518 byte</td></tr>
+<tr><td>EtherType</td><td class="l">0x0800 IPv4 · 0x0806 ARP · 0x86DD IPv6 · 0x8100 VLAN tag</td></tr>
+<tr><td>MAC</td><td class="l">48 bit, OUI 24 bit · broadcast ffff.ffff.ffff · byte đầu lẻ = group</td></tr>
+<tr><td>Switch</td><td class="l">Học MAC nguồn, chuyển theo MAC đích, flood trong VLAN trừ port vào · aging 300 s</td></tr>
+<tr><td>Flood khi</td><td class="l">Unknown unicast · broadcast · multicast (không IGMP snooping)</td></tr>
+<tr><td>Duplex</td><td class="l">Auto + cứng ⇒ lệch · half: late collision · full: CRC, runts</td></tr>
+<tr><td>ARP</td><td class="l">Request broadcast, reply unicast · khác mạng hỏi MAC gateway · Cisco cache 4 giờ</td></tr>
+<tr><td>GARP</td><td class="l">Tự thông báo IP–MAC, dùng cho HSRP/HA/VM · phát hiện trùng IP</td></tr>
+<tr><td>TCP</td><td class="l">Protocol 6 · header 20–60 · SYN, SYN-ACK, ACK · seq đánh số byte · FIN đóng, RST hủy</td></tr>
+<tr><td>UDP</td><td class="l">Protocol 17 · header 8 byte · không tin cậy · DNS, DHCP, NTP, SNMP, syslog, thoại</td></tr>
+<tr><td>Port</td><td class="l">22 SSH · 23 Telnet · 25 SMTP · 53 DNS · 67/68 DHCP · 69 TFTP · 80 · 123 NTP · 161/162 SNMP · 389 · 443 · 445 · 514 · 3389</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d17"> Xong mục 17</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m18"><span class="no">18.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">frame</td><td class="l">khung (PDU tầng 2)</td><td class="l">segment</td><td class="l">đoạn (PDU TCP)</td></tr>
+<tr><td class="l">datagram</td><td class="l">bản tin UDP</td><td class="l">source / destination</td><td class="l">nguồn / đích</td></tr>
+<tr><td class="l">learn</td><td class="l">học (MAC)</td><td class="l">forward</td><td class="l">chuyển tiếp</td></tr>
+<tr><td class="l">filter</td><td class="l">lọc, bỏ</td><td class="l">flood</td><td class="l">gửi tràn ra mọi port</td></tr>
+<tr><td class="l">unknown unicast</td><td class="l">unicast chưa biết đích</td><td class="l">aging time</td><td class="l">thời gian hết hạn</td></tr>
+<tr><td class="l">flapping</td><td class="l">nhảy qua lại liên tục</td><td class="l">duplex mismatch</td><td class="l">lệch chế độ song công</td></tr>
+<tr><td class="l">autonegotiation</td><td class="l">tự thỏa thuận</td><td class="l">collision</td><td class="l">va chạm</td></tr>
+<tr><td class="l">request / reply</td><td class="l">hỏi / trả lời</td><td class="l">cache</td><td class="l">bộ nhớ tạm</td></tr>
+<tr><td class="l">gratuitous</td><td class="l">tự nguyện, không ai hỏi</td><td class="l">spoofing</td><td class="l">giả mạo</td></tr>
+<tr><td class="l">handshake</td><td class="l">bắt tay</td><td class="l">acknowledgment</td><td class="l">xác nhận</td></tr>
+<tr><td class="l">retransmission</td><td class="l">gửi lại</td><td class="l">window</td><td class="l">cửa sổ (lượng nhận được)</td></tr>
+<tr><td class="l">reliable</td><td class="l">tin cậy</td><td class="l">connectionless</td><td class="l">không kết nối</td></tr>
+<tr><td class="l">listen / listening</td><td class="l">lắng nghe (port mở)</td><td class="l">ephemeral port</td><td class="l">port tạm thời</td></tr>
+<tr><td class="l">well-known port</td><td class="l">port chuẩn</td><td class="l">teardown</td><td class="l">đóng kết nối</td></tr>
+</table></div>
+<p>Câu mẫu để tập nói: <i>"The switch learns the source MAC and forwards based on the destination MAC."</i> · <i>"The client sent SYN but never received SYN-ACK, so the traffic is probably dropped by a firewall."</i></p>
+
+<label class="done"><input type="checkbox" id="d18"> Xong mục 18</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m19"><span class="no">19.</span> Câu hỏi tự kiểm tra</h1>
+<p>Trả lời ra giấy hoặc gửi cho Claude <b>trước</b>, rồi mới mở đáp án.</p>
+
+<h3>Mức 1: nhớ</h3>
+<details><summary>1. Switch học MAC nguồn hay MAC đích?</summary><p>MAC nguồn. MAC đích chỉ dùng để quyết định chuyển frame đi đâu.</p></details>
+<details><summary>2. Khi nào switch flood?</summary><p>MAC đích chưa có trong bảng (unknown unicast), MAC đích là broadcast, hoặc multicast khi không có IGMP snooping. Flood ra mọi port cùng VLAN, trừ port nhận vào.</p></details>
+<details><summary>3. ARP request là broadcast hay unicast? ARP reply thì sao?</summary><p>Request: broadcast (ffff.ffff.ffff). Reply: unicast về MAC người hỏi.</p></details>
+<details><summary>4. Ba gói bắt tay TCP tên là gì, theo thứ tự?</summary><p>SYN → SYN-ACK → ACK.</p></details>
+<details><summary>5. DNS, DHCP, SSH, RDP dùng port nào?</summary><p>DNS 53 (UDP, và TCP khi trả lời lớn/zone transfer). DHCP UDP 67 (server) và 68 (client). SSH TCP 22. RDP TCP 3389.</p></details>
+<details><summary>6. Frame Ethernet nhỏ nhất và lớn nhất (không tag) bao nhiêu byte? Payload nhỏ nhất?</summary><p>64 và 1518 byte. Payload tối thiểu 46 byte (thiếu thì padding).</p></details>
+
+<h3>Mức 2: hiểu</h3>
+<details><summary>7. PC 192.168.1.10/24 muốn tới 8.8.8.8. Nó gửi ARP hỏi MAC của ai?</summary><p>Của default gateway (ví dụ 192.168.1.1). 8.8.8.8 khác mạng; ARP không qua router nên PC chỉ cần MAC gateway để giao gói ở chặng đầu.</p></details>
+<details><summary>8. Cùng một MAC có thể xuất hiện hai lần trong bảng MAC không?</summary><p>Có, nếu ở hai VLAN khác nhau (khóa bảng là VLAN + MAC). Trong cùng một VLAN thì chỉ một dòng, một port.</p></details>
+<details><summary>9. Client gửi segment seq = 5001, dài 1200 byte. Server ACK số mấy?</summary><p>6201.</p></details>
+<details><summary>10. Một đầu để auto, đầu kia đặt cứng 100/full. Chuyện gì xảy ra, thấy dấu hiệu gì?</summary><p>Đầu auto nhận ra 100 Mbps nhưng không biết duplex nên chọn half ⇒ lệch duplex. Mạng chậm; bên half thấy late collision, bên full thấy CRC/runts.</p></details>
+<details><summary>11. Router Cisco ping lần đầu ra ".!!!!". Vì sao?</summary><p>Gói đầu bị bỏ trong lúc router chờ ARP reply của next-hop/đích. Các gói sau có ARP rồi nên đi được.</p></details>
+<details><summary>12. Vì sao thoại IP dùng UDP?</summary><p>Gói đến muộn thì vô dụng; gửi lại chỉ thêm trễ. Chấp nhận mất ít gói hơn là trễ.</p></details>
+
+<h3>Mức 3: vận hành / phỏng vấn</h3>
+<details><summary>13. Test-NetConnection tới port 443 thất bại. Wireshark thấy SYN gửi đi 3 lần không trả lời. Trường hợp khác thấy SYN → RST. Phân biệt hai trường hợp.</summary><p>Không trả lời: gói bị drop âm thầm (firewall deny, sai route, chiều về hỏng, máy tắt). RST: tới được máy đích (hoặc firewall reject) nhưng không có dịch vụ nghe port 443.</p></details>
+<details><summary>14. Log switch báo MACFLAP liên tục giữa Fa0/5 và Fa0/6. Anh làm gì?</summary><p>Nghi loop L2. Kiểm hai port có gì (MAC, CDP), xem broadcast/CPU. Shutdown một port để cắt vòng, mạng phải hồi lại. Tìm nguyên nhân (cáp vòng, switch con), bật BPDU guard/storm-control. Ghi postmortem.</p></details>
+<details><summary>15. Thay máy in, giữ IP cũ, người ở VLAN khác không in được hàng giờ, người cùng VLAN in được sau vài phút. Vì sao?</summary><p>Gateway (router Cisco) giữ ARP cache 4 giờ trỏ IP máy in tới MAC cũ. Máy cùng VLAN tự ARP lại nhanh. Xử lý: clear ip arp IP máy in trên gateway.</p></details>
+<details><summary>16. Server có hàng nghìn kết nối CLOSE-WAIT. Lỗi của mạng hay của ứng dụng?</summary><p>Ứng dụng: phía bên kia đã gửi FIN, nhưng ứng dụng trên server không đóng socket. Không phải lỗi mạng.</p></details>
+<details><summary>17. Firewall stateful theo dõi phiên UDP thế nào khi UDP không có SYN/FIN?</summary><p>Tạo session từ gói đầu tiên theo 5-tuple, giữ đến khi hết timeout không có gói. Ứng dụng UDP dài hơi phải gửi keepalive.</p></details>
+
+<label class="done"><input type="checkbox" id="d19"> Xong mục 19</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab và MOP trong <a href="tuan-02.html">giáo án tuần 2</a>. Tuần trước: <a href="tuan-01-kien-thuc.html">sổ tay tuần 1</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan02-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
