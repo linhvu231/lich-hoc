@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 12</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 12 · 11/01 – 17/01/2027</div>
+  <h1>OSPF 1: khái niệm và neighbor</h1>
+  <p>Hướng dẫn từng ngày. Khoảng 10,5 giờ.</p>
+  <p>Phần đọc sách đã thay bằng <a href="tuan-12-kien-thuc.html">sổ tay tiếng Việt 15 mục</a>.</p>
+  <div class="links">
+    <a href="tuan-12-kien-thuc.html">Sổ tay tuần 12 (thay sách)</a>
+    <a href="tuan-11.html">Giáo án tuần 11</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Đầu ra trong lịch: <b>giải thích từng trạng thái; nêu 5 lý do neighbor không lên.</b> Cụ thể:</p>
+<ol>
+  <li>Dựng OSPF area 0 cho 3 router bằng cả hai cách (network + wildcard, và ip ospf trên interface).</li>
+  <li>Đọc <code>show ip ospf neighbor</code>, <code>show ip ospf interface</code>, <code>show ip protocols</code>.</li>
+  <li>Bắt gói Hello trong Wireshark, chỉ đúng các trường phải khớp.</li>
+  <li>Đưa neighbor vào kẹt Init và kẹt ExStart, tìm ra nguyên nhân.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  Với OSPF, 80% sự cố tôi xử lý là "neighbor không lên" hoặc "neighbor lên xuống". Và gần như lúc nào cũng là một tham số hai đầu không khớp. Kỹ sư giỏi không đoán; anh ta đặt <code>show ip ospf interface</code> hai đầu cạnh nhau và so từng dòng. Tuần này tập thói quen đó.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · Tổng quan, RID, area, 5 gói</a></li>
+    <li><a href="#t3">Thứ 3 · Hello, điều kiện, 7 trạng thái</a></li>
+    <li><a href="#t4">Thứ 4 · Lab phần 1: 3 router area 0 (network)</a></li>
+    <li><a href="#t5">Thứ 5 · Lab phần 2: ip ospf trên interface, Wireshark</a></li>
+    <li><a href="#t6">Thứ 6 · Ôn lab, sửa sổ tay</a></li>
+    <li><a href="#t7">Thứ 7 · MOP #8 thêm router, diễn tập Init/ExStart</a></li>
+    <li><a href="#cn">Chủ nhật · Tự kiểm tra, tự chấm</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày 15 phút</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (11/01) · Tổng quan, Router ID, area, 5 loại gói</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: bảng 5 gói chép tay</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Sổ tay mục <a href="tuan-12-kien-thuc.html#m1">1</a> đến <a href="tuan-12-kien-thuc.html#m5">5</a></label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Chép tay bảng 5 gói (type, tên, để làm gì)</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (12/01) · Hello, điều kiện neighbor, 7 trạng thái</h2>
+<div class="meta"><span><b>1,5 giờ</b> + 5 phút tự giảng</span><span>Đầu ra: danh sách điều kiện + 7 trạng thái chép tay</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Sổ tay mục <a href="tuan-12-kien-thuc.html#m6">6</a> đến <a href="tuan-12-kien-thuc.html#m12">12</a></label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Tự giảng 5 phút: đi qua 7 trạng thái, mỗi trạng thái nói "đang xảy ra gì" và "kẹt ở đây là do đâu"</label></li>
+</ul>
+<div class="box warn">
+  <strong>Bẫy hay gặp</strong>
+  Nghĩ lệnh <code>network</code> là "quảng bá mạng đó". Không: nó chọn <b>interface</b> chạy OSPF. Gõ <code>network 10.0.0.0 0.255.255.255 area 0</code> có thể vô tình bật OSPF trên interface ra ISP hoặc LAN khách.
+</div>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (13/01) · Lab phần 1: 3 router area 0 bằng lệnh network</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: thư mục <code>W12-ospf-neighbor</code></span></div>
+<div class="flow">LAN1 192.168.1.0/24 -- R1 --10.0.12.0/30-- R2 --10.0.23.0/30-- R3 -- LAN3 192.168.3.0/24
+Loopback: R1 1.1.1.1/32, R2 2.2.2.2/32, R3 3.3.3.3/32   (gỡ hết static route của tuần 10–11 trước khi làm)</div>
+<pre>R1(config)# interface loopback 0
+R1(config-if)# ip address 1.1.1.1 255.255.255.255
+R1(config)# router ospf 1
+R1(config-router)# router-id 1.1.1.1
+R1(config-router)# network 1.1.1.1 0.0.0.0 area 0
+R1(config-router)# network 10.0.12.0 0.0.0.3 area 0
+R1(config-router)# network 192.168.1.0 0.0.0.255 area 0
+<span class="c">! R2: network 2.2.2.2 0.0.0.0, 10.0.12.0 0.0.0.3, 10.0.23.0 0.0.0.3 (dùng process ID 10 để thấy không cần khớp)</span>
+<span class="c">! R3: tương tự R1</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1">Bật <code>debug ip ospf adj</code> trên R2 trước khi cấu hình R3, quan sát các trạng thái đi qua (tắt debug sau: <code>undebug all</code>)</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2"><code>show ip ospf neighbor</code> trên 3 router: ai là DR/BDR trên mỗi link?</label></li>
+  <li><input type="checkbox" id="t4-3"><label for="t4-3"><code>show ip route ospf</code> trên R1: giải thích từng dòng [110/x]</label></li>
+  <li><input type="checkbox" id="t4-4"><label for="t4-4">PC LAN1 ping PC LAN3: thông mà không có dòng static nào</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (14/01) · Lab phần 2: chuyển sang ip ospf trên interface, Wireshark</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: pcap Hello có chú thích, output interface</span></div>
+<pre>R3(config)# router ospf 1
+R3(config-router)# no network 3.3.3.3 0.0.0.0 area 0
+R3(config-router)# no network 10.0.23.0 0.0.0.3 area 0
+R3(config-router)# no network 192.168.3.0 0.0.0.255 area 0
+R3(config)# interface loopback 0
+R3(config-if)# ip ospf 1 area 0
+R3(config)# interface g0/0
+R3(config-if)# ip ospf 1 area 0
+R3(config)# interface g0/1
+R3(config-if)# ip ospf 1 area 0
+R3# show ip ospf interface brief
+R3# show ip protocols</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1">So <code>show ip protocols</code> trước/sau: phần "Routing for Networks" khác gì?</label></li>
+  <li><input type="checkbox" id="t5-2"><label for="t5-2">Wireshark link R2–R3, lọc <code>ospf</code>: chỉ ra IP đích 224.0.0.5, protocol 89, và trong Hello: area, mask, hello 10, dead 40, neighbor list</label></li>
+  <li><input type="checkbox" id="t5-3"><label for="t5-3"><code>clear ip ospf process</code> trên R3 (trả lời yes), bắt gói DBD, LSR, LSU, LSAck lúc dựng lại adjacency</label></li>
+  <li><input type="checkbox" id="t5-4"><label for="t5-4">Đặt R1 <code>router-id</code> thành 9.9.9.9: có hiệu lực ngay không? Cần làm gì?</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (15/01) · Ôn lab, sửa sổ tay CCNA</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: mục OSPF trong Google Docs</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1">Xóa OSPF trên 3 router (<code>no router ospf 1</code>), dựng lại từ trí nhớ dưới 10 phút</label></li>
+</ul>
+<h3>Sửa sổ tay (3 việc trong lịch)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">Viết tiếp bảng 5 loại gói (sổ đang dừng giữa chừng ở "Link state .")</label></li>
+  <li><input type="checkbox" id="t6-3"><label for="t6-3">Thêm danh sách điều kiện hàng xóm và 7 trạng thái</label></li>
+  <li><input type="checkbox" id="t6-4"><label for="t6-4">Ghi câu: "hai DROther ở 2-Way là bình thường"</label></li>
+</ul>
+<div class="box warn">
+  <strong>Thêm một điều nên ghi kèm</strong>
+  Sổ có câu "Hello: … (2 thiết bị phải chung giao thức OSPF)". Chính xác hơn: hai thiết bị phải cùng chạy OSPF <b>và khớp các tham số</b> trong Hello (area, mask, hello/dead, authentication, stub flag). Chỉ "cùng giao thức" thì chưa đủ.
+</div>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (16/01) · MOP #8 thêm router vào area 0, diễn tập Init và ExStart</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>mop/MOP-008-them-router-ospf.md</code>, <code>postmortem/W12-ospf-neighbor.md</code></span></div>
+
+<h3>Phần A · MOP #8: thêm R4 (chi nhánh mới) vào area 0</h3>
+<p>R4 nối R2 qua link mới 10.0.24.0/30, LAN 192.168.4.0/24, loopback 4.4.4.4.</p>
+<pre>
+# MOP-008 · Thêm R4 vào OSPF area 0
+
+| Mục        | Nội dung                                                   |
+|------------|------------------------------------------------------------|
+| Mục tiêu   | R4 và LAN 192.168.4.0/24 tham gia OSPF                       |
+| Phạm vi    | R4 (mới), R2 g0/2 (link mới)                                 |
+| Ảnh hưởng  | Mọi router tính lại SPF khi R4 vào; không gián đoạn đường cũ  |
+| Rủi ro     | RID trùng; network quá rộng bật OSPF trên interface không mong muốn; R4 quảng bá mạng sai làm hút lưu lượng |
+
+## 1. Pre-check
+R2# show ip ospf neighbor                  ! ghi số neighbor hiện tại
+R2# show ip route ospf | count           ! (hoặc đếm tay) số route OSPF hiện tại
+R1/R2/R3# show ip ospf database router   ! danh sách RID đang có ⇒ 4.4.4.4 chưa dùng
+- IP plan: 10.0.24.0/30, 192.168.4.0/24 chưa ai dùng (show ip route 192.168.4.0 longer-prefixes trên R1)
+
+## 2. Các bước
+R2(config)# interface g0/2
+R2(config-if)# ip address 10.0.24.1 255.255.255.252
+R2(config-if)# ip ospf 10 area 0
+R2(config-if)# no shutdown
+R4: router-id 4.4.4.4; ip ospf 1 area 0 trên loopback, g0/0 (link), g0/1 (LAN)
+
+## 3. Verify
+- R2: neighbor 4.4.4.4 FULL; số neighbor = cũ + 1
+- R1: show ip route 192.168.4.0 ⇒ O via R2; số route OSPF = cũ + 3 (LAN4, link 24, loopback 4)
+- PC LAN1 ping PC LAN4
+- Không route cũ nào thay đổi next-hop (so với pre-check)
+
+## 4. Rollback
+R2(config)# interface g0/2
+R2(config-if)# shutdown          ! cắt R4 ra khỏi OSPF ngay
+R2(config-if)# no ip ospf 10 area 0
+</pre>
+<div class="box">
+  <strong>Góc nhìn hệ thống</strong>
+  Một router mới quảng bá route vào OSPF là "nói cho cả mạng tin". Nếu R4 lỡ có một interface 10.20.0.0/16 (lab cũ còn sót), nó sẽ quảng bá và hút lưu lượng của cả khối đó. Đó là lý do bước verify có "không route cũ nào đổi next-hop". Ở mạng thật còn dùng xác thực OSPF để router lạ không tham gia được.
+</div>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Viết MOP-008, chạy, verify đủ, chạy thử rollback</label></li>
+</ul>
+
+<h3>Phần B · Diễn tập: neighbor kẹt Init hoặc ExStart (tìm 2 nguyên nhân)</h3>
+<ol>
+  <li><b>Kẹt Init</b>: trên R3 g0/0, chặn OSPF chiều vào:
+<pre>R3(config)# ip access-list extended NO-OSPF-IN
+R3(config-ext-nacl)# deny ospf any any
+R3(config-ext-nacl)# permit ip any any
+R3(config)# interface g0/0
+R3(config-if)# ip access-group NO-OSPF-IN in</pre>
+  Quan sát trạng thái neighbor <b>trên R2</b> (R2 có nghe Hello của R3 không? R3 có nghe R2 không?).</li>
+  <li><b>Kẹt ExStart</b>: gỡ ACL, rồi trên R3 g0/0: <code>ip mtu 1400</code> (R2 vẫn 1500).</li>
+</ol>
+<details><summary>Gợi ý (mở sau khi làm)</summary>
+<ol>
+  <li>R3 không nhận được Hello của R2 (bị ACL bỏ) nhưng R3 vẫn gửi Hello ra ⇒ R2 nghe R3, nhưng Hello của R3 không có RID của R2 ⇒ R2 thấy R3 ở <b>INIT</b>; R3 không thấy R2 (hoặc Down). Dead timer hết thì neighbor cũ (nếu đang Full) rớt.</li>
+  <li>Hello đi bình thường (gói nhỏ) ⇒ 2-Way. DBD mang MTU 1400 vs 1500 ⇒ bên nhận từ chối ⇒ <b>EXSTART/EXCHANGE</b> lặp. <code>show interfaces g0/0 | include MTU</code> hai đầu; <code>debug ip ospf adj</code> báo "Nbr has larger interface MTU".</li>
+</ol>
+</details>
+<ul class="check">
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Tìm ra 2 nguyên nhân chỉ bằng show/log/debug, mỗi cái &lt; 10 phút; gỡ lỗi, verify FULL</label></li>
+  <li><input type="checkbox" id="t7-3"><label for="t7-3">Viết postmortem</label></li>
+</ul>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (17/01) · Tự kiểm tra và tự chấm</h2>
+<div class="meta"><span><b>30 phút</b></span><span>Gửi câu trả lời cho Claude chấm</span></div>
+<h3>Đầu ra tuần</h3>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">Ghi âm 5 phút: giải thích 7 trạng thái và 5 lý do neighbor không lên</label></li>
+</ul>
+<h3>5 câu tự kiểm tra trong lịch</h3>
+<details><summary>1. Router ID được chọn theo thứ tự nào?</summary><p>router-id → loopback cao nhất → interface cao nhất.</p></details>
+<details><summary>2. OSPF Hello gửi tới địa chỉ multicast nào?</summary><p>224.0.0.5.</p></details>
+<details><summary>3. Hai router kẹt ở ExStart: nghi lỗi gì đầu tiên?</summary><p>MTU lệch.</p></details>
+<details><summary>4. Hai DROther ở trạng thái 2-Way có phải lỗi không?</summary><p>Không.</p></details>
+<details><summary>5. Wildcard trong network 10.0.12.0 0.0.0.3 nghĩa là gì?</summary><p>Interface có IP 10.0.12.0–10.0.12.3 chạy OSPF.</p></details>
+<h3>Tự chấm cuối tuần</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 12</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>7 trạng thái, 5 gói, điều kiện neighbor, RID</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>OSPF 3 router hai cách, dưới 10 phút</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>Kẹt Init và ExStart, mỗi lỗi &lt; 10 phút</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>MOP-008 có kiểm RID, kiểm route cũ không đổi</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Giảng 7 trạng thái cho người khác bằng ví dụ đời thường</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Tick tuần 12 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày 15 phút</h2>
+<ul>
+  <li><b>Tự hỏi đáp bằng miệng:</b> 7 trạng thái neighbor theo thứ tự, mỗi cái một câu "đang làm gì".</li>
+  <li>Thêm một câu mỗi ngày: một điều kiện neighbor và log nó sinh ra khi lệch.</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">Đủ 5 ngày</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 12/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: OSPF 2 – LSDB, DR/BDR.
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan12-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

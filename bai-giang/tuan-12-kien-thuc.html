@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 12</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 12 (11/01 – 17/01/2027) · <a href="tuan-12.html">Giáo án tuần 12 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 12 (Odom Vol 1, Part VI "OSPF": "Understanding OSPF Concepts", "Implementing OSPF"). OSPF là giao thức định tuyến nội bộ phổ biến nhất trong doanh nghiệp và ngân hàng; nó chiếm ba tuần (12–14) và quay lại sâu hơn ở ENARSI. Tuần 1 của OSPF tập trung vào <b>hàng xóm (neighbor)</b>: không có hàng xóm thì không có gì cả. Sổ CCNA của anh mới bắt đầu mục OSPF và dừng giữa bảng 5 loại gói; tuần này viết nốt. Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">Vì sao cần định tuyến động; phân loại giao thức</a></li>
+  <li><a href="#m2">OSPF tổng quan</a></li>
+  <li><a href="#m3">Router ID</a></li>
+  <li><a href="#m4">Area và area 0</a></li>
+  <li><a href="#m5">5 loại gói OSPF</a></li>
+  <li><a href="#m6">Gói Hello: các trường và timer</a></li>
+  <li><a href="#m7">Điều kiện để thành hàng xóm</a></li>
+  <li><a href="#m8">7 trạng thái neighbor</a></li>
+  <li><a href="#m9">Bật OSPF: network + wildcard, hoặc trên interface</a></li>
+  <li><a href="#m10">Đọc output: neighbor, interface, protocols, route</a></li>
+  <li><a href="#m11">Xử lý sự cố neighbor</a></li>
+  <li><a href="#m12">Tình huống thực tế</a></li>
+  <li><a href="#m13">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m14">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m15">Câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> Vì sao cần định tuyến động; phân loại giao thức</h1>
+<h2>1/ Vì sao</h2>
+<p>Tuần 11 đã thấy: static không tự thích nghi, phải tracking từng đường, phải nhớ chiều về ở mọi router. Mạng 30 chi nhánh, mỗi chi nhánh vài mạng ⇒ hàng trăm dòng static, mỗi thay đổi sửa nhiều nơi. Định tuyến động: router <b>tự giới thiệu mạng của mình</b>, <b>tự học</b>, <b>tự tính lại</b> khi có link hỏng (cả chiều đi lẫn chiều về).</p>
+<h2>2/ Phân loại (sổ của anh đã ghi đúng)</h2>
+<div class="tbl"><table>
+<tr><th>Nhóm</th><th class="l">Loại</th><th class="l">Giao thức</th></tr>
+<tr><td rowspan="2"><b>IGP</b> (Interior: trong một tổ chức)</td><td class="l">Distance-vector</td><td class="l">RIPv2, EIGRP (Cisco; thực ra là "advanced distance-vector")</td></tr>
+<tr><td class="l">Link-state</td><td class="l"><b>OSPF</b>, IS-IS</td></tr>
+<tr><td><b>EGP</b> (Exterior: giữa các tổ chức)</td><td class="l">Path-vector</td><td class="l">BGP (giữa nhà mạng, giữa doanh nghiệp và nhà mạng)</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> OSPF tổng quan</h1>
+<div class="tbl"><table>
+<tr><th>Đặc điểm</th><th class="l">OSPF</th></tr>
+<tr><td>Chuẩn</td><td class="l">Mở (IETF): OSPFv2 cho IPv4 (RFC 2328), OSPFv3 cho IPv6. Mọi hãng: Cisco, FortiGate, Juniper, Linux (FRR)</td></tr>
+<tr><td>Loại</td><td class="l">Link-state: mỗi router có <b>bản đồ toàn area</b> (LSDB), tự tính đường ngắn nhất bằng thuật toán <b>SPF (Dijkstra)</b></td></tr>
+<tr><td>Metric</td><td class="l"><b>Cost</b> = tổng cost các interface ra trên đường (tuần 14)</td></tr>
+<tr><td>AD</td><td class="l"><b>110</b></td></tr>
+<tr><td>Đóng gói</td><td class="l">Thẳng trên IP, <b>Protocol 89</b> (không TCP/UDP)</td></tr>
+<tr><td>Multicast</td><td class="l"><b>224.0.0.5</b> (mọi router OSPF) · <b>224.0.0.6</b> (DR/BDR). IPv6: ff02::5, ff02::6</td></tr>
+<tr><td>Cập nhật</td><td class="l">Chỉ gửi khi có thay đổi (không gửi cả bảng định kỳ như RIP), làm mới LSA mỗi 30 phút</td></tr>
+<tr><td>Hội tụ</td><td class="l">Nhanh (giây)</td></tr>
+<tr><td>Phân cấp</td><td class="l">Area: area 0 là xương sống (mục 4)</td></tr>
+</table></div>
+<h2>Ba bước OSPF làm việc</h2>
+<ol>
+  <li><b>Tìm hàng xóm</b> bằng Hello, thỏa điều kiện thì thành neighbor (tuần này).</li>
+  <li><b>Đồng bộ bản đồ</b>: trao đổi LSA cho tới khi mọi router trong area có LSDB giống hệt (tuần 13).</li>
+  <li><b>Tính đường</b>: mỗi router chạy SPF trên LSDB, đưa đường tốt nhất vào bảng route (tuần 13–14).</li>
+</ol>
+<div class="note"><b>💡 Ví dụ dễ hiểu</b>
+RIP (distance-vector) như <b>hỏi đường người qua đường</b>. OSPF (link-state) như <b>mỗi tài xế có Google Maps</b>: mọi người chia sẻ tình trạng từng đoạn đường (LSA) cho nhau, ai cũng có bản đồ giống nhau, rồi tự tính lộ trình ngắn nhất cho mình. Một đoạn đường tắc thì mọi người cập nhật bản đồ và tự tính lại.</div>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Router ID</h1>
+<p><b>Router ID (RID)</b>: số 32 bit viết như IPv4, định danh <b>duy nhất</b> mỗi router trong OSPF. Chọn theo thứ tự:</p>
+<ol>
+  <li>Lệnh <code>router-id</code> trong <code>router ospf</code> (cấu hình tay).</li>
+  <li>Nếu không có: <b>IP cao nhất</b> trong các interface <b>loopback</b> đang up.</li>
+  <li>Nếu không có loopback: <b>IP cao nhất</b> trong các interface vật lý đang up.</li>
+</ol>
+<p><mark>router-id tay → loopback IP cao nhất → interface IP cao nhất.</mark> RID chọn lúc process OSPF khởi động; đổi RID phải <code>clear ip ospf process</code> (gây mất neighbor tạm thời) mới có hiệu lực.</p>
+<p>Chuẩn vận hành: luôn đặt <code>router-id</code> tay, trùng IP loopback 0 của router (lấy từ khối loopback trong IP plan, tuần 4). RID trùng nhau giữa hai router ⇒ log <code>%OSPF-4-DUPID</code>, neighbor lỗi, LSDB rối.</p>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> Area và area 0</h1>
+<ul>
+  <li><b>Area</b>: nhóm router và link chia sẻ <b>cùng một LSDB</b>. Area giới hạn phạm vi lan truyền chi tiết và tính toán SPF.</li>
+  <li><b>Area 0 (backbone)</b>: xương sống. Mọi area khác phải nối vào area 0.</li>
+  <li><b>ABR</b> (Area Border Router): router có interface ở area 0 và area khác; tóm tắt thông tin giữa các area.</li>
+  <li>Area ghi dạng số (0) hoặc dạng IP (0.0.0.0); hai cách là một.</li>
+</ul>
+<p>CCNA tập trung <b>single-area OSPF</b> (mọi thứ trong area 0). Multi-area học kỹ ở ENARSI. Điều cần nhớ: <mark>area là thuộc tính của interface, không phải của router</mark>; hai đầu một link phải cùng area.</p>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> 5 loại gói OSPF</h1>
+<div class="tbl"><table>
+<tr><th>Type</th><th>Tên</th><th class="l">Để làm gì</th><th class="l">Ví dụ đời thường</th></tr>
+<tr><td>1</td><td><b>Hello</b></td><td class="l">Tìm và giữ hàng xóm, bầu DR/BDR, kiểm tham số</td><td class="l">"Chào, tôi là R1, ở area 0, ai ở đây?"</td></tr>
+<tr><td>2</td><td><b>DBD</b> (Database Description)</td><td class="l">Gửi <b>mục lục</b> LSDB (chỉ tiêu đề LSA) để hai bên so xem thiếu gì</td><td class="l">Đưa nhau danh sách tên sách trong thư viện</td></tr>
+<tr><td>3</td><td><b>LSR</b> (Link-State Request)</td><td class="l">Xin những LSA mình thiếu hoặc cũ hơn</td><td class="l">"Cho tôi mượn cuốn số 5 và 9"</td></tr>
+<tr><td>4</td><td><b>LSU</b> (Link-State Update)</td><td class="l">Gửi nội dung LSA đầy đủ (trả lời LSR, hoặc báo thay đổi)</td><td class="l">Đưa sách</td></tr>
+<tr><td>5</td><td><b>LSAck</b></td><td class="l">Xác nhận đã nhận LSU (OSPF tự lo tin cậy, vì không dùng TCP)</td><td class="l">"Đã nhận"</td></tr>
+</table></div>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ có "5 loại bản tin OSPF", viết được Hello và đang dừng giữa chừng ở dòng Database description / "Link state ." Viết tiếp bảng 5 loại gói như trên (Type, tên, để làm gì).</div>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Gói Hello: các trường và timer</h1>
+<div class="tbl"><table>
+<tr><th>Trường trong Hello</th><th class="l">Ý nghĩa</th><th class="l">Phải khớp giữa hai bên?</th></tr>
+<tr><td>Router ID</td><td class="l">Người gửi</td><td class="l">Phải <b>khác nhau</b></td></tr>
+<tr><td>Area ID</td><td class="l">Area của interface</td><td class="l"><b>Khớp</b></td></tr>
+<tr><td>Network mask</td><td class="l">Mask của interface</td><td class="l"><b>Khớp</b> (trên mạng broadcast)</td></tr>
+<tr><td>Hello interval</td><td class="l">Gửi Hello mỗi bao lâu</td><td class="l"><b>Khớp</b></td></tr>
+<tr><td>Dead interval</td><td class="l">Không nghe Hello trong bao lâu thì coi hàng xóm chết</td><td class="l"><b>Khớp</b></td></tr>
+<tr><td>Authentication</td><td class="l">Loại và mật khẩu</td><td class="l"><b>Khớp</b></td></tr>
+<tr><td>Stub area flag</td><td class="l">Loại area</td><td class="l"><b>Khớp</b></td></tr>
+<tr><td>Router priority</td><td class="l">Ưu tiên làm DR (tuần 13)</td><td class="l">Không cần</td></tr>
+<tr><td>DR, BDR</td><td class="l">Ai đang là DR/BDR</td><td class="l">Không cần</td></tr>
+<tr><td><b>Neighbor list</b></td><td class="l">RID của những router <b>tôi đã nghe Hello</b></td><td class="l">Dùng để chuyển Init → 2-Way</td></tr>
+</table></div>
+<h2>Timer mặc định</h2>
+<div class="tbl"><table>
+<tr><th>Network type</th><th>Hello</th><th>Dead</th></tr>
+<tr><td>Broadcast (Ethernet), point-to-point</td><td><b>10 s</b></td><td><b>40 s</b></td></tr>
+<tr><td>NBMA (Frame Relay cũ)</td><td>30 s</td><td>120 s</td></tr>
+</table></div>
+<p>Dead = 4 × Hello mặc định. Đổi Hello thì IOS tự đổi Dead thành 4 lần (trừ khi đặt Dead riêng).</p>
+<pre>R1(config-if)# ip ospf hello-interval 5
+R1(config-if)# ip ospf dead-interval 20</pre>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Điều kiện để thành hàng xóm</h1>
+<p><mark>Năm điều kiện kinh điển: cùng area, cùng hello/dead, cùng subnet (mask), cùng authentication, MTU khớp.</mark> Thêm vài điều kiện khác cho đủ:</p>
+<div class="tbl"><table>
+<tr><th>#</th><th class="l">Điều kiện</th><th class="l">Lệch thì</th></tr>
+<tr><td>1</td><td class="l">Cùng <b>area</b> trên link</td><td class="l">Không thành neighbor, log "mismatched area"</td></tr>
+<tr><td>2</td><td class="l">Cùng <b>hello/dead</b></td><td class="l">Không thành neighbor (bỏ qua Hello)</td></tr>
+<tr><td>3</td><td class="l">Cùng <b>subnet và mask</b> (mạng broadcast)</td><td class="l">Không thành neighbor, log "mismatched hello parameters"</td></tr>
+<tr><td>4</td><td class="l">Cùng <b>authentication</b></td><td class="l">Không thành neighbor, log "Mismatched Authentication"</td></tr>
+<tr><td>5</td><td class="l"><b>MTU</b> interface khớp</td><td class="l">Neighbor <b>kẹt ExStart/Exchange</b> (Hello vẫn qua được vì gói nhỏ)</td></tr>
+<tr><td>6</td><td class="l">Router ID <b>khác nhau</b></td><td class="l">Log DUPID, neighbor lỗi</td></tr>
+<tr><td>7</td><td class="l">Cùng loại area (stub flag)</td><td class="l">Không thành neighbor</td></tr>
+<tr><td>8</td><td class="l">Interface không <b>passive</b></td><td class="l">Passive không gửi Hello ⇒ không neighbor (tuần 14)</td></tr>
+<tr><td>9</td><td class="l">Network type tương thích (tuần 13)</td><td class="l">Neighbor lên nhưng route lạ, hoặc không lên</td></tr>
+<tr><td>10</td><td class="l">Không có ACL/firewall chặn IP protocol 89 hoặc 224.0.0.5</td><td class="l">Một chiều nghe được ⇒ kẹt Init</td></tr>
+</table></div>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Thêm vào mục OSPF của sổ: <b>danh sách điều kiện hàng xóm</b> (ít nhất 5 điều đầu) và <b>7 trạng thái</b> (mục 8).</div>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> 7 trạng thái neighbor</h1>
+<div class="tbl"><table>
+<tr><th>#</th><th>Trạng thái</th><th class="l">Đang xảy ra gì</th><th class="l">Kẹt ở đây nghĩa là</th></tr>
+<tr><td>1</td><td><b>Down</b></td><td class="l">Chưa nghe Hello nào (hoặc hết dead interval)</td><td class="l">Không có Hello: link, area, timer, passive, ACL</td></tr>
+<tr><td>2</td><td><b>Init</b></td><td class="l">Đã nghe Hello của hàng xóm, nhưng <b>RID của mình chưa có</b> trong neighbor list của nó</td><td class="l"><b>Một chiều</b>: hàng xóm không nghe được Hello của mình (ACL chặn chiều kia, lỗi multicast, lỗi tầng 2 một chiều)</td></tr>
+<tr><td>3</td><td><b>2-Way</b></td><td class="l">Thấy RID của mình trong Hello của hàng xóm ⇒ <b>giao tiếp hai chiều</b>. Trên mạng broadcast: bầu DR/BDR ở đây</td><td class="l"><b>Bình thường</b> giữa hai DROther (mục dưới)</td></tr>
+<tr><td>4</td><td><b>ExStart</b></td><td class="l">Thương lượng master/slave (RID cao hơn làm master) để trao đổi DBD</td><td class="l"><b>MTU lệch</b>; RID trùng</td></tr>
+<tr><td>5</td><td><b>Exchange</b></td><td class="l">Gửi DBD (mục lục LSDB)</td><td class="l">MTU lệch</td></tr>
+<tr><td>6</td><td><b>Loading</b></td><td class="l">Gửi LSR xin LSA thiếu, nhận LSU</td><td class="l">LSA hỏng, lỗi hiếm</td></tr>
+<tr><td>7</td><td><b>Full</b></td><td class="l">LSDB hai bên giống hệt. <b>Adjacency</b> hoàn chỉnh</td><td class="l">Trạng thái mong muốn</td></tr>
+</table></div>
+<p>Mẹo nhớ thứ tự: <b>D</b>own – <b>I</b>nit – <b>2</b>-Way – <b>E</b>xStart – <b>E</b>xchange – <b>L</b>oading – <b>F</b>ull ("Đi Im 2 Em Em Lên Phố").</p>
+
+<h2>Hai DROther ở 2-Way là bình thường</h2>
+<p>Trên mạng broadcast (nhiều router chung một switch), để giảm trao đổi, mỗi router chỉ lên <b>Full với DR và BDR</b>. Hai router thường (DROther) với nhau <b>dừng ở 2-WAY</b> có chủ đích.</p>
+<pre>R3# show ip ospf neighbor
+Neighbor ID   Pri  State           Dead Time  Address     Interface
+1.1.1.1         1  FULL/DR         00:00:35   10.0.0.1    Gi0/0
+2.2.2.2         1  FULL/BDR        00:00:38   10.0.0.2    Gi0/0
+4.4.4.4         1  2WAY/DROTHER    00:00:31   10.0.0.4    Gi0/0     ← bình thường</pre>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Ghi riêng một câu, tô vàng: <b>"Hai DROther ở 2-Way là bình thường."</b> Người mới hay coi 2WAY là lỗi rồi "sửa" lung tung.</div>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> Bật OSPF: network + wildcard, hoặc trên interface</h1>
+
+<h2>Cách 1: lệnh network (truyền thống)</h2>
+<pre>R1(config)# router ospf 1                        ! "1" là process ID: chỉ có ý nghĩa nội bộ router, không cần khớp hàng xóm
+R1(config-router)# router-id 1.1.1.1
+R1(config-router)# network 10.0.12.0 0.0.0.3 area 0    ! interface có IP trong 10.0.12.0–10.0.12.3 chạy OSPF area 0
+R1(config-router)# network 192.168.1.0 0.0.0.255 area 0
+R1(config-router)# network 1.1.1.1 0.0.0.0 area 0      ! đúng một interface (loopback)</pre>
+<p>Lệnh <code>network</code> <b>không</b> quảng bá "mạng X". Nó chọn <b>interface nào</b> (IP interface khớp dải) sẽ: (1) gửi Hello tìm hàng xóm, (2) đưa mạng của interface đó vào OSPF. Wildcard theo tuần 4: <code>10.0.12.0 0.0.0.3</code> = IP từ 10.0.12.0 tới 10.0.12.3.</p>
+<p>Viết rộng cũng được: <code>network 0.0.0.0 255.255.255.255 area 0</code> = mọi interface (tiện nhưng thiếu kiểm soát).</p>
+
+<h2>Cách 2: trên interface (hiện đại, rõ ràng)</h2>
+<pre>R1(config)# router ospf 1
+R1(config-router)# router-id 1.1.1.1
+R1(config)# interface g0/1
+R1(config-if)# ip ospf 1 area 0
+R1(config)# interface loopback 0
+R1(config-if)# ip ospf 1 area 0</pre>
+<p>Nhìn cấu hình interface là biết ngay nó có chạy OSPF không. Hai cách cho cùng kết quả; nếu cả hai cùng áp vào một interface thì cấu hình trên interface được ưu tiên.</p>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> Đọc output: neighbor, interface, protocols, route</h1>
+<pre>R1# show ip ospf neighbor
+Neighbor ID   Pri  State       Dead Time   Address       Interface
+2.2.2.2         1  FULL/BDR    00:00:33    10.0.12.2     GigabitEthernet0/1
+<span class="c">! Link Ethernet mặc định network type BROADCAST nên vẫn bầu DR/BDR, dù chỉ 2 router (tuần 13 đổi sang point-to-point, khi đó hiện "FULL/  -").</span>
+<span class="c">! Dead Time đếm ngược từ 40, về lại khi nhận Hello.</span>
+
+R1# show ip ospf interface brief
+Interface    PID   Area   IP Address/Mask    Cost  State Nbrs F/C
+Lo0          1     0      1.1.1.1/32         1     LOOP  0/0
+Gi0/1        1     0      10.0.12.1/30       1     DR    1/1
+Gi0/0        1     0      192.168.1.1/24     1     DR    0/0
+<span class="c">! Nbrs F/C = số neighbor Full / tổng số neighbor đếm được. Gi0/0 là LAN người dùng: không có neighbor (nên passive, tuần 14).</span>
+
+R1# show ip ospf interface g0/1
+<span class="c">! Area, Process ID, Router ID, Network Type BROADCAST, Cost, State DR/BDR/DROTHER,</span>
+<span class="c">! Timer intervals: Hello 10, Dead 40 ... Neighbor Count, Adjacent neighbor count</span>
+
+R1# show ip protocols
+<span class="c">! Router ID, các "network ... area" đã cấu hình, passive interface, Routing Information Sources (hàng xóm gửi route), AD 110</span>
+
+R1# show ip route ospf
+O     192.168.3.0/24 [110/3] via 10.0.12.2, 00:02:10, GigabitEthernet0/1</pre>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Xử lý sự cố neighbor</h1>
+<h2>Quy trình 5 bước</h2>
+<ol>
+  <li><b>Tầng 1–3 thông chưa?</b> Interface up/up, ping IP hàng xóm.</li>
+  <li><b>Interface có chạy OSPF không?</b> <code>show ip ospf interface brief</code> (không có trong danh sách ⇒ network/ip ospf sai; passive?).</li>
+  <li><b>Trạng thái neighbor là gì?</b> <code>show ip ospf neighbor</code>: không thấy / Init / ExStart / 2WAY.</li>
+  <li><b>So tham số hai đầu</b>: <code>show ip ospf interface</code> (area, mask, hello/dead, network type, MTU qua <code>show interfaces</code>).</li>
+  <li><b>Xem log/debug</b>: <code>show logging | include OSPF</code>, <code>debug ip ospf adj</code> (chỉ lab hoặc có kiểm soát).</li>
+</ol>
+<h2>Bảng triệu chứng</h2>
+<div class="tbl"><table>
+<tr><th class="l">Thấy</th><th class="l">Nghi</th></tr>
+<tr><td class="l">Không có dòng neighbor nào</td><td class="l">Area, hello/dead, mask, authentication, passive, interface không chạy OSPF</td></tr>
+<tr><td class="l">Kẹt <b>INIT</b></td><td class="l">Hello chỉ đi một chiều: ACL chặn 224.0.0.5/protocol 89 ở một đầu, link một chiều</td></tr>
+<tr><td class="l">Kẹt <b>EXSTART/EXCHANGE</b></td><td class="l"><b>MTU lệch</b> (ví dụ một đầu 1500, đầu kia 1400 do tunnel/VLAN), hoặc RID trùng</td></tr>
+<tr><td class="l">2WAY/DROTHER</td><td class="l">Bình thường giữa hai DROther</td></tr>
+<tr><td class="l">FULL nhưng thiếu route</td><td class="l">Mạng chưa được đưa vào OSPF ở router kia; network type lệch (tuần 13); route có trong database nhưng không vào bảng (tuần 14)</td></tr>
+</table></div>
+<pre>%OSPF-5-ADJCHG: Process 1, Nbr 2.2.2.2 on Gi0/1 from FULL to DOWN, Neighbor Down: Dead timer expired
+%OSPF-4-ERRRCV: Received invalid packet: mismatched area ID from backbone area ...
+%OSPF-4-DUPID: OSPF detected duplicate router-id 1.1.1.1 from 10.0.12.2 on interface Gi0/1</pre>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Tình huống thực tế</h1>
+<h3>Tình huống 1 · Thêm router mới chép cấu hình từ router cũ</h3>
+<details><summary>Phân tích</summary>
+<p>Kỹ thuật viên chép nguyên cấu hình, quên đổi <code>router-id</code> ⇒ hai router cùng RID ⇒ DUPID, neighbor chập chờn, route lúc có lúc không trên toàn area. Phòng ngừa: mẫu cấu hình có biến; MOP thêm router có bước kiểm RID không trùng (<code>show ip ospf database</code> xem RID đang có).</p></details>
+<h3>Tình huống 2 · Neighbor qua đường VPN/GRE kẹt ExStart</h3>
+<details><summary>Phân tích</summary>
+<p>Tunnel có MTU nhỏ hơn (ví dụ 1400), interface đầu kia 1500 ⇒ DBD lớn không qua được ⇒ kẹt ExStart/Exchange. Sửa: chỉnh MTU khớp, hoặc <code>ip ospf mtu-ignore</code> (cẩn thận). Liên hệ tuần 1: MTU lại là thủ phạm.</p></details>
+<h3>Tình huống 3 · Firewall giữa hai router chặn multicast</h3>
+<details><summary>Phân tích</summary>
+<p>Đặt firewall (ví dụ FortiGate) chế độ trong suốt giữa hai router, chính sách chỉ cho phép TCP/UDP ⇒ Hello (protocol 89, 224.0.0.5) bị chặn một hoặc hai chiều ⇒ Down hoặc Init. Cần cho phép OSPF qua, hoặc cho firewall tham gia OSPF.</p></details>
+<div class="note"><b>Góc nhìn hệ thống</b>
+Ở ngân hàng, OSPF thường chạy giữa core switch, router WAN và firewall (FortiGate chạy OSPF được). Một neighbor down là một vùng mạng biến mất khỏi bảng route ⇒ giám sát trạng thái neighbor (syslog <code>ADJCHG</code>, SNMP trap) là bắt buộc. Kỹ sư hạ tầng nhìn log ADJCHG là biết ngay link nào chập chờn trước khi người dùng kịp gọi.</div>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>OSPF</td><td class="l">Link-state, SPF (Dijkstra), AD 110, protocol 89, metric cost, area 0 backbone</td></tr>
+<tr><td>Multicast</td><td class="l">224.0.0.5 mọi router OSPF · 224.0.0.6 DR/BDR</td></tr>
+<tr><td>RID</td><td class="l">router-id → loopback cao nhất → interface cao nhất · đổi cần clear process</td></tr>
+<tr><td>5 gói</td><td class="l">Hello, DBD, LSR, LSU, LSAck</td></tr>
+<tr><td>Timer</td><td class="l">Broadcast/P2P: hello 10, dead 40</td></tr>
+<tr><td>Điều kiện</td><td class="l">Area, hello/dead, subnet/mask, authentication, MTU (lệch ⇒ ExStart), RID khác, không passive</td></tr>
+<tr><td>Trạng thái</td><td class="l">Down, Init, 2-Way, ExStart, Exchange, Loading, Full · 2WAY giữa DROther là bình thường · Init = một chiều</td></tr>
+<tr><td>Bật</td><td class="l"><code>network IP wildcard area X</code> hoặc <code>ip ospf PID area X</code> · process ID chỉ local</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">link-state</td><td class="l">trạng thái liên kết</td><td class="l">shortest path first (SPF)</td><td class="l">đường ngắn nhất trước</td></tr>
+<tr><td class="l">neighbor / adjacency</td><td class="l">hàng xóm / quan hệ kề đầy đủ</td><td class="l">router ID</td><td class="l">định danh router</td></tr>
+<tr><td class="l">backbone area</td><td class="l">area xương sống</td><td class="l">area border router (ABR)</td><td class="l">router biên area</td></tr>
+<tr><td class="l">hello / dead interval</td><td class="l">chu kỳ chào / thời gian coi là chết</td><td class="l">database description</td><td class="l">mô tả cơ sở dữ liệu</td></tr>
+<tr><td class="l">link-state request / update / acknowledgment</td><td class="l">xin / cập nhật / xác nhận LSA</td><td class="l">LSDB</td><td class="l">cơ sở dữ liệu trạng thái liên kết</td></tr>
+<tr><td class="l">two-way</td><td class="l">hai chiều</td><td class="l">master / slave</td><td class="l">chủ / tớ (khi trao đổi DBD)</td></tr>
+<tr><td class="l">mismatch</td><td class="l">lệch</td><td class="l">process ID</td><td class="l">số tiến trình (chỉ local)</td></tr>
+<tr><td class="l">converge / convergence</td><td class="l">hội tụ</td><td class="l">interior gateway protocol</td><td class="l">giao thức định tuyến nội bộ</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"The neighbor is stuck in ExStart, so I suspect an MTU mismatch on the tunnel."</i></p>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m15"><span class="no">15.</span> Câu hỏi tự kiểm tra</h1>
+<p>Trả lời ra giấy hoặc gửi cho Claude <b>trước</b>, rồi mới mở đáp án.</p>
+<h3>Mức 1–2: nhớ và hiểu (5 câu trong lịch)</h3>
+<details><summary>1. Router ID được chọn theo thứ tự nào?</summary><p>Lệnh router-id → IP cao nhất của loopback đang up → IP cao nhất của interface vật lý đang up.</p></details>
+<details><summary>2. OSPF Hello gửi tới địa chỉ multicast nào?</summary><p>224.0.0.5 (AllSPFRouters). DR/BDR nhận thêm 224.0.0.6.</p></details>
+<details><summary>3. Hai router kẹt ở ExStart: nghi lỗi gì đầu tiên?</summary><p>MTU lệch giữa hai interface (sau đó: RID trùng).</p></details>
+<details><summary>4. Hai DROther ở trạng thái 2-Way có phải lỗi không?</summary><p>Không. Trên mạng broadcast, DROther chỉ Full với DR/BDR; với nhau dừng ở 2-Way là thiết kế.</p></details>
+<details><summary>5. Wildcard trong network 10.0.12.0 0.0.0.3 nghĩa là gì?</summary><p>Interface có IP từ 10.0.12.0 tới 10.0.12.3 (khớp 30 bit đầu) sẽ chạy OSPF trong area chỉ định.</p></details>
+<h3>Mức 3: vận hành / phỏng vấn</h3>
+<details><summary>6. Neighbor kẹt Init trên R1. Điều gì đang xảy ra?</summary><p>R1 nghe được Hello của R2 nhưng R2 không nghe được Hello của R1 (RID R1 không có trong neighbor list của R2): một chiều. Kiểm ACL/firewall, link một chiều, multicast.</p></details>
+<details><summary>7. Process ID hai router khác nhau (router ospf 1 và router ospf 10). Có thành neighbor không?</summary><p>Có. Process ID chỉ có ý nghĩa trong một router.</p></details>
+<details><summary>8. Nêu 5 lý do neighbor không lên.</summary><p>Lệch area; lệch hello/dead; lệch subnet/mask; lệch authentication; interface passive (thêm: MTU lệch ⇒ kẹt ExStart, RID trùng, ACL chặn).</p></details>
+<details><summary>9. Vì sao luôn đặt router-id bằng tay?</summary><p>Ổn định (không đổi khi interface lên xuống hay thêm loopback), dễ đọc, khớp IP plan, tránh trùng.</p></details>
+
+<label class="done"><input type="checkbox" id="d15"> Xong mục 15</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab và MOP trong <a href="tuan-12.html">giáo án tuần 12</a>. Tuần trước: <a href="tuan-11-kien-thuc.html">sổ tay tuần 11</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan12-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
