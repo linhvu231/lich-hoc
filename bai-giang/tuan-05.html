@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 5</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 5 · 23/11 – 29/11/2026</div>
+  <h1>IPv6: địa chỉ, NDP, SLAAC, static route</h1>
+  <p>Hướng dẫn từng ngày: đọc gì, lab gõ lệnh gì, nộp ra cái gì. Khoảng 10,5 giờ cả tuần.</p>
+  <p>Phần đọc sách đã thay bằng <a href="tuan-05-kien-thuc.html">sổ tay tiếng Việt 18 mục</a>.</p>
+  <div class="links">
+    <a href="tuan-05-kien-thuc.html">Sổ tay tuần 5 (thay sách)</a>
+    <a href="tuan-04.html">Giáo án tuần 4</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Đầu ra trong lịch: <b>viết 10 địa chỉ IPv6 rút gọn đúng; chia /48 thành 16 mạng /64; giải thích NDP thay ARP thế nào.</b> Cụ thể:</p>
+<ol>
+  <li>Rút gọn và bung đầy đủ địa chỉ IPv6 không sai.</li>
+  <li>Dựng dual-stack 3 router + 2 PC, PC tự nhận địa chỉ bằng SLAAC.</li>
+  <li>Bắt RA, NS, NA trong Wireshark và giải thích từng gói.</li>
+  <li>Viết static/default route IPv6 với next-hop link-local và xử lý 3 lỗi kinh điển.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  Nhiều kỹ sư lâu năm vẫn né IPv6 vì "công ty không dùng". Sai: mọi máy Windows trong công ty đang chạy IPv6 ngay lúc này, ít nhất là link-local, và sẵn sàng nhận RA từ bất kỳ ai. Không hiểu IPv6 thì không nhìn thấy rủi ro đó, và không xử lý được lỗi "Microsoft 365 chậm trên vài máy". Tuần này anh học IPv6 không phải để thi, mà để <b>không mù một nửa mạng</b>.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · Viết địa chỉ, loại địa chỉ, chia mạng</a></li>
+    <li><a href="#t3">Thứ 3 · EUI-64, NDP, SLAAC, route</a></li>
+    <li><a href="#t4">Thứ 4 · Lab phần 1: dual-stack, SLAAC</a></li>
+    <li><a href="#t5">Thứ 5 · Lab phần 2: static route, verify</a></li>
+    <li><a href="#t6">Thứ 6 · Ôn lab, sửa sổ tay</a></li>
+    <li><a href="#t7">Thứ 7 · MOP #3 thêm IPv6 vào VLAN, diễn tập 3 lỗi</a></li>
+    <li><a href="#cn">Chủ nhật · Tự kiểm tra, tự chấm</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày 15 phút</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (23/11) · Viết địa chỉ, loại địa chỉ, chia mạng</h2>
+<div class="meta"><span><b>1,5 giờ</b> đọc + luyện</span><span>Đầu ra: mục IPv6 mới trong sổ (2 luật, bảng loại địa chỉ)</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Sổ tay mục <a href="tuan-05-kien-thuc.html#m1">1</a> đến <a href="tuan-05-kien-thuc.html#m7">7</a>: định dạng, rút gọn, cấu trúc, loại, multicast, prefix, chia /48</label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Làm 10 bài rút gọn <a href="tuan-05-kien-thuc.html#m18">mục 18 phần B</a></label></li>
+  <li><input type="checkbox" id="t2-3"><label for="t2-3">Chạy <code>ipconfig</code> trên máy mình: đếm có mấy địa chỉ IPv6, mỗi cái thuộc loại nào</label></li>
+</ul>
+<div class="box warn">
+  <strong>Bẫy hay gặp</strong>
+  Bỏ số 0 <b>ở cuối</b> hextet: <code>0010</code> thành <code>1</code> là sai (đúng là <code>10</code>). Dùng <code>::</code> hai lần. Khi bung địa chỉ, đếm sai số nhóm 0 mà <code>::</code> thay thế: luôn tính 8 trừ số hextet đang có.
+</div>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (24/11) · EUI-64, NDP, SLAAC, route</h2>
+<div class="meta"><span><b>1,5 giờ</b> đọc + 5 phút tự giảng</span><span>Đầu ra: ghi chú + 5 câu hỏi để hỏi Claude</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Sổ tay mục <a href="tuan-05-kien-thuc.html#m8">8</a>, <a href="tuan-05-kien-thuc.html#m9">9</a>, <a href="tuan-05-kien-thuc.html#m10">10</a>: EUI-64, NDP, SLAAC/DHCPv6</label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Sổ tay mục <a href="tuan-05-kien-thuc.html#m11">11</a> đến <a href="tuan-05-kien-thuc.html#m15">15</a>: cấu hình Cisco, route, header, lệnh, lỗi</label></li>
+  <li><input type="checkbox" id="t3-3"><label for="t3-3">Tính EUI-64 từ MAC card mạng máy anh (<code>getmac</code>)</label></li>
+  <li><input type="checkbox" id="t3-4"><label for="t3-4">Tự giảng 5 phút: "PC bật lên, làm sao có địa chỉ IPv6 và gateway, không cần DHCP"</label></li>
+</ul>
+<div class="box ok">
+  <strong>Bảng đối chiếu nhớ trong 5 phút</strong>
+  ARP request → <b>NS</b> · ARP reply → <b>NA</b> · Broadcast → <b>ff02::1</b> / solicited-node · DHCP lấy gateway → <b>RA</b> · 169.254 → <b>fe80</b> (nhưng fe80 là bình thường) · TTL → <b>Hop Limit</b> · Protocol → <b>Next Header</b>.
+</div>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (25/11) · Lab phần 1: dual-stack 3 router + 2 PC, SLAAC</h2>
+<div class="meta"><span><b>1,5 giờ</b> lab</span><span>Đầu ra: config vào git thư mục <code>W05-ipv6-dualstack</code>, file pcap RA/NS/NA có chú thích</span></div>
+
+<h3>Topology và bảng địa chỉ</h3>
+<div class="flow">PC1 --- (g0/0) R1 (g0/1) ---- (g0/0) R2 (g0/1) ---- (g0/0) R3 (g0/1) --- PC3</div>
+<div class="tbl"><table>
+<thead><tr><th>Link</th><th>IPv4</th><th>IPv6</th><th>Link-local</th></tr></thead>
+<tbody>
+<tr><td>LAN1 (R1 g0/0 – PC1)</td><td>192.168.1.0/24, R1 .1</td><td>2001:db8:acad:1::/64, R1 ::1</td><td>R1 fe80::1</td></tr>
+<tr><td>R1 g0/1 – R2 g0/0</td><td>10.0.12.0/30, R1 .1, R2 .2</td><td>2001:db8:acad:12::/64, R1 ::1, R2 ::2</td><td>R1 fe80::1, R2 fe80::2</td></tr>
+<tr><td>R2 g0/1 – R3 g0/0</td><td>10.0.23.0/30, R2 .1, R3 .2</td><td>2001:db8:acad:23::/64, R2 ::1, R3 ::2</td><td>R2 fe80::2, R3 fe80::3</td></tr>
+<tr><td>LAN3 (R3 g0/1 – PC3)</td><td>192.168.3.0/24, R3 .1</td><td>2001:db8:acad:3::/64, R3 ::1</td><td>R3 fe80::3</td></tr>
+</tbody>
+</table></div>
+<p style="color:var(--muted);font-size:.9rem">Đề CCNA hay dùng /64 cho link router; lab giữ /64 cho dễ đọc. Ngoài đời dùng /127.</p>
+
+<h3>Cấu hình R1 (R2, R3 làm tương tự theo bảng)</h3>
+<pre>R1(config)# ipv6 unicast-routing
+R1(config)# interface g0/0
+R1(config-if)# ip address 192.168.1.1 255.255.255.0
+R1(config-if)# ipv6 address 2001:db8:acad:1::1/64
+R1(config-if)# ipv6 address fe80::1 link-local
+R1(config-if)# no shutdown
+R1(config)# interface g0/1
+R1(config-if)# ip address 10.0.12.1 255.255.255.252
+R1(config-if)# ipv6 address 2001:db8:acad:12::1/64
+R1(config-if)# ipv6 address fe80::1 link-local
+R1(config-if)# no shutdown</pre>
+
+<h3>PC1: để IPv6 tự động, bắt gói</h3>
+<pre>PC1&gt; ipconfig /all
+<span class="c">! Phải thấy: IPv6 Address 2001:db8:acad:1:..., Link-local fe80::...%x, Default Gateway fe80::1%x</span>
+<span class="c">! Packet Tracer: PC → IP Configuration → IPv6 chọn "Automatic" (SLAAC)</span>
+<span class="c">! Wireshark trên link PC1–R1, lọc: icmpv6</span>
+PC1&gt; ipconfig /release6 &amp;&amp; ipconfig /renew6     <span class="c">! hoặc tắt/bật card để thấy RS/RA lại từ đầu</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1">Tìm gói RS (133): nguồn, đích ff02::2</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2">Tìm gói RA (134): nguồn fe80::1, đích ff02::1, prefix 2001:db8:acad:1::/64, cờ M/O, Router Lifetime</label></li>
+  <li><input type="checkbox" id="t4-3"><label for="t4-3">Tìm NS của DAD: nguồn <code>::</code>, đích ff02::1:ffXX:XXXX khớp 24 bit cuối địa chỉ mới</label></li>
+  <li><input type="checkbox" id="t4-4"><label for="t4-4">Ping PC1 → 2001:db8:acad:1::1: tìm cặp NS/NA (thay ARP), so MAC đích của frame NS (33:33:ff:…)</label></li>
+</ul>
+<pre>R1# show ipv6 interface g0/0
+<span class="c">! Đọc các dòng: link-local, global unicast, "Joined group address(es)" (ff02::1, ff02::2, ff02::1:ff00:1…),</span>
+<span class="c">! "ND advertised reachable time", "ND router advertisements are sent every 200 seconds"</span>
+R1# show ipv6 neighbors</pre>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (26/11) · Lab phần 2: static + default route IPv6, ping giữa các site</h2>
+<div class="meta"><span><b>1,5 giờ</b> lab + verify</span><span>Đầu ra: <code>show ipv6 route</code> 3 router kèm giải thích từng dòng</span></div>
+
+<h3>Route cần có</h3>
+<pre><span class="c">! R1: mọi thứ không phải của mình thì đi R2 (default route)</span>
+R1(config)# ip route 0.0.0.0 0.0.0.0 10.0.12.2
+R1(config)# ipv6 route ::/0 g0/1 fe80::2
+
+<span class="c">! R3: tương tự, đi R2</span>
+R3(config)# ip route 0.0.0.0 0.0.0.0 10.0.23.1
+R3(config)# ipv6 route ::/0 g0/0 fe80::2
+
+<span class="c">! R2: route cụ thể tới hai LAN</span>
+R2(config)# ip route 192.168.1.0 255.255.255.0 10.0.12.1
+R2(config)# ip route 192.168.3.0 255.255.255.0 10.0.23.2
+R2(config)# ipv6 route 2001:db8:acad:1::/64 g0/0 fe80::1
+R2(config)# ipv6 route 2001:db8:acad:3::/64 g0/1 fe80::3</pre>
+<div class="box warn">
+  <strong>Chú ý link-local trên R2</strong>
+  R2 có <code>fe80::2</code> trên <b>cả hai</b> interface. Hợp lệ, vì link-local chỉ cần duy nhất trong một link. Nhưng vì vậy route next-hop link-local <b>bắt buộc kèm interface</b>: <code>ipv6 route … g0/0 fe80::1</code>. Thử gõ thiếu interface xem IOS báo gì.
+</div>
+
+<h3>Verify</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1"><code>show ipv6 route</code> trên R1, R2, R3: chỉ ra dòng C, L, S và giải thích vì sao L là /128</label></li>
+  <li><input type="checkbox" id="t5-2"><label for="t5-2">PC1 <code>ping -6</code> địa chỉ PC3 (lấy từ <code>ipconfig</code> trên PC3) và <code>ping 192.168.3.x</code>: cả hai họ đều thông</label></li>
+  <li><input type="checkbox" id="t5-3"><label for="t5-3"><code>tracert -6</code> từ PC1 tới PC3: chặng nào hiện địa chỉ gì?</label></li>
+  <li><input type="checkbox" id="t5-4"><label for="t5-4">Thử <code>ping fe80::3</code> từ R1: được không? Vì sao? (link-local không qua router)</label></li>
+  <li><input type="checkbox" id="t5-5"><label for="t5-5">Lưu config vào git</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (27/11) · Ôn lab, sửa sổ tay CCNA</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: mục IPv6 mới trong Google Docs</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1">Xóa cấu hình IPv6 trên R2, dựng lại từ trí nhớ trong 10 phút</label></li>
+</ul>
+<h3>Sửa sổ tay (2 việc trong lịch)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">Sổ tay chưa có IPv6: tạo mục mới gồm 2 luật viết gọn, bảng loại địa chỉ, 4 bước EUI-64, bảng NDP</label></li>
+  <li><input type="checkbox" id="t6-3"><label for="t6-3">Ghi câu: "IPv6 không có broadcast"</label></li>
+</ul>
+<div class="box warn">
+  <strong>Thêm một điều nên ghi kèm</strong>
+  Trong bảng "Hành vi Router" của sổ, thêm cột IPv6: router IPv6 <b>không phân mảnh</b> (gói lớn ⇒ bỏ + ICMPv6 Packet Too Big), và header IPv6 <b>không có checksum</b> nên router không phải tính lại ở mỗi chặng như IPv4. Hai điểm này hay bị hỏi khi so sánh hai giao thức.
+</div>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (28/11) · MOP #3 thêm IPv6 vào VLAN đang chạy IPv4, diễn tập 3 lỗi</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>mop/MOP-003-dual-stack-lan.md</code> và <code>postmortem/W05-ipv6.md</code></span></div>
+
+<h3>Phần A · MOP #3</h3>
+<pre>
+# MOP-003 · Bật IPv6 dual-stack cho LAN1 (đang chạy IPv4)
+
+| Mục        | Nội dung                                                         |
+|------------|------------------------------------------------------------------|
+| Mục tiêu   | LAN1 có IPv6 qua SLAAC, không ảnh hưởng IPv4                      |
+| Phạm vi    | R1 g0/0 (LAN1), PC trong LAN1                                     |
+| Ảnh hưởng  | Máy trạm nhận thêm địa chỉ IPv6; Windows sẽ ưu tiên IPv6 nếu đích có AAAA |
+| Rủi ro     | Trung bình: lưu lượng IPv6 có thể đi đường khác/không qua firewall có rule IPv6 |
+
+## 1. Pre-check
+R1# show ipv6 interface brief          ! g0/0 chưa có IPv6
+R1# show running-config | include ipv6 ! đã có ipv6 unicast-routing chưa?
+PC1&gt; ping 192.168.3.10                  ! IPv4 đang chạy (ghi kết quả)
+- Firewall/ACL: đã có rule IPv6 tương đương rule IPv4 cho LAN1 chưa? (bắt buộc trước khi làm ở production)
+
+## 2. Các bước
+R1(config)# ipv6 unicast-routing                       ! nếu chưa có
+R1(config)# interface g0/0
+R1(config-if)# ipv6 address 2001:db8:acad:1::1/64
+R1(config-if)# ipv6 address fe80::1 link-local
+
+## 3. Verify
+- R1# show ipv6 interface g0/0  ⇒ có GUA, gửi RA
+- PC1 nhận 2001:db8:acad:1:..., gateway fe80::1
+- PC1 ping -6 2001:db8:acad:3::... thông
+- IPv4: ping lại như pre-check, kết quả giống hệt
+
+## 4. Rollback
+R1(config)# interface g0/0
+R1(config-if)# no ipv6 address 2001:db8:acad:1::1/64
+R1(config-if)# no ipv6 address fe80::1 link-local
+R1(config-if)# ipv6 nd ra suppress all     ! nếu vẫn còn IPv6 trên interface vì lý do khác
+- PC: địa chỉ IPv6 GUA hết hạn theo lifetime trong RA cũ (có thể vài giờ!) ⇒ cần ipconfig /release6 trên máy
+</pre>
+<div class="box">
+  <strong>Góc nhìn hệ thống: rollback IPv6 không tức thì</strong>
+  Gỡ địa chỉ trên router không làm máy trạm quên ngay địa chỉ SLAAC; máy giữ tới hết "preferred/valid lifetime" trong RA đã nhận. Đây là lý do MOP IPv6 ở production thường đi kèm giảm lifetime trước, hoặc chấp nhận khoảng thời gian chuyển tiếp. Biết điều này là biết khác biệt giữa lab và hệ thống thật.
+</div>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Viết MOP-003, chạy cả bước rollback trên lab, ghi lại PC còn giữ địa chỉ bao lâu</label></li>
+</ul>
+
+<h3>Phần B · Diễn tập 3 lỗi (trong lịch)</h3>
+<p>Rút thăm thứ tự, mỗi lỗi bấm giờ, xử lý chỉ bằng lệnh <code>show</code>/<code>ping</code>, không mở running-config trước.</p>
+<ol>
+  <li>Trên R3: <code>no ipv6 unicast-routing</code>.</li>
+  <li>Trên R2: route tới LAN1 dùng next-hop sai <code>g0/0 fe80::9</code>.</li>
+  <li>Trên R1 g0/0: <code>ipv6 nd ra suppress all</code>.</li>
+</ol>
+<details><summary>Gợi ý (mở sau khi làm)</summary>
+<ol>
+  <li>PC3 mất địa chỉ GUA/gateway sau một thời gian (hoặc ngay khi renew); R3 không chuyển gói IPv6. <code>show ipv6 interface g0/1</code> trên R3 không còn dòng gửi RA. Router vẫn có địa chỉ, vẫn ping trực tiếp được, nhưng không chuyển gói IPv6 giữa các mạng.</li>
+  <li>Ping từ PC3 tới PC1 chết ở R2. <code>show ipv6 route 2001:db8:acad:1::</code> trên R2 vẫn thấy route; <code>show ipv6 neighbors g0/0</code> thấy fe80::9 INCMP. Static không tự kiểm next-hop.</li>
+  <li>PC1 không có gateway IPv6 (renew6 không nhận RA). R1 vẫn định tuyến bình thường cho máy đặt tay. <code>show ipv6 interface g0/0</code> hiện "ND RAs are suppressed".</li>
+</ol>
+</details>
+<ul class="check">
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Xử lý cả 3 lỗi, mỗi lỗi dưới 10 phút</label></li>
+  <li><input type="checkbox" id="t7-3"><label for="t7-3">Viết postmortem cho lỗi tốn thời gian nhất</label></li>
+</ul>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (29/11) · Tự kiểm tra và tự chấm</h2>
+<div class="meta"><span><b>30 phút</b></span><span>Trả lời ra giấy trước, rồi mới mở đáp án. Gửi cho Claude chấm.</span></div>
+
+<h3>Bài đầu ra</h3>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">Nhờ Claude ra 10 địa chỉ IPv6 mới, rút gọn hết, không sai</label></li>
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Viết ra 16 mạng /64 đầu tiên của một /48 bất kỳ, và chia /48 cho 16 site</label></li>
+  <li><input type="checkbox" id="cn-3"><label for="cn-3">Giải thích (ghi âm 3 phút): NDP thay ARP thế nào, có gì hơn ARP</label></li>
+</ul>
+
+<h3>5 câu tự kiểm tra trong lịch</h3>
+<details><summary>1. Viết gọn 2001:0db8:0000:0001:0000:0000:0000:0010.</summary><p>2001:db8:0:1::10.</p></details>
+<details><summary>2. Địa chỉ fe80::1 thuộc loại nào, đi qua router được không?</summary><p>Link-local, không qua router.</p></details>
+<details><summary>3. Tin NDP nào thay ARP request?</summary><p>Neighbor Solicitation (NS).</p></details>
+<details><summary>4. SLAAC lấy prefix từ đâu?</summary><p>Từ RA của router.</p></details>
+<details><summary>5. Lệnh nào bắt buộc để router Cisco định tuyến IPv6?</summary><p><code>ipv6 unicast-routing</code>.</p></details>
+
+<h3>3 câu vặn thêm (mức phỏng vấn)</h3>
+<details><summary>6. NDP có gì tốt hơn ARP?</summary><p>Dùng multicast solicited-node thay broadcast ⇒ ít làm phiền máy khác; chạy trên ICMPv6 nên có thể lọc/bảo vệ như gói IP; gộp thêm tìm router, tự cấu hình, DAD, redirect. (Vẫn có thể bị giả mạo nếu không có RA Guard/SEND.)</p></details>
+<details><summary>7. Dùng DHCPv6 stateful thì máy lấy gateway từ đâu?</summary><p>Vẫn từ RA (link-local của router). DHCPv6 không cấp gateway.</p></details>
+<details><summary>8. Vì sao LAN IPv6 dùng /64 dù chỉ có 5 máy?</summary><p>SLAAC/EUI-64 cần interface ID 64 bit; nhiều tính năng giả định /64; không gian IPv6 đủ lớn nên không cần tiết kiệm.</p></details>
+
+<h3>Tự chấm cuối tuần</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 5</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>Loại địa chỉ, NDP, SLAAC/DHCPv6, vì sao không broadcast</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>Dual-stack 3 router + route trong 30 phút</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>Xử lý 3 lỗi IPv6, mỗi lỗi &lt; 10 phút</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>MOP-003 nói được rủi ro firewall IPv6 và rollback không tức thì</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Giải thích cho đồng nghiệp vì sao "công ty không dùng IPv6" vẫn có rủi ro</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-4"><label for="cn-4">Tick tuần 5 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày 15 phút</h2>
+<ul>
+  <li><b>Hỏi đáp bằng miệng:</b> loại địa chỉ IPv6 (nhìn 4 chữ đầu ⇒ nói loại), tên 5 tin NDP và type.</li>
+  <li><b>Rút gọn 10 địa chỉ IPv6</b> mỗi ngày (tự viết đầy đủ rồi rút gọn, kiểm bằng Python <code>ipaddress</code>).</li>
+  <li><b>Một lệnh mỗi ngày:</b> T2 <code>ipconfig</code> (đếm địa chỉ IPv6), T3 <code>netsh interface ipv6 show neighbors</code>, T4 <code>ping -6 ipv6.google.com</code> (mạng nhà có IPv6 không?), T5 <code>route print -6</code>, T6 <code>tracert -6 ipv6.google.com</code>.</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">Đã chạy đủ 5 lệnh và ghi 5 điều mới thấy</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 5/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: VLAN, trunk, VTP và inter-VLAN routing.
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan05-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

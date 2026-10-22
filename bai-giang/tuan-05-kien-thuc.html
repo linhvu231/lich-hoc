@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 5</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 5 (23/11 – 29/11/2026) · <a href="tuan-05.html">Giáo án tuần 5 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 5 (Graziani "IPv6 Fundamentals"; Odom Vol 1, Part VII "IPv6"). Sổ CCNA của anh <b>chưa có phần IPv6</b>, nên tuần này là viết mới hoàn toàn. Đừng sợ địa chỉ dài: IPv6 thực ra <b>dễ chia mạng hơn</b> IPv4 (LAN nào cũng /64). Cái mới thật sự là <b>NDP thay ARP</b> và <b>máy tự cấu hình địa chỉ (SLAAC)</b>. Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">Vì sao IPv6, 128 bit viết thế nào</a></li>
+  <li><a href="#m2">Hai luật viết gọn</a></li>
+  <li><a href="#m3">Cấu trúc: prefix và interface ID</a></li>
+  <li><a href="#m4">Các loại địa chỉ IPv6</a></li>
+  <li><a href="#m5">Multicast quan trọng, không có broadcast</a></li>
+  <li><a href="#m6">Prefix length: /64, /127, /128, /48</a></li>
+  <li><a href="#m7">Chia mạng IPv6: /48 thành các /64</a></li>
+  <li><a href="#m8">Interface ID: EUI-64, ngẫu nhiên, đặt tay</a></li>
+  <li><a href="#m9">NDP: NS, NA, RS, RA, DAD</a></li>
+  <li><a href="#m10">SLAAC, DHCPv6 stateless và stateful</a></li>
+  <li><a href="#m11">Cấu hình IPv6 trên router Cisco</a></li>
+  <li><a href="#m12">Static và default route IPv6</a></li>
+  <li><a href="#m13">Header IPv6 và dual-stack</a></li>
+  <li><a href="#m14">Lệnh kiểm tra trên Windows, Linux, Cisco</a></li>
+  <li><a href="#m15">Lỗi hay gặp và tình huống thực tế</a></li>
+  <li><a href="#m16">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m17">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m18">Bài luyện và câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> Vì sao IPv6, 128 bit viết thế nào</h1>
+
+<h2>1/ Vì sao</h2>
+<ul>
+  <li>IPv4 có ~4,3 tỷ địa chỉ, IANA đã cấp hết khối cuối năm 2011. Hiện nay sống được là nhờ NAT và CGNAT (tuần 3 mục 4).</li>
+  <li>IPv6 có <b>2<sup>128</sup></b> địa chỉ (~3,4 × 10<sup>38</sup>): không cần NAT để tiết kiệm địa chỉ.</li>
+  <li>Các nhà mạng Việt Nam (Viettel, VNPT, FPT) đã cấp IPv6 cho thuê bao gia đình và di động; Microsoft 365, Google dùng IPv6. Máy Windows ở công ty <b>đã đang chạy IPv6</b> (ít nhất là link-local) dù không ai cấu hình.</li>
+</ul>
+
+<h2>2/ Cách viết</h2>
+<p>128 bit chia thành <b>8 nhóm</b>, mỗi nhóm <b>16 bit</b> viết bằng <b>4 chữ số hex</b>, ngăn bằng dấu hai chấm. Mỗi nhóm gọi là một <b>hextet</b>.</p>
+<div class="flow">2001:0db8:0000:0001:0000:0000:0000:0010
+|hextet|                                       8 hextet × 16 bit = 128 bit
+Mỗi chữ hex = 4 bit (0 = 0000 … f = 1111)</div>
+<p>Bảng hex (đã có trong sổ của anh) dùng lại ở đây: 0–9, a–f. Chữ thường hay hoa đều được; chuẩn khuyên viết <b>chữ thường</b>.</p>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Hai luật viết gọn</h1>
+
+<div class="note"><b>Luật 1 · Bỏ số 0 ở đầu mỗi hextet</b>
+<code>0db8</code> → <code>db8</code> · <code>0001</code> → <code>1</code> · <code>0000</code> → <code>0</code> · <code>0010</code> → <code>10</code>. Chỉ bỏ số 0 <b>đứng đầu</b>, không bỏ số 0 đứng cuối (<code>0010</code> không thành <code>1</code>).</div>
+<div class="note"><b>Luật 2 · Thay một dãy hextet toàn 0 liên tiếp bằng <code>::</code>, chỉ một lần</b>
+Dùng <code>::</code> cho <b>dãy 0 dài nhất</b>. Nếu có hai dãy dài bằng nhau, dùng cho dãy <b>bên trái</b>. Không dùng <code>::</code> cho một hextet 0 duy nhất (chuẩn RFC 5952 khuyên vậy, dù về kỹ thuật vẫn hợp lệ).</div>
+<p><mark>:: chỉ được xuất hiện một lần</mark>, vì nếu hai lần thì không biết mỗi chỗ có bao nhiêu nhóm 0.</p>
+
+<h3>Ví dụ từng bước</h3>
+<div class="flow">Đầy đủ:   2001:0db8:0000:0001:0000:0000:0000:0010
+Luật 1:   2001:db8:0:1:0:0:0:10
+Luật 2:   2001:db8:0:1::10          (dãy 0:0:0 dài nhất ⇒ ::)</div>
+<div class="tbl"><table>
+<tr><th>Đầy đủ</th><th>Viết gọn</th></tr>
+<tr><td>fe80:0000:0000:0000:0000:0000:0000:0001</td><td>fe80::1</td></tr>
+<tr><td>2001:0db8:acad:0000:0000:0000:0000:0000</td><td>2001:db8:acad::</td></tr>
+<tr><td>0000:0000:0000:0000:0000:0000:0000:0001</td><td>::1 (loopback)</td></tr>
+<tr><td>0000:0000:0000:0000:0000:0000:0000:0000</td><td>:: (chưa có địa chỉ)</td></tr>
+<tr><td>2001:0db8:0000:0000:00a0:0000:0000:0001</td><td>2001:db8::a0:0:0:1 (hai dãy 0 dài bằng nhau ⇒ :: ở bên trái)</td></tr>
+<tr><td>ff02:0000:0000:0000:0000:0001:ff00:0001</td><td>ff02::1:ff00:1</td></tr>
+</table></div>
+
+<h3>Viết ngược lại (bung ra đủ 8 hextet)</h3>
+<p><code>2001:db8:acad:1::a</code> có 5 hextet ⇒ <code>::</code> thay cho 8 − 5 = <b>3</b> nhóm 0 ⇒ <code>2001:0db8:acad:0001:0000:0000:0000:000a</code>.</p>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ của anh <b>chưa có IPv6</b>. Tạo mục mới, bắt đầu bằng <b>2 luật viết gọn</b> ở trên kèm 3 ví dụ tự làm.</div>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Cấu trúc: prefix và interface ID</h1>
+<p>Giống IPv4, địa chỉ IPv6 có phần mạng (<b>prefix</b>) và phần máy (<b>interface ID</b>). Với LAN, gần như luôn là <b>64 bit + 64 bit</b>.</p>
+<div class="flow">2001:0db8:acad : 0001 : 0000:0000:0000:000a
+|<-- 48 bit -->|<16 >|<------- 64 bit ------->|
+Global routing    Subnet      Interface ID
+prefix (nhà mạng  ID (công    (máy)
+cấp cho công ty)  ty tự chia)
+|<--------- prefix /64 ------>|</div>
+<ul>
+  <li><b>Global routing prefix</b>: thường /48 cho một tổ chức/site (nhà mạng hoặc RIR cấp).</li>
+  <li><b>Subnet ID</b>: 16 bit ⇒ 65 536 mạng /64 trong một /48. Công ty tự chia.</li>
+  <li><b>Interface ID</b>: 64 bit, máy tự sinh hoặc đặt tay.</li>
+</ul>
+<p>Prefix viết kèm độ dài như IPv4: <code>2001:db8:acad:1::/64</code>. <b>Không có khái niệm mask dạng chấm</b> trong IPv6; chỉ có prefix length.</p>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> Các loại địa chỉ IPv6</h1>
+
+<div class="tbl"><table>
+<tr><th>Loại</th><th>Prefix</th><th>Nhận biết</th><th class="l">Đi qua router?</th><th class="l">Tương đương IPv4 / dùng làm gì</th></tr>
+<tr><td><b>GUA</b><br>Global Unicast</td><td>2000::/3</td><td>Bắt đầu 2 hoặc 3</td><td class="l">Có, ra cả Internet</td><td class="l">Như IP public</td></tr>
+<tr><td><b>Link-local</b> (LLA)</td><td><b>fe80::/10</b></td><td>Bắt đầu fe80</td><td class="l"><b>Không</b>, chỉ trong một đoạn mạng</td><td class="l">Mọi interface IPv6 bắt buộc có. Dùng cho NDP, làm next-hop của route, OSPFv3. Gần giống 169.254 nhưng là <b>bình thường</b>, không phải lỗi</td></tr>
+<tr><td><b>ULA</b><br>Unique Local</td><td>fc00::/7 (thực tế dùng <b>fd00::/8</b>)</td><td>Bắt đầu fd</td><td class="l">Có, trong nội bộ; không ra Internet</td><td class="l">Như private RFC 1918. 40 bit sau fd nên sinh ngẫu nhiên để tránh trùng khi sáp nhập</td></tr>
+<tr><td><b>Multicast</b></td><td>ff00::/8</td><td>Bắt đầu ff</td><td class="l">Tùy phạm vi (ff02 = chỉ link)</td><td class="l">Thay cho broadcast</td></tr>
+<tr><td>Loopback</td><td>::1/128</td><td></td><td class="l">Không</td><td class="l">127.0.0.1</td></tr>
+<tr><td>Unspecified</td><td>::/128</td><td></td><td class="l">Không</td><td class="l">0.0.0.0, nguồn khi chưa có địa chỉ (DAD)</td></tr>
+<tr><td>Default route</td><td>::/0</td><td></td><td class="l"></td><td class="l">0.0.0.0/0</td></tr>
+<tr><td>Anycast</td><td>(lấy từ dải unicast)</td><td>Không phân biệt được bằng mắt</td><td class="l">Có</td><td class="l">Cùng một địa chỉ gán cho nhiều thiết bị, gói tới cái gần nhất (DNS gốc, CDN)</td></tr>
+<tr><td>Tài liệu</td><td>2001:db8::/32</td><td></td><td class="l"></td><td class="l">Dùng trong ví dụ, sách (như 192.0.2.0/24)</td></tr>
+</table></div>
+
+<p><mark>Một interface IPv6 thường có nhiều địa chỉ cùng lúc</mark>: một link-local + một hoặc vài GUA (Windows thêm địa chỉ tạm thời) + có thể ULA. Đây là khác biệt lớn so với IPv4 "một card một IP".</p>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Thêm <b>bảng loại địa chỉ</b> ở trên vào mục IPv6 mới, ít nhất 5 dòng: GUA, link-local, ULA, multicast, loopback/unspecified.</div>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Multicast quan trọng, không có broadcast</h1>
+<p><mark>IPv6 không có broadcast.</mark> Việc "gửi cho tất cả" chuyển thành multicast tới nhóm "mọi node", và việc "hỏi một máy" (như ARP) chuyển thành multicast tới một nhóm rất nhỏ (solicited-node). ⇒ Máy không liên quan không bị làm phiền.</p>
+
+<div class="tbl"><table>
+<tr><th>Địa chỉ</th><th class="l">Nhóm</th><th class="l">Dùng cho</th></tr>
+<tr><td>ff02::1</td><td class="l">Mọi node trên link</td><td class="l">RA định kỳ của router (gần giống broadcast)</td></tr>
+<tr><td>ff02::2</td><td class="l">Mọi router trên link</td><td class="l">Máy gửi RS hỏi router</td></tr>
+<tr><td>ff02::5 / ff02::6</td><td class="l">Mọi router OSPFv3 / DR OSPFv3</td><td class="l">Tuần 12–13</td></tr>
+<tr><td>ff02::a</td><td class="l">Router EIGRPv6</td><td class="l"></td></tr>
+<tr><td>ff02::1:2</td><td class="l">DHCPv6 server/relay</td><td class="l">Máy tìm DHCPv6</td></tr>
+<tr><td><b>ff02::1:ffXX:XXXX</b></td><td class="l"><b>Solicited-node</b></td><td class="l">NS thay ARP. XX:XXXX = <b>24 bit cuối</b> của địa chỉ unicast</td></tr>
+</table></div>
+
+<h3>Solicited-node: ví dụ</h3>
+<p>Địa chỉ <code>2001:db8:acad:1::a</code> ⇒ 24 bit cuối = <code>00:000a</code> ⇒ nhóm <code>ff02::1:ff00:a</code>. Máy tự tham gia nhóm này cho mỗi địa chỉ unicast nó có. Ai muốn hỏi MAC của <code>2001:db8:acad:1::a</code> thì gửi NS tới <code>ff02::1:ff00:a</code> ⇒ thường chỉ đúng một máy nhận và xử lý.</p>
+<p>Ở tầng 2, multicast IPv6 dùng MAC <code>33:33</code> + 32 bit cuối của địa chỉ multicast (tuần 2 mục 3). Ví dụ ff02::1 ⇒ <code>33:33:00:00:00:01</code>.</p>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Ghi một câu riêng, tô vàng: <b>"IPv6 không có broadcast."</b> Kèm một dòng: thay bằng multicast ff02::1 (mọi node) và solicited-node (thay ARP).</div>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Prefix length: /64, /127, /128, /48</h1>
+<div class="tbl"><table>
+<tr><th>Prefix</th><th class="l">Dùng cho</th><th class="l">Lý do</th></tr>
+<tr><td><b>/64</b></td><td class="l"><b>Mọi LAN có máy trạm</b></td><td class="l">SLAAC và EUI-64 cần đúng 64 bit interface ID. /64 cho dù LAN chỉ 10 máy: không ai "tiết kiệm" trong IPv6</td></tr>
+<tr><td>/127</td><td class="l">Link router–router</td><td class="l">RFC 6164, chống một kiểu tấn công làm đầy neighbor cache. Đề CCNA hay dùng /64 cho link; thực tế /127 hoặc /126</td></tr>
+<tr><td>/126</td><td class="l">Link router–router (kiểu cũ)</td><td class="l">Giống /30 của IPv4</td></tr>
+<tr><td>/128</td><td class="l">Loopback, route tới một host</td><td class="l">Giống /32</td></tr>
+<tr><td>/56</td><td class="l">Thuê bao gia đình/văn phòng nhỏ</td><td class="l">Nhà mạng cấp, 256 mạng /64</td></tr>
+<tr><td>/48</td><td class="l">Một site/tổ chức</td><td class="l">65 536 mạng /64</td></tr>
+<tr><td>/32</td><td class="l">Nhà mạng / tổ chức lớn (cấp từ RIR, APNIC/VNNIC)</td><td class="l">65 536 site /48</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Chia mạng IPv6: /48 thành các /64</h1>
+
+<h2>1/ Chỉ cần đếm hex ở hextet thứ 4</h2>
+<p>Từ /48 lên /64 = 16 bit = đúng <b>một hextet</b> (hextet thứ 4). ⇒ Chia mạng IPv6 chỉ là <b>đếm hex</b>, không cần magic number.</p>
+<div class="flow">Khối site: 2001:db8:acad::/48
+Mạng 0:   2001:db8:acad:0::/64
+Mạng 1:   2001:db8:acad:1::/64
+...
+Mạng 9:   2001:db8:acad:9::/64
+Mạng 10:  2001:db8:acad:a::/64
+...
+Mạng 15:  2001:db8:acad:f::/64      ⇒ 16 mạng đầu tiên
+...
+Mạng cuối: 2001:db8:acad:ffff::/64  ⇒ tổng 65 536 mạng</div>
+
+<h2>2/ Gợi ý đánh số dễ nhớ</h2>
+<p>Dùng hextet 4 trùng số VLAN (viết như số thập phân dù là hex): VLAN 10 ⇒ <code>2001:db8:acad:10::/64</code>, VLAN 20 ⇒ <code>:20::/64</code>. Người đọc nhìn là đoán được VLAN. (Nhớ <code>:10::</code> thực ra là hex 0x10 = 16, nhưng không sao, chỉ là nhãn.)</p>
+
+<h2>3/ Chia ranh giới nibble (4 bit)</h2>
+<p>Muốn chia /48 cho 16 site, mỗi site một /52: hextet 4 có 16 bit, lấy <b>chữ hex đầu tiên</b> (4 bit) làm số site:</p>
+<div class="flow">Site 0: 2001:db8:acad:0000::/52  (chứa :0000 → :0fff)
+Site 1: 2001:db8:acad:1000::/52  (chứa :1000 → :1fff)
+...
+Site f: 2001:db8:acad:f000::/52</div>
+<p>Mỗi site /52 còn 12 bit ⇒ 4 096 mạng /64. <mark>Luôn chia theo bội số 4 bit (một chữ hex)</mark> cho dễ đọc: /48, /52, /56, /60, /64.</p>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> Interface ID: EUI-64, ngẫu nhiên, đặt tay</h1>
+
+<h2>1/ EUI-64: 4 bước</h2>
+<p>Sinh 64 bit interface ID từ MAC 48 bit. Ví dụ MAC <code>00:1a:2b:3c:4d:5e</code>.</p>
+<ol>
+  <li><b>Tách đôi MAC</b>: <code>00:1a:2b</code> | <code>3c:4d:5e</code>.</li>
+  <li><b>Chèn <code>ff:fe</code> vào giữa</b>: <code>00:1a:2b:<b>ff:fe</b>:3c:4d:5e</code> (giờ đủ 64 bit).</li>
+  <li><b>Lật bit thứ 7</b> (bit U/L, tuần 2 mục 3) của byte đầu: <code>00</code> = 0000 00<b>0</b>0 ⇒ 0000 00<b>1</b>0 = <code>02</code>.</li>
+  <li><b>Ghép thành hextet</b>: <code>021a:2bff:fe3c:4d5e</code>.</li>
+</ol>
+<p>⇒ Với prefix <code>2001:db8:acad:1::/64</code>, địa chỉ là <code>2001:db8:acad:1:21a:2bff:fe3c:4d5e</code>. Link-local tương ứng: <code>fe80::21a:2bff:fe3c:4d5e</code>.</p>
+<p>Mẹo lật bit: byte đầu số chẵn thì <b>cộng 2</b> nếu bit đó đang 0, <b>trừ 2</b> nếu đang 1. 00 → 02, 02 → 00, 0c → 0e, a8 → aa.</p>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Thêm <b>4 bước EUI-64</b> vào mục IPv6, làm lại một ví dụ với MAC card mạng máy anh (<code>getmac</code>).</div>
+
+<h2>2/ Ngẫu nhiên (privacy)</h2>
+<p>EUI-64 để lộ MAC ⇒ theo dấu được thiết bị trên Internet. Vì vậy <b>Windows, macOS, iOS, Android</b> mặc định dùng interface ID <b>ngẫu nhiên</b>, và thêm <b>địa chỉ tạm thời</b> (temporary) đổi định kỳ cho kết nối ra ngoài. Router Cisco vẫn dùng EUI-64 khi được yêu cầu (<code>eui-64</code>) và cho link-local tự sinh.</p>
+<pre>C:\&gt; ipconfig
+   IPv6 Address. . . . . . . . . . . : 2001:db8:acad:1:9c4e:...        ← địa chỉ ổn định (ngẫu nhiên)
+   Temporary IPv6 Address. . . . . . : 2001:db8:acad:1:5d21:...        ← dùng khi đi ra ngoài
+   Link-local IPv6 Address . . . . . : fe80::9c4e:...%12               ← %12 = số interface (zone ID)</pre>
+
+<h2>3/ Đặt tay</h2>
+<p>Router, server, gateway: đặt tay cho dễ nhớ: <code>2001:db8:acad:1::1</code> làm gateway, link-local <code>fe80::1</code>.</p>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> NDP: NS, NA, RS, RA, DAD</h1>
+
+<h2>1/ NDP là gì</h2>
+<p><b>NDP (Neighbor Discovery Protocol)</b> là tập tin nhắn <b>ICMPv6</b> thay cho ARP, cộng thêm việc tìm router và tự cấu hình. Vì nằm trên IPv6 (không phải EtherType riêng như ARP), NDP có thể được bảo vệ, lọc như gói IPv6 khác.</p>
+
+<div class="tbl"><table>
+<tr><th>Tin</th><th>ICMPv6 type</th><th class="l">Ai gửi, tới đâu</th><th class="l">Để làm gì</th><th class="l">IPv4 tương đương</th></tr>
+<tr><td><b>RS</b> Router Solicitation</td><td>133</td><td class="l">Máy → ff02::2</td><td class="l">"Có router nào không? Cho tôi prefix"</td><td class="l">(gần giống DHCP Discover)</td></tr>
+<tr><td><b>RA</b> Router Advertisement</td><td>134</td><td class="l">Router → ff02::1 (định kỳ ~200 s trên Cisco) hoặc trả lời RS</td><td class="l">Báo prefix, độ dài, gateway (chính link-local của router), cờ M/O, MTU</td><td class="l">(gần giống DHCP Offer + gateway)</td></tr>
+<tr><td><b>NS</b> Neighbor Solicitation</td><td>135</td><td class="l">Máy → solicited-node multicast</td><td class="l">"Ai có IPv6 X, cho tôi MAC"</td><td class="l"><b>ARP request</b></td></tr>
+<tr><td><b>NA</b> Neighbor Advertisement</td><td>136</td><td class="l">Máy được hỏi → unicast người hỏi</td><td class="l">"IPv6 X là MAC này"</td><td class="l"><b>ARP reply</b></td></tr>
+<tr><td>Redirect</td><td>137</td><td class="l">Router → máy</td><td class="l">"Có gateway tốt hơn cho đích này"</td><td class="l">ICMP Redirect</td></tr>
+</table></div>
+<p><mark>NS thay ARP request, NA thay ARP reply, RS/RA để tìm router và prefix.</mark></p>
+
+<h2>2/ DAD (Duplicate Address Detection)</h2>
+<ol>
+  <li>Máy có địa chỉ mới (kể cả link-local) ⇒ trạng thái <b>tentative</b> (thử), chưa dùng.</li>
+  <li>Gửi NS với nguồn <code>::</code>, đích là solicited-node của chính địa chỉ đó: "có ai đang dùng địa chỉ này không?"</li>
+  <li>Không ai trả lời NA ⇒ địa chỉ thành <b>preferred</b>, dùng được. Có NA ⇒ <b>duplicate</b>, không dùng.</li>
+</ol>
+<p>Giống ARP probe ở tuần 2 mục 8, nhưng IPv6 bắt buộc làm cho mọi địa chỉ.</p>
+
+<h2>3/ Neighbor cache (thay ARP cache)</h2>
+<pre>R1# show ipv6 neighbors
+IPv6 Address                         Age Link-layer Addr State Interface
+FE80::21A:2BFF:FE3C:4D5E               0 001a.2b3c.4d5e  REACH Gi0/0
+2001:DB8:ACAD:1:21A:2BFF:FE3C:4D5E     2 001a.2b3c.4d5e  STALE Gi0/0
+C:\&gt; netsh interface ipv6 show neighbors
+PS&gt; Get-NetNeighbor -AddressFamily IPv6</pre>
+<p>Trạng thái: INCMP (đang hỏi), REACH (vừa xác nhận), STALE (lâu chưa xác nhận, vẫn dùng được, sẽ hỏi lại khi gửi), DELAY, PROBE.</p>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> SLAAC, DHCPv6 stateless và stateful</h1>
+
+<h2>1/ Ba cách máy nhận địa chỉ</h2>
+<div class="tbl"><table>
+<tr><th>Cách</th><th class="l">Địa chỉ lấy từ</th><th class="l">DNS lấy từ</th><th class="l">Cờ trong RA</th><th class="l">Server nhớ ai dùng IP nào?</th></tr>
+<tr><td><b>SLAAC</b></td><td class="l">Prefix trong RA + interface ID máy tự sinh</td><td class="l">Option RDNSS trong RA (Windows 10 1703+ hỗ trợ)</td><td class="l">A = 1, M = 0, O = 0</td><td class="l">Không</td></tr>
+<tr><td><b>SLAAC + DHCPv6 stateless</b></td><td class="l">Như SLAAC</td><td class="l">DHCPv6 server</td><td class="l">A = 1, M = 0, <b>O = 1</b></td><td class="l">Không (chỉ cấp "thông tin khác")</td></tr>
+<tr><td><b>DHCPv6 stateful</b></td><td class="l">DHCPv6 server cấp</td><td class="l">DHCPv6 server</td><td class="l"><b>M = 1</b> (thường A = 0)</td><td class="l">Có, giống DHCP IPv4</td></tr>
+</table></div>
+<ul>
+  <li><b>M</b> (Managed): "lấy địa chỉ từ DHCPv6".</li>
+  <li><b>O</b> (Other): "lấy thông tin khác (DNS, domain) từ DHCPv6".</li>
+  <li><b>A</b> (Autonomous, nằm trong prefix option): "được tự sinh địa chỉ từ prefix này".</li>
+</ul>
+<p><mark>Gateway mặc định trong IPv6 luôn đến từ RA</mark> (là link-local của router), kể cả khi dùng DHCPv6 stateful. DHCPv6 không cấp gateway.</p>
+
+<h2>2/ SLAAC từng bước</h2>
+<ol>
+  <li>Máy bật card mạng ⇒ tự sinh link-local fe80::…, làm DAD.</li>
+  <li>Gửi RS tới ff02::2.</li>
+  <li>Router trả RA: prefix 2001:db8:acad:1::/64, cờ A = 1, gateway = fe80::1.</li>
+  <li>Máy ghép prefix + interface ID (ngẫu nhiên hoặc EUI-64) ⇒ làm DAD ⇒ dùng.</li>
+</ol>
+
+<h2>3/ Cấu hình cờ trên Cisco</h2>
+<pre>R1(config-if)# ipv6 nd other-config-flag          ! O = 1 ⇒ stateless DHCPv6
+R1(config-if)# ipv6 nd managed-config-flag        ! M = 1 ⇒ stateful DHCPv6
+R1(config-if)# ipv6 nd prefix 2001:db8:acad:1::/64 no-autoconfig   ! A = 0
+R1(config-if)# ipv6 nd ra suppress all            ! tắt RA trên interface (ví dụ link sang router khác)
+R1(config-if)# ipv6 dhcp relay destination 2001:db8:acad:99::10    ! relay DHCPv6 (như ip helper-address)</pre>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Cấu hình IPv6 trên router Cisco</h1>
+<pre>R1(config)# ipv6 unicast-routing                      ! BẮT BUỘC để router định tuyến IPv6 và gửi RA
+R1(config)# interface g0/0
+R1(config-if)# ipv6 address 2001:db8:acad:1::1/64     ! đặt tay
+R1(config-if)# ipv6 address fe80::1 link-local        ! link-local đặt tay cho dễ đọc
+R1(config-if)# no shutdown
+R1(config)# interface g0/1
+R1(config-if)# ipv6 address 2001:db8:acad:12::/64 eui-64   ! hoặc dùng EUI-64
+R1(config-if)# ipv6 address fe80::1 link-local        ! cùng fe80::1 trên interface khác vẫn được (link-local chỉ cần duy nhất trên một link)
+R1(config)# interface g0/2
+R1(config-if)# ipv6 enable                            ! chỉ có link-local, không GUA</pre>
+<p><mark>Thiếu <code>ipv6 unicast-routing</code></mark>: interface vẫn có địa chỉ, ping trực tiếp được, nhưng router <b>không chuyển gói IPv6</b> giữa các mạng và <b>không gửi RA</b> ⇒ máy trạm không có gateway, không SLAAC được. Lỗi số 1 của đề lab IPv6.</p>
+<p>Router Cisco <b>tự sinh link-local</b> (EUI-64) ngay khi interface có bất kỳ cấu hình IPv6 nào. Đặt tay <code>fe80::1</code> giúp đọc bảng route, neighbor dễ hơn.</p>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Static và default route IPv6</h1>
+
+<h2>1/ Ba kiểu next-hop</h2>
+<div class="tbl"><table>
+<tr><th>Kiểu</th><th class="l">Lệnh</th><th class="l">Ghi chú</th></tr>
+<tr><td>Next-hop GUA (recursive)</td><td class="l"><code>ipv6 route 2001:db8:acad:3::/64 2001:db8:acad:12::2</code></td><td class="l">Router phải tra tiếp next-hop nằm ở interface nào</td></tr>
+<tr><td>Chỉ interface (directly attached)</td><td class="l"><code>ipv6 route 2001:db8:acad:3::/64 g0/1</code></td><td class="l">Chỉ dùng tốt trên link point-to-point (serial). Trên Ethernet tránh dùng</td></tr>
+<tr><td><b>Interface + link-local</b> (fully specified)</td><td class="l"><code>ipv6 route 2001:db8:acad:3::/64 g0/1 fe80::2</code></td><td class="l"><b>Link-local làm next-hop bắt buộc kèm interface</b>, vì fe80::2 có thể tồn tại trên mọi link</td></tr>
+</table></div>
+
+<h2>2/ Default route và floating route</h2>
+<pre>R1(config)# ipv6 route ::/0 g0/1 fe80::2                ! default route IPv6
+R1(config)# ipv6 route ::/0 g0/2 fe80::3 10             ! floating: AD 10, chỉ dùng khi đường trên mất</pre>
+
+<h2>3/ Kiểm tra</h2>
+<pre>R1# show ipv6 route
+C   2001:DB8:ACAD:1::/64 [0/0]  via GigabitEthernet0/0, directly connected
+L   2001:DB8:ACAD:1::1/128 [0/0]  via GigabitEthernet0/0, receive
+S   2001:DB8:ACAD:3::/64 [1/0]  via FE80::2, GigabitEthernet0/1
+S   ::/0 [1/0]  via FE80::2, GigabitEthernet0/1
+R1# show ipv6 route static
+R1# show ipv6 route 2001:db8:acad:3::10          ! router dùng route nào cho địa chỉ này</pre>
+<p>Bảng route IPv6 <b>không có dòng cho link-local</b> (fe80::/10 không định tuyến). Next-hop hay thấy là FE80::…, rất bình thường: các giao thức định tuyến IPv6 đều dùng link-local làm next-hop.</p>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Header IPv6 và dual-stack</h1>
+
+<h2>1/ Header IPv6: cố định 40 byte, gọn hơn IPv4</h2>
+<div class="tbl"><table>
+<tr><th>Trường</th><th>Bit</th><th class="l">So với IPv4</th></tr>
+<tr><td>Version</td><td>4</td><td class="l">= 6</td></tr>
+<tr><td>Traffic Class</td><td>8</td><td class="l">Như DSCP/ToS (QoS)</td></tr>
+<tr><td>Flow Label</td><td>20</td><td class="l">Mới: đánh dấu luồng</td></tr>
+<tr><td>Payload Length</td><td>16</td><td class="l">Chỉ phần sau header (IPv4 Total Length tính cả header)</td></tr>
+<tr><td><b>Next Header</b></td><td>8</td><td class="l">Như Protocol: 6 TCP, 17 UDP, <b>58 ICMPv6</b>, hoặc extension header</td></tr>
+<tr><td><b>Hop Limit</b></td><td>8</td><td class="l">Như TTL</td></tr>
+<tr><td>Source / Destination</td><td>128 + 128</td><td class="l"></td></tr>
+</table></div>
+<p><b>Bỏ hẳn</b>: header checksum (tầng 2 và tầng 4 đã kiểm), các trường phân mảnh (chuyển vào extension header). <mark>Router IPv6 không phân mảnh</mark>: gói lớn hơn MTU ⇒ bỏ và gửi ICMPv6 "Packet Too Big" về nguồn. MTU tối thiểu IPv6 là 1280 byte. ⇒ <b>Chặn toàn bộ ICMPv6 trên firewall là làm hỏng IPv6</b>.</p>
+<p>EtherType của IPv6: <code>0x86DD</code> (tuần 2).</p>
+
+<h2>2/ Dual-stack</h2>
+<p>Chạy <b>song song IPv4 và IPv6</b> trên cùng interface, cùng máy. Đây là cách triển khai phổ biến nhất. Khi tên miền có cả bản ghi A (IPv4) và AAAA (IPv6), Windows <b>ưu tiên IPv6</b> (và dùng "Happy Eyeballs" để quay về IPv4 nếu IPv6 chậm).</p>
+<p>⇒ Hệ quả vận hành: rule firewall, ACL, giám sát phải có <b>cả hai</b> họ địa chỉ. Một máy "bị chặn" ở IPv4 vẫn có thể đi ra bằng IPv6 nếu quên viết rule IPv6.</p>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Lệnh kiểm tra trên Windows, Linux, Cisco</h1>
+<div class="tbl"><table>
+<tr><th>Việc</th><th class="l">Windows</th><th class="l">Linux</th><th class="l">Cisco</th></tr>
+<tr><td>Xem địa chỉ</td><td class="l"><code>ipconfig</code><br><code>Get-NetIPAddress -AddressFamily IPv6</code></td><td class="l"><code>ip -6 addr</code></td><td class="l"><code>show ipv6 interface brief</code></td></tr>
+<tr><td>Neighbor (thay ARP)</td><td class="l"><code>netsh interface ipv6 show neighbors</code></td><td class="l"><code>ip -6 neigh</code></td><td class="l"><code>show ipv6 neighbors</code></td></tr>
+<tr><td>Route</td><td class="l"><code>route print -6</code></td><td class="l"><code>ip -6 route</code></td><td class="l"><code>show ipv6 route</code></td></tr>
+<tr><td>Ping</td><td class="l"><code>ping -6 2001:db8:acad:3::10</code><br><code>ping fe80::1%12</code> (link-local cần %zone)</td><td class="l"><code>ping -6 …</code><br><code>ping fe80::1%eth0</code></td><td class="l"><code>ping 2001:db8:acad:3::10</code><br><code>ping fe80::2</code> (hỏi interface)</td></tr>
+<tr><td>Tracert</td><td class="l"><code>tracert -6 …</code></td><td class="l"><code>traceroute -6 …</code></td><td class="l"><code>traceroute …</code></td></tr>
+<tr><td>Xem RA</td><td class="l"><code>netsh interface ipv6 show interface 12</code></td><td class="l"><code>rdisc6 eth0</code></td><td class="l"><code>show ipv6 interface g0/0</code> (RA interval, cờ)</td></tr>
+</table></div>
+<p>Wireshark: lọc <code>icmpv6</code>, <code>icmpv6.type == 134</code> (RA), <code>icmpv6.type == 135</code> (NS).</p>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m15"><span class="no">15.</span> Lỗi hay gặp và tình huống thực tế</h1>
+
+<h3>Lỗi 1 · Thiếu <code>ipv6 unicast-routing</code></h3>
+<p>Triệu chứng: PC chỉ có link-local, không có GUA; hoặc có GUA đặt tay nhưng không ping được mạng khác. <code>show ipv6 interface</code> không hiện dòng "ND advertised …". Sửa: bật lệnh, PC tự nhận RA trong vài giây.</p>
+
+<h3>Lỗi 2 · Sai next-hop link-local</h3>
+<p>Route <code>ipv6 route 2001:db8:acad:3::/64 g0/1 fe80::3</code> nhưng router hàng xóm trên g0/1 là fe80::2. Route vẫn hiện trong bảng (static không kiểm next-hop có tồn tại không) nhưng gói không đi được. <code>show ipv6 neighbors g0/1</code> thấy fe80::3 ở trạng thái INCMP. Sửa: đúng link-local của hàng xóm (<code>show cdp neighbors detail</code> hoặc <code>show ipv6 interface brief</code> bên kia).</p>
+
+<h3>Lỗi 3 · RA không gửi</h3>
+<p>Nguyên nhân: thiếu unicast-routing, interface có <code>ipv6 nd ra suppress</code>, hoặc RA Guard trên switch chặn. Triệu chứng: PC không có gateway IPv6 (<code>ipconfig</code> không có "Default Gateway" dòng fe80).</p>
+
+<h3>Tình huống thực tế 1 · "Chúng ta không dùng IPv6"</h3>
+<details><summary>Phân tích</summary>
+<p>Mọi máy Windows đều bật IPv6 và có link-local. Nếu ai đó cắm một router Wi-Fi gia đình vào mạng công ty, nó có thể phát RA ⇒ máy trạm nhận gateway IPv6 lạ ⇒ lưu lượng IPv6 (Windows ưu tiên) đi qua thiết bị đó, <b>vượt qua firewall</b> chỉ có rule IPv4. Đây là rủi ro bảo mật thật. Biện pháp: RA Guard trên switch, giám sát RA lạ, hoặc chính sách tắt/kiểm soát IPv6 có chủ đích.</p></details>
+
+<h3>Tình huống thực tế 2 · Microsoft 365 chậm từ một máy, máy khác bình thường</h3>
+<details><summary>Phân tích</summary>
+<p>Máy đó có IPv6 (ví dụ qua Wi-Fi khách / USB 4G) và đi đường IPv6 có MTU nhỏ, ICMPv6 Packet Too Big bị chặn ở đâu đó ⇒ gói lớn mất (giống PMTUD black hole tuần 1). Kiểm: <code>ping -6 -l 1452 outlook.office365.com</code>, so với IPv4. Hiểu IPv6 không phân mảnh là chìa khóa.</p></details>
+
+<h3>Tình huống thực tế 3 · Firewall chặn hết ICMPv6 "cho an toàn"</h3>
+<details><summary>Phân tích</summary>
+<p>NDP (NS/NA/RS/RA) và Packet Too Big đều là ICMPv6 ⇒ chặn hết là hỏng IPv6 (không tìm được hàng xóm, không biết MTU). Đúng là cho phép các type cần thiết (RFC 4890), chặn có chọn lọc.</p></details>
+
+<div class="note"><b>Góc nhìn hệ thống</b>
+Ngân hàng ở Việt Nam đang được yêu cầu chuyển đổi IPv6 cho dịch vụ public (website, internet banking). Kỹ sư hạ tầng cần: kế hoạch địa chỉ IPv6 theo nibble, rule firewall song song cho hai họ địa chỉ, giám sát cả IPv6 (Zabbix hỗ trợ), và hiểu NDP để xử lý sự cố. Biết IPv6 là điểm cộng rõ ràng khi phỏng vấn.</div>
+
+<label class="done"><input type="checkbox" id="d15"> Xong mục 15</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m16"><span class="no">16.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>Định dạng</td><td class="l">128 bit, 8 hextet hex · bỏ 0 đầu nhóm · :: một lần cho dãy 0 dài nhất</td></tr>
+<tr><td>Loại</td><td class="l">GUA 2000::/3 · LLA fe80::/10 (không qua router) · ULA fc00::/7 (fd) · multicast ff00::/8 · ::1 · ::</td></tr>
+<tr><td>Không broadcast</td><td class="l">ff02::1 mọi node · ff02::2 mọi router · solicited-node ff02::1:ffXX:XXXX</td></tr>
+<tr><td>Prefix</td><td class="l">LAN /64 · link /127 (hoặc /64 trong đề) · loopback /128 · site /48</td></tr>
+<tr><td>EUI-64</td><td class="l">Tách MAC, chèn fffe, lật bit 7, ghép</td></tr>
+<tr><td>NDP</td><td class="l">RS 133 · RA 134 · NS 135 (thay ARP request) · NA 136 (thay ARP reply) · DAD dùng NS</td></tr>
+<tr><td>Cấp địa chỉ</td><td class="l">SLAAC (A) · stateless DHCPv6 (O) · stateful DHCPv6 (M) · gateway luôn từ RA</td></tr>
+<tr><td>Cisco</td><td class="l"><code>ipv6 unicast-routing</code> bắt buộc · next-hop link-local phải kèm interface</td></tr>
+<tr><td>Header</td><td class="l">40 byte cố định · Next Header 58 = ICMPv6 · Hop Limit · router không phân mảnh</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d16"> Xong mục 16</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m17"><span class="no">17.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">hextet</td><td class="l">nhóm 16 bit (4 chữ hex)</td><td class="l">leading zeros</td><td class="l">số 0 ở đầu</td></tr>
+<tr><td class="l">double colon</td><td class="l">dấu ::</td><td class="l">interface ID</td><td class="l">phần định danh máy</td></tr>
+<tr><td class="l">global unicast</td><td class="l">địa chỉ toàn cầu</td><td class="l">link-local</td><td class="l">chỉ trong một link</td></tr>
+<tr><td class="l">unique local</td><td class="l">địa chỉ nội bộ</td><td class="l">solicited-node</td><td class="l">nhóm multicast của một địa chỉ</td></tr>
+<tr><td class="l">neighbor discovery</td><td class="l">phát hiện hàng xóm</td><td class="l">router advertisement</td><td class="l">quảng bá của router</td></tr>
+<tr><td class="l">stateless / stateful</td><td class="l">không giữ / có giữ trạng thái</td><td class="l">autoconfiguration</td><td class="l">tự cấu hình</td></tr>
+<tr><td class="l">duplicate address detection</td><td class="l">phát hiện trùng địa chỉ</td><td class="l">tentative</td><td class="l">đang thử</td></tr>
+<tr><td class="l">dual-stack</td><td class="l">chạy song song hai giao thức</td><td class="l">next header</td><td class="l">header kế tiếp</td></tr>
+<tr><td class="l">hop limit</td><td class="l">giới hạn chặng</td><td class="l">packet too big</td><td class="l">gói quá lớn</td></tr>
+<tr><td class="l">nibble</td><td class="l">nhóm 4 bit (một chữ hex)</td><td class="l">zone ID / scope ID</td><td class="l">số interface sau dấu %</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"The host builds its address with SLAAC using the prefix from the router advertisement."</i></p>
+
+<label class="done"><input type="checkbox" id="d17"> Xong mục 17</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m18"><span class="no">18.</span> Bài luyện và câu hỏi tự kiểm tra</h1>
+
+<h2>A/ 5 câu tự kiểm tra trong lịch</h2>
+<details><summary>1. Viết gọn 2001:0db8:0000:0001:0000:0000:0000:0010.</summary><p>2001:db8:0:1::10.</p></details>
+<details><summary>2. Địa chỉ fe80::1 thuộc loại nào, đi qua router được không?</summary><p>Link-local. Không đi qua router; chỉ dùng trong một đoạn mạng.</p></details>
+<details><summary>3. Tin NDP nào thay ARP request?</summary><p>Neighbor Solicitation (NS, ICMPv6 type 135), gửi tới solicited-node multicast.</p></details>
+<details><summary>4. SLAAC lấy prefix từ đâu?</summary><p>Từ Router Advertisement (RA) của router trên link.</p></details>
+<details><summary>5. Lệnh nào bắt buộc để router Cisco định tuyến IPv6?</summary><p><code>ipv6 unicast-routing</code>.</p></details>
+
+<h2>B/ 10 bài rút gọn (mục tiêu: đúng hết, mỗi bài &lt; 20 giây)</h2>
+<ol>
+  <li>2001:0db8:0000:0000:0000:0000:0000:0001</li>
+  <li>fe80:0000:0000:0000:0202:b3ff:fe1e:8329</li>
+  <li>2001:0db8:acad:0010:0000:0000:0000:0001</li>
+  <li>2001:0db8:0000:0000:0001:0000:0000:0000</li>
+  <li>fd00:0000:0000:0000:0000:0000:0000:00ff</li>
+  <li>2001:0db8:0001:0000:0000:0001:0000:0001</li>
+  <li>ff02:0000:0000:0000:0000:0000:0000:0002</li>
+  <li>Bung đầy đủ: 2001:db8::a:0:1</li>
+  <li>Bung đầy đủ: fe80::1</li>
+  <li>EUI-64 của MAC 0c:22:33:44:55:66 với prefix 2001:db8:acad:5::/64</li>
+</ol>
+<details><summary>Đáp án</summary>
+<ol>
+  <li>2001:db8::1</li>
+  <li>fe80::202:b3ff:fe1e:8329</li>
+  <li>2001:db8:acad:10::1</li>
+  <li>2001:db8:0:0:1:: (dãy 0 cuối dài 3 nhóm dài hơn dãy đầu 2 nhóm ⇒ :: ở cuối)</li>
+  <li>fd00::ff</li>
+  <li>2001:db8:1::1:0:1 (hai dãy 0: "0:0" ở giữa dài 2, "0" sau dài 1 ⇒ :: ở dãy dài 2)</li>
+  <li>ff02::2</li>
+  <li>2001:0db8:0000:0000:0000:000a:0000:0001</li>
+  <li>fe80:0000:0000:0000:0000:0000:0000:0001</li>
+  <li>0c ⇒ lật bit 7 ⇒ 0e ⇒ 2001:db8:acad:5:e22:33ff:fe44:5566</li>
+</ol>
+</details>
+
+<h2>C/ Chia /48 thành 16 mạng /64</h2>
+<details><summary>Liệt kê 16 mạng /64 đầu tiên của 2001:db8:cafe::/48</summary><p>2001:db8:cafe:0::/64, :1::, :2::, … :9::, :a::, :b::, :c::, :d::, :e::, :f::/64.</p></details>
+<details><summary>Chia 2001:db8:cafe::/48 cho 16 chi nhánh bằng nhau. Prefix mỗi chi nhánh? Chi nhánh 3?</summary><p>/52 (mượn 4 bit). Chi nhánh 3 = 2001:db8:cafe:3000::/52 (chứa :3000 → :3fff), có 4 096 mạng /64.</p></details>
+
+<h2>D/ Câu hỏi vận hành / phỏng vấn</h2>
+<details><summary>6. PC chỉ có địa chỉ fe80::, không có địa chỉ 2001:. Nghi gì?</summary><p>Không nhận RA: router thiếu ipv6 unicast-routing, interface không có IPv6/đang suppress RA, RA Guard chặn, sai VLAN. Hoặc mạng dùng DHCPv6 stateful mà server không trả lời.</p></details>
+<details><summary>7. Vì sao route IPv6 dùng next-hop link-local phải kèm tên interface?</summary><p>Link-local chỉ duy nhất trong một link; cùng fe80::2 có thể có trên nhiều interface. Router cần biết đi ra interface nào.</p></details>
+<details><summary>8. Công ty chỉ viết rule firewall IPv4. Máy trạm có IPv6 từ một RA lạ. Rủi ro?</summary><p>Lưu lượng IPv6 (Windows ưu tiên) có thể đi qua thiết bị lạ, vượt kiểm soát firewall, bị nghe lén. Cần RA Guard, giám sát, rule IPv6 tương đương.</p></details>
+<details><summary>9. Vì sao không nên chặn toàn bộ ICMPv6?</summary><p>NDP (NS/NA/RS/RA) và Packet Too Big là ICMPv6. Chặn hết làm hỏng phân giải hàng xóm, tự cấu hình và PMTUD.</p></details>
+
+<label class="done"><input type="checkbox" id="d18"> Xong mục 18</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab và MOP trong <a href="tuan-05.html">giáo án tuần 5</a>. Tuần trước: <a href="tuan-04-kien-thuc.html">sổ tay tuần 4</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan05-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
