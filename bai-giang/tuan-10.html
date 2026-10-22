@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 10</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 10 · 28/12/2026 – 03/01/2027</div>
+  <h1>Nền tảng RIB/FIB</h1>
+  <p>Hướng dẫn từng ngày. Khoảng 10 giờ. Tuần có Tết Dương lịch: nếu bận ngày 1/1, dồn việc Thứ 6 sang Chủ nhật. Tuần này không có MOP; thời gian đó dành cho luyện đọc bảng route.</p>
+  <p>Phần đọc sách đã thay bằng <a href="tuan-10-kien-thuc.html">sổ tay tiếng Việt 17 mục</a>.</p>
+  <div class="links">
+    <a href="tuan-10-kien-thuc.html">Sổ tay tuần 10 (thay sách)</a>
+    <a href="tuan-09.html">Giáo án tuần 9</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Đầu ra trong lịch: <b>cho bảng route và địa chỉ đích, chọn đúng route trong 10 tình huống.</b> Cụ thể:</p>
+<ol>
+  <li>Đọc <code>show ip route</code> và giải thích mọi phần của mỗi dòng.</li>
+  <li>Thuộc bảng AD; phân biệt rõ "AD/metric lúc ghi bảng" và "longest match lúc chuyển gói".</li>
+  <li>Phân biệt RIB, FIB, adjacency; dùng <code>show ip route &lt;ip&gt;</code> và <code>show ip cef &lt;ip&gt;</code>.</li>
+  <li>Tìm ra route chồng lấn làm gói đi sai đường.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  Phần lớn sự cố định tuyến tôi gặp không phải vì OSPF hay BGP "hỏng", mà vì ai đó thêm một route <b>cụ thể hơn</b> mà không biết nó hút lưu lượng gì. Lệnh tôi gõ nhiều nhất trong đời là <code>show ip route &lt;ip&gt;</code>: nó trả lời đúng câu hỏi duy nhất quan trọng, "gói này đi đâu". Tuần này anh tập trả lời câu đó bằng mắt trước, rồi kiểm bằng lệnh.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · Đọc/Ghi, nguồn route, đọc show ip route</a></li>
+    <li><a href="#t3">Thứ 3 · Longest match, AD, metric, RIB/FIB</a></li>
+    <li><a href="#t4">Thứ 4 · Lab phần 1: 3 router, bảng route ban đầu</a></li>
+    <li><a href="#t5">Thứ 5 · Lab phần 2: route chồng lấn, AD, ECMP</a></li>
+    <li><a href="#t6">Thứ 6 · Ôn lab, sửa sổ tay</a></li>
+    <li><a href="#t7">Thứ 7 · Diễn tập: gói đi sai đường</a></li>
+    <li><a href="#cn">Chủ nhật · 10 tình huống, tự chấm</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày 15 phút</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (28/12) · Đọc/Ghi, nguồn route, đọc show ip route</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: một dòng route chép tay, chú thích từng phần</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Sổ tay mục <a href="tuan-10-kien-thuc.html#m1">1</a>, <a href="tuan-10-kien-thuc.html#m2">2</a>, <a href="tuan-10-kien-thuc.html#m3">3</a></label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Đọc lại mục "Routing" trong sổ Google Docs của anh, đối chiếu mô hình Read/Write</label></li>
+  <li><input type="checkbox" id="t2-3"><label for="t2-3">Chép tay dòng <code>O 10.3.3.0/24 [110/3] via 10.0.12.2, 00:05:12, Gi0/1</code> và chú thích 6 phần</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (29/12) · Longest match, AD, metric, RIB/FIB</h2>
+<div class="meta"><span><b>1,5 giờ</b> + 5 phút tự giảng</span><span>Đầu ra: bảng AD thuộc, 5 câu hỏi để hỏi Claude</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Sổ tay mục <a href="tuan-10-kien-thuc.html#m4">4</a> đến <a href="tuan-10-kien-thuc.html#m12">12</a></label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Chép tay bảng AD; tự đọc to 5 lần</label></li>
+  <li><input type="checkbox" id="t3-3"><label for="t3-3">Tự giảng 5 phút: "AD và longest match khác nhau ở thời điểm nào"</label></li>
+</ul>
+<div class="box warn">
+  <strong>Bẫy hay gặp</strong>
+  Đề cho hai route khác prefix (một static /16, một OSPF /24) rồi hỏi gói đi đâu. Người học nhìn AD 1 &lt; 110 và chọn static: sai. Khác prefix ⇒ longest match. AD chỉ so khi cùng prefix.
+</div>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (30/12) · Lab phần 1: 3 router nối nhau, bảng route ban đầu</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: thư mục <code>W10-rib-fib-longest-match</code>, bảng route chú thích</span></div>
+<h3>Topology</h3>
+<div class="flow">LAN1 192.168.1.0/24 --- (g0/0) R1 (g0/1) --- 10.0.12.0/30 --- (g0/0) R2 (g0/1) --- 10.0.23.0/30 --- (g0/0) R3 (g0/1) --- LAN3 192.168.3.0/24
+                                                                         R2 loopback1 10.2.2.2/32 (giả lập một máy chủ ở xa)</div>
+<pre><span class="c">! Chỉ đặt IP, chưa thêm route nào</span>
+R1# show ip route
+R1# show ip route connected
+R1# show ip cef
+R1# show adjacency detail</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1">Đếm số dòng C và L trên mỗi router; giải thích vì sao R1 không biết 192.168.3.0/24</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2">Shutdown g0/1 của R1: dòng nào biến mất? Bật lại</label></li>
+  <li><input type="checkbox" id="t4-3"><label for="t4-3">R1 ping 192.168.3.1: kết quả? (U. hay timeout?) Giải thích</label></li>
+</ul>
+<h3>Thêm route tĩnh để thông (xem trước tuần 11)</h3>
+<pre>R1(config)# ip route 0.0.0.0 0.0.0.0 10.0.12.2
+R3(config)# ip route 0.0.0.0 0.0.0.0 10.0.23.1
+R2(config)# ip route 192.168.1.0 255.255.255.0 10.0.12.1
+R2(config)# ip route 192.168.3.0 255.255.255.0 10.0.23.2
+R1# show ip route 192.168.3.10        <span class="c">! khớp dòng nào? Vì sao?</span>
+R1# show ip cef 192.168.3.10          <span class="c">! next-hop và interface đã giải sẵn</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-4"><label for="t4-4">Ping LAN1 ↔ LAN3 thông; lưu config vào git</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (31/12) · Lab phần 2: route chồng lấn, AD, ECMP</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: bảng thí nghiệm có dự đoán và kết quả</span></div>
+<div class="tbl"><table>
+<thead><tr><th>#</th><th>Thay đổi trên R1</th><th>Kiểm</th><th>Dự đoán</th><th>Thực tế</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><code>ip route 10.0.0.0 255.0.0.0 Null0</code></td><td><code>show ip route 10.2.2.2</code>, ping 10.2.2.2</td><td></td><td></td></tr>
+<tr><td>2</td><td>Thêm <code>ip route 10.2.0.0 255.255.0.0 10.0.12.2</code></td><td>Như trên + ping 10.2.5.5</td><td></td><td></td></tr>
+<tr><td>3</td><td>Thêm <code>ip route 10.2.0.0 255.255.0.0 10.0.12.2 200</code> (cùng prefix, AD 200)</td><td><code>show ip route 10.2.0.0</code></td><td></td><td></td></tr>
+<tr><td>4</td><td>Thêm route thứ hai cùng prefix, cùng AD qua next-hop khác (cần thêm link R1–R3 nếu muốn thật)</td><td><code>show ip route 10.2.0.0</code>, <code>show ip cef exact-route</code></td><td></td><td></td></tr>
+<tr><td>5</td><td><code>ip route 10.9.0.0 255.255.0.0 10.77.0.1</code> (next-hop không tồn tại)</td><td><code>show ip route static</code>, <code>show run | i ip route</code></td><td></td><td></td></tr>
+</tbody>
+</table></div>
+<details><summary>Gợi ý (mở sau khi làm)</summary>
+<ol>
+  <li>10.2.2.2 khớp 10.0.0.0/8 Null0 (dài hơn default /0) ⇒ bị bỏ tại R1. Ping thất bại.</li>
+  <li>10.2.2.2 và 10.2.5.5 khớp /16 (dài hơn /8) ⇒ R1 gửi sang R2. Ping 10.2.2.2 thông (loopback của R2). 10.2.5.5 tới R2 nhưng R2 không có route nào chứa nó ⇒ R2 bỏ và trả ICMP unreachable ⇒ R1 thấy <code>U.U.U</code>. Gói đi đúng hướng chưa chắc tới nơi: mỗi router tự quyết bằng bảng của nó.</li>
+  <li>Cùng prefix /16, AD 1 vs 200 ⇒ chỉ AD 1 trong bảng; dòng AD 200 nằm chờ (floating).</li>
+  <li>Hai next-hop cùng AD ⇒ ECMP, hai dòng "via".</li>
+  <li>Route nằm trong config nhưng không có trong bảng: next-hop không với tới. (Nếu có default route, next-hop "với tới" qua default ⇒ route lại xuất hiện! Thử gỡ default để thấy.)</li>
+</ol>
+</details>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1">Điền đủ 5 dòng, gỡ các route thí nghiệm, lưu bảng vào git</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (01/01) · Ôn lab, sửa sổ tay CCNA</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: mục Routing trong Google Docs đã sửa</span></div>
+<h3>Sửa sổ tay (4 việc trong lịch)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1">Viết nốt cấu trúc lệnh đang dở "X là: 1/ next hop 2/ exit interface 3/ fully" bằng 3 dòng ví dụ</label></li>
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">Thêm bảng AD và quy tắc 3 bước: longest match → AD → metric</label></li>
+  <li><input type="checkbox" id="t6-3"><label for="t6-3">Ghi chú "bảng định tuyến trong RAM" là đúng; thêm: static route nằm trong startup-config nên reboot xong được nạp lại</label></li>
+  <li><input type="checkbox" id="t6-4"><label for="t6-4">Mục RIP: hop 16 nghĩa là không tới được (unreachable), không phải "tính sai". Bỏ ý "4 bit". Ghi thêm: RIP không còn trong blueprint CCNA hiện tại</label></li>
+</ul>
+<div class="box warn">
+  <strong>Thêm một chỗ nhỏ</strong>
+  Sổ ghi "RIB Router information base": sửa thành <b>Routing</b> Information Base, và thêm hai dòng FIB, adjacency table.
+</div>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (02/01) · Diễn tập: gói đi sai đường do route chồng lấn</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>postmortem/W10-route-chong-lan.md</code>, tài liệu "đọc bảng route" của riêng anh</span></div>
+
+<h3>Phần A · Diễn tập (thay cho MOP tuần này)</h3>
+<p>Mở rộng lab: thêm R4 làm "ISP" nối R1 (g0/2, 203.0.113.0/30). R1 default route trỏ R4. Nhờ Claude (hoặc tự rút thăm) gài <b>một</b> trong 3 lỗi sau, không biết trước:</p>
+<ol>
+  <li>R1: <code>ip route 192.168.0.0 255.255.0.0 203.0.113.2</code> (một route rộng hút LAN3 ra ISP).</li>
+  <li>R2: <code>ip route 192.168.3.0 255.255.255.128 10.0.12.1</code> (nửa LAN3 bị trả ngược về R1 ⇒ loop).</li>
+  <li>R3: default route trỏ sai về 10.0.23.5 (không tồn tại).</li>
+</ol>
+<p>Triệu chứng người dùng LAN1: "một số máy LAN3 không vào được, số khác được".</p>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Xử lý theo thứ tự: <code>traceroute</code> từ LAN1 tới vài IP LAN3 ⇒ chặng cuối thấy được ⇒ <code>show ip route &lt;ip&gt;</code> trên router đó ⇒ dòng route nào gây lỗi</label></li>
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Tìm ra lỗi trong &lt; 15 phút; giải thích vì sao "một số máy được, một số không"</label></li>
+</ul>
+<details><summary>Gợi ý (mở sau khi làm)</summary>
+<ol>
+  <li>/16 dài hơn default nhưng ngắn hơn route tới LAN3? R1 không có route /24 tới LAN3 (đang dùng default) ⇒ /16 thắng default ⇒ mọi 192.168.x không có route cụ thể đi ra ISP. Traceroute thấy chặng 203.0.113.2.</li>
+  <li>192.168.3.0–.127 khớp /25 trên R2 (dài hơn /24) ⇒ R2 gửi về R1 ⇒ R1 default lại gửi R2 ⇒ loop tới TTL = 0; traceroute thấy R1, R2 lặp. Máy .128–.254 bình thường. Đây là kiểu "một nửa dải hỏng".</li>
+  <li>Chiều về từ LAN3 hỏng: gói tới được LAN3 nhưng trả lời không về. R3 <code>show ip route 192.168.1.0</code> không có (chỉ có default sai), <code>show ip arp</code> thấy Incomplete cho 10.0.23.5.</li>
+</ol>
+</details>
+
+<h3>Phần B · Viết tài liệu "đọc bảng route" của riêng anh</h3>
+<p>Một trang (Markdown trong repo) tóm tắt: cách đọc một dòng, bảng AD, quy tắc chọn route, 5 lệnh hay dùng, 3 bẫy. Viết bằng lời của anh. Tài liệu này dùng lại ở công ty khi đọc bảng route FortiGate (<code>get router info routing-table all</code>), cùng khái niệm.</p>
+<ul class="check">
+  <li><input type="checkbox" id="t7-3"><label for="t7-3">Viết xong, commit <code>docs/doc-bang-route.md</code></label></li>
+  <li><input type="checkbox" id="t7-4"><label for="t7-4">Viết postmortem cho lỗi đã diễn tập</label></li>
+</ul>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (03/01) · 10 tình huống và tự chấm</h2>
+<div class="meta"><span><b>30 phút</b></span><span>Gửi kết quả cho Claude chấm</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">Làm 10 tình huống ở <a href="tuan-10-kien-thuc.html#m17">sổ tay mục 17</a>, đúng 10/10</label></li>
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Nhờ Claude ra thêm một bảng route mới và 10 đích khác, làm lại</label></li>
+  <li><input type="checkbox" id="cn-3"><label for="cn-3">Trả lời câu 11–16 sổ tay mục 17, gửi Claude chấm</label></li>
+</ul>
+<h3>Tự chấm cuối tuần</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 10</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>Đọc dòng route, AD vs longest match, RIB/FIB/adjacency</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>3 router + route tĩnh thông hai đầu trong 15 phút</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>Tìm route chồng lấn trong 15 phút</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>Có thói quen <code>longer-prefixes</code> trước và <code>show ip route &lt;ip&gt;</code> sau khi thêm route</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Giảng ví dụ "static /16 vs OSPF /24" cho người khác</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-4"><label for="cn-4">Tick tuần 10 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày 15 phút</h2>
+<ul>
+  <li><b>Tự hỏi đáp bằng miệng:</b> bảng AD (đọc từ 0 tới 255), các mã route C, L, S, O, D, R, B, O IA, O E2.</li>
+  <li><b>3 tình huống longest match nhỏ</b> tự nghĩ mỗi ngày.</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">Đủ 5 ngày</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 10/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: static, default, floating static, RIPv2 (lướt).
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan10-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

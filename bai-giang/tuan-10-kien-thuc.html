@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 10</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 10 (28/12/2026 – 03/01/2027) · <a href="tuan-10.html">Giáo án tuần 10 (lab, diễn tập, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 10 (Odom Vol 1, "Operating Cisco Routers", "Configuring IPv4 Addresses and Static Routes"; Doyle "Routing TCP/IP" phần nguyên lý). Từ tuần này bắt đầu <b>định tuyến</b>, phần chung cho cả CCNA và ENARSI. Sổ CCNA của anh đã có mục "Routing" với mô hình <b>Đọc (Read) / Ghi (Write)</b> rất tốt; tuần này giữ mô hình đó và <b>đi sâu</b>: router ghi gì vào bảng, chọn route thế nào, và vì sao có tới ba bảng (RIB, FIB, adjacency). Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">Router làm hai việc: Đọc và Ghi</a></li>
+  <li><a href="#m2">Nguồn của route: connected, local, static, dynamic</a></li>
+  <li><a href="#m3">Đọc show ip route từng dòng</a></li>
+  <li><a href="#m4">Longest prefix match</a></li>
+  <li><a href="#m5">Administrative Distance</a></li>
+  <li><a href="#m6">Metric</a></li>
+  <li><a href="#m7">Quy tắc 3 bước, và hai thời điểm khác nhau</a></li>
+  <li><a href="#m8">RIB, FIB, adjacency table và CEF</a></li>
+  <li><a href="#m9">Recursive lookup</a></li>
+  <li><a href="#m10">ECMP: nhiều đường bằng nhau</a></li>
+  <li><a href="#m11">Những thứ xét trước bảng định tuyến: PBR, uRPF, ACL</a></li>
+  <li><a href="#m12">Cú pháp static route (xem trước) và ghi chú RIP</a></li>
+  <li><a href="#m13">Lệnh kiểm tra</a></li>
+  <li><a href="#m14">Tình huống thực tế</a></li>
+  <li><a href="#m15">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m16">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m17">10 tình huống longest match và câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> Router làm hai việc: Đọc và Ghi</h1>
+<p>Sổ của anh chia hành vi router thành hai việc. Cách chia này <b>đúng và rất hay</b>, dùng làm khung cho cả phần định tuyến:</p>
+<div class="tbl"><table>
+<tr><th>Việc</th><th class="l">Nội dung</th><th class="l">Admin can thiệp?</th><th class="l">Tên kỹ thuật</th></tr>
+<tr><td><b>Đọc (Read)</b></td><td class="l">Gói tới ⇒ đọc IP đích ⇒ tra bảng ⇒ forward hoặc drop</td><td class="l">Không (router tự làm, tính bằng micro giây)</td><td class="l">Forwarding / data plane</td></tr>
+<tr><td><b>Ghi (Write)</b></td><td class="l">Xây bảng định tuyến: học route từ connected, static, giao thức động</td><td class="l">Có (cấu hình)</td><td class="l">Routing / control plane</td></tr>
+</table></div>
+<p><mark>Control plane quyết định đường (ghi bảng); data plane chuyển gói theo bảng (đọc bảng).</mark> Mọi thiết bị mạng hiện đại đều chia hai mặt này; SDN (tuần 19) tách hẳn control plane ra bộ điều khiển trung tâm.</p>
+<p>Ý quan trọng trong sổ: "router không đoán đường; không biết ⇒ drop". Đúng. Nếu có <b>default route</b> thì "không biết" sẽ đi theo default route thay vì bị drop.</p>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Nguồn của route: connected, local, static, dynamic</h1>
+<div class="tbl"><table>
+<tr><th>Mã</th><th>Nguồn</th><th class="l">Khi nào có</th></tr>
+<tr><td><b>C</b></td><td>Connected</td><td class="l">Interface có IP và ở trạng thái <b>up/up</b>. Mạng của interface. Interface down ⇒ route C biến mất.</td></tr>
+<tr><td><b>L</b></td><td>Local</td><td class="l">Đi kèm mỗi C: chính IP của interface, prefix <b>/32</b> (IPv6 /128). Để router biết gói tới IP này là cho chính nó.</td></tr>
+<tr><td><b>S</b></td><td>Static</td><td class="l">Admin gõ <code>ip route</code>, và next-hop/interface <b>với tới được</b>. Không với tới ⇒ route không vào bảng (vẫn nằm trong config).</td></tr>
+<tr><td><b>O, D, R, B…</b></td><td>Dynamic</td><td class="l">Học từ OSPF, EIGRP, RIP, BGP…</td></tr>
+</table></div>
+<p>"Directly connected" trong sổ của anh định nghĩa: "mạng mà router có 1 cổng đang active thuộc về mạng đấy (mở về mặt vật lý up về mặt giao thức)" — <b>đúng</b>. Đó chính là điều kiện up/up.</p>
+
+<div class="note"><b>Trạng thái và cấu hình</b>
+Sổ ghi "bảng routing table lưu trên RAM (mất điện là mất hết)" — đúng. Thêm vế: <i>"static route không mất vì <b>lệnh</b> <code>ip route</code> nằm trong startup-config; khởi động lại thì router đọc lệnh và nạp lại route vào bảng. Route động thì học lại từ hàng xóm."</i> (Tuần 1 đã nhắc ý phân biệt cấu hình và trạng thái.)</div>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Đọc show ip route từng dòng</h1>
+<pre>R1# show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, ... * - candidate default, ...
+
+Gateway of last resort is 203.0.113.1 to network 0.0.0.0      ← (1)
+
+S*    0.0.0.0/0 [1/0] via 203.0.113.1                           ← (2)
+      10.0.0.0/8 is variably subnetted, 6 subnets, 4 masks      ← (3)
+C        10.0.12.0/30 is directly connected, GigabitEthernet0/1
+L        10.0.12.1/32 is directly connected, GigabitEthernet0/1
+O        10.0.23.0/30 [110/2] via 10.0.12.2, 00:05:12, GigabitEthernet0/1   ← (4)
+O        10.3.3.0/24 [110/3] via 10.0.12.2, 00:05:12, GigabitEthernet0/1
+S        10.9.0.0/16 [1/0] via 10.0.12.2
+C        192.168.1.0/24 is directly connected, GigabitEthernet0/0
+L        192.168.1.1/32 is directly connected, GigabitEthernet0/0</pre>
+<ol>
+  <li><b>Gateway of last resort</b>: default route đang dùng. "is not set" ⇒ không có default ⇒ đích lạ bị drop.</li>
+  <li><b>S*</b>: static, và <code>*</code> = ứng viên default. <b>[1/0]</b> = <b>[AD/metric]</b>.</li>
+  <li>Dòng tiêu đề nhóm: mạng lớp A 10.0.0.0 được chia thành 6 subnet với 4 mask khác nhau (VLSM).</li>
+  <li><b>O</b> = OSPF, <b>[110/2]</b> = AD 110, metric (cost) 2, <b>via 10.0.12.2</b> = next-hop, <b>00:05:12</b> = route đã có bao lâu, <b>Gi0/1</b> = interface ra.</li>
+</ol>
+<p><mark>[AD/metric] via next-hop, tuổi, interface ra.</mark> Học thuộc cách đọc một dòng này; mọi giao thức đều cùng khuôn.</p>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> Longest prefix match</h1>
+<p>Đã học ở tuần 4 mục 6. Nhắc lại thành quy tắc tra bảng:</p>
+<ol>
+  <li>Tìm <b>mọi</b> route có chứa IP đích (IP đích AND mask route = network của route).</li>
+  <li>Chọn route có <b>prefix dài nhất</b>.</li>
+  <li>Không route nào chứa (kể cả 0.0.0.0/0) ⇒ drop, có thể gửi ICMP Destination Unreachable.</li>
+</ol>
+<p>Default route 0.0.0.0/0 chứa mọi địa chỉ nhưng prefix ngắn nhất (0) ⇒ luôn là lựa chọn cuối cùng.</p>
+<p>Router <b>không dừng ở dòng đầu tiên khớp</b> (khác ACL). Thứ tự hiển thị trong <code>show ip route</code> không quan trọng.</p>
+<p>Bài luyện 10 tình huống ở <a href="#m17">mục 17</a>.</p>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Administrative Distance</h1>
+<p><b>AD (Administrative Distance)</b>: độ tin cậy của <b>nguồn</b> route. Khi <b>cùng một prefix</b> (cùng network, cùng mask) được học từ nhiều nguồn, router chỉ đưa vào bảng route của nguồn có <b>AD thấp nhất</b>. Sổ của anh định nghĩa đúng: "khoảng cách về mặt quản trị nói lên độ tin cậy của 1 phương thức định tuyến".</p>
+<div class="tbl"><table>
+<tr><th>Nguồn</th><th>AD</th></tr>
+<tr><td>Connected</td><td><b>0</b></td></tr>
+<tr><td>Static</td><td><b>1</b></td></tr>
+<tr><td>EIGRP summary</td><td>5</td></tr>
+<tr><td>eBGP</td><td><b>20</b></td></tr>
+<tr><td>EIGRP internal</td><td><b>90</b></td></tr>
+<tr><td>OSPF</td><td><b>110</b></td></tr>
+<tr><td>IS-IS</td><td>115</td></tr>
+<tr><td>RIP</td><td><b>120</b></td></tr>
+<tr><td>EIGRP external</td><td>170</td></tr>
+<tr><td>iBGP</td><td><b>200</b></td></tr>
+<tr><td>Default route học từ DHCP (Cisco)</td><td>254</td></tr>
+<tr><td>Unknown / không tin</td><td><b>255</b> (không bao giờ vào bảng)</td></tr>
+</table></div>
+<p><mark>0 connected · 1 static · 20 eBGP · 90 EIGRP · 110 OSPF · 120 RIP · 200 iBGP · 255 không dùng.</mark></p>
+<p>AD có thể chỉnh: static thêm số cuối lệnh (<code>ip route … 130</code>) ⇒ "floating static", chỉ vào bảng khi route động (AD thấp hơn) biến mất (tuần 11).</p>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Metric</h1>
+<p><b>Metric</b>: "giá" của đường theo cách tính riêng của <b>một giao thức</b>. Chỉ so metric giữa các route <b>cùng prefix, cùng giao thức</b>; metric thấp hơn thắng.</p>
+<div class="tbl"><table>
+<tr><th>Giao thức</th><th class="l">Metric</th></tr>
+<tr><td>RIP</td><td class="l">Hop count (số router đi qua), tối đa 15; 16 = không tới được</td></tr>
+<tr><td>OSPF</td><td class="l">Cost = tổng cost interface ra trên đường (reference bandwidth / bandwidth), tuần 14</td></tr>
+<tr><td>EIGRP</td><td class="l">Công thức từ bandwidth nhỏ nhất và tổng delay</td></tr>
+<tr><td>Static</td><td class="l">0</td></tr>
+</table></div>
+<p>⇒ Không bao giờ so "OSPF cost 20" với "RIP 2 hop": hai thước đo khác nhau. Khác giao thức thì đã phân thắng thua bằng AD rồi.</p>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Quy tắc 3 bước, và hai thời điểm khác nhau</h1>
+<p>Lịch yêu cầu ghi quy tắc: <b>longest match → AD → metric</b>. Ghi thêm điều người học hay lẫn: ba bước này xảy ra ở <b>hai thời điểm khác nhau</b>.</p>
+<div class="tbl"><table>
+<tr><th>Thời điểm</th><th class="l">Câu hỏi</th><th class="l">Quyết định bằng</th></tr>
+<tr><td><b>Lúc ghi bảng</b> (control plane)</td><td class="l">Cùng một prefix học từ nhiều nơi: đưa cái nào vào bảng?</td><td class="l">1. AD thấp nhất · 2. cùng AD (cùng giao thức) thì metric thấp nhất · 3. metric bằng nhau ⇒ ECMP (mục 10)</td></tr>
+<tr><td><b>Lúc chuyển gói</b> (data plane)</td><td class="l">Bảng có nhiều prefix khác nhau cùng chứa IP đích: dùng cái nào?</td><td class="l"><b>Longest prefix match</b></td></tr>
+</table></div>
+<div class="note"><b>Ví dụ phân biệt</b>
+Bảng có <code>S 10.1.0.0/16 [1/0]</code> và <code>O 10.1.1.0/24 [110/5]</code>. Gói tới 10.1.1.9 đi theo <b>O /24</b>, dù static có AD 1 thấp hơn. Vì đây là hai prefix khác nhau, cả hai đều nằm trong bảng; lúc chuyển gói thì longest match quyết định. AD chỉ so khi <b>cùng prefix</b>.</div>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ ghi trong mục định tuyến động: "tính toán đường đi tốt nhất (<b>AD/metric/best path equal longest match</b>)" như một danh sách ngang hàng. Thêm <b>bảng AD</b> (mục 5) và <b>quy tắc 3 bước</b>: longest match → AD → metric, kèm câu "AD và metric chọn route <i>cho cùng một prefix</i> lúc ghi bảng; longest match chọn giữa <i>các prefix khác nhau</i> lúc chuyển gói".</div>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> RIB, FIB, adjacency table và CEF</h1>
+
+<h2>1/ Ba bảng</h2>
+<div class="tbl"><table>
+<tr><th>Bảng</th><th class="l">Chứa gì</th><th class="l">Ai dùng</th><th class="l">Lệnh xem</th></tr>
+<tr><td><b>RIB</b> (Routing Information Base)</td><td class="l">Route tốt nhất cho mỗi prefix (sau AD/metric). Chính là <code>show ip route</code></td><td class="l">Control plane</td><td class="l"><code>show ip route</code></td></tr>
+<tr><td><b>FIB</b> (Forwarding Information Base)</td><td class="l">Bản "đã tính sẵn" của RIB: mỗi prefix ⇒ next-hop <b>đã giải xong</b> (không cần tra đệ quy), tối ưu để tra cực nhanh</td><td class="l">Data plane</td><td class="l"><code>show ip cef</code></td></tr>
+<tr><td><b>Adjacency table</b></td><td class="l">Next-hop ⇒ header tầng 2 dựng sẵn (MAC đích, MAC nguồn, EtherType), lấy từ ARP</td><td class="l">Data plane</td><td class="l"><code>show adjacency [detail]</code></td></tr>
+</table></div>
+<p>Sổ của anh có dòng "RIB Router information base" — tên đúng là <b>Routing</b> Information Base.</p>
+
+<h2>2/ CEF (Cisco Express Forwarding)</h2>
+<p>Ba cách chuyển gói của Cisco, từ chậm tới nhanh:</p>
+<ol>
+  <li><b>Process switching</b>: CPU tra RIB cho từng gói. Rất chậm.</li>
+  <li><b>Fast switching</b>: gói đầu tra RIB, kết quả lưu cache cho gói sau cùng đích. Cũ.</li>
+  <li><b>CEF</b> (mặc định hiện nay): FIB + adjacency dựng sẵn <b>trước khi</b> có gói. Trên switch L3, FIB nạp xuống phần cứng (TCAM) ⇒ tốc độ dây.</li>
+</ol>
+<p>Hệ quả vận hành: CPU router cao bất thường thường do gói <b>bị đẩy lên process switching</b> (gói tới chính router, gói cần ARP, gói có TTL hết hạn, ACL log…) chứ không phải do lưu lượng chuyển tiếp thường.</p>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> Recursive lookup</h1>
+<p>Route static chỉ ghi next-hop IP (không ghi interface): <code>ip route 10.9.0.0 255.255.0.0 10.0.12.2</code>. Để chuyển gói, router phải tra thêm lần nữa: "10.0.12.2 nằm ở interface nào?" ⇒ khớp <code>C 10.0.12.0/30 Gi0/1</code> ⇒ ra Gi0/1. Tra hai lần gọi là <b>recursive lookup</b> (tra đệ quy).</p>
+<ul>
+  <li>RIB giữ dạng đệ quy; <b>FIB đã giải sẵn</b> (mục 8) nên data plane không phải tra hai lần.</li>
+  <li>Next-hop không tra ra được interface nào (mạng không có trong bảng) ⇒ static route <b>không vào bảng</b>.</li>
+  <li>BGP dùng recursive rất nhiều (next-hop có thể cách xa nhiều chặng).</li>
+</ul>
+<div class="note"><b>Bẫy</b>
+Static trỏ next-hop qua một route khác có thể tạo phụ thuộc vòng (route A cần route B, route B cần route A) ⇒ không route nào lên. Hoặc next-hop chỉ tra ra được qua <b>default route</b> ⇒ static "lên" nhưng gói đi sai đường. Kiểm: <code>show ip route &lt;next-hop&gt;</code>.</div>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> ECMP: nhiều đường bằng nhau</h1>
+<p><b>ECMP (Equal-Cost Multi-Path)</b>: cùng prefix, cùng nguồn (AD), cùng metric ⇒ router đưa <b>nhiều next-hop</b> vào bảng và chia tải.</p>
+<pre>O    10.3.3.0/24 [110/3] via 10.0.12.2, 00:01:10, GigabitEthernet0/1
+                 [110/3] via 10.0.13.2, 00:01:10, GigabitEthernet0/2
+R1(config-router)# maximum-paths 4         ! số đường tối đa (OSPF mặc định 4 trên nhiều IOS)</pre>
+<ul>
+  <li>CEF mặc định chia theo <b>cặp nguồn–đích</b> (per-destination): cùng cặp IP luôn đi một đường ⇒ giữ thứ tự gói. Giống EtherChannel hash (tuần 8).</li>
+  <li>Per-packet (xoay vòng từng gói) chia đều hơn nhưng làm đảo thứ tự gói ⇒ hại TCP. Hầu như không dùng.</li>
+  <li>Static cũng có ECMP: hai lệnh <code>ip route</code> cùng prefix khác next-hop, cùng AD (ca chồng dải ở tuần 4 chính là ECMP ngoài ý muốn).</li>
+</ul>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Những thứ xét trước bảng định tuyến: PBR, uRPF, ACL</h1>
+<p>Bảng định tuyến không phải thứ duy nhất quyết định số phận gói. Trên một interface đầu vào, thứ tự xử lý (mức CCNA, đơn giản hóa) là:</p>
+<ol>
+  <li><b>ACL inbound</b>: bị deny ⇒ bỏ luôn (tuần 16).</li>
+  <li><b>uRPF</b> (Unicast Reverse Path Forwarding, nếu bật): kiểm IP <b>nguồn</b>: "đường về nguồn này có đi ra đúng interface gói vừa vào không?" Không ⇒ bỏ (chống giả mạo IP nguồn).</li>
+  <li><b>PBR</b> (Policy-Based Routing, nếu bật): luật do admin đặt (ví dụ "lưu lượng từ VLAN khách đi ISP2") <b>ghi đè bảng định tuyến</b>.</li>
+  <li><b>Tra FIB</b> (longest match) như bình thường.</li>
+  <li>NAT, ACL outbound, QoS ở interface ra.</li>
+</ol>
+<p><mark>PBR xét trước bảng định tuyến; nếu khớp PBR thì bảng định tuyến bị bỏ qua.</mark> Khi gói "đi sai đường dù bảng route đúng", hãy nghĩ tới PBR. Trên FortiGate, khái niệm tương tự là <b>policy route</b> và luật <b>SD-WAN</b>: chúng được xét trước bảng định tuyến thường. Đây là kiến thức anh sẽ dùng khi đọc cấu hình SD-WAN ở công ty.</p>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Cú pháp static route (xem trước) và ghi chú RIP</h1>
+
+<h2>1/ Ba kiểu next-hop</h2>
+<pre>ip route 10.9.0.0 255.255.0.0 10.0.12.2                         ! 1/ next-hop IP (recursive)
+ip route 10.9.0.0 255.255.0.0 GigabitEthernet0/1                ! 2/ exit interface (directly attached)
+ip route 10.9.0.0 255.255.0.0 GigabitEthernet0/1 10.0.12.2      ! 3/ fully specified (interface + next-hop)
+ip route 10.9.0.0 255.255.0.0 10.0.12.6 130                     ! thêm AD 130 ⇒ floating static</pre>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ đang dở: "Ip route [dải mạng đích] [subnet mask mạng đích] X [AD] / X là: 1/ next hop 2/ exit interface 3/ fully". Viết nốt bằng <b>3 dòng ví dụ</b> ở trên, mỗi dòng một kiểu. Ghi thêm: kiểu 2 (chỉ exit interface) trên cổng Ethernet làm router ARP cho <b>mọi đích</b> (dựa proxy ARP của hàng xóm) ⇒ tránh dùng; kiểu 3 an toàn nhất. Chi tiết ở tuần 11.</div>
+
+<h2>2/ Ghi chú RIP</h2>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ ghi "RIP metric = hop count (<b>4 bit</b> đếm số hop count) … 0 ⇒ 15 ⇒ <b>RIP tính sai từ router số 16</b>". Sửa: metric RIP là hop count, tối đa <b>15</b>; giá trị <b>16 nghĩa là "không tới được" (unreachable, infinity)</b>, là quy ước có chủ đích để chống loop, không phải "tính sai" và không liên quan "4 bit" (trường metric trong gói RIP dài 32 bit). Ghi thêm: <b>RIP không còn trong blueprint CCNA hiện tại</b>, không cần đầu tư; tuần 11 chỉ lướt để hiểu distance-vector.</div>
+<p>Sổ ghi "RIPv1 chỉ hiểu classful, RIPv2 hiểu classless" — đúng (tuần 4: RIPv2 gửi mask).</p>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Lệnh kiểm tra</h1>
+<div class="tbl"><table>
+<tr><th>Lệnh</th><th class="l">Trả lời câu hỏi</th></tr>
+<tr><td><code>show ip route</code></td><td class="l">Toàn bộ RIB</td></tr>
+<tr><td><code>show ip route 10.1.1.9</code></td><td class="l"><b>Gói tới IP này dùng route nào</b> (longest match), AD, metric, next-hop</td></tr>
+<tr><td><code>show ip route 10.0.0.0 255.0.0.0 longer-prefixes</code></td><td class="l">Mọi route nằm trong một khối</td></tr>
+<tr><td><code>show ip route static | connected | ospf</code></td><td class="l">Lọc theo nguồn</td></tr>
+<tr><td><code>show ip route summary</code></td><td class="l">Đếm route theo nguồn, RAM dùng</td></tr>
+<tr><td><code>show ip cef 10.1.1.9</code></td><td class="l">FIB: next-hop và interface đã giải sẵn</td></tr>
+<tr><td><code>show ip cef exact-route 192.168.1.10 10.3.3.5</code></td><td class="l">Với ECMP: cặp nguồn–đích này đi đường nào</td></tr>
+<tr><td><code>show adjacency detail</code></td><td class="l">Header L2 dựng sẵn cho next-hop</td></tr>
+<tr><td><code>traceroute 10.1.1.9 source 192.168.1.1</code></td><td class="l">Đường thật gói đi (chọn IP nguồn cho đúng ngữ cảnh)</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Tình huống thực tế</h1>
+
+<h3>Tình huống 1 · Gói đi sai đường do route chồng lấn</h3>
+<p>Router chi nhánh có default route về trụ sở, và ai đó thêm <code>ip route 10.0.0.0 255.0.0.0 &lt;ISP&gt;</code> để thử. Từ đó máy chi nhánh không vào được hệ thống 10.x ở trụ sở, Internet vẫn bình thường.</p>
+<details><summary>Phân tích</summary>
+<p><code>show ip route 10.20.5.10</code> ⇒ khớp 10.0.0.0/8 via ISP (prefix /8 dài hơn /0 default) ⇒ gói đi nhầm ra ISP. Sửa: gỡ route /8. Bài học: mỗi route mới thêm vào phải hỏi "nó <b>dài hơn</b> route nào đang có, và sẽ hút lưu lượng nào?".</p></details>
+
+<h3>Tình huống 2 · VPN client và route cụ thể hơn</h3>
+<details><summary>Phân tích</summary>
+<p>Người dùng ở nhà kết nối VPN. Mạng nhà dùng 192.168.1.0/24; VPN đẩy route 192.168.0.0/16 về công ty. Máy in công ty 192.168.1.50 không tới được: route connected 192.168.1.0/24 của mạng nhà dài hơn /16 của VPN ⇒ gói đi ra mạng nhà. Đây là lý do mạng công ty nên tránh dải 192.168.0/1.x phổ biến của router gia đình.</p></details>
+
+<h3>Tình huống 3 · Static route có trong config nhưng không có trong bảng</h3>
+<details><summary>Phân tích</summary>
+<p>Next-hop không với tới được (interface tới next-hop down, hoặc mạng của next-hop không có trong bảng). <code>show ip route &lt;next-hop&gt;</code>, <code>show ip interface brief</code>.</p></details>
+
+<div class="note"><b>Góc nhìn hệ thống</b>
+Ở ngân hàng, bảng định tuyến của router/firewall biên là "luật giao thông" cho mọi giao dịch. Ba thói quen của kỹ sư: (1) trước khi thêm route, <code>show ip route &lt;dải&gt; longer-prefixes</code> xem đang có gì; (2) sau khi thêm, <code>show ip route &lt;IP mẫu&gt;</code> cho vài IP quan trọng; (3) với FortiGate SD-WAN, nhớ rằng luật SD-WAN/policy route xét trước bảng route, nên "bảng route đúng" chưa chắc gói đi đúng.</div>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m15"><span class="no">15.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>Read/Write</td><td class="l">Data plane đọc bảng chuyển gói · control plane ghi bảng</td></tr>
+<tr><td>Mã</td><td class="l">C connected · L local /32 · S static · O OSPF · D EIGRP · R RIP · B BGP · * default</td></tr>
+<tr><td>Dòng route</td><td class="l">[AD/metric] via next-hop, tuổi, interface</td></tr>
+<tr><td>AD</td><td class="l">0 · 1 · 20 eBGP · 90 EIGRP · 110 OSPF · 120 RIP · 170 EIGRP ext · 200 iBGP · 255</td></tr>
+<tr><td>Chọn route</td><td class="l">Ghi bảng: AD → metric → ECMP (cùng prefix) · Chuyển gói: longest match (khác prefix)</td></tr>
+<tr><td>Bảng</td><td class="l">RIB (show ip route) · FIB (show ip cef) · adjacency (show adjacency) · CEF mặc định</td></tr>
+<tr><td>Khác</td><td class="l">Recursive lookup · ECMP per-destination · PBR xét trước bảng route · uRPF kiểm IP nguồn</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d15"> Xong mục 15</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m16"><span class="no">16.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">routing table / RIB</td><td class="l">bảng định tuyến</td><td class="l">FIB</td><td class="l">bảng chuyển tiếp</td></tr>
+<tr><td class="l">control plane</td><td class="l">mặt điều khiển</td><td class="l">data plane</td><td class="l">mặt dữ liệu</td></tr>
+<tr><td class="l">directly connected</td><td class="l">kết nối trực tiếp</td><td class="l">remote network</td><td class="l">mạng ở xa</td></tr>
+<tr><td class="l">next hop</td><td class="l">chặng kế tiếp</td><td class="l">exit interface</td><td class="l">cổng ra</td></tr>
+<tr><td class="l">administrative distance</td><td class="l">khoảng cách quản trị</td><td class="l">metric</td><td class="l">chỉ số đường</td></tr>
+<tr><td class="l">longest prefix match</td><td class="l">khớp tiền tố dài nhất</td><td class="l">gateway of last resort</td><td class="l">cổng cuối cùng (default)</td></tr>
+<tr><td class="l">recursive lookup</td><td class="l">tra đệ quy</td><td class="l">ECMP</td><td class="l">đa đường cùng chi phí</td></tr>
+<tr><td class="l">adjacency</td><td class="l">kề cận (thông tin L2 next-hop)</td><td class="l">policy-based routing</td><td class="l">định tuyến theo chính sách</td></tr>
+<tr><td class="l">unreachable</td><td class="l">không tới được</td><td class="l">candidate default</td><td class="l">ứng viên default</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"The packet to 10.1.1.130 matches the /25 static route, because it's the longest prefix."</i></p>
+
+<label class="done"><input type="checkbox" id="d16"> Xong mục 16</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m17"><span class="no">17.</span> 10 tình huống longest match và câu hỏi tự kiểm tra</h1>
+
+<h2>A/ 10 tình huống (đầu ra tuần: chọn đúng cả 10)</h2>
+<p>Bảng route của R1:</p>
+<div class="tbl"><table>
+<tr><th>Route</th><th class="l">Nguồn / next-hop</th></tr>
+<tr><td>0.0.0.0/0</td><td class="l">S* via 203.0.113.1</td></tr>
+<tr><td>10.0.0.0/8</td><td class="l">S via 10.255.0.2</td></tr>
+<tr><td>10.1.0.0/16</td><td class="l">O via 10.255.0.6</td></tr>
+<tr><td>10.1.1.0/24</td><td class="l">O via 10.255.0.10</td></tr>
+<tr><td>10.1.1.128/25</td><td class="l">S via 10.255.0.14</td></tr>
+<tr><td>10.1.1.200/32</td><td class="l">S via 10.255.0.18</td></tr>
+<tr><td>172.16.0.0/12</td><td class="l">S via 10.255.0.2</td></tr>
+<tr><td>172.16.5.0/24</td><td class="l">C Gi0/2</td></tr>
+<tr><td>192.168.0.0/16</td><td class="l">S Null0</td></tr>
+<tr><td>192.168.10.0/24</td><td class="l">O via 10.255.0.6</td></tr>
+</table></div>
+<p>Gói tới các đích sau đi theo route nào?</p>
+<ol>
+  <li>10.1.1.5</li><li>10.1.1.130</li><li>10.1.1.200</li><li>10.1.2.1</li><li>10.2.0.1</li>
+  <li>172.16.5.9</li><li>172.20.1.1</li><li>192.168.10.7</li><li>192.168.11.7</li><li>8.8.8.8</li>
+</ol>
+<details><summary>Đáp án</summary>
+<ol>
+  <li>10.1.1.0/24 (O via .10)</li>
+  <li>10.1.1.128/25 (S via .14)</li>
+  <li>10.1.1.200/32 (S via .18)</li>
+  <li>10.1.0.0/16 (O via .6)</li>
+  <li>10.0.0.0/8 (S via .2)</li>
+  <li>172.16.5.0/24 (C Gi0/2)</li>
+  <li>172.16.0.0/12 (S via .2)</li>
+  <li>192.168.10.0/24 (O via .6)</li>
+  <li>192.168.0.0/16 Null0 ⇒ <b>bị bỏ</b> (dù có default route, /16 dài hơn /0)</li>
+  <li>0.0.0.0/0 (default via 203.0.113.1)</li>
+</ol></details>
+
+<h2>B/ Câu hỏi</h2>
+<details><summary>11. OSPF và static cùng học được 10.5.0.0/16. Cái nào vào bảng? Nếu static có thêm số 130 ở cuối?</summary><p>Static (AD 1 &lt; 110). Thêm 130 ⇒ OSPF (110 &lt; 130) vào bảng, static thành dự phòng (floating).</p></details>
+<details><summary>12. Bảng có S 10.1.0.0/16 [1/0] và O 10.1.1.0/24 [110/5]. Gói tới 10.1.1.9 đi đường nào?</summary><p>O /24: khác prefix ⇒ longest match, AD không được so.</p></details>
+<details><summary>13. Vì sao có dòng L với /32?</summary><p>Đó là IP của chính interface; /32 để router nhận gói gửi cho chính nó.</p></details>
+<details><summary>14. "Gateway of last resort is not set" nghĩa là gì?</summary><p>Không có default route; gói tới đích không có trong bảng sẽ bị drop.</p></details>
+<details><summary>15. Bảng route đúng mà gói vẫn đi đường khác. Nghi gì?</summary><p>PBR (hoặc SD-WAN/policy route trên firewall) xét trước bảng route; hoặc ECMP chia tải; hoặc NAT/VPN thay đổi đích.</p></details>
+<details><summary>16. CPU router 90%, lưu lượng không cao. Nghi gì?</summary><p>Gói bị đẩy lên process switching: nhiều gói tới chính router, ACL có log, TTL hết hạn (loop), ARP liên tục, tấn công. Không phải do chuyển tiếp CEF thông thường.</p></details>
+
+<label class="done"><input type="checkbox" id="d17"> Xong mục 17</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab trong <a href="tuan-10.html">giáo án tuần 10</a>. Tuần trước: <a href="tuan-09-kien-thuc.html">sổ tay ôn tuần 9</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan10-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
