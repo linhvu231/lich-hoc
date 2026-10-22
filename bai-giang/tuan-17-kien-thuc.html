@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 17</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 17 (22/02 – 28/02/2027) · <a href="tuan-17.html">Giáo án tuần 17 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 17 (Odom Vol 2, Part "IP Services": DHCP, DNS, NTP, Syslog, SNMP, và "Quality of Service"). Đây là tuần <b>gần với công việc hằng ngày của anh nhất</b>: DHCP và DNS là ticket helpdesk mỗi ngày; Syslog, SNMP là nền của Zabbix/Grafana anh đang dùng; NTP là thứ làm AD đăng nhập được. Sổ của anh có mục DHCP với vài lệnh gõ sai; tuần này sửa và viết mới các mục còn lại. Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">DHCP: DORA từng bước</a></li>
+  <li><a href="#m2">Lease, gia hạn, các option hay gặp</a></li>
+  <li><a href="#m3">Cấu hình DHCP server trên router Cisco</a></li>
+  <li><a href="#m4">DHCP relay: ip helper-address</a></li>
+  <li><a href="#m5">DNS</a></li>
+  <li><a href="#m6">NTP</a></li>
+  <li><a href="#m7">Syslog và 8 mức độ</a></li>
+  <li><a href="#m8">SNMP</a></li>
+  <li><a href="#m9">QoS cơ bản</a></li>
+  <li><a href="#m10">Lệnh kiểm tra và xử lý sự cố</a></li>
+  <li><a href="#m11">Tình huống thực tế</a></li>
+  <li><a href="#m12">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m13">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m14">Câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> DHCP: DORA từng bước</h1>
+<p><b>DHCP</b> (Dynamic Host Configuration Protocol): cấp IP, mask, gateway, DNS… tự động. UDP <b>67</b> (server), <b>68</b> (client).</p>
+<div class="tbl"><table>
+<tr><th>Bước</th><th>Ai gửi</th><th>IP nguồn → đích</th><th>Broadcast hay unicast</th><th class="l">Nội dung</th></tr>
+<tr><td><b>D</b>iscover</td><td>Client</td><td>0.0.0.0 → 255.255.255.255</td><td><b>Broadcast</b></td><td class="l">"Có DHCP server nào không? MAC tôi là …"</td></tr>
+<tr><td><b>O</b>ffer</td><td>Server</td><td>Server → IP đề nghị (hoặc broadcast)</td><td>Unicast hoặc broadcast (tùy cờ broadcast của client)</td><td class="l">"Anh dùng 192.168.10.25 nhé, gateway .1, DNS …, thuê 8 ngày"</td></tr>
+<tr><td><b>R</b>equest</td><td>Client</td><td>0.0.0.0 → 255.255.255.255</td><td><b>Broadcast</b></td><td class="l">"Tôi nhận offer của server X" (broadcast để các server khác biết offer của họ không được chọn)</td></tr>
+<tr><td><b>A</b>ck</td><td>Server</td><td>Server → client</td><td>Unicast hoặc broadcast</td><td class="l">"Xác nhận, IP là của anh"</td></tr>
+</table></div>
+<p><mark>Discover và Request là broadcast từ client.</mark> Vì client chưa có IP, nên broadcast; vì broadcast không qua router, nên cần relay (mục 4).</p>
+<p>Các bản tin khác: <b>NAK</b> (server từ chối, ví dụ client xin IP không thuộc mạng này), <b>Decline</b> (client phát hiện IP được cấp đã có người dùng — nhờ ARP probe, tuần 2), <b>Release</b> (client trả IP), <b>Inform</b>.</p>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ ghi bước 2: "Server nhận thông tin (<b>Xem xét tính xác thực (Domain)</b>, bản thân có ip để cấp không (để ý DHCP pool))". <b>Bỏ ý "xác thực Domain"</b>: DHCP <b>không xác thực client</b> theo domain; server chỉ xem có pool phù hợp với mạng của client và còn IP trống không (có thể lọc theo MAC nếu cấu hình riêng). Và bước 3 sổ ghi "End device gửi DHCP request …": ghi rõ <b>Request là broadcast</b>.</div>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Lease, gia hạn, các option hay gặp</h1>
+<h2>1/ Lease</h2>
+<ul>
+  <li><b>T1 = 50%</b> thời gian thuê: client gửi Request <b>unicast</b> tới server cũ xin gia hạn (renew).</li>
+  <li><b>T2 = 87,5%</b>: chưa gia hạn được ⇒ gửi Request <b>broadcast</b> tới bất kỳ server nào (rebind).</li>
+  <li>Hết lease mà không gia hạn được ⇒ mất IP (Windows rơi về 169.254.x.x).</li>
+</ul>
+<h2>2/ Option hay gặp</h2>
+<div class="tbl"><table>
+<tr><th>Option</th><th class="l">Ý nghĩa</th></tr>
+<tr><td>1</td><td class="l">Subnet mask</td></tr>
+<tr><td><b>3</b></td><td class="l">Router (default gateway)</td></tr>
+<tr><td><b>6</b></td><td class="l">DNS server</td></tr>
+<tr><td>15</td><td class="l">Domain name</td></tr>
+<tr><td>42</td><td class="l">NTP server</td></tr>
+<tr><td>51</td><td class="l">Lease time</td></tr>
+<tr><td>66 / 150</td><td class="l">TFTP server (điện thoại IP lấy cấu hình)</td></tr>
+<tr><td>43</td><td class="l">Vendor specific: AP tìm WLC (tuần 18)</td></tr>
+<tr><td>82</td><td class="l">Relay agent information (DHCP snooping thêm vào, tuần 18)</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Cấu hình DHCP server trên router Cisco</h1>
+<pre>R1(config)# ip dhcp excluded-address 192.168.10.1 192.168.10.20     ! không cấp dải tĩnh (gateway, máy in…)
+R1(config)# ip dhcp pool VLAN10
+R1(dhcp-config)# network 192.168.10.0 255.255.255.0
+R1(dhcp-config)# default-router 192.168.10.1
+R1(dhcp-config)# dns-server 10.1.1.53 8.8.8.8
+R1(dhcp-config)# domain-name lab.local
+R1(dhcp-config)# lease 1 12                                         ! 1 ngày 12 giờ (mặc định 1 ngày)
+R1(config)# ip dhcp excluded-address 192.168.20.1 192.168.20.20
+R1(config)# ip dhcp pool VLAN20
+R1(dhcp-config)# network 192.168.20.0 255.255.255.0
+R1(dhcp-config)# default-router 192.168.20.1
+R1(dhcp-config)# dns-server 10.1.1.53</pre>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ có cấu hình DHCP trên router với 3 lệnh gõ sai tên:
+<ul>
+  <li><code>Ip dhcp <b>exclude</b>-address</code> → đúng: <code>ip dhcp <b>excluded</b>-address</code></li>
+  <li><code><b>Dns</b> 8.8.8.8</code> → đúng: <code><b>dns-server</b> 8.8.8.8</code></li>
+  <li><code><b>Domain</b> pedu.com</code> → đúng: <code><b>domain-name</b> pedu.com</code></li>
+</ul>
+IOS cho gõ tắt nên "dns" có thể chạy như viết tắt của dns-server, nhưng trong sổ ghi đầy đủ để không nhầm. Và lệnh <code>ip dhcp exclude-address 192.168.10.0 192.168.10.10</code>: không cần loại địa chỉ network .0 (DHCP không bao giờ cấp nó).</div>
+<pre>R1# show ip dhcp binding       ! IP nào đã cấp cho MAC nào, hết hạn lúc nào
+R1# show ip dhcp pool          ! số địa chỉ dùng/còn
+R1# show ip dhcp conflict      ! IP phát hiện trùng (server ping trước khi cấp)
+R1# clear ip dhcp binding *</pre>
+<p>Router làm DHCP client trên cổng WAN: <code>ip address dhcp</code> (cổng nối modem nhà mạng).</p>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> DHCP relay: ip helper-address</h1>
+<p>Doanh nghiệp không đặt DHCP server ở mỗi VLAN; thường có một vài server tập trung (Windows DHCP trên Domain Controller). Nhưng Discover là <b>broadcast</b>, không qua router ⇒ cần <b>relay agent</b> trên gateway của VLAN client.</p>
+<pre>DSW1(config)# interface vlan 20                      ! gateway của VLAN client
+DSW1(config-if)# ip helper-address 10.1.1.67         ! IP DHCP server
+DSW1(config-if)# ip helper-address 10.1.1.68         ! server thứ hai (dự phòng)</pre>
+<p><mark>ip helper-address đặt trên interface nhận broadcast của client</mark> (gateway VLAN client: SVI hoặc sub-interface), <b>không</b> đặt trên interface phía server.</p>
+<h2>Relay làm gì</h2>
+<ol>
+  <li>Nhận Discover broadcast trên VLAN 20.</li>
+  <li>Đổi thành <b>unicast</b> gửi tới 10.1.1.67, điền trường <b>giaddr</b> (gateway IP address) = IP của interface nhận (192.168.20.1).</li>
+  <li>Server nhìn giaddr ⇒ biết client ở mạng 192.168.20.0/24 ⇒ cấp IP từ <b>scope</b> tương ứng.</li>
+  <li>Offer/Ack quay về relay, relay chuyển xuống client.</li>
+</ol>
+<p>Lưu ý: <code>ip helper-address</code> mặc định chuyển tiếp thêm vài dịch vụ UDP broadcast khác (TFTP, DNS, time, NetBIOS, TACACS…), không chỉ DHCP. Thiếu helper ⇒ client nhận <b>169.254.x.x</b> (APIPA, tuần 3).</p>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Thêm mục <b>"DHCP relay"</b> với lệnh <code>ip helper-address</code>, 4 bước trên, và câu "đặt trên interface gateway của VLAN client".</div>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> DNS</h1>
+<h2>1/ Phân giải một tên</h2>
+<ol>
+  <li>Máy hỏi DNS server nội bộ (resolver, thường là Domain Controller) — <b>truy vấn đệ quy</b> (recursive): "tìm giùm tôi đến cùng".</li>
+  <li>Resolver không có trong cache ⇒ hỏi lần lượt root ⇒ TLD (.vn) ⇒ authoritative của tên miền — <b>truy vấn lặp</b> (iterative).</li>
+  <li>Trả về client, lưu cache theo <b>TTL</b>.</li>
+</ol>
+<h2>2/ Loại bản ghi</h2>
+<div class="tbl"><table>
+<tr><th>Bản ghi</th><th class="l">Ý nghĩa</th></tr>
+<tr><td><b>A</b></td><td class="l">Tên → IPv4</td></tr>
+<tr><td><b>AAAA</b></td><td class="l">Tên → IPv6</td></tr>
+<tr><td><b>CNAME</b></td><td class="l">Tên bí danh → tên khác</td></tr>
+<tr><td><b>MX</b></td><td class="l">Máy chủ nhận mail của tên miền</td></tr>
+<tr><td><b>PTR</b></td><td class="l">IP → tên (tra ngược)</td></tr>
+<tr><td>NS / SOA</td><td class="l">Máy chủ quản lý zone / thông tin zone</td></tr>
+<tr><td><b>SRV</b></td><td class="l">Dịch vụ ở đâu: máy trạm tìm Domain Controller qua <code>_ldap._tcp.dc._msdcs.&lt;domain&gt;</code></td></tr>
+<tr><td>TXT</td><td class="l">Văn bản: SPF, xác minh tên miền (Microsoft 365)</td></tr>
+</table></div>
+<h2>3/ Lệnh</h2>
+<pre>C:\&gt; nslookup intranet.lab.local
+C:\&gt; nslookup -type=srv _ldap._tcp.dc._msdcs.lab.local
+C:\&gt; ipconfig /displaydns     ! cache DNS của máy
+C:\&gt; ipconfig /flushdns
+PS&gt; Resolve-DnsName www.example.com -Type AAAA
+R1(config)# ip name-server 10.1.1.53          ! router dùng DNS
+R1(config)# no ip domain-lookup               ! gõ sai lệnh không bị router "đi tra DNS" 30 giây</pre>
+<p>DNS dùng UDP 53, TCP 53 khi trả lời lớn/zone transfer (tuần 2).</p>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> NTP</h1>
+<h2>1/ Vì sao NTP quan trọng</h2>
+<ul>
+  <li><b>Active Directory / Kerberos</b>: đồng hồ client lệch server quá <b>5 phút</b> (mặc định) ⇒ vé Kerberos bị từ chối ⇒ <b>không đăng nhập domain được</b>. Đây là câu trả lời "vì sao NTP quan trọng với AD".</li>
+  <li><b>Log</b>: so log của firewall, switch, server khi điều tra sự cố chỉ có ý nghĩa nếu cùng giờ.</li>
+  <li><b>Chứng chỉ</b>: lệch giờ ⇒ chứng chỉ "chưa có hiệu lực" hoặc "hết hạn".</li>
+  <li>Giao dịch ngân hàng: dấu thời gian là bằng chứng pháp lý.</li>
+</ul>
+<h2>2/ Stratum</h2>
+<p>Stratum 0: đồng hồ nguyên tử/GPS. Stratum 1: máy nối trực tiếp stratum 0. Mỗi tầng xuống +1. Stratum 16 = không đồng bộ. UDP <b>123</b>.</p>
+<h2>3/ Cấu hình</h2>
+<pre>R1(config)# clock timezone ICT 7 0                 ! giờ Việt Nam UTC+7
+R1(config)# ntp server 10.1.1.123 prefer           ! NTP nội bộ (DC hoặc thiết bị chuyên dụng)
+R1(config)# ntp server 162.159.200.1               ! dự phòng
+R1(config)# ntp master 4                           ! (lab) router làm nguồn giờ stratum 4
+R1# show ntp status                                ! Clock is synchronized, stratum …
+R1# show ntp associations                          ! * = đang đồng bộ với server này
+R1# show clock detail</pre>
+<p>Trong AD, PDC Emulator là nguồn giờ của domain; máy trạm và DC khác đồng bộ theo nó.</p>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Syslog và 8 mức độ</h1>
+<h2>1/ 8 mức (severity)</h2>
+<div class="tbl"><table>
+<tr><th>Mức</th><th>Tên</th><th class="l">Ví dụ</th></tr>
+<tr><td>0</td><td>Emergency</td><td class="l">Hệ thống không dùng được</td></tr>
+<tr><td>1</td><td>Alert</td><td class="l">Cần xử lý ngay</td></tr>
+<tr><td>2</td><td>Critical</td><td class="l">Lỗi phần cứng nghiêm trọng</td></tr>
+<tr><td>3</td><td>Error</td><td class="l">Lỗi interface, lỗi cấu hình</td></tr>
+<tr><td>4</td><td>Warning</td><td class="l">MACFLAP, CDP native mismatch</td></tr>
+<tr><td>5</td><td>Notification</td><td class="l">Interface up/down (%LINK-5), OSPF ADJCHG</td></tr>
+<tr><td>6</td><td>Informational</td><td class="l">ACL log (%SEC-6)</td></tr>
+<tr><td>7</td><td>Debugging</td><td class="l">Output debug</td></tr>
+</table></div>
+<p>Mẹo nhớ: "<b>E</b>very <b>A</b>wesome <b>C</b>isco <b>E</b>ngineer <b>W</b>ill <b>N</b>eed <b>I</b>ce-cream <b>D</b>aily". Số <b>nhỏ hơn = nghiêm trọng hơn</b>.</p>
+<p>Đọc một dòng log: <code>%LINK-3-UPDOWN: Interface Gi0/1, changed state to down</code> ⇒ facility LINK, mức 3, mnemonic UPDOWN, nội dung.</p>
+<h2>2/ Cấu hình</h2>
+<pre>R1(config)# service timestamps log datetime msec localtime show-timezone   ! giờ trên mỗi dòng log
+R1(config)# logging host 10.1.1.200             ! gửi về syslog server (UDP 514)
+R1(config)# logging trap warnings               ! = logging trap 4: gửi mức 0–4
+R1(config)# logging buffered 64000 informational  ! lưu trong RAM
+R1(config)# logging source-interface loopback 0
+R1# show logging</pre>
+<p><mark>logging trap N gửi mức N và mọi mức nghiêm trọng hơn (số nhỏ hơn).</mark> <code>logging trap 4</code> gửi 0, 1, 2, 3, 4 (emergencies tới warnings). Lưu ý: interface up/down là mức 5 ⇒ không được gửi với trap 4!</p>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Tạo mục <b>Syslog</b> với <b>bảng 8 mức</b> ở trên, câu "số nhỏ hơn nghiêm trọng hơn", và ví dụ <code>logging trap 4</code>.</div>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> SNMP</h1>
+<h2>1/ Thành phần</h2>
+<ul>
+  <li><b>Manager</b> (NMS): Zabbix, PRTG… hỏi và nhận tin.</li>
+  <li><b>Agent</b>: chạy trên thiết bị (router, switch, máy in, UPS).</li>
+  <li><b>MIB</b>: "từ điển" các thông tin có thể hỏi; mỗi mục có một <b>OID</b> (ví dụ <code>1.3.6.1.2.1.1.5.0</code> = sysName; ifInOctets cho lưu lượng interface).</li>
+</ul>
+<h2>2/ Bản tin</h2>
+<div class="tbl"><table>
+<tr><th>Bản tin</th><th class="l">Hướng</th><th class="l">Port</th></tr>
+<tr><td>Get / GetNext / GetBulk</td><td class="l">Manager hỏi agent (poll)</td><td class="l">Tới agent <b>UDP 161</b></td></tr>
+<tr><td>Set</td><td class="l">Manager đổi giá trị trên agent (hiếm dùng, rủi ro)</td><td class="l">UDP 161</td></tr>
+<tr><td><b>Trap</b></td><td class="l"><b>Agent chủ động báo</b> manager khi có sự kiện (link down)</td><td class="l">Tới manager <b>UDP 162</b></td></tr>
+<tr><td>Inform</td><td class="l">Như trap nhưng manager phải xác nhận</td><td class="l">UDP 162</td></tr>
+</table></div>
+<p><mark>Poll: manager → agent port 161. Trap: agent (thiết bị) → manager port 162.</mark></p>
+<h2>3/ Phiên bản</h2>
+<div class="tbl"><table>
+<tr><th>Phiên bản</th><th class="l">Bảo mật</th></tr>
+<tr><td>v1, v2c</td><td class="l"><b>Community string</b> gửi dạng rõ (như mật khẩu không mã hóa). v2c thêm GetBulk, bộ đếm 64 bit</td></tr>
+<tr><td><b>v3</b></td><td class="l">User + <b>xác thực</b> (SHA) + <b>mã hóa</b> (AES), mức <code>authPriv</code>. Chuẩn cho ngân hàng</td></tr>
+</table></div>
+<pre><span class="c">! v2c (lab): chỉ đọc, giới hạn manager bằng ACL</span>
+R1(config)# ip access-list standard SNMP-MGR
+R1(config-std-nacl)# permit host 10.1.1.200
+R1(config)# snmp-server community LabRO ro SNMP-MGR
+R1(config)# snmp-server location HN-LAB
+R1(config)# snmp-server host 10.1.1.200 version 2c LabRO
+R1(config)# snmp-server enable traps snmp linkdown linkup
+<span class="c">! v3 (nên dùng)</span>
+R1(config)# snmp-server group MONITOR v3 priv
+R1(config)# snmp-server user zabbix MONITOR v3 auth sha &lt;mật-khẩu-auth&gt; priv aes 128 &lt;mật-khẩu-priv&gt;
+R1# show snmp user ; show snmp community</pre>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Tạo mục <b>SNMP</b>: manager/agent/MIB/OID, bảng bản tin (161 poll, 162 trap), v2c vs v3.</div>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> QoS cơ bản</h1>
+<h2>1/ Vì sao</h2>
+<p>Link nghẽn ⇒ gói phải xếp hàng ⇒ trễ, mất gói. Thoại/video nhạy cảm: thoại cần trễ một chiều <b>&lt; 150 ms</b>, jitter <b>&lt; 30 ms</b>, mất gói <b>&lt; 1%</b>. QoS quyết định <b>gói nào được ưu tiên</b> khi nghẽn. Không nghẽn thì QoS gần như không làm gì.</p>
+<h2>2/ Các bước của QoS</h2>
+<ol>
+  <li><b>Phân loại (classification)</b>: nhận ra loại lưu lượng (theo ACL, port, NBAR nhận diện ứng dụng).</li>
+  <li><b>Đánh dấu (marking)</b>: ghi nhãn vào gói để thiết bị sau khỏi phân loại lại. Tầng 2: <b>CoS</b> (3 bit trong tag 802.1Q, tuần 6). Tầng 3: <b>DSCP</b> (6 bit trong IP header, 0–63).</li>
+  <li><b>Trust boundary</b>: tin nhãn từ đâu (tuần 6 mục 10).</li>
+  <li><b>Xếp hàng (queuing)</b>: <b>LLQ</b> = một hàng ưu tiên tuyệt đối (thoại) + các hàng chia băng thông theo tỉ lệ (CBWFQ).</li>
+  <li><b>Tránh nghẽn</b>: WRED bỏ sớm một ít gói TCP ít quan trọng trước khi hàng đầy.</li>
+  <li><b>Policing / shaping</b>: giới hạn tốc độ. Policing: vượt thì bỏ (hoặc hạ nhãn). Shaping: vượt thì đệm lại gửi sau (làm mượt, thêm trễ). Ví dụ: shape xuống đúng tốc độ thuê bao WAN.</li>
+</ol>
+<h2>3/ Giá trị DSCP cần nhớ</h2>
+<div class="tbl"><table>
+<tr><th>Lưu lượng</th><th>DSCP</th><th>Giá trị</th><th>CoS tương ứng</th></tr>
+<tr><td><b>Thoại (voice)</b></td><td><b>EF</b></td><td><b>46</b></td><td>5</td></tr>
+<tr><td>Video tương tác</td><td>AF41</td><td>34</td><td>4</td></tr>
+<tr><td>Tín hiệu cuộc gọi</td><td>CS3</td><td>24</td><td>3</td></tr>
+<tr><td>Dữ liệu quan trọng</td><td>AF21 / AF31</td><td>18 / 26</td><td>2 / 3</td></tr>
+<tr><td>Mặc định (best effort)</td><td>DF / CS0</td><td>0</td><td>0</td></tr>
+<tr><td>Ít quan trọng (scavenger)</td><td>CS1</td><td>8</td><td>1</td></tr>
+</table></div>
+<p>AFxy: x = lớp (1–4, cao ưu tiên hơn), y = khả năng bị bỏ khi nghẽn (1–3, cao bị bỏ trước). Giá trị = 8x + 2y.</p>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Tạo mục <b>QoS</b>: 6 bước, bảng DSCP, câu "thoại = EF 46, CoS 5". Liên hệ mục Voice VLAN cũ (đã sửa ở tuần 6 về trust boundary).</div>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> Lệnh kiểm tra và xử lý sự cố</h1>
+<h2>Client nhận 169.254.x.x (sự cố #5 tuần này)</h2>
+<ol>
+  <li>Tầng 1–2: port up, đúng VLAN, PortFast (tuần 7), không bị port security chặn.</li>
+  <li>Có DHCP Discover tới gateway không? (Wireshark, hoặc <code>debug ip dhcp server packet</code> trên router làm DHCP)</li>
+  <li>Gateway VLAN có <code>ip helper-address</code> không, trỏ đúng server không? <code>show running-config interface vlan 20</code></li>
+  <li>Server có scope cho mạng giaddr không, còn IP không? <code>show ip dhcp pool</code> / DHCP console</li>
+  <li>Đường giữa relay và server có thông (UDP 67/68, ACL/firewall)?</li>
+</ol>
+<h2>Thiết bị không lên Zabbix</h2>
+<ol>
+  <li><code>show snmp</code>: SNMP chạy, có gói vào/ra?</li>
+  <li>Community/user v3 khớp? ACL SNMP cho phép IP Zabbix?</li>
+  <li>Firewall giữa Zabbix và thiết bị cho UDP 161 (poll) và 162 (trap)?</li>
+  <li>Thử từ máy Zabbix: <code>snmpwalk -v2c -c LabRO 10.99.0.11 1.3.6.1.2.1.1</code></li>
+</ol>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Tình huống thực tế</h1>
+<h3>Tình huống 1 · Cả VLAN mới nhận 169.254</h3>
+<details><summary>Phân tích</summary>
+<p>VLAN mới tạo trên switch L3, quên <code>ip helper-address</code> trên SVI ⇒ Discover không tới DC ⇒ APIPA. Hoặc có helper nhưng chưa tạo scope cho mạng mới trên Windows DHCP. Checklist mở VLAN mới: VLAN + SVI + helper + scope + rule firewall + Zabbix.</p></details>
+<h3>Tình huống 2 · Người dùng chi nhánh không đăng nhập domain được, báo lỗi thời gian</h3>
+<details><summary>Phân tích</summary>
+<p>Máy lệch giờ &gt; 5 phút với DC (pin CMOS hỏng, không đồng bộ được NTP do firewall chặn UDP 123). Kerberos từ chối. Sửa giờ, kiểm <code>w32tm /query /status</code>, mở đường NTP.</p></details>
+<h3>Tình huống 3 · Zabbix không báo khi link chi nhánh down</h3>
+<details><summary>Phân tích</summary>
+<p>Có poll SNMP (5 phút/lần) nhưng không có trap ⇒ phát hiện chậm; hoặc <code>logging trap 4</code> trên router làm log LINK-5 không được gửi. Bật trap linkdown/linkup và chỉnh mức log. Kỹ sư hạ tầng luôn hỏi: "sự cố này được phát hiện bằng gì, sau bao lâu?".</p></details>
+<div class="note"><b>Góc nhìn hệ thống</b>
+DHCP, DNS, NTP là "dịch vụ nền": hỏng một cái là hàng trăm ticket cùng lúc. Syslog và SNMP là "mắt" của đội vận hành. Ở ngân hàng, chuẩn cấu hình thiết bị luôn có: NTP hai nguồn, timestamps, logging host về SIEM, SNMPv3 với ACL, trap cho các sự kiện quan trọng. Đây cũng là phần anh có thể góp ý ngay ở công ty (qua kênh phù hợp), vì anh đang dùng Zabbix/Grafana hằng ngày.</div>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>DHCP</td><td class="l">DORA · Discover và Request broadcast · UDP 67/68 · T1 50%, T2 87,5%</td></tr>
+<tr><td>Lệnh</td><td class="l"><code>ip dhcp excluded-address</code> · <code>ip dhcp pool</code> · <code>network</code> · <code>default-router</code> · <code>dns-server</code> · <code>domain-name</code></td></tr>
+<tr><td>Relay</td><td class="l"><code>ip helper-address</code> trên gateway VLAN client · giaddr chọn scope</td></tr>
+<tr><td>DNS</td><td class="l">A, AAAA, CNAME, MX, PTR, SRV · đệ quy / lặp · UDP+TCP 53</td></tr>
+<tr><td>NTP</td><td class="l">UDP 123 · stratum · Kerberos lệch &gt; 5 phút là lỗi</td></tr>
+<tr><td>Syslog</td><td class="l">0 Emergency … 7 Debugging · trap N gửi 0..N · UDP 514</td></tr>
+<tr><td>SNMP</td><td class="l">Poll UDP 161 manager→agent · trap UDP 162 agent→manager · v3 authPriv</td></tr>
+<tr><td>QoS</td><td class="l">Phân loại, đánh dấu (CoS/DSCP), trust, LLQ, WRED, policing/shaping · thoại EF 46</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">lease / renew / rebind</td><td class="l">thuê / gia hạn / gia hạn lại (broadcast)</td><td class="l">scope / pool</td><td class="l">dải cấp phát</td></tr>
+<tr><td class="l">relay agent</td><td class="l">tác nhân chuyển tiếp</td><td class="l">excluded address</td><td class="l">địa chỉ loại trừ</td></tr>
+<tr><td class="l">resolver</td><td class="l">máy phân giải DNS</td><td class="l">recursive / iterative</td><td class="l">đệ quy / lặp</td></tr>
+<tr><td class="l">record</td><td class="l">bản ghi</td><td class="l">time to live (TTL)</td><td class="l">thời gian sống</td></tr>
+<tr><td class="l">stratum</td><td class="l">tầng nguồn giờ</td><td class="l">clock skew</td><td class="l">độ lệch đồng hồ</td></tr>
+<tr><td class="l">severity</td><td class="l">mức độ nghiêm trọng</td><td class="l">facility</td><td class="l">nguồn sinh log</td></tr>
+<tr><td class="l">manager / agent</td><td class="l">bộ quản lý / tác tử</td><td class="l">trap / inform</td><td class="l">bẫy (báo chủ động) / báo có xác nhận</td></tr>
+<tr><td class="l">community string</td><td class="l">chuỗi cộng đồng (mật khẩu SNMP v2c)</td><td class="l">OID / MIB</td><td class="l">mã đối tượng / cơ sở thông tin</td></tr>
+<tr><td class="l">marking / classification</td><td class="l">đánh dấu / phân loại</td><td class="l">policing / shaping</td><td class="l">cắt bỏ / làm mượt</td></tr>
+<tr><td class="l">jitter</td><td class="l">độ biến thiên trễ</td><td class="l">congestion</td><td class="l">nghẽn</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"Clients got APIPA addresses because the new SVI had no ip helper-address."</i></p>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Câu hỏi tự kiểm tra</h1>
+<p>Trả lời ra giấy hoặc gửi cho Claude <b>trước</b>, rồi mới mở đáp án.</p>
+<details><summary>1. Bước nào trong DORA là broadcast từ client?</summary><p>Discover và Request.</p></details>
+<details><summary>2. ip helper-address đặt ở interface nào?</summary><p>Interface nhận broadcast của client: gateway của VLAN client (SVI/sub-interface), không phải phía server.</p></details>
+<details><summary>3. logging trap 4 gửi những mức nào?</summary><p>0–4: emergencies, alerts, critical, errors, warnings.</p></details>
+<details><summary>4. SNMP trap dùng port nào, ai gửi cho ai?</summary><p>UDP 162, thiết bị (agent) gửi cho máy giám sát (manager).</p></details>
+<details><summary>5. DSCP thường dùng cho thoại?</summary><p>EF (46).</p></details>
+<details><summary>6. Vì sao NTP quan trọng với AD?</summary><p>Kerberos từ chối khi đồng hồ client và DC lệch quá 5 phút (mặc định) ⇒ không đăng nhập được; ngoài ra log và chứng chỉ cần giờ đúng.</p></details>
+<details><summary>7. Relay chuyển Discover tới server, server chọn scope nào? Dựa vào đâu?</summary><p>Scope chứa giaddr (IP interface relay nhận Discover).</p></details>
+<details><summary>8. Vì sao SNMPv2c không nên dùng trên mạng ngân hàng?</summary><p>Community gửi rõ, không mã hóa, không xác thực thật sự. Dùng v3 authPriv kèm ACL.</p></details>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab và MOP trong <a href="tuan-17.html">giáo án tuần 17</a>. Tuần trước: <a href="tuan-16-kien-thuc.html">sổ tay tuần 16</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan17-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
