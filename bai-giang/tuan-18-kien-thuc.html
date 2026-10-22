@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 18</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 18 (01/03 – 07/03/2027) · <a href="tuan-18.html">Giáo án tuần 18 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 18 (Odom Vol 2: Part "Security Services" gồm DHCP Snooping và ARP Inspection, Part "Wireless LANs", Part "Network Automation"). Tuần này nhiều chủ đề nhưng mỗi cái chỉ cần ở mức CCNA. Mục "Wireless LAN" trong sổ của anh đang trống; tuần này điền. Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">Vì sao bỏ Telnet: SSH v2</a></li>
+  <li><a href="#m2">Bảo vệ truy cập quản trị</a></li>
+  <li><a href="#m3">AAA: local, RADIUS, TACACS+</a></li>
+  <li><a href="#m4">DHCP snooping</a></li>
+  <li><a href="#m5">Dynamic ARP Inspection (DAI)</a></li>
+  <li><a href="#m6">Wireless: khái niệm</a></li>
+  <li><a href="#m7">Wireless: bảo mật và kiến trúc WLC</a></li>
+  <li><a href="#m8">SDN và controller</a></li>
+  <li><a href="#m9">REST API và mã HTTP</a></li>
+  <li><a href="#m10">JSON: đọc và lấy trường</a></li>
+  <li><a href="#m11">Ansible, Terraform, NETCONF/RESTCONF</a></li>
+  <li><a href="#m12">Tình huống thực tế</a></li>
+  <li><a href="#m13">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m14">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m15">Câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> Vì sao bỏ Telnet: SSH v2</h1>
+<p><b>Telnet</b> (TCP 23) gửi mọi thứ dạng rõ, kể cả mật khẩu: ai bắt gói trên đường đi đều đọc được. <b>SSH</b> (TCP 22) mã hóa toàn bộ phiên. Dùng <b>SSH v2</b>; v1 có lỗ hổng.</p>
+<h2>Bật SSH trên Cisco cần 4 thứ</h2>
+<ol>
+  <li><b>Hostname</b> khác mặc định (không phải "Router"/"Switch").</li>
+  <li><b>Domain name</b> (<code>ip domain-name</code>): hostname + domain tạo tên cho khóa RSA.</li>
+  <li><b>Khóa RSA</b> (<code>crypto key generate rsa</code>), tối thiểu 768 bit để chạy SSH v2; nên dùng 2048.</li>
+  <li><b>User</b> local (hoặc AAA) và line vty <code>login local</code> + <code>transport input ssh</code>.</li>
+</ol>
+<pre>SW1(config)# hostname SW1
+SW1(config)# ip domain-name lab.local
+SW1(config)# crypto key generate rsa modulus 2048
+SW1(config)# ip ssh version 2
+SW1(config)# username admin privilege 15 secret &lt;mật-khẩu-mạnh&gt;
+SW1(config)# line vty 0 15
+SW1(config-line)# login local
+SW1(config-line)# transport input ssh          ! chỉ SSH, tắt telnet
+SW1(config-line)# exec-timeout 10 0
+SW1# show ip ssh                                ! SSH Enabled - version 2.0
+SW1# show ssh                                   ! phiên đang mở</pre>
+<p>Switch L2 cần có IP quản trị (SVI VLAN quản trị + <code>ip default-gateway</code>, tuần 6) mới SSH vào được.</p>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Bảo vệ truy cập quản trị</h1>
+<div class="tbl"><table>
+<tr><th class="l">Lệnh</th><th class="l">Tác dụng</th></tr>
+<tr><td class="l"><code>enable secret …</code></td><td class="l">Mật khẩu vào privileged mode, lưu dạng băm. <b>Không dùng</b> <code>enable password</code> (lưu rõ)</td></tr>
+<tr><td class="l"><code>username … secret …</code></td><td class="l">User local băm (type 5/8/9). Tránh <code>username … password …</code></td></tr>
+<tr><td class="l"><code>service password-encryption</code></td><td class="l">Che các password dạng rõ thành type 7 — <b>dễ giải ngược</b>, chỉ chống nhìn trộm</td></tr>
+<tr><td class="l"><code>access-class MGMT in</code> trên line vty</td><td class="l">Chỉ cho dải quản trị SSH vào (standard ACL, tuần 16)</td></tr>
+<tr><td class="l"><code>login block-for 120 attempts 5 within 60</code></td><td class="l">Chặn 2 phút nếu sai 5 lần trong 60 giây</td></tr>
+<tr><td class="l"><code>banner motd</code></td><td class="l">Thông báo pháp lý "chỉ người được phép"</td></tr>
+<tr><td class="l"><code>line console 0</code> + <code>login local</code></td><td class="l">Console cũng phải có mật khẩu</td></tr>
+</table></div>
+<pre>SW1(config)# ip access-list standard MGMT
+SW1(config-std-nacl)# permit 10.99.0.0 0.0.0.255
+SW1(config)# line vty 0 15
+SW1(config-line)# access-class MGMT in</pre>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> AAA: local, RADIUS, TACACS+</h1>
+<p><b>AAA</b> = <b>Authentication</b> (anh là ai), <b>Authorization</b> (anh được làm gì), <b>Accounting</b> (anh đã làm gì, ghi lại). Ở ngân hàng, đăng nhập thiết bị đi qua server AAA tập trung (Cisco ISE, FortiAuthenticator…) với tài khoản AD, có log từng lệnh.</p>
+<div class="tbl"><table>
+<tr><th>Tiêu chí</th><th>RADIUS</th><th>TACACS+</th></tr>
+<tr><td>Chuẩn</td><td>Mở (IETF)</td><td>Cisco phát triển (nay có RFC 8907)</td></tr>
+<tr><td>Giao thức / port</td><td><b>UDP</b> 1812 (auth), 1813 (accounting)</td><td><b>TCP 49</b></td></tr>
+<tr><td>Mã hóa</td><td><b>Chỉ mật khẩu</b></td><td><b>Toàn bộ</b> payload</td></tr>
+<tr><td>Tách A-A-A</td><td>Gộp authentication + authorization</td><td><b>Tách riêng</b> 3 phần ⇒ cấp quyền từng lệnh</td></tr>
+<tr><td>Dùng nhiều cho</td><td>Truy cập mạng: Wi-Fi 802.1X, VPN</td><td>Quản trị thiết bị (admin gõ lệnh)</td></tr>
+</table></div>
+<p><mark>RADIUS: UDP, mã hóa mật khẩu, cho người dùng mạng. TACACS+: TCP 49, mã hóa toàn bộ, tách A-A-A, cho quản trị thiết bị.</mark></p>
+<h2>AAA local (lab)</h2>
+<pre>R1(config)# username admin privilege 15 secret &lt;mật-khẩu&gt;
+R1(config)# aaa new-model                                 ! từ đây vty/console theo AAA
+R1(config)# aaa authentication login default local
+R1(config)# aaa authorization exec default local
+<span class="c">! Có server thật:</span>
+R1(config)# aaa authentication login default group tacacs+ local   ! server chết ⇒ rơi về user local</pre>
+<div class="box warn"><b>Bẫy tự khóa mình</b>
+Gõ <code>aaa new-model</code> + <code>aaa authentication login default group tacacs+</code> (không có <code>local</code> dự phòng) khi server chưa chạy ⇒ mọi đăng nhập mới bị từ chối, kể cả console. Luôn: <b>giữ một phiên SSH đang mở</b>, tạo user local trước, có <code>local</code> ở cuối danh sách, và đặt <code>reload in 10</code> trước khi thay đổi (tuần 7). Đây là sự cố của tuần này.</div>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> DHCP snooping</h1>
+<p>Tấn công: ai đó cắm router Wi-Fi nhà (có DHCP) vào mạng công ty ⇒ máy khác nhận IP/gateway sai (<b>rogue DHCP</b>); hoặc kẻ xấu cấp gateway là máy mình để nghe lén. Hay gặp thật ở helpdesk!</p>
+<h2>Cách hoạt động</h2>
+<ul>
+  <li>Port <b>trusted</b>: cho phép bản tin từ server (Offer, Ack). Đặt trên port <b>uplink về phía DHCP server thật</b> (trunk lên core/distribution).</li>
+  <li>Port <b>untrusted</b> (mặc định mọi port khi bật): chỉ cho bản tin client (Discover, Request). Nhận Offer/Ack từ port untrusted ⇒ <b>drop</b>.</li>
+  <li>Switch xây <b>bảng binding</b>: MAC – IP – VLAN – port – lease. Bảng này DAI và IP Source Guard dùng lại.</li>
+  <li>Có thể giới hạn tốc độ bản tin DHCP trên port untrusted (chống cạn pool — DHCP starvation).</li>
+</ul>
+<pre>SW1(config)# ip dhcp snooping
+SW1(config)# ip dhcp snooping vlan 10,20
+SW1(config)# no ip dhcp snooping information option     ! xem ghi chú dưới
+SW1(config)# interface g0/24                             ! uplink về phía DHCP server
+SW1(config-if)# ip dhcp snooping trust
+SW1(config)# interface range f0/1 - 22
+SW1(config-if-range)# ip dhcp snooping limit rate 10
+SW1# show ip dhcp snooping
+SW1# show ip dhcp snooping binding</pre>
+<p>Ghi chú option 82: khi bật snooping, switch mặc định chèn option 82 vào bản tin; nếu DHCP server/relay (ví dụ router Cisco làm DHCP) không chấp nhận, client không nhận IP. Trong lab hay phải tắt bằng lệnh trên.</p>
+<p><mark>DHCP snooping: port trusted là port hướng về DHCP server thật (uplink).</mark></p>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Dynamic ARP Inspection (DAI)</h1>
+<p>Tấn công <b>ARP spoofing / poisoning</b> (tuần 2): kẻ xấu gửi ARP reply giả "IP gateway là MAC của tôi" ⇒ mọi máy gửi gói qua máy hắn (man-in-the-middle).</p>
+<p><b>DAI</b> kiểm từng gói ARP trên port untrusted: cặp IP–MAC trong ARP có khớp <b>bảng binding DHCP snooping</b> không? Không khớp ⇒ drop (và log). Vì vậy: <mark>DAI cần DHCP snooping chạy trước</mark> (hoặc ARP ACL cho máy IP tĩnh).</p>
+<pre>SW1(config)# ip arp inspection vlan 10,20
+SW1(config)# interface g0/24
+SW1(config-if)# ip arp inspection trust               ! uplink, giống snooping
+SW1(config)# ip arp inspection validate src-mac dst-mac ip   ! kiểm thêm (tùy chọn)
+SW1# show ip arp inspection
+SW1# show ip arp inspection statistics vlan 10</pre>
+<p>Máy IP tĩnh (máy in, server) không có trong bảng binding ⇒ bị DAI chặn ARP. Xử lý: ARP ACL (<code>arp access-list</code> + <code>ip arp inspection filter</code>) hoặc static binding.</p>
+<div class="tbl"><table>
+<tr><th>Tính năng (tầng 2)</th><th class="l">Chống</th><th class="l">Dựa vào</th></tr>
+<tr><td>Port security (tuần 8)</td><td class="l">MAC lạ, MAC flooding</td><td class="l">Danh sách MAC trên port</td></tr>
+<tr><td>DHCP snooping</td><td class="l">Rogue DHCP, starvation</td><td class="l">Port trusted/untrusted</td></tr>
+<tr><td>DAI</td><td class="l">ARP spoofing</td><td class="l">Bảng binding snooping</td></tr>
+<tr><td>IP Source Guard</td><td class="l">Giả IP nguồn</td><td class="l">Bảng binding snooping</td></tr>
+<tr><td>BPDU Guard (tuần 7)</td><td class="l">Switch lạ cắm vào port access</td><td class="l">PortFast + BPDU</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Wireless: khái niệm</h1>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Mục <b>"Wireless LAN"</b> trong sổ đang <b>trống</b> (chỉ có tiêu đề "Wireless cơ bản" trong danh sách chủ đề). Điền bảng dưới và mục 7.</div>
+<div class="tbl"><table>
+<tr><th>Thuật ngữ</th><th class="l">Nghĩa</th></tr>
+<tr><td><b>SSID</b></td><td class="l">Tên mạng Wi-Fi người dùng thấy. Một AP phát được nhiều SSID (Staff, Guest), mỗi SSID map một VLAN</td></tr>
+<tr><td><b>BSSID</b></td><td class="l">MAC của radio AP cho SSID đó</td></tr>
+<tr><td>BSS / ESS</td><td class="l">Một AP + client / nhiều AP cùng SSID ⇒ người dùng roaming</td></tr>
+<tr><td>CSMA/<b>CA</b></td><td class="l">Wi-Fi là half-duplex, môi trường chung ⇒ tránh va chạm (Collision Avoidance), khác CSMA/CD của Ethernet cũ</td></tr>
+<tr><td>Băng tần</td><td class="l"><b>2,4 GHz</b>: xa, xuyên tường tốt, chỉ <b>3 kênh không chồng lấn (1, 6, 11)</b>, nhiễu nhiều. <b>5 GHz</b>: nhiều kênh, nhanh, tầm ngắn hơn. <b>6 GHz</b> (Wi-Fi 6E/7)</td></tr>
+<tr><td>Chuẩn</td><td class="l">802.11n = Wi-Fi 4 · 802.11ac = Wi-Fi 5 (5 GHz) · 802.11ax = Wi-Fi 6/6E · 802.11be = Wi-Fi 7</td></tr>
+<tr><td>RSSI / SNR</td><td class="l">Cường độ tín hiệu (dBm, ví dụ −65 dBm là tốt, −80 là yếu) / tỉ số tín hiệu trên nhiễu</td></tr>
+</table></div>
+<p>Ví dụ dễ hiểu: 2,4 GHz như loa phát thanh: vang xa nhưng chỉ có 3 "làn" không chèn nhau, ở văn phòng đông là tắc đường. 5 GHz như đường cao tốc nhiều làn nhưng ngắn.</p>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Wireless: bảo mật và kiến trúc WLC</h1>
+<h2>1/ Bảo mật</h2>
+<div class="tbl"><table>
+<tr><th>Chuẩn</th><th class="l">Ghi chú</th></tr>
+<tr><td>WEP</td><td class="l">Hỏng hoàn toàn, không dùng</td></tr>
+<tr><td>WPA</td><td class="l">TKIP, chuyển tiếp, không dùng</td></tr>
+<tr><td><b>WPA2</b></td><td class="l"><b>AES-CCMP</b>. Personal = PSK (mật khẩu chung). Enterprise = <b>802.1X</b> qua RADIUS (mỗi người tài khoản riêng)</td></tr>
+<tr><td><b>WPA3</b></td><td class="l">Personal thay PSK bằng <b>SAE</b> (Simultaneous Authentication of Equals) — chống dò mật khẩu offline, có forward secrecy. Enterprise có chế độ 192-bit. Bắt buộc <b>PMF</b> (bảo vệ frame quản lý)</td></tr>
+</table></div>
+<p><mark>WPA3 Personal thay PSK bằng SAE.</mark> Mạng nhân viên ngân hàng: WPA2/WPA3-Enterprise 802.1X với tài khoản AD qua RADIUS. Mạng khách: SSID riêng, VLAN riêng, chỉ ra Internet (tuần 16 ACL GUEST).</p>
+<h2>2/ Kiến trúc</h2>
+<div class="tbl"><table>
+<tr><th>Kiểu</th><th class="l">Mô tả</th></tr>
+<tr><td>Autonomous AP</td><td class="l">Mỗi AP cấu hình riêng. Hợp nhà/văn phòng rất nhỏ</td></tr>
+<tr><td><b>Lightweight AP + WLC</b></td><td class="l">AP "mỏng", WLC (Wireless LAN Controller) quản lý tập trung: SSID, kênh, công suất, roaming. AP và WLC nói chuyện qua <b>CAPWAP</b> (UDP 5246 điều khiển, 5247 dữ liệu). AP tìm WLC bằng DHCP option 43, DNS, broadcast</td></tr>
+<tr><td>Cloud-managed</td><td class="l">Cisco Meraki, FortiAP qua FortiGate/FortiCloud: controller trên cloud hoặc tích hợp firewall</td></tr>
+</table></div>
+<p>Split-MAC: AP lo việc thời gian thực (beacon, ACK), WLC lo xác thực, chính sách. Chế độ <b>FlexConnect</b>: chi nhánh chuyển dữ liệu tại chỗ, không kéo hết về WLC trung tâm qua WAN.</p>
+<p>Port switch nối AP: lightweight AP local mode thường là <b>access</b> (VLAN quản trị AP) vì dữ liệu đi trong CAPWAP; autonomous/FlexConnect thường là <b>trunk</b> (mỗi SSID một VLAN).</p>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> SDN và controller</h1>
+<h2>1/ Ba mặt phẳng (plane)</h2>
+<div class="tbl"><table>
+<tr><th>Plane</th><th class="l">Việc</th><th class="l">Ví dụ</th></tr>
+<tr><td><b>Data</b> (forwarding)</td><td class="l">Chuyển gói thật</td><td class="l">Tra FIB, MAC table, NAT, ACL (tuần 10)</td></tr>
+<tr><td><b>Control</b></td><td class="l">Quyết định đường đi</td><td class="l">OSPF, STP, ARP</td></tr>
+<tr><td><b>Management</b></td><td class="l">Người/công cụ quản lý thiết bị</td><td class="l">SSH, SNMP, Syslog, API</td></tr>
+</table></div>
+<h2>2/ SDN</h2>
+<p><b>SDN</b> (Software-Defined Networking): tập trung control plane (một phần hoặc toàn bộ) vào <b>controller</b>; thiết bị làm data plane.</p>
+<ul>
+  <li><b>Northbound API</b>: giữa controller và ứng dụng/người quản trị (thường <b>REST API</b>).</li>
+  <li><b>Southbound API</b>: giữa controller và thiết bị (OpenFlow, NETCONF, SSH/CLI, SNMP).</li>
+  <li>Ví dụ: Cisco <b>Catalyst Center</b> (DNA Center) cho campus, <b>SD-WAN</b> (Cisco Catalyst SD-WAN, Fortinet SD-WAN quản lý bằng FortiManager), ACI cho data center.</li>
+</ul>
+<p>Mạng truyền thống: cấu hình từng hộp bằng CLI. Controller-based: khai báo <b>ý định</b> (intent: "VLAN khách không vào server") và controller đẩy cấu hình xuống mọi thiết bị, thống nhất, có kiểm tra.</p>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> REST API và mã HTTP</h1>
+<p><b>REST API</b>: gọi dịch vụ qua HTTP(S). Đặc điểm: client–server, <b>stateless</b> (mỗi request tự mang đủ thông tin, kể cả token), tài nguyên định danh bằng URL.</p>
+<div class="tbl"><table>
+<tr><th>HTTP verb</th><th>CRUD</th><th class="l">Ví dụ</th></tr>
+<tr><td><b>GET</b></td><td>Read</td><td class="l">Lấy danh sách interface</td></tr>
+<tr><td><b>POST</b></td><td>Create</td><td class="l">Tạo VLAN mới</td></tr>
+<tr><td><b>PUT</b> / PATCH</td><td>Update</td><td class="l">Thay toàn bộ / sửa một phần</td></tr>
+<tr><td><b>DELETE</b></td><td>Delete</td><td class="l">Xóa VLAN</td></tr>
+</table></div>
+<div class="tbl"><table>
+<tr><th>Mã</th><th class="l">Nghĩa</th></tr>
+<tr><td><b>200</b> OK · <b>201</b> Created · 204 No Content</td><td class="l">Thành công</td></tr>
+<tr><td><b>400</b> Bad Request</td><td class="l">Request sai cú pháp (JSON lỗi)</td></tr>
+<tr><td><b>401</b> Unauthorized</td><td class="l"><b>Chưa xác thực</b> hoặc token sai/hết hạn</td></tr>
+<tr><td><b>403</b> Forbidden</td><td class="l">Đã xác thực nhưng <b>không có quyền</b></td></tr>
+<tr><td><b>404</b> Not Found</td><td class="l">Không có tài nguyên (URL sai)</td></tr>
+<tr><td>429 Too Many Requests</td><td class="l">Gọi quá nhanh, bị giới hạn</td></tr>
+<tr><td><b>500</b> Internal Server Error · 503</td><td class="l">Lỗi phía server</td></tr>
+</table></div>
+<p><mark>401 = chưa xác thực (sai/thiếu token). 403 = biết anh là ai nhưng không cho.</mark></p>
+<pre><span class="c"># gọi API với token trong header (ví dụ chung)</span>
+curl -s -H "Authorization: Bearer $TOKEN" -H "Accept: application/json" \
+     https://api.example.local/v1/devices/sw1/interfaces
+<span class="c"># xem mã HTTP</span>
+curl -s -o /dev/null -w "%{http_code}\n" https://api.example.local/v1/devices</pre>
+<p>Token đặt trong biến môi trường, không ghi thẳng vào script hay đẩy lên GitHub.</p>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> JSON: đọc và lấy trường</h1>
+<h2>1/ Cú pháp</h2>
+<ul>
+  <li><b>Object</b> <code>{ }</code>: các cặp <code>"key": value</code>, key luôn trong ngoặc kép.</li>
+  <li><b>Array</b> <code>[ ]</code>: danh sách, đếm từ <b>0</b>.</li>
+  <li>Giá trị: chuỗi <code>"..."</code>, số, <code>true</code>/<code>false</code>, <code>null</code>, object, array.</li>
+</ul>
+<h2>2/ JSON mẫu</h2>
+<pre>{
+  "device": "sw1",
+  "model": "C9200L-24T",
+  "interfaces": [
+    { "name": "Gi1/0/1", "up": true,  "vlan": 10, "speed_mbps": 1000 },
+    { "name": "Gi1/0/2", "up": false, "vlan": 20, "speed_mbps": null }
+  ],
+  "uplinks": { "primary": "Gi1/0/24", "backup": "Gi1/0/23" }
+}</pre>
+<div class="tbl"><table>
+<tr><th class="l">Đường dẫn</th><th class="l">Giá trị</th></tr>
+<tr><td class="l"><code>device</code></td><td class="l"><code>"sw1"</code></td></tr>
+<tr><td class="l"><code>interfaces[0].name</code></td><td class="l"><code>"Gi1/0/1"</code></td></tr>
+<tr><td class="l"><b><code>interfaces[0].up</code></b></td><td class="l"><b><code>true</code></b></td></tr>
+<tr><td class="l"><code>interfaces[1].up</code></td><td class="l"><code>false</code></td></tr>
+<tr><td class="l"><code>interfaces[1].speed_mbps</code></td><td class="l"><code>null</code></td></tr>
+<tr><td class="l"><code>uplinks.backup</code></td><td class="l"><code>"Gi1/0/23"</code></td></tr>
+<tr><td class="l"><code>interfaces | length</code></td><td class="l">2</td></tr>
+</table></div>
+<pre><span class="c"># jq (Linux, đúng LPI): lấy trường</span>
+jq '.interfaces[0].up' sw1.json                    # true
+jq -r '.interfaces[] | select(.up==false) | .name' sw1.json   # Gi1/0/2
+<span class="c"># PowerShell (quen ở helpdesk)</span>
+$d = Get-Content sw1.json | ConvertFrom-Json
+$d.interfaces[0].up                                 # True
+<span class="c"># Python</span>
+import json; d = json.load(open("sw1.json")); print(d["interfaces"][0]["up"])   # True</pre>
+<p>So sánh: <b>XML</b> dùng thẻ <code>&lt;up&gt;true&lt;/up&gt;</code>; <b>YAML</b> dùng thụt lề (Ansible). Cùng dữ liệu, ba cách viết.</p>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Ansible, Terraform, NETCONF/RESTCONF</h1>
+<div class="tbl"><table>
+<tr><th>Công cụ</th><th class="l">Đặc điểm (mức CCNA)</th></tr>
+<tr><td><b>Ansible</b></td><td class="l"><b>Agentless</b> (dùng SSH), <b>push</b>, playbook viết bằng <b>YAML</b>. Hợp nhất cho mạng</td></tr>
+<tr><td>Puppet / Chef</td><td class="l">Cần agent trên máy (mạng thì hạn chế), <b>pull</b>. Puppet manifest, Chef recipe (Ruby)</td></tr>
+<tr><td>Terraform</td><td class="l">Hạ tầng dạng code (IaC), khai báo trạng thái mong muốn, nhiều cho cloud</td></tr>
+<tr><td>NETCONF</td><td class="l">SSH, TCP <b>830</b>, dữ liệu XML theo mô hình <b>YANG</b></td></tr>
+<tr><td>RESTCONF</td><td class="l">HTTPS, dữ liệu JSON/XML theo YANG</td></tr>
+</table></div>
+<p>Liên hệ dự án Helpdesk_ProA của anh: tự động hóa là "đọc dữ liệu có cấu trúc (JSON/CSV) → quyết định → gọi API/lệnh → kiểm tra kết quả → log". Cùng một khuôn với automation mạng.</p>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Tình huống thực tế</h1>
+<h3>Tình huống 1 · Cả phòng nhận IP 192.168.0.x lạ, không vào được hệ thống</h3>
+<details><summary>Phân tích</summary>
+<p>Có người cắm router Wi-Fi mang từ nhà vào port mạng (cổng LAN của router có DHCP). Dấu hiệu: gateway là 192.168.0.1/192.168.1.1. Tìm port: <code>show mac address-table</code> theo MAC của "DHCP server" lạ (lấy từ <code>ipconfig /all</code> trên máy bị ảnh hưởng hoặc bảng ARP). Phòng ngừa: DHCP snooping + BPDU Guard + port security.</p></details>
+<h3>Tình huống 2 · Sau khi bật DAI, máy in không in được</h3>
+<details><summary>Phân tích</summary>
+<p>Máy in đặt IP tĩnh ⇒ không có trong bảng binding ⇒ ARP của máy in bị drop. <code>show ip arp inspection statistics</code> thấy số drop tăng. Sửa: ARP ACL cho máy in, hoặc chuyển máy in sang DHCP reservation. Bài học: bật tính năng bảo mật L2 theo MOP, có giai đoạn thử ở một VLAN trước.</p></details>
+<h3>Tình huống 3 · Script gọi API trả 401 vào sáng thứ Hai</h3>
+<details><summary>Phân tích</summary>
+<p>Token hết hạn (nhiều hệ thống cấp token 24 giờ/7 ngày). 401 = xác thực, không phải quyền (403) hay URL sai (404). Script nên kiểm mã HTTP và báo rõ, tự lấy token mới nếu có cơ chế.</p></details>
+<h3>Tình huống 4 · Wi-Fi tầng 3 chập chờn giờ cao điểm</h3>
+<details><summary>Phân tích</summary>
+<p>Nhiều AP 2,4 GHz đặt kênh chồng lấn (ví dụ 3, 4, 8) hoặc quá nhiều client trên một AP. Xem trên WLC: utilization kênh, số client, RSSI. Hướng: chỉ dùng 1/6/11, đẩy client lên 5 GHz (band steering), giảm công suất cho các AP gần nhau.</p></details>
+<div class="note"><b>Góc nhìn hệ thống</b>
+Ba nhóm chủ đề tuần này nối nhau: SSH/AAA bảo vệ <b>management plane</b>; snooping/DAI bảo vệ <b>tầng 2</b> nơi người dùng cắm vào; API/controller là cách quản lý <b>hàng trăm</b> thiết bị mà không gõ từng hộp. Ở môi trường ngân hàng, kiểm toán sẽ hỏi: ai đăng nhập thiết bị, bằng tài khoản gì, gõ lệnh gì (TACACS+ accounting); port người dùng có chống thiết bị lạ không.</div>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>SSH</td><td class="l">hostname + ip domain-name + crypto key rsa + user/login local · <code>ip ssh version 2</code> · <code>transport input ssh</code></td></tr>
+<tr><td>Bảo vệ</td><td class="l">enable secret · access-class trên vty · type 7 yếu</td></tr>
+<tr><td>AAA</td><td class="l">RADIUS UDP 1812/1813, mã hóa mật khẩu · TACACS+ TCP 49, mã hóa toàn bộ, tách A-A-A</td></tr>
+<tr><td>Snooping</td><td class="l">Trusted = uplink về DHCP server · bảng binding · option 82</td></tr>
+<tr><td>DAI</td><td class="l">Cần snooping trước · kiểm IP–MAC trong ARP</td></tr>
+<tr><td>Wireless</td><td class="l">SSID · 2,4 GHz kênh 1/6/11 · WPA2 AES · WPA3 SAE · WLC + CAPWAP</td></tr>
+<tr><td>SDN</td><td class="l">Data/control/management plane · northbound REST, southbound OpenFlow/NETCONF</td></tr>
+<tr><td>REST/JSON</td><td class="l">GET/POST/PUT/DELETE · 200/201/400/401/403/404/500 · array đếm từ 0</td></tr>
+<tr><td>Công cụ</td><td class="l">Ansible agentless, push, YAML · Puppet/Chef agent, pull</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">plaintext</td><td class="l">dạng rõ, không mã hóa</td><td class="l">key pair</td><td class="l">cặp khóa</td></tr>
+<tr><td class="l">authentication</td><td class="l">xác thực</td><td class="l">authorization</td><td class="l">phân quyền</td></tr>
+<tr><td class="l">accounting</td><td class="l">ghi nhận hoạt động</td><td class="l">fallback</td><td class="l">phương án dự phòng</td></tr>
+<tr><td class="l">trusted / untrusted port</td><td class="l">port tin cậy / không tin cậy</td><td class="l">binding table</td><td class="l">bảng ràng buộc</td></tr>
+<tr><td class="l">rogue</td><td class="l">giả mạo, trái phép</td><td class="l">spoofing / poisoning</td><td class="l">giả mạo / đầu độc</td></tr>
+<tr><td class="l">starvation</td><td class="l">làm cạn (pool)</td><td class="l">man-in-the-middle</td><td class="l">kẻ đứng giữa</td></tr>
+<tr><td class="l">non-overlapping channel</td><td class="l">kênh không chồng lấn</td><td class="l">roaming</td><td class="l">chuyển vùng giữa AP</td></tr>
+<tr><td class="l">pre-shared key</td><td class="l">khóa chia sẻ trước</td><td class="l">controller</td><td class="l">bộ điều khiển</td></tr>
+<tr><td class="l">northbound / southbound</td><td class="l">hướng lên ứng dụng / hướng xuống thiết bị</td><td class="l">intent</td><td class="l">ý định (cấu hình theo ý định)</td></tr>
+<tr><td class="l">stateless</td><td class="l">không lưu trạng thái</td><td class="l">endpoint</td><td class="l">địa chỉ API</td></tr>
+<tr><td class="l">payload</td><td class="l">phần dữ liệu</td><td class="l">nested</td><td class="l">lồng nhau</td></tr>
+<tr><td class="l">agentless</td><td class="l">không cần cài agent</td><td class="l">idempotent</td><td class="l">chạy lại nhiều lần kết quả như nhau</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"The script failed with HTTP 401 because the API token had expired."</i></p>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m15"><span class="no">15.</span> Câu hỏi tự kiểm tra</h1>
+<p>Trả lời ra giấy hoặc gửi cho Claude <b>trước</b>, rồi mới mở đáp án.</p>
+<details><summary>1. Bật SSH trên Cisco cần 4 thứ gì?</summary><p>Hostname khác mặc định, ip domain-name, khóa RSA (crypto key generate rsa), user local + login local trên vty (và transport input ssh).</p></details>
+<details><summary>2. RADIUS và TACACS+ khác nhau ở 2 điểm nào?</summary><p>RADIUS UDP và chỉ mã hóa mật khẩu; TACACS+ TCP 49, mã hóa toàn bộ, tách riêng authentication/authorization/accounting.</p></details>
+<details><summary>3. DHCP snooping: port nào đặt trusted?</summary><p>Port hướng về DHCP server thật (uplink/trunk lên core), không phải port người dùng.</p></details>
+<details><summary>4. DAI cần tính năng nào chạy trước?</summary><p>DHCP snooping (bảng binding), hoặc ARP ACL cho máy tĩnh.</p></details>
+<details><summary>5. WPA3 Personal thay PSK bằng gì?</summary><p>SAE (Simultaneous Authentication of Equals).</p></details>
+<details><summary>6. Mã HTTP 401 nghĩa là gì?</summary><p>Unauthorized: chưa xác thực hoặc thông tin xác thực (token) sai/hết hạn.</p></details>
+<details><summary>7. Trong JSON mẫu, interfaces[0].up có giá trị gì?</summary><p><code>true</code> (interface Gi1/0/1).</p></details>
+<details><summary>8. service password-encryption có làm mật khẩu an toàn không?</summary><p>Không: type 7 giải ngược dễ. Dùng secret (băm) cho enable và user.</p></details>
+<details><summary>9. 2,4 GHz có những kênh không chồng lấn nào?</summary><p>1, 6, 11.</p></details>
+<details><summary>10. Lấy tên các interface down trong JSON mẫu bằng jq?</summary><p><code>jq -r '.interfaces[] | select(.up==false) | .name'</code> ⇒ Gi1/0/2.</p></details>
+
+<label class="done"><input type="checkbox" id="d15"> Xong mục 15</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab và MOP trong <a href="tuan-18.html">giáo án tuần 18</a>. Tuần trước: <a href="tuan-17-kien-thuc.html">sổ tay tuần 17</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan18-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
