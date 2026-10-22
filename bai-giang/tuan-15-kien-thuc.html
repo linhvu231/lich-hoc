@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 15</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 15 (08/02 – 14/02/2027, sau Tết) · <a href="tuan-15.html">Giáo án tuần 15 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 15 (Odom Vol 2, phần First Hop Redundancy Protocols — tra mục lục theo "FHRP"). Tuần đầu sau Tết, nhẹ nhàng hơn: một chủ đề, nhưng là chủ đề có mặt ở <b>mọi mạng có hai thiết bị gateway</b>: hai switch core, hai router WAN, cụm firewall. Sổ CCNA của anh chưa có mục này. Trước khi học mới, dành 20 phút đọc lại 2 chủ đề yếu đã chọn trước Tết. Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">Vì sao cần gateway dự phòng</a></li>
+  <li><a href="#m2">Ý tưởng FHRP: IP ảo, MAC ảo</a></li>
+  <li><a href="#m3">HSRP: phiên bản, địa chỉ, timer, trạng thái</a></li>
+  <li><a href="#m4">Ba thông số: priority, preempt, tracking</a></li>
+  <li><a href="#m5">Cấu hình HSRP</a></li>
+  <li><a href="#m6">Chuyện gì xảy ra khi active chết</a></li>
+  <li><a href="#m7">Vì sao cần cả preempt và tracking</a></li>
+  <li><a href="#m8">Chia tải bằng nhiều group, khớp với STP</a></li>
+  <li><a href="#m9">VRRP và GLBP</a></li>
+  <li><a href="#m10">Bảng so sánh HSRP / VRRP / GLBP</a></li>
+  <li><a href="#m11">Lệnh kiểm tra và lỗi hay gặp</a></li>
+  <li><a href="#m12">Tình huống thực tế</a></li>
+  <li><a href="#m13">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m14">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m15">Câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> Vì sao cần gateway dự phòng</h1>
+<p>Máy tính chỉ có <b>một</b> default gateway (một IP). Mạng có hai router/hai switch L3 làm gateway để dự phòng, nhưng:</p>
+<ul>
+  <li>PC trỏ gateway vào R1 (192.168.10.2). R1 chết ⇒ PC <b>không tự đổi</b> sang R2, mất mạng cho tới khi ai đó sửa cấu hình máy (hoặc DHCP cấp lại gateway khác — không xảy ra ngay).</li>
+  <li>STP và định tuyến động lo phần "đường đi" giữa các thiết bị mạng; còn "chặng đầu tiên" từ PC tới gateway thì không ai lo.</li>
+</ul>
+<p>⇒ Cần <b>FHRP (First Hop Redundancy Protocol)</b>: làm cho hai (hoặc nhiều) router trông như <b>một gateway duy nhất</b> đối với PC.</p>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Ý tưởng FHRP: IP ảo, MAC ảo</h1>
+<ul>
+  <li>Hai router mỗi cái giữ IP thật riêng (192.168.10.2 và .3) và <b>cùng chia sẻ</b> một <b>IP ảo (VIP)</b> 192.168.10.1 kèm một <b>MAC ảo</b>.</li>
+  <li>PC đặt gateway = <b>VIP</b>. ARP hỏi VIP ⇒ được trả lời bằng MAC ảo.</li>
+  <li>Tại một thời điểm, chỉ router <b>Active</b> trả lời ARP và chuyển gói cho VIP/MAC ảo. Router <b>Standby</b> nghe và chờ.</li>
+  <li>Active chết ⇒ Standby nhận VIP và MAC ảo. <b>PC không thay đổi gì</b>: vẫn cùng IP gateway, cùng MAC trong ARP cache.</li>
+</ul>
+<p><mark>PC dùng IP ảo (VIP) làm gateway, không dùng IP thật của router nào.</mark></p>
+<div class="note"><b>💡 Ví dụ dễ hiểu: số hotline</b>
+Khách hàng chỉ biết một <b>số hotline</b> (VIP). Phía sau có hai nhân viên trực (hai router). Bình thường cuộc gọi đổ vào nhân viên A (Active); B (Standby) ngồi cạnh, nghe A có còn làm việc không. A nghỉ ốm, hệ thống chuyển hotline sang máy B. Khách vẫn gọi đúng số cũ, không cần biết ai nghe máy. Đó là FHRP.</div>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ chưa có FHRP. <b>Tạo mục FHRP</b> gồm: ví dụ hotline ở trên, bảng 3 thông số (priority, preempt, tracking, mục 4), bảng so sánh HSRP/VRRP/GLBP (mục 10).</div>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> HSRP: phiên bản, địa chỉ, timer, trạng thái</h1>
+<p><b>HSRP (Hot Standby Router Protocol)</b>: FHRP của Cisco.</p>
+<div class="tbl"><table>
+<tr><th></th><th>HSRPv1 (mặc định)</th><th>HSRPv2</th></tr>
+<tr><td>Số group</td><td>0 – 255</td><td>0 – 4095 (dễ đặt group = số VLAN)</td></tr>
+<tr><td>Multicast</td><td>224.0.0.2</td><td>224.0.0.102</td></tr>
+<tr><td>Port</td><td>UDP 1985</td><td>UDP 1985</td></tr>
+<tr><td>MAC ảo</td><td><code>0000.0c07.acXX</code> (XX = group, hex)</td><td><code>0000.0c9f.fXXX</code> (XXX = group, hex)</td></tr>
+<tr><td>IPv6</td><td>Không</td><td>Có</td></tr>
+</table></div>
+<p>Ví dụ HSRPv1 group 10 ⇒ MAC ảo <code>0000.0c07.ac0a</code> (10 = 0x0a). Hai phiên bản không nói chuyện với nhau: hai đầu phải cùng version.</p>
+<h2>Timer</h2>
+<p>Hello <b>3 giây</b>, hold <b>10 giây</b>. Standby không nghe Hello của Active trong 10 giây ⇒ coi Active chết ⇒ lên thay. Có thể giảm (ví dụ 1/3 hoặc mili giây) để chuyển nhanh hơn.</p>
+<h2>Trạng thái</h2>
+<p>Initial → Learn → Listen → Speak → <b>Standby</b> / <b>Active</b>. Thực tế chỉ cần nhìn ra hai trạng thái cuối; các router thứ ba trở đi ở Listen.</p>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> Ba thông số: priority, preempt, tracking</h1>
+<div class="tbl"><table>
+<tr><th>Thông số</th><th class="l">Ý nghĩa</th><th class="l">Mặc định</th><th class="l">Lệnh</th></tr>
+<tr><td><b>Priority</b></td><td class="l">0–255, cao hơn thắng làm Active. Hòa ⇒ <b>IP thật cao hơn</b> thắng</td><td class="l">100</td><td class="l"><code>standby 10 priority 110</code></td></tr>
+<tr><td><b>Preempt</b></td><td class="l">Cho phép router priority cao hơn <b>giành lại</b> vai Active khi nó quay về (sau khi chết rồi sống lại, hoặc vừa được tăng priority)</td><td class="l"><b>Tắt</b></td><td class="l"><code>standby 10 preempt</code></td></tr>
+<tr><td><b>Tracking</b></td><td class="l">Theo dõi một thứ khác (interface WAN, IP SLA). Hỏng ⇒ <b>giảm priority</b> đi một lượng ⇒ router kia (có preempt) giành Active</td><td class="l">Không có</td><td class="l"><code>standby 10 track 1 decrement 20</code></td></tr>
+</table></div>
+<p><mark>Priority quyết định ai đáng làm Active; preempt cho phép giành lại; tracking hạ priority khi đường lên trên hỏng.</mark></p>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Cấu hình HSRP</h1>
+<div class="flow">              WAN/ISP (R3)
+             /            \
+     g0/1 R1                R2 g0/1
+     g0/0 .2 \            / .3 g0/0
+              SW --- PC (gateway 192.168.10.1)
+VIP 192.168.10.1, group 10</div>
+<pre>R1(config)# track 1 interface GigabitEthernet0/1 line-protocol
+R1(config)# interface g0/0
+R1(config-if)# ip address 192.168.10.2 255.255.255.0
+R1(config-if)# standby version 2
+R1(config-if)# standby 10 ip 192.168.10.1
+R1(config-if)# standby 10 priority 110
+R1(config-if)# standby 10 preempt
+R1(config-if)# standby 10 track 1 decrement 20      ! WAN của R1 hỏng ⇒ 110 − 20 = 90 &lt; 100 ⇒ R2 giành Active
+
+R2(config)# interface g0/0
+R2(config-if)# ip address 192.168.10.3 255.255.255.0
+R2(config-if)# standby version 2
+R2(config-if)# standby 10 ip 192.168.10.1
+R2(config-if)# standby 10 preempt                   ! priority mặc định 100</pre>
+<pre>R1# show standby brief
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Gi0/0       10   110 P Active  local           192.168.10.3    192.168.10.1
+R1# show standby                ! chi tiết: MAC ảo, timer, track, số lần đổi trạng thái</pre>
+<p>Chú ý: decrement phải đủ lớn để priority tụt <b>dưới</b> priority của router kia (110 − 20 = 90 &lt; 100). Decrement 10 ⇒ 100 = 100 ⇒ <b>hòa</b>: kết quả lúc đó phụ thuộc so IP thật và trạng thái hiện tại, không còn do anh quyết định. Thiết kế đúng không bao giờ để hòa.</p>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Chuyện gì xảy ra khi active chết</h1>
+<ol>
+  <li>R1 (Active) chết. R2 không nghe Hello trong <b>hold time 10 s</b>.</li>
+  <li>R2 chuyển Active, bắt đầu trả lời cho VIP và MAC ảo.</li>
+  <li>R2 gửi <b>gratuitous ARP</b> (tuần 2 mục 8) với nguồn là MAC ảo.</li>
+  <li><b>Switch</b> nhận frame có MAC nguồn là MAC ảo trên port nối R2 ⇒ <b>cập nhật bảng MAC</b>: MAC ảo giờ ở port R2. Đây là câu trả lời cho "switch biết MAC ảo đã chuyển port bằng cách nào".</li>
+  <li>PC <b>không phải làm gì</b>: ARP cache vẫn "192.168.10.1 = MAC ảo", đúng.</li>
+</ol>
+<p>Gián đoạn ≈ hold time (10 s mặc định). Giảm timer (<code>standby 10 timers 1 3</code>) ⇒ ~3 s.</p>
+<div class="note"><b>So với tuần 6 (cutover ROAS → SVI)</b>
+Ở tuần 6, đổi gateway sang thiết bị khác làm MAC gateway đổi ⇒ máy bỏ lỡ GARP phải chờ ARP hết hạn. Với FHRP, MAC ảo <b>không đổi</b> ⇒ không máy nào phải chờ. Đây là lý do mọi thiết kế gateway nghiêm túc dùng FHRP.</div>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Vì sao cần cả preempt và tracking</h1>
+<h2>Không có preempt</h2>
+<p>R1 (priority 110) reboot ⇒ R2 làm Active. R1 lên lại: priority cao hơn nhưng <b>không giành lại</b> (preempt tắt) ⇒ R2 tiếp tục làm Active vô thời hạn, trái thiết kế (ví dụ R1 nối đường WAN tốt hơn, hoặc là STP root ⇒ lưu lượng đi vòng).</p>
+<h2>Không có tracking</h2>
+<p>Đường WAN của R1 đứt, nhưng LAN của R1 vẫn sống ⇒ R1 vẫn gửi Hello trên LAN, vẫn là Active ⇒ PC gửi lưu lượng cho R1 ⇒ R1 không có đường ra (hoặc phải vòng qua R2) ⇒ <b>mất kết nối hoặc đi vòng</b> dù R2 có WAN tốt. Đây là câu hỏi lịch tuần này.</p>
+<h2>Có cả hai</h2>
+<p>WAN R1 đứt ⇒ tracking hạ priority R1 xuống 90 ⇒ R2 (100, có preempt) giành Active. WAN R1 phục hồi ⇒ priority R1 về 110 ⇒ R1 (có preempt) giành lại. Mạng luôn đi theo thiết kế.</p>
+<p><mark>Tracking làm priority phản ánh sức khỏe thật; preempt cho phép priority đó có hiệu lực ngay.</mark> Thiếu một trong hai, cái còn lại vô dụng.</p>
+<pre>R1(config-if)# standby 10 preempt delay minimum 60     ! chờ 60 s sau khi sống lại mới giành (để định tuyến hội tụ xong)</pre>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> Chia tải bằng nhiều group, khớp với STP</h1>
+<p>Một group ⇒ chỉ một router làm việc, router kia ngồi chơi. Với nhiều VLAN, chia vai:</p>
+<div class="tbl"><table>
+<tr><th>VLAN</th><th>HSRP Active</th><th>HSRP Standby</th><th>STP root (tuần 7)</th></tr>
+<tr><td>10</td><td>DSW1</td><td>DSW2</td><td>DSW1</td></tr>
+<tr><td>20</td><td>DSW2</td><td>DSW1</td><td>DSW2</td></tr>
+</table></div>
+<p><mark>Active HSRP của VLAN nào thì nên trùng STP root của VLAN đó</mark>: frame từ switch access tới gateway đi thẳng theo cây STP, không vòng qua core kia.</p>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> VRRP và GLBP</h1>
+<h2>VRRP (Virtual Router Redundancy Protocol)</h2>
+<ul>
+  <li><b>Chuẩn mở</b> (RFC 5798): dùng được giữa nhiều hãng (FortiGate, Linux keepalived, Juniper…).</li>
+  <li>Vai trò: <b>Master</b> / <b>Backup</b> (thay cho Active/Standby).</li>
+  <li><b>Preempt bật mặc định.</b></li>
+  <li>VIP có thể <b>trùng IP thật</b> của một router (router đó là "owner", priority 255).</li>
+  <li>Multicast 224.0.0.18, <b>IP protocol 112</b>; MAC ảo <code>0000.5e00.01XX</code>; quảng bá mỗi 1 giây.</li>
+</ul>
+<pre>R1(config-if)# vrrp 10 ip 192.168.10.1
+R1(config-if)# vrrp 10 priority 110
+R1# show vrrp brief</pre>
+<h2>GLBP (Gateway Load Balancing Protocol)</h2>
+<ul>
+  <li>Cisco. Một VIP nhưng <b>nhiều MAC ảo</b>: AVG (Active Virtual Gateway) trả lời ARP của mỗi PC bằng MAC ảo của một AVF (Active Virtual Forwarder) khác nhau ⇒ <b>chia tải trong cùng một VLAN</b>.</li>
+  <li>Biết tên và ý tưởng là đủ cho CCNA.</li>
+</ul>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> Bảng so sánh HSRP / VRRP / GLBP</h1>
+<div class="tbl"><table>
+<tr><th></th><th>HSRP</th><th>VRRP</th><th>GLBP</th></tr>
+<tr><td>Chuẩn</td><td>Cisco</td><td><b>IETF (mở)</b></td><td>Cisco</td></tr>
+<tr><td>Vai trò</td><td>Active / Standby</td><td>Master / Backup</td><td>AVG / AVF</td></tr>
+<tr><td>Preempt mặc định</td><td><b>Tắt</b></td><td><b>Bật</b></td><td>Tắt (AVG)</td></tr>
+<tr><td>Priority mặc định</td><td>100</td><td>100</td><td>100</td></tr>
+<tr><td>Hello</td><td>3 s (hold 10 s)</td><td>1 s</td><td>3 s (hold 10 s)</td></tr>
+<tr><td>Multicast</td><td>224.0.0.2 (v1) / 224.0.0.102 (v2)</td><td>224.0.0.18</td><td>224.0.0.102</td></tr>
+<tr><td>Đóng gói</td><td>UDP 1985</td><td>IP protocol 112</td><td>UDP 3222</td></tr>
+<tr><td>MAC ảo</td><td>0000.0c07.acXX (v1)</td><td>0000.5e00.01XX</td><td>0007.b400.XXYY</td></tr>
+<tr><td>VIP = IP thật?</td><td>Không</td><td>Được</td><td>Không</td></tr>
+<tr><td>Chia tải trong 1 VLAN</td><td>Không (dùng nhiều group)</td><td>Không</td><td><b>Có</b></td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Lệnh kiểm tra và lỗi hay gặp</h1>
+<pre>show standby brief
+show standby                      ! MAC ảo, hello/hold, priority hiện tại (sau track), "Active router is …"
+show track                        ! trạng thái các đối tượng track
+show ip arp 192.168.10.1          ! trên router: MAC ảo
+debug standby events              ! chỉ lab</pre>
+<div class="tbl"><table>
+<tr><th class="l">Triệu chứng</th><th class="l">Nguyên nhân hay gặp</th></tr>
+<tr><td class="l"><b>Cả hai router cùng Active</b> (split brain)</td><td class="l">Không nghe được Hello của nhau: <b>lệch group</b> (10 vs 11), lệch <b>version</b>, lệch authentication, VLAN/link giữa hai router đứt, ACL chặn multicast. (Lệch VIP thì báo lỗi cấu hình và một bên không lên Active)</td></tr>
+<tr><td class="l">Router priority cao không thành Active</td><td class="l">Thiếu <code>preempt</code></td></tr>
+<tr><td class="l">WAN hỏng mà không chuyển</td><td class="l">Thiếu tracking, hoặc decrement không đủ</td></tr>
+<tr><td class="l">Chuyển qua lại liên tục (flapping)</td><td class="l">Track đối tượng chập chờn, không có delay</td></tr>
+<tr><td class="l">Log <code>%HSRP-4-DUPADDR</code> / <code>%HSRP-5-STATECHANGE</code></td><td class="l">Trùng địa chỉ / đổi trạng thái: đọc log để biết lúc nào, vì sao</td></tr>
+</table></div>
+<p>Cả hai cùng Active ⇒ hai router cùng trả lời ARP cho VIP bằng cùng MAC ảo ⇒ switch thấy MAC ảo nhảy port (MAC flapping, tuần 2) ⇒ lưu lượng chập chờn.</p>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Tình huống thực tế</h1>
+<h3>Tình huống 1 · Bảo trì router Active có kế hoạch</h3>
+<details><summary>Phân tích</summary>
+<p>Muốn reboot R1 (Active) để nâng IOS mà không gây 10 giây mất mạng: trước giờ bảo trì, chủ động chuyển Active sang R2 bằng cách hạ priority R1 (ví dụ 90; R2 có preempt nên giành ngay, gián đoạn gần như 0 vì là chuyển có kiểm soát). Reboot R1. Xong, trả priority 110; R1 preempt giành lại (có delay để định tuyến ổn định). Đây là MOP tuần này.</p></details>
+<h3>Tình huống 2 · Hai switch core cùng Active sau khi đổi trunk</h3>
+<details><summary>Phân tích</summary>
+<p>Trunk giữa hai core bị bỏ VLAN 10 khỏi allowed list (tuần 6) ⇒ Hello HSRP VLAN 10 không qua ⇒ mỗi core tưởng mình một mình ⇒ cả hai Active ⇒ MAC flapping trên switch access. Gợi nhớ: "cả hai Active" = "hai bên không nghe nhau", kiểm đường tầng 2 giữa chúng.</p></details>
+<div class="note"><b>Góc nhìn hệ thống</b>
+Cụm FortiGate HA hoạt động theo cùng ý tưởng: hai firewall chia sẻ IP và <b>MAC ảo</b> trên mỗi interface, có <b>heartbeat</b> (giống Hello), có <b>priority</b> và <b>override</b> (giống preempt), có <b>monitor interface</b> (giống tracking). Hiểu HSRP là hiểu 80% cách HA firewall chuyển đổi. Ở ngân hàng, gateway của mọi vùng quan trọng đều có cặp dự phòng như vậy, và MOP bảo trì luôn bắt đầu bằng "chuyển active sang thiết bị kia".</div>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>FHRP</td><td class="l">VIP + MAC ảo, PC dùng VIP làm gateway · Active trả lời ARP</td></tr>
+<tr><td>HSRP</td><td class="l">Cisco · v1 224.0.0.2 / v2 224.0.0.102 · UDP 1985 · hello 3 hold 10 · MAC v1 0000.0c07.acXX</td></tr>
+<tr><td>Thông số</td><td class="l">Priority 100 (cao thắng, hòa ⇒ IP cao) · preempt tắt mặc định · tracking decrement</td></tr>
+<tr><td>Failover</td><td class="l">Standby lên Active sau hold time · GARP ⇒ switch cập nhật port của MAC ảo · PC không đổi gì</td></tr>
+<tr><td>VRRP</td><td class="l">Chuẩn mở · master/backup · preempt bật · 224.0.0.18 · protocol 112 · MAC 0000.5e00.01XX</td></tr>
+<tr><td>GLBP</td><td class="l">Cisco · chia tải trong một VLAN · AVG/AVF</td></tr>
+<tr><td>Lỗi</td><td class="l">Cả hai Active ⇒ không nghe Hello nhau (group, version, auth, L2)</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">first hop redundancy</td><td class="l">dự phòng chặng đầu</td><td class="l">virtual IP / virtual MAC</td><td class="l">IP ảo / MAC ảo</td></tr>
+<tr><td class="l">active / standby</td><td class="l">đang hoạt động / chờ</td><td class="l">master / backup</td><td class="l">chính / dự phòng</td></tr>
+<tr><td class="l">preempt</td><td class="l">giành quyền</td><td class="l">tracking / decrement</td><td class="l">theo dõi / trừ bớt</td></tr>
+<tr><td class="l">hold time</td><td class="l">thời gian chờ</td><td class="l">split brain</td><td class="l">hai bên cùng làm chính</td></tr>
+<tr><td class="l">failover / failback</td><td class="l">chuyển sang dự phòng / quay về</td><td class="l">planned maintenance</td><td class="l">bảo trì có kế hoạch</td></tr>
+<tr><td class="l">load sharing</td><td class="l">chia tải</td><td class="l">heartbeat</td><td class="l">nhịp tim (bản tin sống)</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"Without tracking, R1 stayed active even after its WAN link failed, so traffic was blackholed."</i></p>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m15"><span class="no">15.</span> Câu hỏi tự kiểm tra</h1>
+<p>Trả lời ra giấy hoặc gửi cho Claude <b>trước</b>, rồi mới mở đáp án.</p>
+<details><summary>1. PC dùng IP nào làm gateway khi có HSRP?</summary><p>IP ảo (VIP) của group HSRP.</p></details>
+<details><summary>2. Router active mất WAN nhưng LAN vẫn sống. Không có tracking thì điều gì xảy ra?</summary><p>Nó vẫn là Active (vẫn gửi Hello trên LAN), PC vẫn gửi lưu lượng cho nó ⇒ mất kết nối hoặc đi vòng, dù router kia có WAN tốt.</p></details>
+<details><summary>3. Preempt của HSRP mặc định bật hay tắt? Của VRRP?</summary><p>HSRP tắt; VRRP bật.</p></details>
+<details><summary>4. Khi đổi active, làm sao switch biết MAC ảo giờ nằm ở port khác?</summary><p>Router Active mới gửi gratuitous ARP với MAC nguồn là MAC ảo ⇒ switch học lại MAC ảo trên port mới.</p></details>
+<details><summary>5. Cả hai router cùng Active: nghi gì?</summary><p>Hai router không nghe Hello của nhau: lệch group, lệch version, lệch authentication, đứt đường L2 giữa chúng (VLAN thiếu trên trunk), ACL chặn multicast.</p></details>
+<details><summary>6. Group HSRPv1 số 20. MAC ảo là gì?</summary><p>0000.0c07.ac14 (20 = 0x14).</p></details>
+<details><summary>7. R1 priority 110, track decrement 10, R2 priority 100 preempt. WAN R1 hỏng: ai Active?</summary><p>R1 còn 100, bằng R2 ⇒ hòa. Khi hòa, HSRP so IP thật, và việc R2 có giành được hay không còn tùy trạng thái lúc đó ⇒ kết quả không chắc chắn. Đây chính là lỗi thiết kế: decrement phải đủ lớn (≥ 11, thường 20) để priority R1 tụt hẳn dưới R2.</p></details>
+
+<label class="done"><input type="checkbox" id="d15"> Xong mục 15</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab và MOP trong <a href="tuan-15.html">giáo án tuần 15</a>. Tuần trước: <a href="tuan-14-kien-thuc.html">sổ tay tuần 14</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan15-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

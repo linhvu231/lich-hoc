@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 15</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 15 · 08/02 – 14/02/2027 · tuần đầu sau Tết</div>
+  <h1>HSRP và gateway dự phòng</h1>
+  <p>Hướng dẫn từng ngày. Khoảng 9–10 giờ: tuần đầu sau Tết, giữ nhịp nhẹ hơn một chút.</p>
+  <p>Phần đọc sách đã thay bằng <a href="tuan-15-kien-thuc.html">sổ tay tiếng Việt 15 mục</a>.</p>
+  <div class="links">
+    <a href="tuan-15-kien-thuc.html">Sổ tay tuần 15 (thay sách)</a>
+    <a href="tuan-14.html">Giáo án tuần 14</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Đầu ra trong lịch: <b>giải thích vì sao cần preempt + tracking.</b> Cụ thể:</p>
+<ol>
+  <li>Dựng HSRP trên 2 router, đo số gói mất khi tắt Active.</li>
+  <li>Chứng minh trên lab: thiếu preempt thì sao, thiếu tracking thì sao.</li>
+  <li>Bảo trì có kế hoạch: chuyển Active trước khi reboot, gần như không mất gói.</li>
+  <li>Nhận ra và sửa tình trạng hai router cùng Active.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  Dự phòng không phải "có hai cái". Dự phòng là <b>cái thứ hai tự lên đúng lúc, và cái thứ nhất tự quay về đúng lúc</b>. HSRP dạy điều đó rất rõ: priority, preempt, tracking là ba mảnh ghép, thiếu một thì "có hai cái" vẫn mất mạng. Cùng tư duy này anh sẽ dùng cho HA firewall, cụm máy chủ, và SD-WAN.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · Ôn 2 chủ đề yếu + FHRP, HSRP</a></li>
+    <li><a href="#t3">Thứ 3 · Preempt, tracking, VRRP, GLBP</a></li>
+    <li><a href="#t4">Thứ 4 · Lab phần 1: HSRP 2 router, tắt Active</a></li>
+    <li><a href="#t5">Thứ 5 · Lab phần 2: preempt, tracking, đo</a></li>
+    <li><a href="#t6">Thứ 6 · Ôn lab, sửa sổ tay</a></li>
+    <li><a href="#t7">Thứ 7 · MOP #11 bảo trì có kế hoạch, diễn tập hai Active</a></li>
+    <li><a href="#cn">Chủ nhật · Tự kiểm tra, tự chấm</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày 15 phút</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (08/02) · Ôn 2 chủ đề yếu, FHRP và HSRP</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: ghi chú + ví dụ hotline của riêng anh</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t2-0"><label for="t2-0">20 phút: học lại 2 chủ đề dưới mức 3 đã chọn trước Tết</label></li>
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Sổ tay mục <a href="tuan-15-kien-thuc.html#m1">1</a> đến <a href="tuan-15-kien-thuc.html#m6">6</a></label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (09/02) · Preempt, tracking, VRRP, GLBP</h2>
+<div class="meta"><span><b>1,5 giờ</b> + 5 phút tự giảng</span><span>Đầu ra: bảng so sánh chép tay, 5 câu hỏi để hỏi Claude</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Sổ tay mục <a href="tuan-15-kien-thuc.html#m7">7</a> đến <a href="tuan-15-kien-thuc.html#m12">12</a></label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Tự giảng 5 phút (đầu ra tuần): "vì sao cần preempt + tracking"</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (10/02) · Lab phần 1: HSRP trên 2 router, tắt Active</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: thư mục <code>W15-hsrp</code></span></div>
+<div class="flow">           R3 "ISP" (loopback 8.8.8.8)
+          g0/0 /        \ g0/1
+  10.0.13.0/30            10.0.23.0/30
+      R1 g0/1              R2 g0/1
+      R1 g0/0 .2 ---SW--- .3 g0/0 R2
+                   |
+                PC 192.168.10.10, gateway 192.168.10.1
+OSPF giữa R1, R2, R3 (dùng lại tuần 12–14); R3 có route về 192.168.10.0/24 qua OSPF</div>
+<pre>R1(config)# interface g0/0
+R1(config-if)# standby version 2
+R1(config-if)# standby 10 ip 192.168.10.1
+R1(config-if)# standby 10 priority 110
+R2(config)# interface g0/0
+R2(config-if)# standby version 2
+R2(config-if)# standby 10 ip 192.168.10.1
+R1# show standby brief
+PC&gt; arp -a       <span class="c">! 192.168.10.1 = MAC 0000.0c9f.f00a (v2 group 10)</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1">Ai là Active? Vì sao (priority hay thứ tự bật)?</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2">PC <code>ping -t 8.8.8.8</code>; tắt hẳn R1 (hoặc shutdown g0/0): mất ___ gói. Trên SW: <code>show mac address-table address 0000.0c9f.f00a</code> trước và sau</label></li>
+  <li><input type="checkbox" id="t4-3"><label for="t4-3">Bật lại R1: R1 có giành lại Active không? (chưa có preempt)</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (11/02) · Lab phần 2: preempt, tracking, đo thời gian</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: bảng 4 thí nghiệm</span></div>
+<pre>R1(config)# track 1 interface g0/1 line-protocol
+R1(config)# interface g0/0
+R1(config-if)# standby 10 preempt
+R1(config-if)# standby 10 track 1 decrement 20
+R2(config-if)# standby 10 preempt</pre>
+<div class="tbl"><table>
+<thead><tr><th>#</th><th>Thí nghiệm</th><th>Dự đoán Active</th><th>Thực tế</th><th>Gói mất</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Shutdown g0/1 (WAN) của R1, chưa có track (tạm gỡ dòng track)</td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td>Như 1 nhưng có track decrement 20</td><td></td><td></td><td></td></tr>
+<tr><td>3</td><td>Bật lại g0/1 của R1</td><td></td><td></td><td></td></tr>
+<tr><td>4</td><td><code>standby 10 timers 1 3</code> hai bên, tắt R1 hẳn</td><td></td><td></td><td></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1">Điền bảng. Ở thí nghiệm 1, traceroute từ PC tới 8.8.8.8 đi đường nào? (OSPF có đưa R1 vòng qua R2 không?)</label></li>
+  <li><input type="checkbox" id="t5-2"><label for="t5-2">Thêm <code>standby 10 preempt delay minimum 30</code> trên R1, lặp thí nghiệm 3, ghi khác biệt</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (12/02) · Ôn lab, sửa sổ tay CCNA</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: mục FHRP mới trong Google Docs</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1">Gỡ HSRP, dựng lại bằng VRRP (<code>vrrp 10 ip …</code>) trên cùng lab, so: preempt mặc định, MAC ảo, <code>show vrrp brief</code></label></li>
+</ul>
+<h3>Sửa sổ tay (1 việc trong lịch)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">Tạo mục FHRP: ví dụ hotline, bảng 3 thông số, bảng so sánh HSRP/VRRP/GLBP</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (13/02) · MOP #11 bảo trì có kế hoạch, diễn tập hai router cùng Active</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>mop/MOP-011-bao-tri-hsrp.md</code>, <code>postmortem/W15-hai-active.md</code></span></div>
+
+<h3>Phần A · MOP #11: chuyển Active sang Standby trước khi reboot R1</h3>
+<pre>
+# MOP-011 · Reboot R1 (HSRP Active VLAN 10) không gián đoạn người dùng
+
+| Mục        | Nội dung                                                         |
+|------------|------------------------------------------------------------------|
+| Mục tiêu   | Nâng cấp/khởi động lại R1 mà người dùng VLAN 10 không mất mạng    |
+| Phạm vi    | R1, R2 (HSRP group 10)                                            |
+| Ảnh hưởng  | Chuyển Active có kiểm soát: dự kiến 0–1 gói mất                   |
+| Điều kiện  | R2 khỏe: WAN up, HSRP Standby, có preempt                         |
+
+## 1. Pre-check
+R1/R2# show standby brief           ! R1 Active 110, R2 Standby 100, cả hai P
+R2#    show ip route 0.0.0.0 / show ip ospf neighbor   ! R2 có đường ra ngoài
+PC&gt; ping -t 8.8.8.8
+
+## 2. Các bước
+R1(config-if)# standby 10 priority 90      ! R2 (100, preempt) giành Active ngay
+R1# show standby brief                       ! xác nhận R2 Active
+R1# reload                                   ! (lab: hoặc shutdown/no shutdown)
+-- chờ R1 lên, OSPF neighbor Full --
+R1(config-if)# standby 10 priority 110     ! R1 giành lại (sau preempt delay)
+
+## 3. Verify
+- Số gói mất trong ping -t: ___ (so với tắt R1 đột ngột ở Thứ 4: ___)
+- show standby brief: trở về như pre-check
+
+## 4. Rollback
+Nếu R2 không lên Active sau bước hạ priority: trả priority 110, dừng change, tìm nguyên nhân.
+</pre>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Viết MOP-011, chạy, so số gói mất với tắt đột ngột</label></li>
+</ul>
+
+<h3>Phần B · Diễn tập: lệch group hoặc VIP làm cả hai cùng Active</h3>
+<ol>
+  <li>R2: đổi sang <code>standby 11 ip 192.168.10.1</code> (group lệch).</li>
+  <li>Trả lại group 10, nhưng R2 <code>standby version 1</code> (version lệch).</li>
+  <li>Trả lại, nhưng R2 VIP <code>192.168.10.254</code> (VIP lệch).</li>
+</ol>
+<details><summary>Gợi ý (mở sau khi làm)</summary>
+<ol>
+  <li>Hai group khác nhau ⇒ hai HSRP độc lập, mỗi router là Active của group mình, cùng VIP nhưng khác MAC ảo ⇒ PC lúc trỏ MAC này lúc MAC kia; log trùng địa chỉ. <code>show standby brief</code> hai đầu khác cột Grp.</li>
+  <li>v1 và v2 không nghe nhau ⇒ cả hai Active; MAC ảo khác định dạng.</li>
+  <li>Cùng group, VIP khác ⇒ IOS báo lỗi/cảnh báo cấu hình VIP; router học VIP từ Active hoặc ở trạng thái lỗi. Kiểm <code>show standby</code> dòng "Virtual IP address is …" và log.</li>
+</ol>
+<p>Cách nhận ra nhanh "cả hai cùng Active": <code>show standby brief</code> trên cả hai đều ghi Active; switch có MAC flapping của MAC ảo hoặc hai MAC ảo cho cùng VIP.</p>
+</details>
+<ul class="check">
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Xử lý 3 lỗi, mỗi lỗi &lt; 10 phút, postmortem</label></li>
+</ul>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (14/02) · Tự kiểm tra và tự chấm</h2>
+<div class="meta"><span><b>30 phút</b></span><span>7 câu ở <a href="tuan-15-kien-thuc.html#m15">sổ tay mục 15</a>, gửi Claude chấm</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">5 câu trong lịch + 2 câu thêm</label></li>
+</ul>
+<h3>Tự chấm cuối tuần</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 15</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>VIP/MAC ảo, failover, preempt + tracking, HSRP vs VRRP</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>HSRP + preempt + tracking trong 10 phút</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>Hai router cùng Active: tìm và sửa &lt; 10 phút</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>MOP-011 bảo trì gần như không mất gói</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Giải thích HA firewall bằng khái niệm HSRP cho người khác</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Tick tuần 15 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày 15 phút</h2>
+<ul>
+  <li><b>Hỏi đáp bằng miệng 5 phút:</b> HSRP và gateway dự phòng (timer, MAC ảo, preempt mặc định, VRRP khác gì).</li>
+  <li><b>Ôn lại ghi chú 5 phút.</b></li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">Đủ 5 ngày</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 15/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: ACL và NAT.
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan15-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
