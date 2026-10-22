@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 6</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 6 · 30/11 – 06/12/2026</div>
+  <h1>VLAN, trunk, VTP và inter-VLAN routing</h1>
+  <p>Hướng dẫn từng ngày: đọc gì, lab gõ lệnh gì, nộp ra cái gì. Khoảng 10,5 giờ cả tuần.</p>
+  <p>Phần đọc sách đã thay bằng <a href="tuan-06-kien-thuc.html">sổ tay tiếng Việt 18 mục</a>.</p>
+  <div class="links">
+    <a href="tuan-06-kien-thuc.html">Sổ tay tuần 6 (thay sách)</a>
+    <a href="tuan-05.html">Giáo án tuần 5</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Đầu ra trong lịch: <b>giải thích tag 802.1Q trong Wireshark.</b> Cụ thể:</p>
+<ol>
+  <li>Dựng 3 VLAN trên 2 switch, trunk đúng chuẩn (DTP tắt, native đổi, allowed giới hạn), VTP transparent.</li>
+  <li>Định tuyến giữa VLAN bằng router-on-a-stick, rồi chuyển sang SVI có đo thời gian gián đoạn.</li>
+  <li>Bắt gói trên trunk, chỉ ra TPID, PCP, VID; giải thích vì sao native VLAN không có tag.</li>
+  <li>Xử lý lệch native VLAN và VLAN thiếu trong allowed list chỉ bằng lệnh show.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  Trong 30 năm, lệnh tôi thấy gây sập nhiều nhất không phải lệnh định tuyến phức tạp mà là <code>switchport trunk allowed vlan</code> thiếu chữ <code>add</code>, và switch lab có VTP revision cao cắm nhầm vào mạng thật. Cả hai đều là kiến thức tuần này. Học VLAN không khó; học <b>cẩn trọng</b> với VLAN mới khó. Tuần này anh tập cả hai.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · VLAN, 802.1Q, native, allowed</a></li>
+    <li><a href="#t3">Thứ 3 · DTP, VTP, voice, inter-VLAN</a></li>
+    <li><a href="#t4">Thứ 4 · Lab phần 1: VLAN, trunk, router-on-a-stick</a></li>
+    <li><a href="#t5">Thứ 5 · Lab phần 2: SVI, Wireshark tag</a></li>
+    <li><a href="#t6">Thứ 6 · Ôn lab, sửa sổ tay</a></li>
+    <li><a href="#t7">Thứ 7 · MOP #4 cutover ROAS → SVI, diễn tập</a></li>
+    <li><a href="#cn">Chủ nhật · Tự kiểm tra, tự chấm</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày 15 phút</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (30/11) · VLAN, 802.1Q, native, allowed</h2>
+<div class="meta"><span><b>1,5 giờ</b> đọc</span><span>Đầu ra: ghi chú + vẽ frame có tag</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Sổ tay mục <a href="tuan-06-kien-thuc.html#m1">1</a> đến <a href="tuan-06-kien-thuc.html#m7">7</a></label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Vẽ frame 802.1Q có độ dài từng trường, tính 1522</label></li>
+  <li><input type="checkbox" id="t2-3"><label for="t2-3">Đọc lại phần VLAN trong sổ Google Docs của anh, đánh dấu 5 chỗ cần sửa (liệt kê ở Thứ 6)</label></li>
+</ul>
+<div class="box warn">
+  <strong>Bẫy hay gặp</strong>
+  <code>show vlan brief</code> <b>không liệt kê port trunk</b>. Người mới hay hoảng "port Gi0/1 không thuộc VLAN nào". Muốn biết trunk mang gì: <code>show interfaces trunk</code>.
+</div>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (01/12) · DTP, VTP, voice VLAN, inter-VLAN</h2>
+<div class="meta"><span><b>1,5 giờ</b> đọc + 5 phút tự giảng</span><span>Đầu ra: ghi chú + 5 câu hỏi để hỏi Claude</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Sổ tay mục <a href="tuan-06-kien-thuc.html#m8">8</a> đến <a href="tuan-06-kien-thuc.html#m15">15</a></label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Tự giảng 5 phút: "gói từ VLAN 10 sang VLAN 20 qua router-on-a-stick đi qua dây trunk mấy lần, tag gì"</label></li>
+  <li><input type="checkbox" id="t3-3"><label for="t3-3">Viết 5 câu hỏi để hỏi Claude</label></li>
+</ul>
+<div class="box ok">
+  <strong>So sánh để nhớ</strong>
+  Router-on-a-stick: <code>encapsulation dot1Q X</code> trên sub-interface. SVI: <code>ip routing</code> + <code>interface vlan X</code>. Cả hai đều là "gateway cho VLAN X", khác nhau ở chỗ định tuyến bằng phần mềm router hay phần cứng switch.
+</div>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (02/12) · Lab phần 1: 3 VLAN, trunk, router-on-a-stick</h2>
+<div class="meta"><span><b>1,5 giờ</b> lab</span><span>Đầu ra: config vào git thư mục <code>W06-vlan-intervlan</code></span></div>
+
+<h3>Topology</h3>
+<div class="flow">                 R1 (g0/0, trunk)
+                  |
+PC10a, PC20a --- SW1 (L3: IOSvL2 / PT 3650) ===trunk Gi0/1=== SW2 --- PC10b, PC20b, PC30b</div>
+<div class="tbl"><table>
+<thead><tr><th>VLAN</th><th>Tên</th><th>Subnet</th><th>Gateway</th></tr></thead>
+<tbody>
+<tr><td>10</td><td>KETOAN</td><td>192.168.10.0/24</td><td>.1</td></tr>
+<tr><td>20</td><td>KINHDOANH</td><td>192.168.20.0/24</td><td>.1</td></tr>
+<tr><td>30</td><td>IT</td><td>192.168.30.0/24</td><td>.1</td></tr>
+<tr><td>99</td><td>MGMT</td><td>10.99.0.0/24</td><td>.1 (SW1 .11, SW2 .12)</td></tr>
+<tr><td>999</td><td>NATIVE-UNUSED</td><td>—</td><td>—</td></tr>
+</tbody>
+</table></div>
+
+<h3>Bước 1 · VTP transparent và VLAN (cả SW1 và SW2)</h3>
+<pre>SW1(config)# vtp mode transparent
+SW1(config)# vlan 10
+SW1(config-vlan)# name KETOAN
+SW1(config-vlan)# vlan 20
+SW1(config-vlan)# name KINHDOANH
+SW1(config-vlan)# vlan 30
+SW1(config-vlan)# name IT
+SW1(config-vlan)# vlan 99
+SW1(config-vlan)# name MGMT
+SW1(config-vlan)# vlan 999
+SW1(config-vlan)# name NATIVE-UNUSED</pre>
+
+<h3>Bước 2 · Port access</h3>
+<pre>SW2(config)# interface fa0/1
+SW2(config-if)# switchport mode access
+SW2(config-if)# switchport access vlan 10
+SW2(config)# interface fa0/2
+SW2(config-if)# switchport mode access
+SW2(config-if)# switchport access vlan 20
+SW2(config)# interface fa0/3
+SW2(config-if)# switchport mode access
+SW2(config-if)# switchport access vlan 30
+<span class="c">! Port không dùng: đưa vào VLAN 999 và shutdown</span>
+SW2(config)# interface range fa0/4 - 24
+SW2(config-if-range)# switchport mode access
+SW2(config-if-range)# switchport access vlan 999
+SW2(config-if-range)# shutdown</pre>
+
+<h3>Bước 3 · Trunk SW1–SW2 và SW1–R1</h3>
+<pre>SW1(config)# interface range gi0/1 - 2
+SW1(config-if-range)# switchport trunk encapsulation dot1q     <span class="c">! bỏ qua nếu switch báo không có lệnh</span>
+SW1(config-if-range)# switchport mode trunk
+SW1(config-if-range)# switchport nonegotiate
+SW1(config-if-range)# switchport trunk native vlan 999
+SW1(config-if-range)# switchport trunk allowed vlan 10,20,30,99
+<span class="c">! SW2 gi0/1: làm y hệt</span>
+SW1# show interfaces trunk</pre>
+
+<h3>Bước 4 · Router-on-a-stick</h3>
+<pre>R1(config)# interface g0/0
+R1(config-if)# no shutdown
+R1(config)# interface g0/0.10
+R1(config-subif)# encapsulation dot1Q 10
+R1(config-subif)# ip address 192.168.10.1 255.255.255.0
+R1(config)# interface g0/0.20
+R1(config-subif)# encapsulation dot1Q 20
+R1(config-subif)# ip address 192.168.20.1 255.255.255.0
+R1(config)# interface g0/0.30
+R1(config-subif)# encapsulation dot1Q 30
+R1(config-subif)# ip address 192.168.30.1 255.255.255.0
+R1(config)# interface g0/0.99
+R1(config-subif)# encapsulation dot1Q 99
+R1(config-subif)# ip address 10.99.0.1 255.255.255.0
+R1(config)# interface g0/0.999
+R1(config-subif)# encapsulation dot1Q 999 native</pre>
+
+<h3>Bước 5 · IP quản trị cho switch</h3>
+<pre>SW2(config)# interface vlan 99
+SW2(config-if)# ip address 10.99.0.12 255.255.255.0
+SW2(config-if)# no shutdown
+SW2(config)# ip default-gateway 10.99.0.1</pre>
+
+<h3>Verify</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1"><code>show vlan brief</code>, <code>show interfaces trunk</code> (đọc đủ 4 khối), <code>show vtp status</code> trên cả hai switch</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2">PC10b ping PC20b, PC30b; <code>tracert</code> thấy 192.168.10.1 ở chặng 1</label></li>
+  <li><input type="checkbox" id="t4-3"><label for="t4-3">Từ PC ping SW2 10.99.0.12 (quản trị qua VLAN 99)</label></li>
+  <li><input type="checkbox" id="t4-4"><label for="t4-4">Lưu config 3 thiết bị vào git</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (03/12) · Lab phần 2: SVI, Wireshark xem tag</h2>
+<div class="meta"><span><b>1,5 giờ</b> lab + verify</span><span>Đầu ra: file pcap trunk có chú thích tag, bảng so sánh ROAS và SVI</span></div>
+
+<h3>Bước 1 · Bắt gói trên trunk SW1–SW2 (CML/EVE: chuột phải link → Capture)</h3>
+<pre>PC10b&gt; ping 192.168.20.10
+<span class="c">! Wireshark lọc: vlan  (hoặc vlan.id == 10)</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1">Chỉ ra TPID 0x8100, PRI, DEI, ID = 10 trong gói ICMP đi; gói trả lời có ID = 20 hay 10 trên đoạn trunk này? Vì sao?</label></li>
+  <li><input type="checkbox" id="t5-2"><label for="t5-2">Tìm gói CDP/STP trên trunk: có tag không? (gợi ý: native VLAN 999 không tag; CDP/DTP đi không tag)</label></li>
+</ul>
+
+<h3>Bước 2 · Chuẩn bị SVI trên SW1 (chưa chuyển gateway, chỉ xem trước)</h3>
+<pre>SW1(config)# ip routing
+SW1(config)# interface vlan 10
+SW1(config-if)# ip address 192.168.10.2 255.255.255.0     <span class="c">! tạm dùng .2 để chưa đụng gateway .1 của R1</span>
+SW1(config-if)# no shutdown
+SW1# show ip interface brief | include Vlan
+<span class="c">! Thử tạo SVI cho VLAN 40 chưa tồn tại: trạng thái gì? Tạo vlan 40: vẫn down? Vì sao (autostate)?</span></pre>
+<ul class="check">
+  <li><input type="checkbox" id="t5-3"><label for="t5-3">Giải thích bằng chữ 3 điều kiện để SVI up/up, kèm kết quả thử VLAN 40</label></li>
+  <li><input type="checkbox" id="t5-4"><label for="t5-4">Lập bảng so sánh ROAS và SVI (băng thông, điểm lỗi, tốc độ, chỗ đặt chính sách) bằng lời của anh</label></li>
+</ul>
+<p>Thứ 7 sẽ chuyển gateway thật từ R1 sang SVI theo MOP.</p>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (04/12) · Ôn lab, sửa sổ tay CCNA</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: ghi chú Google Docs đã sửa</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t6-1"><label for="t6-1">Xóa sạch SW2 (<code>write erase</code> + <code>delete flash:vlan.dat</code> + reload), dựng lại từ trí nhớ dưới 15 phút</label></li>
+</ul>
+<h3>Sửa sổ tay (5 việc trong lịch)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t6-2"><label for="t6-2">"Managed VLAN" → đổi thành management VLAN</label></li>
+  <li><input type="checkbox" id="t6-3"><label for="t6-3">CoS bị xóa về 0 xảy ra ở cổng access của switch (trust boundary), không phải "khi đến router"</label></li>
+  <li><input type="checkbox" id="t6-4"><label for="t6-4">VTP: client cũng gửi quảng bá; ghi thêm rủi ro revision number và khuyến nghị transparent</label></li>
+  <li><input type="checkbox" id="t6-5"><label for="t6-5">Bỏ con số "router-on-a-stick chứa được 50 sub-interface". Thay bằng nhược điểm thật: dùng chung băng thông, điểm lỗi đơn</label></li>
+  <li><input type="checkbox" id="t6-6"><label for="t6-6">Mục SVI đang dở ("B3: mở inter vlan trên switch layer 3 / 1"): viết lại đủ 3 bước theo lab</label></li>
+</ul>
+<div class="box warn">
+  <strong>Thêm một điều nên ghi kèm</strong>
+  Ở bước 3 cấu hình trunk trong sổ, anh ghi "Cấu hình cổng Trunk (cổng nối giữa sw-sw, sw-router, sw-server)". Thêm 3 dòng chuẩn cho mọi trunk: <code>switchport nonegotiate</code>, <code>switchport trunk native vlan &lt;VLAN không dùng&gt;</code>, <code>switchport trunk allowed vlan &lt;danh sách&gt;</code>. Và một dòng cảnh báo về chữ <code>add</code>.
+</div>
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (05/12) · MOP #4 cutover inter-VLAN ROAS → SVI, diễn tập</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: <code>mop/MOP-004-roas-to-svi.md</code> (có số giây gián đoạn đo được), <code>postmortem/W06-native-allowed.md</code></span></div>
+
+<h3>Phần A · MOP #4</h3>
+<p>Cutover là "chuyển đổi": dịch vụ đang chạy trên A, chuyển sang B, phải biết <b>gián đoạn bao lâu</b> để báo trước cho người dùng. Đo bằng <code>ping -t</code> chạy suốt quá trình.</p>
+<pre>
+# MOP-004 · Chuyển gateway VLAN 10/20/30 từ R1 (router-on-a-stick) sang SVI trên SW1
+
+| Mục        | Nội dung                                                        |
+|------------|-----------------------------------------------------------------|
+| Mục tiêu   | Định tuyến giữa VLAN bằng phần cứng SW1, bỏ nghẽn link R1      |
+| Phạm vi    | R1 g0/0.10/.20/.30 · SW1 SVI 10/20/30                           |
+| Ảnh hưởng  | Gián đoạn ngắn giữa các VLAN trong lúc chuyển (dự kiến vài giây) |
+| Giữ nguyên | IP gateway .1 (máy trạm không phải sửa gì)                      |
+
+## 1. Pre-check
+SW1# show ip interface brief | include Vlan
+R1#  show ip interface brief
+PC10b&gt; ping -t 192.168.20.10       ! để chạy suốt MOP, ghi số gói mất
+PC10b&gt; arp -a                       ! MAC của 192.168.10.1 hiện tại (MAC R1)
+- Ghi lại running-config R1 và SW1
+
+## 2. Các bước (thứ tự quan trọng)
+SW1(config)# ip routing
+SW1(config)# interface vlan 10
+SW1(config-if)# shutdown                                   ! chuẩn bị sẵn ở trạng thái tắt
+SW1(config-if)# ip address 192.168.10.1 255.255.255.0
+! (tương tự vlan 20, 30, đều shutdown)
+R1(config)#  interface range g0/0.10, g0/0.20, g0/0.30
+R1(config-if-range)# shutdown                              ! T0: bắt đầu gián đoạn
+SW1(config)# interface range vlan 10, vlan 20, vlan 30
+SW1(config-if-range)# no shutdown                          ! T1: gateway mới lên
+! Nếu IOS không nhận interface range cho vlan: làm từng interface
+
+## 3. Verify
+- ping -t hồi phục; đếm gói mất = thời gian gián đoạn
+- PC10b: arp -a ⇒ MAC của 192.168.10.1 đổi sang MAC SW1 (nhờ GARP khi SVI lên, hoặc ARP hết hạn)
+- tracert từ PC10b tới PC20b: chặng 1 vẫn là 192.168.10.1
+- SW1# show ip route connected có 3 mạng
+
+## 4. Rollback
+SW1: shutdown SVI 10/20/30 ; R1: no shutdown g0/0.10/.20/.30
+Verify như pre-check.
+
+## 5. Kết quả: số gói mất ___, ước tính ___ giây
+</pre>
+<div class="box">
+  <strong>Góc nhìn hệ thống: vì sao gián đoạn có thể dài hơn dự kiến</strong>
+  Máy trạm giữ ARP cache "192.168.10.1 = MAC R1". Khi SVI lên, IOS gửi gratuitous ARP nên đa số máy cập nhật ngay; máy nào bỏ lỡ GARP sẽ gửi tới MAC cũ (R1 đã tắt sub-interface) cho tới khi ARP hết hạn. Trong cutover thật, kỹ sư chuẩn bị sẵn lệnh xóa ARP trên các thiết bị quan trọng, hoặc dùng cùng MAC ảo (HSRP, tuần 15) để tránh hẳn vấn đề này.
+</div>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Viết MOP-004, chạy, ghi số gói mất. Chạy thử rollback rồi chạy lại</label></li>
+</ul>
+
+<h3>Phần B · Diễn tập: native VLAN lệch và VLAN thiếu trong allowed list</h3>
+<p>Gài từng lỗi, xử lý chỉ bằng lệnh <code>show</code> và log:</p>
+<ol>
+  <li>SW2 gi0/1: <code>switchport trunk native vlan 1</code> (SW1 vẫn 999).</li>
+  <li>SW2 gi0/1: <code>switchport trunk allowed vlan 10,30,99</code> (thiếu 20).</li>
+  <li>(Thêm) SW1 gi0/1: <code>switchport trunk allowed vlan 40</code> — mô phỏng quên chữ <code>add</code>.</li>
+</ol>
+<details><summary>Gợi ý (mở sau khi làm)</summary>
+<ol>
+  <li>Log <code>%CDP-4-NATIVE_VLAN_MISMATCH</code> trên cả hai switch; có thể thêm <code>%SPANTREE-2-RECV_PVID_ERR</code> và port bị STP block cho VLAN liên quan. <code>show interfaces trunk</code> cột Native vlan khác nhau.</li>
+  <li>PC20b mất kết nối ra ngoài, PC10b, PC30b bình thường. <code>show interfaces trunk</code> trên SW2 khối 1 thiếu 20. "Chỉ một VLAN hỏng, các VLAN khác ổn" là dấu hiệu nhìn ngay vào allowed list.</li>
+  <li>Mọi VLAN qua trunk mất hết. Sửa: <code>switchport trunk allowed vlan 10,20,30,99</code> (cần biết danh sách cũ ⇒ pre-check của MOP là thứ cứu anh).</li>
+</ol>
+</details>
+<ul class="check">
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Xử lý 3 lỗi, mỗi lỗi dưới 10 phút</label></li>
+  <li><input type="checkbox" id="t7-3"><label for="t7-3">Viết postmortem ngắn</label></li>
+</ul>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (06/12) · Tự kiểm tra và tự chấm</h2>
+<div class="meta"><span><b>30 phút</b></span><span>Trả lời ra giấy trước, rồi mới mở đáp án. Gửi cho Claude chấm.</span></div>
+
+<h3>Bài đầu ra</h3>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">Mở file pcap trunk, ghi âm 3 phút giải thích tag 802.1Q từng trường và vì sao native không có tag</label></li>
+</ul>
+
+<h3>5 câu tự kiểm tra trong lịch</h3>
+<details><summary>1. Frame VLAN native đi qua trunk có tag không?</summary><p>Không.</p></details>
+<details><summary>2. VLAN ID dài bao nhiêu bit, dải hợp lệ?</summary><p>12 bit, dùng 1–4094.</p></details>
+<details><summary>3. Vì sao nên để VTP ở chế độ transparent?</summary><p>Tránh bị ghi đè VLAN bởi switch có revision cao hơn (cả client).</p></details>
+<details><summary>4. SVI ở trạng thái down/down dù đã no shutdown: nguyên nhân hay gặp?</summary><p>VLAN chưa tạo hoặc không có port active trong VLAN (autostate).</p></details>
+<details><summary>5. Lệnh nào xem VLAN nào đang được phép trên trunk?</summary><p><code>show interfaces trunk</code>.</p></details>
+
+<h3>3 câu vặn thêm (mức phỏng vấn)</h3>
+<details><summary>6. Anh mang switch từ kho ra lắp cho tầng mới. Làm gì trước khi cắm uplink?</summary><p>Xóa cấu hình và vlan.dat, đặt VTP transparent (reset revision), cấu hình trunk chuẩn (nonegotiate, native, allowed), tạo VLAN cần thiết, kiểm tra trên bàn trước khi cắm vào mạng thật.</p></details>
+<details><summary>7. Cutover ROAS sang SVI giữ nguyên IP gateway. Vì sao vài máy mất mạng lâu hơn máy khác?</summary><p>ARP cache giữ MAC cũ của gateway; máy bỏ lỡ gratuitous ARP phải chờ ARP hết hạn.</p></details>
+<details><summary>8. Port nối AP phát 3 SSID cấu hình thế nào?</summary><p>Trunk, allowed đúng 3 VLAN SSID + VLAN quản trị AP; native VLAN theo thiết kế AP (thường là VLAN quản trị AP nếu AP gửi không tag), không trùng VLAN người dùng.</p></details>
+
+<h3>Tự chấm cuối tuần</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí cho tuần 6</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>802.1Q, native, DTP, VTP revision, ROAS vs SVI</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>3 VLAN + trunk chuẩn + SVI trong 20 phút</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>Native lệch, allowed thiếu, quên "add": mỗi lỗi &lt; 10 phút</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>MOP-004 có số giây gián đoạn thật và rollback đã chạy</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Giải thích cho người khác vì sao lệnh allowed vlan thiếu "add" nguy hiểm</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Tick tuần 6 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày 15 phút</h2>
+<ul>
+  <li><b>Hỏi đáp bằng miệng 5 phút:</b> VLAN, trunk, VTP và inter-VLAN routing (ví dụ "auto + desirable ra gì", "SVI up khi nào", "4 trường tag 802.1Q").</li>
+  <li><b>Ôn lại ghi chú 5 phút.</b></li>
+  <li><b>Soi ở công ty (chỉ quan sát, không ghi ra ngoài):</b> khi xử lý ticket đổi port/VLAN, tự hỏi gateway VLAN đó nằm ở switch hay firewall, trunk lên trên mang những VLAN nào.</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">Đủ 5 ngày</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 6/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: STP và RSTP.
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan06-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

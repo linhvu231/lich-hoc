@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 6</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 6 (30/11 – 06/12/2026) · <a href="tuan-06.html">Giáo án tuần 6 (lab, MOP, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Sổ tay thay cho phần đọc sách tuần 6 (Odom Vol 1, "Implementing Ethernet Virtual LANs" và "IP Routing in the LAN"). Sổ CCNA của anh đã có mục VLAN và Intervlan routing khá nhiều ý; tuần này <b>đi sâu</b>, <b>sửa 5 chỗ sai/thiếu</b>, và viết nốt phần SVI đang dở. Đây là nội dung anh sẽ đụng hằng ngày ở công ty: mỗi lần đổi VLAN một port là một lần dùng kiến thức tuần này. Chép tay phần <mark>tô vàng</mark>.</p>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">VLAN là gì, vì sao cần</a></li>
+  <li><a href="#m2">Các loại VLAN và dải VLAN ID</a></li>
+  <li><a href="#m3">Cấu hình VLAN 3 bước</a></li>
+  <li><a href="#m4">Access port và trunk port</a></li>
+  <li><a href="#m5">Tag 802.1Q mổ từng trường</a></li>
+  <li><a href="#m6">Native VLAN</a></li>
+  <li><a href="#m7">Allowed VLAN trên trunk</a></li>
+  <li><a href="#m8">DTP và vì sao phải tắt</a></li>
+  <li><a href="#m9">VTP và vì sao để transparent</a></li>
+  <li><a href="#m10">Voice VLAN, CoS và trust boundary</a></li>
+  <li><a href="#m11">Inter-VLAN routing: 3 cách</a></li>
+  <li><a href="#m12">Router-on-a-stick chi tiết</a></li>
+  <li><a href="#m13">SVI trên switch layer 3 chi tiết</a></li>
+  <li><a href="#m14">Lệnh kiểm tra và xử lý sự cố</a></li>
+  <li><a href="#m15">Tình huống thực tế</a></li>
+  <li><a href="#m16">Tóm tắt cực ngắn để học/thi CCNA</a></li>
+  <li><a href="#m17">Từ vựng tiếng Anh</a></li>
+  <li><a href="#m18">Câu hỏi tự kiểm tra</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> VLAN là gì, vì sao cần</h1>
+
+<h2>1/ Định nghĩa</h2>
+<p><b>VLAN (Virtual LAN)</b>: chia một switch vật lý (hoặc nhiều switch nối nhau) thành nhiều <b>broadcast domain</b> logic. Máy ở VLAN 10 và VLAN 20 cắm cùng một switch nhưng <b>như ở hai switch riêng</b>: broadcast không sang nhau, muốn nói chuyện phải qua router.</p>
+<p>Sổ của anh viết: "kỹ thuật cho phép tạo ra nhiều con switch về mặt logic trên 1 switch vật lý". <b>Đúng</b>, giữ nguyên.</p>
+
+<h2>2/ Vì sao cần</h2>
+<div class="tbl"><table>
+<tr><th>Lý do</th><th class="l">Giải thích</th></tr>
+<tr><td>Giảm broadcast</td><td class="l">Broadcast (ARP, DHCP) chỉ tràn trong VLAN. 1000 máy chia 10 VLAN ⇒ mỗi máy chỉ nghe broadcast của 100 máy.</td></tr>
+<tr><td>Bảo mật</td><td class="l">Kế toán, camera, khách, máy chủ tách VLAN ⇒ muốn sang nhau phải qua router/firewall ⇒ <b>có chỗ đặt chính sách</b>.</td></tr>
+<tr><td>Linh hoạt</td><td class="l">Nhóm theo chức năng, không theo vị trí: người kế toán ngồi tầng nào cũng thuộc VLAN Kế toán.</td></tr>
+<tr><td>Tiết kiệm</td><td class="l">Không cần mua switch riêng cho từng nhóm.</td></tr>
+<tr><td>Giới hạn sự cố</td><td class="l">Một loop/bão broadcast chỉ làm sập một VLAN (nếu STP và thiết kế tốt).</td></tr>
+</table></div>
+
+<div class="note"><b>💡 Ví dụ dễ hiểu</b>
+Một tòa nhà văn phòng (switch) có nhiều công ty thuê (VLAN). Loa thông báo (broadcast) của công ty A chỉ phát trong khu của A. Người công ty A muốn gặp công ty B phải đi qua lễ tân tòa nhà (router), và lễ tân có quyền kiểm tra (ACL/firewall).</div>
+
+<label class="done"><input type="checkbox" id="d1"> Xong mục 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Các loại VLAN và dải VLAN ID</h1>
+
+<h2>1/ Các loại VLAN (theo cách dùng)</h2>
+<div class="tbl"><table>
+<tr><th>Loại</th><th class="l">Ý nghĩa</th><th class="l">Ghi chú vận hành</th></tr>
+<tr><td><b>Data VLAN</b></td><td class="l">Chở lưu lượng người dùng bình thường</td><td class="l">Còn gọi user VLAN</td></tr>
+<tr><td><b>Default VLAN</b></td><td class="l">VLAN 1: mọi port thuộc VLAN 1 khi chưa cấu hình. Không xóa, không đổi tên được</td><td class="l">Không dùng VLAN 1 cho người dùng hay quản trị</td></tr>
+<tr><td><b>Management VLAN</b></td><td class="l">VLAN chứa SVI có IP để SSH/SNMP vào switch</td><td class="l">Lab Cisco hay dùng VLAN 99. Tách khỏi VLAN người dùng</td></tr>
+<tr><td><b>Voice VLAN</b></td><td class="l">Riêng cho điện thoại IP, được ưu tiên QoS</td><td class="l">Mục 10</td></tr>
+<tr><td><b>Native VLAN</b></td><td class="l">VLAN mà frame đi trên trunk <b>không gắn tag</b></td><td class="l">Mặc định VLAN 1, nên đổi sang VLAN không dùng. Mục 6</td></tr>
+<tr><td>Black-hole / parking VLAN</td><td class="l">VLAN không có gì, gán cho port không dùng</td><td class="l">Port không dùng: shutdown + gán VLAN này</td></tr>
+</table></div>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ ghi "3/<b>Managed Vlan</b>: vlan dùng để quản lý". Tên đúng là <b>management VLAN</b> (VLAN quản trị). "Managed" (được quản lý) là chữ khác, dễ nhầm với "managed switch". Sửa tên, giữ nội dung.</div>
+
+<h2>2/ Dải VLAN ID</h2>
+<p>VLAN ID dài <b>12 bit</b> ⇒ 0 – 4095.</p>
+<div class="tbl"><table>
+<tr><th>Dải</th><th class="l">Tên</th><th class="l">Ghi chú</th></tr>
+<tr><td>0, 4095</td><td class="l">Dành riêng</td><td class="l">Không dùng được</td></tr>
+<tr><td>1</td><td class="l">Default</td><td class="l">Không xóa được</td></tr>
+<tr><td>2 – 1001</td><td class="l">Normal range</td><td class="l">Lưu trong file <code>vlan.dat</code> trên flash</td></tr>
+<tr><td>1002 – 1005</td><td class="l">Token Ring/FDDI</td><td class="l">Công nghệ cũ, có sẵn, không xóa được</td></tr>
+<tr><td>1006 – 4094</td><td class="l">Extended range</td><td class="l">VTP v1/v2 chỉ cho dùng khi switch ở chế độ transparent; lưu trong running-config</td></tr>
+</table></div>
+<p><mark>VLAN ID 12 bit, dải dùng được 1 – 4094.</mark></p>
+
+<div class="note"><b>💡 Chi tiết vận hành: vlan.dat</b>
+Danh sách VLAN normal range lưu trong <code>flash:vlan.dat</code>, <b>không</b> nằm trong startup-config. Hệ quả: <code>write erase</code> rồi reload <b>không xóa VLAN</b>. Muốn xóa sạch switch lab phải thêm <code>delete flash:vlan.dat</code>. Ngược lại, sao lưu cấu hình switch mà chỉ chép running-config thì <b>mất danh sách VLAN</b> (trừ khi VTP transparent, khi đó VLAN có trong running-config).</div>
+
+<label class="done"><input type="checkbox" id="d2"> Xong mục 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Cấu hình VLAN 3 bước</h1>
+<p>Sổ của anh đã chia đúng 3 bước. Bổ sung lệnh kiểm tra sau mỗi bước.</p>
+
+<h3>Bước 1: tạo VLAN, đặt tên</h3>
+<pre>SW1(config)# vlan 10
+SW1(config-vlan)# name KETOAN
+SW1(config-vlan)# vlan 20
+SW1(config-vlan)# name KINHDOANH
+SW1(config-vlan)# vlan 99
+SW1(config-vlan)# name MGMT
+SW1(config-vlan)# vlan 999
+SW1(config-vlan)# name NATIVE-UNUSED
+SW1# show vlan brief</pre>
+
+<h3>Bước 2: gán port access</h3>
+<pre>SW1(config)# interface range fa0/2 - 12
+SW1(config-if-range)# switchport mode access          ! cố định access, tắt thương lượng trunk
+SW1(config-if-range)# switchport access vlan 10
+SW1(config-if-range)# description USER-KETOAN
+SW1# show vlan brief                                   ! port xuất hiện ở cột Ports của VLAN 10
+SW1# show interfaces fa0/2 switchport                  ! Administrative Mode: static access, Access Mode VLAN: 10</pre>
+<p>Gán port vào VLAN chưa tồn tại ⇒ IOS tự tạo VLAN đó (báo "% Access VLAN does not exist. Creating vlan 30"). Tiện nhưng nguy hiểm: gõ nhầm 30 thành 300 là có VLAN mới không ai biết. Luôn tạo VLAN trước, gán sau.</p>
+
+<h3>Bước 3: trunk giữa hai switch</h3>
+<pre>SW1(config)# interface gi0/1
+SW1(config-if)# switchport trunk encapsulation dot1q     ! chỉ cần trên switch hỗ trợ cả ISL (3560, 3750…). 2960 không có lệnh này
+SW1(config-if)# switchport mode trunk
+SW1(config-if)# switchport nonegotiate                   ! tắt DTP (mục 8)
+SW1(config-if)# switchport trunk native vlan 999
+SW1(config-if)# switchport trunk allowed vlan 10,20,99
+SW1# show interfaces trunk</pre>
+<p><mark>Hai đầu trunk phải giống nhau: mode, native VLAN, allowed VLAN.</mark></p>
+
+<label class="done"><input type="checkbox" id="d3"> Xong mục 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> Access port và trunk port</h1>
+<div class="tbl"><table>
+<tr><th></th><th>Access port</th><th>Trunk port</th></tr>
+<tr><td>Số VLAN mang</td><td>1 data VLAN (+ 1 voice VLAN)</td><td>Nhiều VLAN</td></tr>
+<tr><td>Frame có tag?</td><td>Không (thiết bị đầu cuối không hiểu tag)</td><td>Có, trừ native VLAN</td></tr>
+<tr><td>Nối tới</td><td>PC, máy in, camera, AP đơn giản</td><td>Switch, router (router-on-a-stick), server ảo hóa (ESXi, Hyper-V), AP nhiều SSID, firewall</td></tr>
+<tr><td>Lệnh</td><td><code>switchport mode access</code><br><code>switchport access vlan X</code></td><td><code>switchport mode trunk</code></td></tr>
+</table></div>
+<p>Switch thêm tag khi frame đi <b>ra</b> trunk, bỏ tag khi frame đi <b>ra</b> access port. Frame vào access port không có tag ⇒ switch gán VLAN của port.</p>
+
+<label class="done"><input type="checkbox" id="d4"> Xong mục 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Tag 802.1Q mổ từng trường</h1>
+<p>Tag 4 byte chèn <b>giữa MAC nguồn và EtherType</b>:</p>
+<div class="flow">| MAC đích 6 | MAC nguồn 6 | TPID 2 | TCI 2 | EtherType 2 | Payload | FCS 4 |
+                            |<-- tag 802.1Q 4 byte -->|</div>
+<div class="tbl"><table>
+<tr><th>Trường</th><th>Độ dài</th><th class="l">Ý nghĩa</th></tr>
+<tr><td><b>TPID</b></td><td>16 bit</td><td class="l"><code>0x8100</code>: báo "đây là frame có tag 802.1Q". Nằm đúng chỗ EtherType ⇒ máy không hiểu tag sẽ thấy EtherType lạ</td></tr>
+<tr><td><b>PCP</b> (Priority Code Point)</td><td>3 bit</td><td class="l"><b>CoS</b> 0–7, dùng cho QoS tầng 2. Thoại = 5</td></tr>
+<tr><td>DEI</td><td>1 bit</td><td class="l">Drop Eligible: có thể bỏ trước khi nghẽn</td></tr>
+<tr><td><b>VID</b> (VLAN ID)</td><td><b>12 bit</b></td><td class="l">Số VLAN 0–4095</td></tr>
+</table></div>
+<p>Frame có tag tối đa <b>1522 byte</b> (1518 + 4). Tag bị FCS tính lại ⇒ switch phải tính FCS mới mỗi khi thêm/bỏ tag.</p>
+<p>ISL (Cisco, cũ) <b>bọc</b> cả frame thay vì chèn tag; switch đời mới chỉ hỗ trợ 802.1Q.</p>
+
+<h3>Đọc tag trong Wireshark</h3>
+<pre>Ethernet II, Src: aa:aa:aa:00:00:01, Dst: ff:ff:ff:ff:ff:ff
+802.1Q Virtual LAN, PRI: 0, DEI: 0, ID: 10      ← tag: VLAN 10, CoS 0
+    000. .... .... .... = Priority: Best Effort (default) (0)
+    ...0 .... .... .... = DEI: Ineligible
+    .... 0000 0000 1010 = ID: 10
+    Type: ARP (0x0806)</pre>
+<p>Muốn thấy tag phải bắt gói <b>trên đường trunk</b> (CML/EVE bắt trực tiếp link). Bắt trên PC thì không thấy vì access port đã bỏ tag. Card mạng Windows thường cũng bỏ tag trước khi Wireshark thấy.</p>
+
+<label class="done"><input type="checkbox" id="d5"> Xong mục 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Native VLAN</h1>
+
+<h2>1/ Định nghĩa</h2>
+<p>Trên một trunk, frame của <b>native VLAN đi không tag</b>. Frame không tag đi vào trunk ⇒ switch coi nó thuộc native VLAN. Mỗi trunk chỉ có <b>một</b> native VLAN, mặc định VLAN 1. (Sổ của anh ghi đúng ý này.)</p>
+<p><mark>Frame VLAN native đi qua trunk không có tag.</mark></p>
+
+<h2>2/ Lệch native VLAN</h2>
+<p>SW1 native 99, SW2 native 1 (mặc định):</p>
+<ol>
+  <li>Frame VLAN 99 từ SW1 đi ra trunk <b>không tag</b>.</li>
+  <li>SW2 nhận frame không tag ⇒ coi là VLAN <b>1</b> (native của nó).</li>
+  <li>⇒ Lưu lượng VLAN 99 bên này rò sang VLAN 1 bên kia, và ngược lại. Mạng "thông nhầm" hoặc "mất kết nối" khó hiểu.</li>
+</ol>
+<p>CDP phát hiện và ghi log:</p>
+<pre>%CDP-4-NATIVE_VLAN_MISMATCH: Native VLAN mismatch discovered on GigabitEthernet0/1 (999), with SW2 GigabitEthernet0/1 (1).</pre>
+<p>STP (PVST+) cũng có thể block port: <code>%SPANTREE-2-RECV_PVID_ERR</code>, port vào trạng thái <i>inconsistent</i>.</p>
+
+<h2>3/ Vì sao đổi native khỏi VLAN 1</h2>
+<p>Tấn công <b>VLAN hopping kiểu double tagging</b>: kẻ tấn công ở native VLAN gửi frame có hai tag (ngoài = native, trong = VLAN đích). Switch đầu bóc tag ngoài (vì native), gửi ra trunk với tag trong còn lại ⇒ switch sau chuyển vào VLAN đích. Chỉ đi được một chiều, nhưng đủ để gây hại.</p>
+<p>Phòng ngừa: native VLAN = một VLAN <b>không dùng</b> (999), không gán port access nào vào đó; hoặc <code>vlan dot1q tag native</code> để tag cả native.</p>
+
+<label class="done"><input type="checkbox" id="d6"> Xong mục 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Allowed VLAN trên trunk</h1>
+
+<h2>1/ Mặc định và giới hạn</h2>
+<p>Mặc định trunk cho phép <b>tất cả VLAN 1–4094</b>. Thực tế nên chỉ cho VLAN cần thiết: giảm broadcast không cần đi xa, giảm phạm vi ảnh hưởng của loop.</p>
+
+<h2>2/ Bốn cách viết, một cái bẫy lớn</h2>
+<pre>switchport trunk allowed vlan 10,20,99        ! THAY THẾ toàn bộ danh sách bằng 10,20,99
+switchport trunk allowed vlan add 30          ! THÊM 30 vào danh sách hiện có
+switchport trunk allowed vlan remove 20       ! BỎ 20
+switchport trunk allowed vlan except 50       ! tất cả trừ 50
+switchport trunk allowed vlan all             ! trả về mặc định</pre>
+<div class="fix"><b>⚠️ Bẫy kinh điển gây sự cố production</b>
+Muốn thêm VLAN 30 vào trunk đang mang 10,20,99, gõ <code>switchport trunk allowed vlan 30</code> (quên chữ <b>add</b>) ⇒ trunk chỉ còn VLAN 30 ⇒ <b>mất toàn bộ VLAN 10, 20, 99</b> qua link đó. Nhiều kỹ sư đã làm sập cả tòa nhà bằng lệnh này. MOP thêm VLAN vào trunk luôn ghi rõ chữ <code>add</code> và pre-check danh sách hiện tại.</div>
+
+<h2>3/ Đọc <code>show interfaces trunk</code>: 4 khối</h2>
+<pre>SW1# show interfaces trunk
+Port        Mode         Encapsulation  Status        Native vlan
+Gi0/1       on           802.1q         trunking      999
+
+Port        Vlans allowed on trunk
+Gi0/1       10,20,99                                   ← (1) cấu hình cho phép
+
+Port        Vlans allowed and active in management domain
+Gi0/1       10,20,99                                   ← (2) cho phép VÀ có tồn tại trên switch này
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Gi0/1       10,20                                      ← (3) đang thực sự chuyển (99 thiếu? ⇒ STP block hoặc pruned)</pre>
+<p>VLAN có ở khối 1 nhưng thiếu ở khối 2 ⇒ <b>chưa tạo VLAN</b> trên switch này. Thiếu ở khối 3 ⇒ STP đang block VLAN đó trên port, hoặc VTP pruning.</p>
+
+<label class="done"><input type="checkbox" id="d7"> Xong mục 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> DTP và vì sao phải tắt</h1>
+
+<h2>1/ DTP là gì</h2>
+<p><b>DTP (Dynamic Trunking Protocol)</b>, độc quyền Cisco: hai đầu tự thương lượng có lên trunk hay không.</p>
+<div class="tbl"><table>
+<tr><th>Mode</th><th class="l">Hành vi</th></tr>
+<tr><td><code>access</code></td><td class="l">Luôn access</td></tr>
+<tr><td><code>trunk</code></td><td class="l">Luôn trunk (vẫn gửi DTP, trừ khi <code>nonegotiate</code>)</td></tr>
+<tr><td><code>dynamic desirable</code></td><td class="l">Chủ động mời trunk</td></tr>
+<tr><td><code>dynamic auto</code></td><td class="l">Chờ người khác mời. <b>Mặc định trên 2960 và nhiều switch đời mới</b></td></tr>
+</table></div>
+<div class="tbl"><table>
+<tr><th>A \ B</th><th>access</th><th>dynamic auto</th><th>dynamic desirable</th><th>trunk</th></tr>
+<tr><th>access</th><td>access</td><td>access</td><td>access</td><td>lỗi (lệch)</td></tr>
+<tr><th>dynamic auto</th><td>access</td><td><b>access</b></td><td>trunk</td><td>trunk</td></tr>
+<tr><th>dynamic desirable</th><td>access</td><td>trunk</td><td>trunk</td><td>trunk</td></tr>
+<tr><th>trunk</th><td>lỗi (lệch)</td><td>trunk</td><td>trunk</td><td>trunk</td></tr>
+</table></div>
+<p><mark>auto + auto = access</mark> (không ai mời ai). Đây là câu đề thi hay hỏi và lỗi lab hay gặp.</p>
+
+<h2>2/ Vì sao tắt DTP</h2>
+<p>Port người dùng để mặc định <code>dynamic auto</code> ⇒ kẻ tấn công cắm máy giả làm switch, gửi DTP "desirable" ⇒ port thành trunk ⇒ thấy mọi VLAN (<b>VLAN hopping kiểu switch spoofing</b>).</p>
+<p>Chuẩn cấu hình: port người dùng <code>switchport mode access</code> (tự tắt DTP). Port trunk <code>switchport mode trunk</code> + <code>switchport nonegotiate</code>.</p>
+
+<label class="done"><input type="checkbox" id="d8"> Xong mục 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> VTP và vì sao để transparent</h1>
+
+<h2>1/ VTP là gì</h2>
+<p><b>VTP (VLAN Trunking Protocol)</b>, Cisco: đồng bộ danh sách VLAN (tạo/xóa/đổi tên) giữa các switch cùng <b>VTP domain</b> qua đường trunk. Không đồng bộ việc gán port.</p>
+<div class="tbl"><table>
+<tr><th>Mode</th><th class="l">Tạo/xóa VLAN</th><th class="l">Gửi quảng bá</th><th class="l">Đồng bộ theo người khác</th></tr>
+<tr><td>Server (mặc định)</td><td class="l">Có</td><td class="l">Có</td><td class="l">Có</td></tr>
+<tr><td>Client</td><td class="l">Không</td><td class="l"><b>Có</b> (chuyển tiếp và quảng bá cơ sở dữ liệu của nó)</td><td class="l">Có</td></tr>
+<tr><td><b>Transparent</b></td><td class="l">Có, chỉ trên chính nó</td><td class="l">Chỉ chuyển tiếp quảng bá của người khác (v2), không quảng bá VLAN của mình</td><td class="l"><b>Không</b></td></tr>
+<tr><td>Off (v3)</td><td class="l">Có, chỉ trên chính nó</td><td class="l">Không chuyển tiếp</td><td class="l">Không</td></tr>
+</table></div>
+
+<h2>2/ Configuration revision number: quả bom VTP</h2>
+<ol>
+  <li>Mỗi lần sửa VLAN trên server, <b>revision</b> tăng 1.</li>
+  <li>Switch trong domain nhận quảng bá có revision <b>cao hơn</b> của mình ⇒ <b>chép đè</b> toàn bộ danh sách VLAN.</li>
+  <li>Kịch bản thật: mang một switch lab (đã thử nghiệm nhiều, revision 50, cùng tên domain, ít VLAN) cắm vào mạng (revision 12) ⇒ cả mạng nhận danh sách VLAN của switch lab ⇒ <b>VLAN biến mất</b> ⇒ mọi port thuộc VLAN bị xóa không còn hoạt động ⇒ sập.</li>
+  <li>Điều này xảy ra <b>cả khi switch lab ở chế độ client</b>: client có revision cao hơn cũng làm cả domain cập nhật theo nó.</li>
+</ol>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ ghi "VTP server gửi thông tin vlan.dat … <b>chỉ server mới gửi thông tin trên cổng trunk</b>". <b>Sai</b>: client cũng gửi quảng bá (và chuyển tiếp), nên client có revision cao vẫn ghi đè được cả domain. Ghi thêm: <i>"Rủi ro revision number: switch mới cắm vào có revision cao hơn sẽ ghi đè VLAN toàn domain. Khuyến nghị: để VTP transparent (hoặc off ở v3), tạo VLAN tay trên từng switch; trước khi cắm switch mới, đổi sang transparent để reset revision về 0."</i></div>
+
+<h2>3/ Khuyến nghị vận hành</h2>
+<ul>
+  <li><mark>Để VTP ở transparent</mark> (hoặc off), tạo VLAN tay. Mạng doanh nghiệp vừa và nhỏ có vài chục VLAN, tạo tay an toàn hơn nhiều.</li>
+  <li>Nếu bắt buộc dùng VTP: dùng <b>VTPv3</b> (chỉ một "primary server" được sửa), đặt mật khẩu domain.</li>
+  <li>Reset revision về 0: đổi sang transparent rồi về lại, hoặc đổi tên domain.</li>
+</ul>
+<pre>SW1(config)# vtp mode transparent
+SW1(config)# vtp domain LAB
+SW1# show vtp status        ! Configuration Revision, VTP Operating Mode, Domain Name</pre>
+
+<label class="done"><input type="checkbox" id="d9"> Xong mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> Voice VLAN, CoS và trust boundary</h1>
+
+<h2>1/ Voice VLAN</h2>
+<p>PC cắm vào điện thoại IP, điện thoại cắm vào switch: <b>một port, hai VLAN</b>. Frame của điện thoại có tag voice VLAN, frame của PC không tag (data VLAN).</p>
+<pre>SW1(config)# interface fa0/5
+SW1(config-if)# switchport mode access
+SW1(config-if)# switchport access vlan 10       ! PC
+SW1(config-if)# switchport voice vlan 110       ! điện thoại; switch báo số VLAN này cho điện thoại qua CDP/LLDP-MED
+SW1(config-if)# mls qos trust cos               ! tin CoS từ điện thoại (trên switch có lệnh này)</pre>
+<p>Port này vẫn là "access" dù mang hai VLAN (Cisco gọi là multi-VLAN access port). <code>show mac address-table interface fa0/5</code> sẽ thấy 2 MAC ở 2 VLAN.</p>
+
+<h2>2/ CoS và trust boundary</h2>
+<ul>
+  <li><b>CoS</b> (3 bit trong tag, 0–7): đánh dấu ưu tiên ở tầng 2. Thoại = <b>5</b>, tín hiệu cuộc gọi = 3. (Sổ của anh ghi đúng.)</li>
+  <li><b>Trust boundary</b> (ranh giới tin cậy): điểm trong mạng mà từ đó trở vào, nhãn QoS được tin. Thường đặt ở <b>port access của switch</b> nối với điện thoại.</li>
+  <li>Port <b>không tin</b> (mặc định khi bật QoS) ⇒ switch <b>ghi lại CoS = 0</b> cho frame đi vào. Lý do: không cho PC tự đánh dấu "tôi ưu tiên cao" để chen lấn.</li>
+  <li>Port tin (trust) ⇒ giữ nguyên CoS của điện thoại.</li>
+</ul>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ ghi "Truyền đến router ⇒ mặc định dữ liệu đến router thì đều xóa đi ⇒ 0". <b>Sai vị trí</b>. Việc CoS bị đặt về 0 xảy ra ở <b>cổng access của switch</b> khi cổng đó không được trust (trust boundary), không phải "khi đến router". Router làm việc ở tầng 3, dùng DSCP trong IP header; CoS nằm trong tag 802.1Q, tag bị bỏ ngay khi frame ra khỏi trunk/access. Sửa lại câu đó và ghi thêm "trust boundary = cổng switch nối điện thoại".</div>
+<p>Học kỹ QoS ở tuần 18.</p>
+
+<label class="done"><input type="checkbox" id="d10"> Xong mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> Inter-VLAN routing: 3 cách</h1>
+<p>Hai VLAN là hai mạng ⇒ muốn nói chuyện phải có <b>thiết bị tầng 3</b> làm gateway cho từng VLAN.</p>
+<div class="tbl"><table>
+<tr><th>Cách</th><th class="l">Mô tả</th><th class="l">Ưu</th><th class="l">Nhược</th><th class="l">Khi nào dùng</th></tr>
+<tr><td><b>Legacy</b></td><td class="l">Mỗi VLAN một cổng vật lý router nối một port access switch</td><td class="l">Đơn giản, hiểu ngay</td><td class="l">Tốn cổng router và dây; không mở rộng được</td><td class="l">Gần như không dùng nữa</td></tr>
+<tr><td><b>Router-on-a-stick</b></td><td class="l">Một cổng router, chia <b>sub-interface</b> mỗi VLAN, nối trunk về switch</td><td class="l">Một dây, một cổng; dùng router/firewall có sẵn</td><td class="l"><b>Mọi lưu lượng giữa VLAN đi lên đi xuống chung một dây</b> (nghẽn), <b>điểm lỗi đơn</b> (một cổng/một dây hỏng là mất định tuyến mọi VLAN), router xử lý bằng phần mềm chậm hơn switch</td><td class="l">Chi nhánh nhỏ; khi gateway là firewall (FortiGate dùng VLAN interface trên một port cũng là kiểu này)</td></tr>
+<tr><td><b>SVI trên switch L3</b></td><td class="l">Switch L3 có interface ảo <code>interface vlan X</code> làm gateway, định tuyến bằng phần cứng</td><td class="l">Nhanh (tốc độ dây), không nghẽn một link, mở rộng dễ</td><td class="l">Cần switch L3 (đắt hơn); chính sách bảo mật giữa VLAN phải làm bằng ACL trên switch</td><td class="l">Mạng doanh nghiệp: core/distribution</td></tr>
+</table></div>
+
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Sổ ghi "Router on a stick(sub interface) <b>chứa đc 50 sub interface</b> đỗ trễ cao". <b>Bỏ con số 50</b>: không có giới hạn chuẩn như vậy (IOS cho hàng trăm/nghìn sub-interface, phụ thuộc nền tảng). Thay bằng nhược điểm thật: <i>"dùng chung băng thông một link cho mọi lưu lượng giữa VLAN (đi lên rồi đi xuống cùng dây), và là điểm lỗi đơn."</i></div>
+
+<label class="done"><input type="checkbox" id="d11"> Xong mục 11</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Router-on-a-stick chi tiết</h1>
+
+<h2>1/ Cấu hình</h2>
+<pre><span class="c">! Switch: port nối router là trunk</span>
+SW1(config)# interface gi0/2
+SW1(config-if)# switchport mode trunk
+SW1(config-if)# switchport trunk native vlan 999
+SW1(config-if)# switchport trunk allowed vlan 10,20,30,99
+
+<span class="c">! Router: cổng vật lý không có IP, chỉ no shutdown</span>
+R1(config)# interface g0/0
+R1(config-if)# no shutdown
+R1(config)# interface g0/0.10
+R1(config-subif)# description GW-VLAN10
+R1(config-subif)# encapsulation dot1Q 10              ! sub-interface này nhận/gửi frame tag 10
+R1(config-subif)# ip address 192.168.10.1 255.255.255.0
+R1(config)# interface g0/0.20
+R1(config-subif)# encapsulation dot1Q 20
+R1(config-subif)# ip address 192.168.20.1 255.255.255.0
+R1(config)# interface g0/0.30
+R1(config-subif)# encapsulation dot1Q 30
+R1(config-subif)# ip address 192.168.30.1 255.255.255.0
+R1(config)# interface g0/0.999
+R1(config-subif)# encapsulation dot1Q 999 native      ! khớp native VLAN của switch (không cần IP)</pre>
+<p>Số sub-interface (.10) chỉ là tên, không bắt buộc bằng VLAN, nhưng <b>nên đặt bằng</b> cho dễ đọc. Thứ quyết định VLAN là <code>encapsulation dot1Q 10</code>.</p>
+
+<h2>2/ Gói đi từ VLAN 10 sang VLAN 20</h2>
+<ol>
+  <li>PC10 thấy đích khác mạng ⇒ gửi frame cho MAC gateway 192.168.10.1 (MAC của g0/0).</li>
+  <li>Switch đưa frame lên trunk với <b>tag 10</b>.</li>
+  <li>Router nhận vào sub-interface .10, định tuyến, ra sub-interface .20 ⇒ frame mới <b>tag 20</b>, gửi xuống <b>cùng dây</b>.</li>
+  <li>Switch bỏ tag, giao cho PC20.</li>
+</ol>
+<p>⇒ Một gói qua dây trunk <b>hai lần</b>: lý do link này dễ nghẽn.</p>
+
+<h2>3/ Kiểm tra</h2>
+<pre>R1# show ip interface brief           ! g0/0.10, .20, .30 up/up
+R1# show interfaces g0/0.10          ! "Encapsulation 802.1Q Virtual LAN, Vlan ID 10"
+R1# show vlans                        ! (router) VLAN nào gắn sub-interface nào, đếm gói
+R1# show ip route connected</pre>
+
+<label class="done"><input type="checkbox" id="d12"> Xong mục 12</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> SVI trên switch layer 3 chi tiết</h1>
+
+<h2>1/ SVI là gì</h2>
+<p><b>SVI (Switched Virtual Interface)</b> = <code>interface vlan X</code>: một interface tầng 3 <b>ảo</b> đại diện cho cả VLAN X trên switch. Switch L2 cũng có SVI nhưng chỉ dùng để quản trị (một SVI có IP); switch L3 dùng SVI làm <b>gateway</b> cho mọi VLAN và định tuyến giữa chúng.</p>
+
+<h2>2/ Ba bước (viết lại phần sổ đang dở)</h2>
+<pre><span class="c">! Bước 1: tạo VLAN (SVI chỉ up khi VLAN tồn tại)</span>
+DSW1(config)# vlan 10
+DSW1(config-vlan)# name KETOAN
+DSW1(config)# vlan 20
+DSW1(config-vlan)# name KINHDOANH
+
+<span class="c">! Bước 2: bật định tuyến IPv4 trên switch (mặc định TẮT trên nhiều dòng switch)</span>
+DSW1(config)# ip routing
+
+<span class="c">! Bước 3: tạo SVI làm gateway cho từng VLAN</span>
+DSW1(config)# interface vlan 10
+DSW1(config-if)# ip address 192.168.10.1 255.255.255.0
+DSW1(config-if)# no shutdown
+DSW1(config)# interface vlan 20
+DSW1(config-if)# ip address 192.168.20.1 255.255.255.0
+DSW1(config-if)# no shutdown
+DSW1# show ip route connected</pre>
+<div class="fix"><b>✏️ Sửa so với ghi chép cũ</b>
+Mục SVI trong sổ đang dở: "B1: khởi tạo vlan / B2: bật tính năng định tuyến / <b>B3: mở inter vlan trên switch layer 3 / 1</b>". Viết lại B3 cho rõ: <i>"B3: tạo interface vlan X cho từng VLAN, đặt IP gateway, no shutdown"</i>, và thêm lệnh của từng bước như khung trên. Ghi thêm: quên <code>ip routing</code> ⇒ SVI vẫn up, PC ping được gateway của mình, nhưng <b>không sang được VLAN khác</b>.</div>
+
+<h2>3/ Vì sao SVI ở trạng thái down/down dù đã no shutdown</h2>
+<p>SVI chỉ <b>up/up</b> khi đủ ba điều kiện:</p>
+<ol>
+  <li><b>VLAN tồn tại</b> trong cơ sở dữ liệu VLAN của switch (và không bị suspend).</li>
+  <li>Có <b>ít nhất một port</b> đang up và đang forwarding (STP) thuộc VLAN đó: một port access, hoặc một trunk cho phép VLAN đó. Tính năng này tên là <b>autostate</b>.</li>
+  <li>SVI <b>no shutdown</b>.</li>
+</ol>
+<p>⇒ Lab hay gặp: tạo SVI cho VLAN 30 nhưng chưa có máy nào cắm port VLAN 30 và trunk không mang VLAN 30 ⇒ SVI 30 down/down.</p>
+
+<h2>4/ Routed port trên switch L3</h2>
+<p>Port switch L3 có thể biến thành port như router (có IP riêng, không thuộc VLAN nào):</p>
+<pre>DSW1(config)# interface gi1/0/24
+DSW1(config-if)# no switchport                       ! port tầng 3 (sổ của anh đã ghi ý này)
+DSW1(config-if)# ip address 10.255.0.1 255.255.255.252
+DSW1(config-if)# no shutdown</pre>
+<p>Dùng cho link lên firewall/router WAN hoặc giữa hai switch core khi định tuyến tầng 3 (không trunk).</p>
+
+<label class="done"><input type="checkbox" id="d13"> Xong mục 13</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Lệnh kiểm tra và xử lý sự cố</h1>
+<pre>show vlan brief                        ! VLAN nào có, port nào thuộc VLAN nào (không hiện trunk)
+show vlan id 10                        ! chi tiết một VLAN
+show interfaces status                 ! cột Vlan: số VLAN hoặc "trunk"
+show interfaces fa0/2 switchport       ! Administrative/Operational Mode, Access VLAN, Native VLAN, Voice VLAN
+show interfaces trunk                  ! 4 khối: mode, allowed, active, forwarding
+show vtp status
+show ip interface brief | include Vlan ! trạng thái các SVI
+show cdp neighbors detail              ! native VLAN của hàng xóm (Native VLAN: …)
+show mac address-table vlan 10</pre>
+
+<h2>Thứ tự xử lý "máy VLAN 10 không sang được VLAN 20"</h2>
+<ol>
+  <li>Máy có IP/mask/gateway đúng VLAN 10 không? Ping gateway được không?</li>
+  <li>Port của máy đúng VLAN không (<code>show interfaces … switchport</code>)?</li>
+  <li>Trunk từ switch access lên switch L3/router có mang VLAN 10 và 20 không (khối 3 của <code>show interfaces trunk</code>)?</li>
+  <li>Native VLAN hai đầu có khớp không (log CDP)?</li>
+  <li>Gateway (SVI/sub-interface) VLAN 10 và 20 có up/up không? Có <code>ip routing</code> không?</li>
+  <li>Có ACL/firewall chặn giữa hai VLAN không?</li>
+  <li>Chiều về: máy VLAN 20 có gateway đúng không?</li>
+</ol>
+
+<label class="done"><input type="checkbox" id="d14"> Xong mục 14</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m15"><span class="no">15.</span> Tình huống thực tế</h1>
+
+<h3>Tình huống 1 · Đổi VLAN cho một port (việc anh làm thường xuyên)</h3>
+<details><summary>Quy trình chuẩn của kỹ sư</summary>
+<ol>
+  <li>Xác định port bằng MAC (tuần 2): <code>show mac address-table address</code> + CDP.</li>
+  <li>Xem port có gì: <code>show mac address-table interface</code> (1 hay nhiều MAC?), <code>show interfaces … switchport</code> (có voice VLAN không?), <code>show running-config interface</code> lưu lại.</li>
+  <li>VLAN đích có tồn tại trên switch này chưa? Trunk lên trên có mang VLAN đó chưa?</li>
+  <li>Đổi: <code>switchport access vlan X</code>. Cập nhật <code>description</code>.</li>
+  <li>Máy xin lại IP; kiểm IP đúng dải VLAN mới, ping gateway.</li>
+  <li>Ghi ticket: port, VLAN cũ → mới, người yêu cầu.</li>
+</ol></details>
+
+<h3>Tình huống 2 · Thêm VLAN mới cho phòng ban, một tầng mất mạng</h3>
+<details><summary>Phân tích</summary>
+<p>Kỹ thuật viên gõ <code>switchport trunk allowed vlan 40</code> trên uplink của switch tầng 5 (thiếu <code>add</code>) ⇒ uplink chỉ còn VLAN 40 ⇒ toàn bộ VLAN cũ trên tầng 5 mất kết nối. Phát hiện: <code>show interfaces trunk</code> khối 2 chỉ còn 40. Sửa: <code>switchport trunk allowed vlan add …</code> các VLAN cũ (cần biết danh sách cũ ⇒ luôn lưu pre-check). Đây là lý do có MOP.</p></details>
+
+<h3>Tình huống 3 · SVI VLAN mới down/down</h3>
+<details><summary>Phân tích</summary>
+<p>Đã tạo <code>interface vlan 50</code>, <code>no shutdown</code> nhưng vẫn down: VLAN 50 chưa được tạo (chỉ có SVI), hoặc chưa có port nào thuộc VLAN 50 đang up, hoặc trunk xuống switch access chưa cho phép VLAN 50. Kiểm <code>show vlan brief</code>, <code>show interfaces trunk</code>.</p></details>
+
+<h3>Tình huống 4 · Wi-Fi khách vào được mạng nội bộ</h3>
+<details><summary>Phân tích</summary>
+<p>AP phát SSID khách ở VLAN khách, nhưng port switch nối AP là access VLAN nội bộ (hoặc trunk thiếu VLAN khách, AP gửi frame không tag ⇒ rơi vào native VLAN = VLAN nội bộ). Kiểm: AP gửi SSID nào với tag gì, port switch là trunk với native/allowed thế nào. Bài học: native VLAN không được trùng VLAN có người dùng.</p></details>
+
+<div class="note"><b>Góc nhìn hệ thống</b>
+VLAN là ranh giới bảo mật đầu tiên. Ở ngân hàng, mỗi vùng (người dùng, máy chủ, ATM, camera, khách, quản trị thiết bị) là một VLAN riêng, gateway của nhiều VLAN nhạy cảm đặt trên <b>firewall</b> (FortiGate) thay vì switch L3 để mọi lưu lượng giữa vùng đi qua chính sách. Kỹ sư phải hiểu gateway của mỗi VLAN nằm ở đâu: switch L3 (nhanh, ít kiểm soát) hay firewall (chậm hơn, kiểm soát chặt). Câu hỏi phỏng vấn hay gặp: "anh sẽ đặt gateway VLAN máy chủ ở đâu, vì sao".</div>
+
+<label class="done"><input type="checkbox" id="d15"> Xong mục 15</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m16"><span class="no">16.</span> Tóm tắt cực ngắn để học/thi CCNA</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Phải nhớ</th></tr>
+<tr><td>VLAN ID</td><td class="l">12 bit · dùng 1–4094 · normal 1–1005 (vlan.dat) · extended 1006–4094</td></tr>
+<tr><td>802.1Q</td><td class="l">Tag 4 byte: TPID 0x8100, PCP 3 bit (CoS), DEI 1, VID 12 · frame tối đa 1522</td></tr>
+<tr><td>Native</td><td class="l">Không tag · mặc định 1 · lệch ⇒ CDP mismatch, rò VLAN · đổi sang VLAN không dùng</td></tr>
+<tr><td>Allowed</td><td class="l">Mặc định 1–4094 · quên <code>add</code> là thay cả danh sách</td></tr>
+<tr><td>DTP</td><td class="l">auto + auto = access · tắt bằng mode access / nonegotiate</td></tr>
+<tr><td>VTP</td><td class="l">Server/client/transparent/off · revision cao ghi đè (cả client) · khuyến nghị transparent</td></tr>
+<tr><td>Voice</td><td class="l"><code>switchport voice vlan</code> · CoS 5 · trust boundary ở port access</td></tr>
+<tr><td>Inter-VLAN</td><td class="l">Legacy · ROAS (sub-if + encapsulation dot1Q, chung băng thông, điểm lỗi đơn) · SVI (ip routing + interface vlan)</td></tr>
+<tr><td>SVI up</td><td class="l">VLAN tồn tại + có port active trong VLAN + no shutdown</td></tr>
+</table></div>
+
+<label class="done"><input type="checkbox" id="d16"> Xong mục 16</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m17"><span class="no">17.</span> Từ vựng tiếng Anh</h1>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">VLAN</td><td class="l">mạng LAN ảo</td><td class="l">broadcast domain</td><td class="l">miền quảng bá</td></tr>
+<tr><td class="l">access port</td><td class="l">cổng truy cập (một VLAN)</td><td class="l">trunk port</td><td class="l">cổng trục (nhiều VLAN)</td></tr>
+<tr><td class="l">tag / tagging</td><td class="l">nhãn / gắn nhãn</td><td class="l">untagged</td><td class="l">không gắn nhãn</td></tr>
+<tr><td class="l">native VLAN</td><td class="l">VLAN không gắn nhãn trên trunk</td><td class="l">allowed VLAN list</td><td class="l">danh sách VLAN được phép</td></tr>
+<tr><td class="l">management VLAN</td><td class="l">VLAN quản trị</td><td class="l">voice VLAN</td><td class="l">VLAN thoại</td></tr>
+<tr><td class="l">negotiate</td><td class="l">thương lượng</td><td class="l">revision number</td><td class="l">số phiên bản cấu hình</td></tr>
+<tr><td class="l">sub-interface</td><td class="l">interface con</td><td class="l">router-on-a-stick</td><td class="l">router "một chân"</td></tr>
+<tr><td class="l">SVI</td><td class="l">interface VLAN ảo</td><td class="l">routed port</td><td class="l">cổng tầng 3 trên switch</td></tr>
+<tr><td class="l">trust boundary</td><td class="l">ranh giới tin cậy (QoS)</td><td class="l">VLAN hopping</td><td class="l">nhảy VLAN (tấn công)</td></tr>
+<tr><td class="l">mismatch</td><td class="l">lệch, không khớp</td><td class="l">single point of failure</td><td class="l">điểm lỗi đơn</td></tr>
+</table></div>
+<p>Câu mẫu: <i>"VLAN 30 is allowed on the trunk but not active, because it hasn't been created on the access switch."</i></p>
+
+<label class="done"><input type="checkbox" id="d17"> Xong mục 17</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m18"><span class="no">18.</span> Câu hỏi tự kiểm tra</h1>
+<p>Trả lời ra giấy hoặc gửi cho Claude <b>trước</b>, rồi mới mở đáp án.</p>
+
+<h3>Mức 1: nhớ</h3>
+<details><summary>1. Frame VLAN native đi qua trunk có tag không?</summary><p>Không. Native VLAN đi không tag (trừ khi bật <code>vlan dot1q tag native</code>).</p></details>
+<details><summary>2. VLAN ID dài bao nhiêu bit, dải hợp lệ?</summary><p>12 bit. Dùng được 1–4094 (0 và 4095 dành riêng).</p></details>
+<details><summary>3. Lệnh nào xem VLAN nào đang được phép trên trunk?</summary><p><code>show interfaces trunk</code> (khối "Vlans allowed on trunk"); hoặc <code>show interfaces gi0/1 switchport</code> dòng "Trunking VLANs Enabled".</p></details>
+<details><summary>4. TPID của tag 802.1Q là bao nhiêu? CoS nằm ở trường nào?</summary><p>0x8100. CoS nằm ở PCP (3 bit).</p></details>
+
+<h3>Mức 2: hiểu</h3>
+<details><summary>5. Vì sao nên để VTP ở chế độ transparent?</summary><p>Tránh bị ghi đè danh sách VLAN bởi switch có revision cao hơn (kể cả client). Transparent không đồng bộ theo ai, VLAN tạo tay trên từng switch.</p></details>
+<details><summary>6. SVI ở trạng thái down/down dù đã no shutdown: nguyên nhân hay gặp?</summary><p>VLAN chưa tạo; không có port nào up/forwarding thuộc VLAN đó (kể cả trunk mang VLAN); VLAN bị suspend.</p></details>
+<details><summary>7. Hai switch nối nhau, cả hai port để mặc định dynamic auto. Trunk có lên không?</summary><p>Không. auto + auto = access.</p></details>
+<details><summary>8. Router-on-a-stick: vì sao link giữa router và switch dễ nghẽn?</summary><p>Mỗi gói giữa hai VLAN đi lên router rồi đi xuống cùng một dây ⇒ chiếm băng thông hai lần trên cùng link.</p></details>
+
+<h3>Mức 3: vận hành / phỏng vấn</h3>
+<details><summary>9. Anh cần thêm VLAN 40 vào uplink đang mang 10,20,30,99. Viết lệnh và pre-check.</summary><p>Pre-check: <code>show interfaces gi0/1 trunk</code> lưu danh sách. Lệnh: <code>switchport trunk allowed vlan add 40</code> (hai đầu). Verify: danh sách = 10,20,30,40,99; VLAN 40 có ở khối active và forwarding.</p></details>
+<details><summary>10. Log báo NATIVE_VLAN_MISMATCH. Ảnh hưởng và xử lý?</summary><p>Lưu lượng không tag của hai native VLAN khác nhau bị trộn ⇒ rò VLAN, mất kết nối, STP có thể block. Đặt native VLAN giống nhau ở hai đầu (theo chuẩn công ty, VLAN không dùng).</p></details>
+<details><summary>11. Gateway VLAN máy chủ nên đặt trên switch L3 hay firewall?</summary><p>Tùy yêu cầu: firewall nếu cần kiểm soát chặt lưu lượng vào/ra vùng máy chủ (ngân hàng thường chọn), đổi lại hiệu năng và chi phí; switch L3 nếu cần hiệu năng cao và chính sách đơn giản (ACL). Thiết kế phổ biến: VLAN người dùng gateway trên switch L3, vùng nhạy cảm gateway trên firewall.</p></details>
+<details><summary>12. Một port access có 2 MAC ở 2 VLAN khác nhau. Bình thường không?</summary><p>Bình thường nếu là port có voice VLAN (điện thoại + PC). Kiểm <code>show interfaces … switchport</code> dòng Voice VLAN.</p></details>
+
+<label class="done"><input type="checkbox" id="d18"> Xong mục 18</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Học xong sổ tay thì làm lab và MOP trong <a href="tuan-06.html">giáo án tuần 6</a>. Tuần trước: <a href="tuan-05-kien-thuc.html">sổ tay tuần 5</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan06-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
