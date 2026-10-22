@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Giáo án tuần 9</title>
+<style>
+:root{
+  --bg:#f7f6f2; --panel:#ffffff; --ink:#1d2228; --muted:#5b6470; --line:#dcd8cf;
+  --accent:#0f5e9c; --accent-soft:#e3eef7; --warn:#a4470d; --warn-soft:#fbebdd;
+  --ok:#1d6b3a; --ok-soft:#e2f2e7; --code:#f0eee8;
+  --l7:#7a4fa3; --l4:#0f5e9c; --l3:#1d6b3a; --l2:#a4470d; --l1:#5b6470;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+    --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+    --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15181c; --panel:#1d2126; --ink:#e6e8eb; --muted:#9aa3ad; --line:#2f353c;
+  --accent:#6fb0e6; --accent-soft:#1c2b38; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#7fcf9a; --ok-soft:#1a2c21; --code:#23282e;
+  --l7:#c3a2e6; --l4:#6fb0e6; --l3:#7fcf9a; --l2:#f0a36b; --l1:#9aa3ad; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 90px}
+header.hero{border-bottom:2px solid var(--ink);padding:18px 0 18px;margin-bottom:20px}
+.hero .kicker{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.2;margin:4px 0 8px}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{display:inline-block;padding:5px 13px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;text-decoration:none;font-size:.88rem}
+.links a:hover{background:var(--accent-soft)}
+h2{font-size:1.45rem;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:1.15rem;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:1rem;margin:18px 0 6px}
+p{margin:8px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:22px}
+li{margin:3px 0}
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.toc ol{margin:6px 0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid}
+@media (max-width:700px){.toc ol{columns:1}}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:none}
+code,pre,kbd{font-family:"Cascadia Code",Consolas,"SFMono-Regular",Menlo,monospace;font-size:.87rem}
+code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto;line-height:1.5;border:1px solid var(--line);margin:10px 0}
+pre .c{color:var(--muted)}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:11px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--ok-soft)}
+.box > strong:first-child{display:block;margin-bottom:3px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;margin:8px 0}
+details summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:8px}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px 14px;margin:18px 0}
+.day h2{border-top:none;margin-top:14px;padding-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.meta b{color:var(--ink)}
+.tag{display:inline-block;border-radius:4px;padding:0 7px;font-size:.78rem;font-weight:700;color:#fff;vertical-align:middle}
+.L7{background:var(--l7)}.L4{background:var(--l4)}.L3{background:var(--l3)}.L2{background:var(--l2)}.L1{background:var(--l1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag{color:#15181c}}
+:root[data-theme="dark"] .tag{color:#15181c}
+.check{list-style:none;padding-left:0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed var(--line)}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:18px;height:18px;flex:none;accent-color:var(--ok)}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.9rem}
+.progress .bar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.frame{display:flex;flex-wrap:wrap;margin:12px 0;font-size:.8rem;font-family:Consolas,monospace}
+.frame div{padding:7px 8px;border:1px solid var(--ink);margin:-1px 0 0 -1px;text-align:center;background:var(--panel)}
+.frame .h2{background:var(--warn-soft)}.frame .h3{background:var(--ok-soft)}.frame .h4{background:var(--accent-soft)}
+.frame small{display:block;color:var(--muted)}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0;overflow-x:auto}
+.diagram svg{display:block;width:100%;min-width:560px;height:auto}
+.foot{margin-top:56px;color:var(--muted);font-size:.87rem;border-top:1px solid var(--line);padding-top:14px}
+.toplink{position:fixed;right:16px;bottom:16px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+@media print{.toplink,.progress,.links{display:none}body{background:#fff}.day{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="hero">
+  <div class="kicker">Giai đoạn 1 · Tuần 9 · 21/12 – 27/12/2026 · Ôn nhớ</div>
+  <h1>Ôn nhớ: subnetting, IPv6, VLAN, STP, EtherChannel</h1>
+  <p>Tuần không học mới. Khoảng 10 giờ: đọc lại, làm lại bài khó, <b>dựng lại lab nền từ máy trắng</b>, diễn tập lỗi, thi 50 bài.</p>
+  <p>Sổ tay ôn: <a href="tuan-09-kien-thuc.html">14 mục cô đọng tuần 1–8</a>, kèm 50 bài luyện có đáp án và bảng lỗi kinh điển.</p>
+  <div class="links">
+    <a href="tuan-09-kien-thuc.html">Sổ tay ôn tuần 9</a>
+    <a href="tuan-08.html">Giáo án tuần 8</a>
+    <a href="../index.html">Về lịch học</a>
+    <a href="#tu-kiem-tra">Tự kiểm tra</a>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <span id="pText">0 / 0 việc</span>
+  <div class="bar"><i id="pBar"></i></div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu tuần này</h2>
+<p>Đầu ra trong lịch: <b>dựng lại lab nền dưới 60 phút; đúng ít nhất 45/50 bài subnet.</b></p>
+<ol>
+  <li>Biết chính xác mình yếu ở đâu (danh sách ✗ theo tuần), và đã học lại các chỗ đó.</li>
+  <li>Dựng từ máy trắng: 3 VLAN + trunk + RSTP + EtherChannel + IPv6 dual-stack trong 60 phút, ghi lại mọi chỗ phải mở tài liệu.</li>
+  <li>Sửa 3 lỗi do Claude gài (VLAN, STP, mask) trong 30 phút.</li>
+  <li>Sổ tay Google Docs đã sửa hết các mục tuần 1–8.</li>
+</ol>
+
+<div class="box">
+  <strong>Góc nhìn hệ thống (lời người hướng dẫn)</strong>
+  Tuần ôn là tuần người học hay bỏ qua vì "không có gì mới". Nhưng trí nhớ không phải ổ cứng: cái gì không dùng lại sau 2–3 tuần sẽ phai. Ôn có chủ đích (tìm lỗ hổng, rồi lấp) là thứ biến kiến thức đọc thành kỹ năng làm được. Ở công ty cũng vậy: đội vận hành giỏi định kỳ <b>diễn tập</b> khôi phục, chứ không đợi sự cố thật mới làm lần đầu.
+</div>
+
+<nav class="toc" aria-label="Mục lục">
+  <b>Lịch tuần</b>
+  <ol>
+    <li><a href="#t2">Thứ 2 · Ôn tuần 1–4</a></li>
+    <li><a href="#t3">Thứ 3 · Ôn tuần 5–8</a></li>
+    <li><a href="#t4">Thứ 4 · Dựng lại lab nền (lần 1, có tài liệu)</a></li>
+    <li><a href="#t5">Thứ 5 · Dựng lại lab nền (lần 2, bấm giờ)</a></li>
+    <li><a href="#t6">Thứ 6 · Rà soát sửa sổ tay tuần 1–8</a></li>
+    <li><a href="#t7">Thứ 7 · Viết lại MOP yếu nhất, diễn tập 3 lỗi</a></li>
+    <li><a href="#cn">Chủ nhật · 50 bài + giải thích bằng miệng</a></li>
+    <li><a href="#moi-ngay">Mỗi ngày 15 phút</a></li>
+  </ol>
+</nav>
+
+<!-- ====================== THỨ 2 ====================== -->
+<section class="day" id="t2">
+<h2>Thứ 2 (21/12) · Ôn tuần 1–4</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: danh sách ✗ của tuần 1–4</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t2-1"><label for="t2-1">Sổ tay ôn mục <a href="tuan-09-kien-thuc.html#m1">1</a> đến <a href="tuan-09-kien-thuc.html#m4">4</a>: che "Phải nhớ", tự nói, đánh dấu ✗</label></li>
+  <li><input type="checkbox" id="t2-2"><label for="t2-2">Học lại các mục ✗ trong sổ tay gốc</label></li>
+  <li><input type="checkbox" id="t2-3"><label for="t2-3">Làm lại 10 bài khó nhất trong <a href="tuan-03-kien-thuc.html#m16">tuần 3</a> và <a href="tuan-04-kien-thuc.html#m16">tuần 4</a> (bài nào từng sai)</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 3 ====================== -->
+<section class="day" id="t3">
+<h2>Thứ 3 (22/12) · Ôn tuần 5–8</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: danh sách ✗ của tuần 5–8</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t3-1"><label for="t3-1">Sổ tay ôn mục <a href="tuan-09-kien-thuc.html#m5">5</a> đến <a href="tuan-09-kien-thuc.html#m8">8</a>: che, tự nói, đánh dấu ✗</label></li>
+  <li><input type="checkbox" id="t3-2"><label for="t3-2">Học lại các mục ✗</label></li>
+  <li><input type="checkbox" id="t3-3"><label for="t3-3">Đọc <a href="tuan-09-kien-thuc.html#m10">bảng lỗi kinh điển</a>: che hai cột phải, tự trả lời từng dòng</label></li>
+  <li><input type="checkbox" id="t3-4"><label for="t3-4">Rút gọn 10 địa chỉ IPv6, giải một cây STP 4 switch</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 4 ====================== -->
+<section class="day" id="t4">
+<h2>Thứ 4 (23/12) · Dựng lại lab nền, lần 1 (được mở tài liệu)</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: config vào git thư mục <code>W09-review-switching</code>, danh sách "chỗ phải mở tài liệu"</span></div>
+
+<h3>Đề bài: access–distribution</h3>
+<div class="flow">                  R1 (WAN giả lập, loopback 8.8.8.8/32)
+                   | g0/0  10.255.0.0/30 (IPv6 2001:db8:ff::/64)
+                 DSW1 (L3, root STP, gateway SVI)
+            Po1 //  \\ Po2        (LACP 2 dây mỗi bó)
+             ASW1 ---- ASW2       (link thường giữa 2 access, bị STP block)
+             PC10, PC20   PC10b, PC30</div>
+<div class="tbl"><table>
+<thead><tr><th>VLAN</th><th>IPv4</th><th>IPv6</th><th>Gateway</th></tr></thead>
+<tbody>
+<tr><td>10</td><td>192.168.10.0/24</td><td>2001:db8:10::/64</td><td>DSW1 SVI .1 / ::1</td></tr>
+<tr><td>20</td><td>192.168.20.0/24</td><td>2001:db8:20::/64</td><td>DSW1 SVI</td></tr>
+<tr><td>30</td><td>192.168.30.0/24</td><td>2001:db8:30::/64</td><td>DSW1 SVI</td></tr>
+<tr><td>99</td><td>10.99.0.0/24</td><td>—</td><td>Quản trị switch</td></tr>
+<tr><td>999</td><td colspan="3">Native, không dùng</td></tr>
+</tbody>
+</table></div>
+<h3>Yêu cầu (checklist khi dựng)</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t4-1"><label for="t4-1">VTP transparent, VLAN 10/20/30/99/999 có tên, trên cả 3 switch</label></li>
+  <li><input type="checkbox" id="t4-2"><label for="t4-2">Port access đúng VLAN; port không dùng VLAN 999 + shutdown</label></li>
+  <li><input type="checkbox" id="t4-3"><label for="t4-3">Trunk chuẩn: nonegotiate, native 999, allowed 10,20,30,99</label></li>
+  <li><input type="checkbox" id="t4-4"><label for="t4-4">Po1, Po2 LACP active; load-balance src-dst-ip</label></li>
+  <li><input type="checkbox" id="t4-5"><label for="t4-5">Rapid PVST+, DSW1 root (priority 4096) mọi VLAN; PortFast + BPDU Guard port máy trạm</label></li>
+  <li><input type="checkbox" id="t4-6"><label for="t4-6"><code>ip routing</code>, <code>ipv6 unicast-routing</code>, SVI dual-stack; PC nhận IPv6 bằng SLAAC</label></li>
+  <li><input type="checkbox" id="t4-7"><label for="t4-7">Default route IPv4/IPv6 trên DSW1 về R1; R1 route về các LAN (static)</label></li>
+  <li><input type="checkbox" id="t4-8"><label for="t4-8">Port security sticky max 2 trên port máy trạm ASW1</label></li>
+</ul>
+<h3>Verify</h3>
+<ul class="check">
+  <li><input type="checkbox" id="t4-9"><label for="t4-9">Mọi PC ping nhau (IPv4 và IPv6), ping 8.8.8.8 trên R1; <code>show etherchannel summary</code> SU/P; port block nằm đúng link ASW1–ASW2</label></li>
+  <li><input type="checkbox" id="t4-10"><label for="t4-10">Ghi danh sách mọi lần phải mở tài liệu (lệnh nào, vì sao quên)</label></li>
+</ul>
+</section>
+
+<!-- ====================== THỨ 5 ====================== -->
+<section class="day" id="t5">
+<h2>Thứ 5 (24/12) · Dựng lại lab nền, lần 2 (bấm giờ, không tài liệu)</h2>
+<div class="meta"><span><b>1,5 giờ</b></span><span>Đầu ra: thời gian dựng, danh sách chỗ còn vấp</span></div>
+<ul class="check">
+  <li><input type="checkbox" id="t5-1"><label for="t5-1">Xóa sạch 4 thiết bị (<code>write erase</code>, <code>delete flash:vlan.dat</code>, reload)</label></li>
+  <li><input type="checkbox" id="t5-2"><label for="t5-2">Dựng lại toàn bộ yêu cầu Thứ 4 không mở tài liệu. Ghi giờ bắt đầu ___ kết thúc ___ (mục tiêu &lt; 60 phút)</label></li>
+  <li><input type="checkbox" id="t5-3"><label for="t5-3">Chỗ nào vẫn phải mở tài liệu: ghi lại, tối nay học riêng phần đó</label></li>
+</ul>
+<div class="box ok">
+  <strong>Mẹo tăng tốc (dùng ở mốc giai đoạn 1: chi nhánh trong 90 phút)</strong>
+  Viết sẵn <b>khung cấu hình</b> cho từng vai trò (access, distribution) ra Notepad theo thứ tự: hostname → VLAN → trunk/port-channel → STP → access port → SVI/route. Dựng theo khung, không theo trí nhớ lộn xộn. Đây cũng là cách kỹ sư thật làm "golden config".
+</div>
+</section>
+
+<!-- ====================== THỨ 6 ====================== -->
+<section class="day" id="t6">
+<h2>Thứ 6 (25/12) · Rà soát sửa sổ tay tuần 1–8</h2>
+<div class="meta"><span><b>1 giờ</b></span><span>Đầu ra: sổ Google Docs đã sửa đủ (một phần của mốc giai đoạn 1)</span></div>
+<p>Tick mục nào đã sửa trong Google Docs. Mục chưa sửa thì sửa ngay hôm nay.</p>
+<h3>Tuần 1 · OSI, TCP/IP, PDU, Ethernet/ARP, MTU</h3>
+<ul class="check">
+  <li><input type="checkbox" id="s1-1"><label for="s1-1">Tầng 6 không "chuyển data về mã máy". Sửa thành: biểu diễn dữ liệu (mã hóa ký tự UTF-8, nén, mã hóa TLS).</label></li>
+  <li><input type="checkbox" id="s1-2"><label for="s1-2">"MTU 1500 ⇒ 1492" là sai. MTU Ethernet = 1500 byte. 1492 chỉ đúng khi chạy PPPoE (mất 8 byte cho header PPPoE).</label></li>
+  <li><input type="checkbox" id="s1-3"><label for="s1-3">Ghi rõ phép tính MSS: 1500 − 20 (IP header) − 20 (TCP header) = 1460 byte.</label></li>
+  <li><input type="checkbox" id="s1-4"><label for="s1-4">Frame Ethernet 64–1518 byte là đúng cho frame không có tag VLAN; có tag 802.1Q thì tối đa 1522 byte.</label></li>
+  <li><input type="checkbox" id="s1-5"><label for="s1-5">Mục multicast: switch không bật IGMP snooping thì multicast bị flood như broadcast.</label></li>
+</ul>
+<h3>Tuần 2 · Ethernet, MAC, ARP, TCP và UDP</h3>
+<ul class="check">
+  <li><input type="checkbox" id="s2-1"><label for="s2-1">Bảng MAC tính theo từng VLAN: mỗi dòng là VLAN + MAC + port. Cùng một MAC có thể có ở hai VLAN.</label></li>
+  <li><input type="checkbox" id="s2-2"><label for="s2-2">Bỏ câu "1 MAC = 1 port để chống loop trong STP". Đúng ra: MAC nhảy qua lại giữa hai port (MAC flapping) là triệu chứng của loop, không phải cơ chế chống loop.</label></li>
+  <li><input type="checkbox" id="s2-3"><label for="s2-3">Flood là gửi ra mọi port cùng VLAN, trừ port nhận vào.</label></li>
+  <li><input type="checkbox" id="s2-4"><label for="s2-4">Thêm mục mới: ARP (4 bước phía trên) và TCP/UDP (bảng so sánh + bắt tay 3 bước).</label></li>
+  <li><input type="checkbox" id="s2-5"><label for="s2-5">Mục "Layer 4 Transport" đang trống: viết lại bằng lời của anh.</label></li>
+</ul>
+<h3>Tuần 3 · IPv4, nhị phân, prefix length, subnetting</h3>
+<ul class="check">
+  <li><input type="checkbox" id="s3-1"><label for="s3-1">Mục "IP v4 Private" mới có dòng "RFC 1918": thêm 3 dải chính xác ở bảng trên.</label></li>
+  <li><input type="checkbox" id="s3-2"><label for="s3-2">Thêm bảng 7 dòng /24 → /30 (mask, số host, magic number).</label></li>
+  <li><input type="checkbox" id="s3-3"><label for="s3-3">Thêm quy trình 4 bước đọc subnet bằng magic number, kèm 2 ví dụ anh tự nghĩ ra.</label></li>
+  <li><input type="checkbox" id="s3-4"><label for="s3-4">Bảng 2^n và bảng hex anh đã có là đúng; xóa các dòng trống cuối bảng.</label></li>
+</ul>
+<h3>Tuần 4 · VLSM, summarization, wildcard, thiết kế IP</h3>
+<ul class="check">
+  <li><input type="checkbox" id="s4-1"><label for="s4-1">Bảng longest match có dòng 192.168.1.0/20 là sai. Mạng /20 chứa 192.168.1.x phải là 192.168.0.0/20. Sửa lại và thêm một câu: "route có prefix dài hơn được chọn".</label></li>
+  <li><input type="checkbox" id="s4-2"><label for="s4-2">Thêm mục mới "VLSM" với quy tắc lớn trước nhỏ sau và bảng ví dụ của chính anh.</label></li>
+  <li><input type="checkbox" id="s4-3"><label for="s4-3">Thêm mục "Wildcard mask" và "Summarization".</label></li>
+</ul>
+<h3>Tuần 5 · IPv6 – địa chỉ, NDP, SLAAC, static route</h3>
+<ul class="check">
+  <li><input type="checkbox" id="s5-1"><label for="s5-1">Sổ tay chưa có IPv6: tạo mục mới gồm 2 luật viết gọn, bảng loại địa chỉ, 4 bước EUI-64, bảng NDP.</label></li>
+  <li><input type="checkbox" id="s5-2"><label for="s5-2">Ghi câu: "IPv6 không có broadcast".</label></li>
+</ul>
+<h3>Tuần 6 · VLAN, trunk, VTP và inter-VLAN routing</h3>
+<ul class="check">
+  <li><input type="checkbox" id="s6-1"><label for="s6-1">"Managed VLAN" → đổi thành management VLAN.</label></li>
+  <li><input type="checkbox" id="s6-2"><label for="s6-2">CoS bị xóa về 0 xảy ra ở cổng access của switch (trust boundary), không phải "khi đến router".</label></li>
+  <li><input type="checkbox" id="s6-3"><label for="s6-3">VTP: client cũng gửi quảng bá; ghi thêm rủi ro revision number và khuyến nghị transparent.</label></li>
+  <li><input type="checkbox" id="s6-4"><label for="s6-4">Bỏ con số "router-on-a-stick chứa được 50 sub-interface". Thay bằng nhược điểm thật: dùng chung băng thông, điểm lỗi đơn.</label></li>
+  <li><input type="checkbox" id="s6-5"><label for="s6-5">Mục SVI đang dở ("B3: mở inter vlan trên switch layer 3 / 1"): viết lại đủ 3 bước theo lab bên dưới.</label></li>
+</ul>
+<h3>Tuần 7 · STP và RSTP</h3>
+<ul class="check">
+  <li><input type="checkbox" id="s7-1"><label for="s7-1">Tạo mục STP: 3 bước bầu cây, bảng cost, 2 bảng trạng thái (802.1D và RSTP).</label></li>
+  <li><input type="checkbox" id="s7-2"><label for="s7-2">Ở mục Switch: thay câu "1 MAC 1 port chống loop" bằng "MAC flapping là dấu hiệu có loop" (nếu tuần 2 chưa sửa).</label></li>
+</ul>
+<h3>Tuần 8 · EtherChannel, CDP/LLDP, port security</h3>
+<ul class="check">
+  <li><input type="checkbox" id="s8-1"><label for="s8-1">"EtherChannel chỉ trên switch, không có trên router" là sai. Router Cisco (ISR, ASR) cũng có port-channel.</label></li>
+  <li><input type="checkbox" id="s8-2"><label for="s8-2">"Tối đa 8 port" → LACP cho tối đa 16 port, trong đó 8 active và 8 dự phòng.</label></li>
+  <li><input type="checkbox" id="s8-3"><label for="s8-3">"Không mix fa với gi" → ghi đúng điều kiện: cùng tốc độ, duplex, mode, VLAN.</label></li>
+  <li><input type="checkbox" id="s8-4"><label for="s8-4">"EtherChannel không can thiệp STP" → sửa: STP coi cả bó là một link logic.</label></li>
+  <li><input type="checkbox" id="s8-5"><label for="s8-5">Viết nốt bước 1 đang dở ("channel-group 1 mode") theo lab dưới.</label></li>
+</ul>
+
+</section>
+
+<!-- ====================== THỨ 7 ====================== -->
+<section class="day" id="t7">
+<h2>Thứ 7 (26/12) · Viết lại MOP yếu nhất, diễn tập 3 lỗi</h2>
+<div class="meta"><span><b>3 giờ</b></span><span>Đầu ra: MOP viết lại (v2), <code>postmortem/W09-dien-tap.md</code></span></div>
+
+<h3>Phần A · Viết lại MOP yếu nhất trong 8 tuần qua</h3>
+<p>Mở lại MOP-000 đến MOP-006. Chấm từng MOP theo 6 tiêu chí; chọn cái điểm thấp nhất viết lại thành v2.</p>
+<div class="tbl"><table>
+<thead><tr><th>Tiêu chí</th><th>Câu hỏi kiểm</th></tr></thead>
+<tbody>
+<tr><td>Phạm vi</td><td>Ghi rõ thiết bị, port, VLAN bị đụng tới? Có giải thích vì sao chọn phạm vi hẹp nhất?</td></tr>
+<tr><td>Ảnh hưởng</td><td>Có ước tính gián đoạn (bao nhiêu giây, ai bị) và hệ thống phụ (giám sát, log, firewall)?</td></tr>
+<tr><td>Pre-check</td><td>Có lưu trạng thái trước (danh sách VLAN, allowed, vai trò STP…) đủ để so sánh và rollback?</td></tr>
+<tr><td>Các bước</td><td>Thứ tự có an toàn không (shutdown trước khi cấu hình, đầu này rồi đầu kia)?</td></tr>
+<tr><td>Verify</td><td>Có kết quả mong đợi cụ thể, đo được?</td></tr>
+<tr><td>Rollback</td><td>Đã chạy thử rollback chưa? Có lệnh cụ thể, không phải "quay lại như cũ"?</td></tr>
+</tbody>
+</table></div>
+<ul class="check">
+  <li><input type="checkbox" id="t7-1"><label for="t7-1">Chấm 7 MOP, chọn MOP yếu nhất, viết v2, chạy lại trên lab mới dựng, chạy thử rollback</label></li>
+</ul>
+
+<h3>Phần B · Nhờ Claude gài 3 lỗi (VLAN, STP, mask), sửa trong 30 phút</h3>
+<p>Cách làm không cần người thứ hai: gửi Claude toàn bộ config đang chạy của 4 thiết bị, xin "3 lệnh gài lỗi (một về VLAN/trunk, một về STP, một về địa chỉ/mask), không nói lỗi gì". Dán 3 lệnh vào lab, bấm giờ, xử lý bằng <a href="tuan-09-kien-thuc.html#m10">bảng lỗi kinh điển</a>.</p>
+<ul class="check">
+  <li><input type="checkbox" id="t7-2"><label for="t7-2">Sửa đủ 3 lỗi trong 30 phút. Thời gian thực tế: ___</label></li>
+  <li><input type="checkbox" id="t7-3"><label for="t7-3">Postmortem: với mỗi lỗi, triệu chứng đầu tiên thấy là gì, lệnh nào lộ ra nguyên nhân</label></li>
+</ul>
+</section>
+
+<!-- ====================== CHỦ NHẬT ====================== -->
+<section class="day" id="cn">
+<h2 id="tu-kiem-tra">Chủ nhật (27/12) · 50 bài và giải thích bằng miệng</h2>
+<div class="meta"><span><b>45–60 phút</b></span><span>Gửi kết quả cho Claude chấm</span></div>
+<h3>Hai bài tự kiểm tra trong lịch</h3>
+<ul class="check">
+  <li><input type="checkbox" id="cn-1"><label for="cn-1">50 bài subnet, VLSM, wildcard trong 30 phút (<a href="tuan-09-kien-thuc.html#m11">sổ tay mục 11</a>), gửi Claude chấm. Kết quả: ___/50</label></li>
+  <li><input type="checkbox" id="cn-2"><label for="cn-2">Giải thích bằng miệng: STP chọn root và port thế nào; EtherChannel không lên do đâu (<a href="tuan-09-kien-thuc.html#m12">mục 12</a>)</label></li>
+</ul>
+
+<h3>Tự chấm cuối tuần (mức tổng hợp giai đoạn 1 tới nay)</h3>
+<div class="tbl"><table>
+<thead><tr><th>Mức</th><th>Tiêu chí tuần 9</th><th>Đạt?</th></tr></thead>
+<tbody>
+<tr><td>1. Giải thích được</td><td>Không còn ✗ nào chưa học lại</td><td><input type="checkbox" id="lv-1" aria-label="Mức 1"></td></tr>
+<tr><td>2. Dựng từ trắng</td><td>Lab nền &lt; 60 phút không tài liệu</td><td><input type="checkbox" id="lv-2" aria-label="Mức 2"></td></tr>
+<tr><td>3. Phá và sửa</td><td>3 lỗi Claude gài &lt; 30 phút</td><td><input type="checkbox" id="lv-3" aria-label="Mức 3"></td></tr>
+<tr><td>4. Vận hành</td><td>MOP v2 đạt đủ 6 tiêu chí; sổ tay đã sửa hết</td><td><input type="checkbox" id="lv-4" aria-label="Mức 4"></td></tr>
+<tr><td>5. Dạy lại</td><td>Ghi âm 2 câu giải thích rõ ràng, không vấp</td><td><input type="checkbox" id="lv-5" aria-label="Mức 5"></td></tr>
+</tbody>
+</table></div>
+<p>Chủ đề nào chưa tới mức 3 thì dồn vào cuối tháng học lại trước khi sang định tuyến (tuần 10).</p>
+<ul class="check">
+  <li><input type="checkbox" id="cn-3"><label for="cn-3">Tick tuần 9 trên lịch học</label></li>
+</ul>
+</section>
+
+<!-- ====================== MỖI NGÀY ====================== -->
+<section class="day" id="moi-ngay">
+<h2>Mỗi ngày 15 phút</h2>
+<ul>
+  <li><b>Tự hỏi đáp bằng miệng 5 phút</b> một tuần bất kỳ trong 1–8 (xoay vòng).</li>
+  <li><b>10 bài subnet nhanh</b> để giữ tay.</li>
+</ul>
+<ul class="check">
+  <li><input type="checkbox" id="mn-1"><label for="mn-1">Đủ 5 ngày</label></li>
+</ul>
+</section>
+
+<div class="foot">
+  Tuần 9/78 · Giai đoạn 1: CCNA và nền Routing · Tiến độ tick lưu trong trình duyệt của máy đang mở.<br>
+  Tuần sau: nền tảng RIB/FIB (bắt đầu phần định tuyến).
+</div>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY = 'tuan09-v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var tasks = boxes.filter(function(b){ return b.id.indexOf('lv-') !== 0; });
+  function render(){
+    var done = tasks.filter(function(b){ return b.checked; }).length;
+    document.getElementById('pText').textContent = done + ' / ' + tasks.length + ' việc';
+    document.getElementById('pBar').style.width = (tasks.length ? done * 100 / tasks.length : 0) + '%';
+  }
+  boxes.forEach(function(b){
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function(){
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

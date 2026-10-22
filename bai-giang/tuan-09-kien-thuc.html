@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5e9c">
+<title>Sổ tay tuần 9</title>
+<style>
+:root{
+  --bg:#f4f3ef; --page:#ffffff; --ink:#1f2328; --muted:#5d6670; --line:#d9d6ce;
+  --accent:#1a5fa8; --accent-soft:#e6eef8; --warn:#a4470d; --warn-soft:#fbece0;
+  --ok:#1d6b3a; --ok-soft:#e3f2e8; --code:#f1f0eb; --hl:#fff4b8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+    --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+    --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --page:#1c2025; --ink:#e5e8eb; --muted:#9aa3ad; --line:#30363d;
+  --accent:#77b2ea; --accent-soft:#1c2b3a; --warn:#f0a36b; --warn-soft:#33241a;
+  --ok:#80d09c; --ok-soft:#1a2c21; --code:#24292f; --hl:#4a4120; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 Arial,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.page{max-width:860px;margin:0 auto;background:var(--page);padding:22px 18px 90px;min-height:100vh}
+@media (min-width:900px){.page{margin:20px auto;border:1px solid var(--line);border-radius:6px;padding:36px 48px 90px}}
+.top{font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.top a{color:var(--accent)}
+h1.tab{font-size:1.75rem;line-height:1.25;margin:56px 0 6px;padding-top:14px;border-top:3px solid var(--ink);scroll-margin-top:8px}
+h1.tab:first-of-type{margin-top:22px}
+h1.tab .no{color:var(--accent)}
+h2{font-size:1.3rem;margin:30px 0 8px;line-height:1.3}
+h3{font-size:1.08rem;margin:22px 0 6px}
+h4{font-size:1rem;margin:16px 0 4px;color:var(--accent)}
+p{margin:7px 0}
+a{color:var(--accent)}
+ul,ol{padding-left:24px;margin:6px 0}
+li{margin:3px 0}
+b,strong{font-weight:700}
+mark{background:var(--hl);color:inherit;padding:0 2px}
+hr{border:none;border-top:1px solid var(--line);margin:22px 0}
+.tbl{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+table.narrow{min-width:0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:middle}
+th{background:var(--accent-soft);font-weight:700}
+td.l,th.l{text-align:left}
+code,pre{font-family:Consolas,"Cascadia Code",Menlo,monospace;font-size:.86rem}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:11px 13px;border-radius:6px;overflow-x:auto;line-height:1.5;margin:8px 0;border:1px solid var(--line)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.fix{border-left:4px solid var(--warn);background:var(--warn-soft);padding:9px 13px;margin:12px 0;border-radius:0 6px 6px 0}
+.sum{border:2px solid var(--ok);background:var(--ok-soft);padding:10px 14px;margin:14px 0;border-radius:6px}
+.note > b:first-child,.fix > b:first-child,.sum > b:first-child{display:block;margin-bottom:2px}
+.flow{font-family:Consolas,Menlo,monospace;font-size:.9rem;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 13px;white-space:pre;overflow-x:auto;line-height:1.55}
+.toc{border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin:14px 0;background:var(--bg)}
+.toc ol{margin:4px 0;columns:2;column-gap:26px}
+.toc li{break-inside:avoid}
+@media (max-width:640px){.toc ol{columns:1}}
+details{border:1px solid var(--line);border-radius:6px;padding:7px 12px;margin:6px 0;background:var(--bg)}
+details summary{cursor:pointer;font-weight:700}
+details[open] summary{margin-bottom:5px}
+.done{display:flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.92rem;color:var(--muted)}
+.done input{width:20px;height:20px;accent-color:var(--ok)}
+.progress{position:sticky;top:0;z-index:5;background:var(--page);padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.progress .bar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.toplink{position:fixed;right:14px;bottom:14px;background:var(--page);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;text-decoration:none;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.c7{background:#ede3f6}.c4{background:#e1ecf8}.c3{background:#e0f1e6}.c2{background:#fbe9dc}.c1{background:#ebedef}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c7,:root:not([data-theme="light"]) .c4,:root:not([data-theme="light"]) .c3,:root:not([data-theme="light"]) .c2,:root:not([data-theme="light"]) .c1{background:transparent}}
+:root[data-theme="dark"] .c7,:root[data-theme="dark"] .c4,:root[data-theme="dark"] .c3,:root[data-theme="dark"] .c2,:root[data-theme="dark"] .c1{background:transparent}
+.hdr{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));min-width:600px;border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-size:.78rem;line-height:1.25;text-align:center}
+.hdr div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 2px;display:flex;flex-direction:column;justify-content:center;background:var(--ok-soft)}
+.hdr div small{color:var(--muted);font-size:.72rem}
+.hdr .ruler{background:transparent;border:none;border-right:1px dashed var(--line);font-size:.62rem;color:var(--muted);padding:2px 0}
+.hdr .fl{background:var(--warn-soft)}
+.hdr .opt{background:var(--accent-soft)}
+.hdr .dat{background:var(--page)}
+.hdr-wrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+@media print{.toplink,.progress{display:none}body{background:#fff}.page{border:none}}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+<div class="top">Sổ tay CCNA · Tuần 9 · Ôn nhớ (21/12 – 27/12/2026) · <a href="tuan-09.html">Giáo án tuần 9 (lab dựng lại, diễn tập, tự kiểm tra)</a> · <a href="../index.html">Lịch học</a></div>
+
+<div class="progress"><span id="pText">0 / 0 mục</span><div class="bar"><i id="pBar"></i></div></div>
+
+<p style="margin-top:14px">Tuần 9 <b>không học gì mới</b>. Sổ tay tuần này là <b>bản cô đọng</b> của 8 tuần qua, để anh đọc một lượt, <b>gạch chỗ chưa chắc</b>, rồi mở lại đúng sổ tay tuần đó học lại. Mỗi mục có link về sổ tay gốc. Phần quan trọng nhất là <a href="#m11">50 bài luyện</a> (đầu ra: ≥ 45/50 trong 30 phút) và <a href="#m10">bảng lỗi kinh điển</a> (dùng khi diễn tập Thứ 7).</p>
+
+<div class="note"><b>Cách ôn hiệu quả (đọc trước)</b>
+<ol>
+  <li>Đọc mỗi mục, <b>che phần "Phải nhớ" lại</b>, tự nói ra trước, rồi mới mở xem.</li>
+  <li>Câu nào nói không ra hoặc sai: đánh dấu <b>✗</b> vào sổ giấy, ghi số tuần.</li>
+  <li>Cuối ngày: mở sổ tay tuần đó, học lại đúng mục bị ✗.</li>
+  <li>Không đọc lại thứ đã chắc. Ôn là để <b>tìm lỗ hổng</b>, không phải để thấy yên tâm.</li>
+</ol></div>
+
+<nav class="toc" aria-label="Mục lục">
+<b>Mục lục</b>
+<ol>
+  <li><a href="#m1">Tuần 1 · OSI, TCP/IP, PDU, MTU</a></li>
+  <li><a href="#m2">Tuần 2 · Ethernet, MAC, ARP, TCP/UDP</a></li>
+  <li><a href="#m3">Tuần 3 · IPv4, subnetting</a></li>
+  <li><a href="#m4">Tuần 4 · VLSM, summarization, wildcard</a></li>
+  <li><a href="#m5">Tuần 5 · IPv6</a></li>
+  <li><a href="#m6">Tuần 6 · VLAN, trunk, inter-VLAN</a></li>
+  <li><a href="#m7">Tuần 7 · STP, RSTP</a></li>
+  <li><a href="#m8">Tuần 8 · EtherChannel, CDP/LLDP, port security</a></li>
+  <li><a href="#m9">Lệnh show theo chủ đề</a></li>
+  <li><a href="#m10">Bảng lỗi kinh điển: triệu chứng → lệnh → nguyên nhân</a></li>
+  <li><a href="#m11">50 bài luyện subnet, VLSM, wildcard</a></li>
+  <li><a href="#m12">Câu hỏi giải thích bằng miệng</a></li>
+  <li><a href="#m13">Danh sách sửa sổ tay tuần 1–8</a></li>
+  <li><a href="#m14">Từ vựng ôn tập</a></li>
+</ol>
+</nav>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m1"><span class="no">1.</span> Tuần 1 · OSI, TCP/IP, PDU, MTU</h1>
+<p>Sổ tay gốc: <a href="tuan-01-kien-thuc.html">tuần 1</a>.</p>
+<details><summary>Phải nhớ (tự nói trước khi mở)</summary>
+<ul>
+  <li>7 lớp từ dưới lên: Physical, Data Link, Network, Transport, Session, Presentation, Application. PDU: bit, frame, packet, segment/datagram, data.</li>
+  <li>Chỉ tầng 2 có trailer (FCS, CRC-32): phát hiện lỗi rồi bỏ, không gửi lại.</li>
+  <li>Qua mỗi router: MAC nguồn/đích viết lại, TTL − 1, checksum IP tính lại; IP nguồn/đích giữ nguyên (trừ NAT).</li>
+  <li>7 bước router xử lý gói: FCS → MAC đích → bóc L2 → TTL → tra FIB (longest match) → kiểm MTU/DF → ARP next-hop, đóng frame mới.</li>
+  <li>MTU 1500 (cả gói IP), MSS 1460 = 1500 − 20 − 20. PPPoE 1492. Frame 64–1518 (1522 có tag).</li>
+  <li>DF = 1 và gói lớn hơn MTU ⇒ bỏ + ICMP type 3 code 4. Chặn ICMP này ⇒ PMTUD black hole (VPN: ping được, file lớn treo).</li>
+  <li>Xử lý sự cố theo tầng 1 → 7, mỗi tầng một lệnh.</li>
+</ul></details>
+<div class="fix"><b>Lỗi hay mắc</b> Tầng 6 "chuyển về mã máy" (sai: biểu diễn dữ liệu, nén, mã hóa) · "MTU 1500 ⇒ 1492" (chỉ PPPoE) · quên chiều về khi ping timeout.</div>
+<label class="done"><input type="checkbox" id="d1"> Đã ôn tuần 1</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m2"><span class="no">2.</span> Tuần 2 · Ethernet, MAC, ARP, TCP/UDP</h1>
+<p>Sổ tay gốc: <a href="tuan-02-kien-thuc.html">tuần 2</a>.</p>
+<details><summary>Phải nhớ</summary>
+<ul>
+  <li>Frame: MAC đích 6, MAC nguồn 6, Type 2, data 46–1500, FCS 4. EtherType 0x0800 IPv4, 0x0806 ARP, 0x86DD IPv6, 0x8100 tag.</li>
+  <li>MAC 48 bit, OUI 24 bit; byte đầu lẻ = group; bit U/L = 1 là MAC ngẫu nhiên.</li>
+  <li>Switch học MAC nguồn, chuyển theo MAC đích; flood (unknown unicast, broadcast, multicast) ra mọi port <b>cùng VLAN</b> trừ port vào. Bảng MAC = (VLAN, MAC) → port, aging 300 s.</li>
+  <li>MAC flapping = dấu hiệu loop. Lệch duplex: half thấy late collision, full thấy CRC/runt.</li>
+  <li>ARP: request broadcast, reply unicast; khác mạng ⇒ hỏi MAC gateway; Cisco ARP 4 giờ. GARP dùng cho HSRP/HA/VM, phát hiện trùng IP (Event 4199).</li>
+  <li>TCP 20–60 byte, Protocol 6; SYN → SYN-ACK → ACK; ack = seq + số byte; RST hủy, FIN đóng; CLOSE-WAIT nhiều = lỗi ứng dụng; ZeroWindow = máy nhận chậm.</li>
+  <li>UDP 8 byte, Protocol 17. Port: 22, 23, 25, 53, 67/68, 69, 80, 88, 123, 161/162, 389, 443, 445, 514, 3389.</li>
+</ul></details>
+<div class="fix"><b>Lỗi hay mắc</b> "Flood ra tất cả port" (thiếu "cùng VLAN, trừ port vào") · "1 MAC 1 port chống loop" · SYN không trả lời và SYN→RST có ý nghĩa khác nhau.</div>
+<label class="done"><input type="checkbox" id="d2"> Đã ôn tuần 2</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m3"><span class="no">3.</span> Tuần 3 · IPv4, subnetting</h1>
+<p>Sổ tay gốc: <a href="tuan-03-kien-thuc.html">tuần 3</a>.</p>
+<details><summary>Phải nhớ</summary>
+<ul>
+  <li>128 64 32 16 8 4 2 1. Octet mask: 128 192 224 240 248 252 254 255.</li>
+  <li>Private: 10/8, 172.16/12 (172.16–172.31), 192.168/16. APIPA 169.254/16 = lỗi DHCP. 100.64/10 = CGNAT.</li>
+  <li>Host = 2<sup>h</sup> − 2: /24 254, /25 126, /26 62, /27 30, /28 14, /29 6, /30 2.</li>
+  <li>Magic = 256 − octet mask; network = bội số ≤ IP; broadcast = network kế − 1.</li>
+  <li>Sai mask: mỗi máy tự quyết bằng mask của nó; xét hai chiều. Mask rộng ⇒ ARP thẳng (proxy ARP che lỗi).</li>
+  <li>1 VLAN = 1 subnet; dải tĩnh tách dải DHCP.</li>
+</ul></details>
+<div class="fix"><b>Lỗi hay mắc</b> 172.32.x.x tưởng private · quên octet bên phải về 0/255 khi tính ở octet 3 · quên cộng gateway khi chọn prefix.</div>
+<label class="done"><input type="checkbox" id="d3"> Đã ôn tuần 3</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m4"><span class="no">4.</span> Tuần 4 · VLSM, summarization, wildcard</h1>
+<p>Sổ tay gốc: <a href="tuan-04-kien-thuc.html">tuần 4</a>.</p>
+<details><summary>Phải nhớ</summary>
+<ul>
+  <li>VLSM: sắp lớn → nhỏ; mỗi mạng bắt đầu ở bội số kích thước của nó.</li>
+  <li>Link /30 (2 host) hoặc /31; loopback /32.</li>
+  <li>Longest prefix match xét trước AD/metric. 192.168.1.x thuộc 192.168.0.0/20 (không phải 192.168.1.0/20).</li>
+  <li>Summary: đếm bit giống từ trái. N = 2<sup>k</sup> mạng /24 bắt đầu ở bội của N ⇒ /(24 − k). Route tổng có thể chứa mạng không tồn tại ⇒ Null0.</li>
+  <li>Wildcard = 255 − mask: /30 0.0.0.3, /24 0.0.0.255, /20 0.0.15.255. host = 0.0.0.0, any = 255.255.255.255.</li>
+  <li>Thiết kế: khối mỗi site cùng kích thước, liên tục, chừa tăng trưởng; IPAM trước khi cấu hình.</li>
+</ul></details>
+<div class="fix"><b>Lỗi hay mắc</b> Gộp route chứa cả mạng không phải của mình · viết rule /21 khi cần /20 · nhầm wildcard với mask.</div>
+<label class="done"><input type="checkbox" id="d4"> Đã ôn tuần 4</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m5"><span class="no">5.</span> Tuần 5 · IPv6</h1>
+<p>Sổ tay gốc: <a href="tuan-05-kien-thuc.html">tuần 5</a>.</p>
+<details><summary>Phải nhớ</summary>
+<ul>
+  <li>128 bit, 8 hextet. Bỏ 0 đầu nhóm; :: một lần cho dãy 0 dài nhất (hòa thì bên trái).</li>
+  <li>GUA 2000::/3, link-local fe80::/10 (không qua router), ULA fc00::/7 (fd), multicast ff00::/8, ::1, ::. Không có broadcast.</li>
+  <li>LAN /64, link /127, loopback /128, site /48. /48 → /64: đếm hex hextet 4.</li>
+  <li>EUI-64: tách MAC, chèn fffe, lật bit 7, ghép.</li>
+  <li>NDP: RS 133, RA 134, NS 135 (thay ARP request), NA 136 (thay ARP reply). DAD dùng NS nguồn ::.</li>
+  <li>SLAAC (A), stateless DHCPv6 (O), stateful (M). Gateway luôn từ RA.</li>
+  <li>Cisco: <code>ipv6 unicast-routing</code>; next-hop link-local phải kèm interface. Router IPv6 không phân mảnh.</li>
+</ul></details>
+<div class="fix"><b>Lỗi hay mắc</b> Bỏ số 0 cuối hextet · :: hai lần · quên ipv6 unicast-routing · chặn hết ICMPv6.</div>
+<label class="done"><input type="checkbox" id="d5"> Đã ôn tuần 5</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m6"><span class="no">6.</span> Tuần 6 · VLAN, trunk, inter-VLAN</h1>
+<p>Sổ tay gốc: <a href="tuan-06-kien-thuc.html">tuần 6</a>.</p>
+<details><summary>Phải nhớ</summary>
+<ul>
+  <li>VLAN ID 12 bit, dùng 1–4094; vlan.dat chứa normal range.</li>
+  <li>Tag 802.1Q 4 byte: TPID 0x8100, PCP 3 bit (CoS), DEI, VID 12 bit.</li>
+  <li>Native VLAN không tag; lệch ⇒ CDP NATIVE_VLAN_MISMATCH, rò VLAN; đổi native sang VLAN không dùng.</li>
+  <li>Allowed VLAN: quên <code>add</code> = thay cả danh sách. <code>show interfaces trunk</code> 4 khối.</li>
+  <li>DTP auto + auto = access; tắt bằng mode access / nonegotiate. VTP: revision cao ghi đè (cả client) ⇒ transparent.</li>
+  <li>Voice VLAN, CoS 5, trust boundary ở port access.</li>
+  <li>ROAS: sub-interface + <code>encapsulation dot1Q</code>; nhược: chung băng thông, điểm lỗi đơn. SVI: <code>ip routing</code> + <code>interface vlan</code>; up khi VLAN tồn tại + có port active + no shut.</li>
+</ul></details>
+<div class="fix"><b>Lỗi hay mắc</b> "Managed VLAN" · "CoS bị xóa khi đến router" · "chỉ VTP server gửi quảng bá" · "ROAS chứa 50 sub-interface".</div>
+<label class="done"><input type="checkbox" id="d6"> Đã ôn tuần 6</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m7"><span class="no">7.</span> Tuần 7 · STP, RSTP</h1>
+<p>Sổ tay gốc: <a href="tuan-07-kien-thuc.html">tuần 7</a>.</p>
+<details><summary>Phải nhớ</summary>
+<ul>
+  <li>Ethernet không có TTL ⇒ loop L2 không tự chết: bão broadcast, MAC flapping, nhân bản frame.</li>
+  <li>BID = priority (bội 4096, mặc định 32768) + VLAN + MAC; nhỏ nhất thắng.</li>
+  <li>Cost short: 100 / 19 / 4 / 2 (10M/100M/1G/10G).</li>
+  <li>Root → 1 RP mỗi switch → 1 DP mỗi link → còn lại block. Tie-break: cost, sender BID, sender port priority, sender port number.</li>
+  <li>802.1D: blocking → listening 15 → learning 15 → forwarding; Hello 2, Max Age 20, FD 15.</li>
+  <li>RSTP: discarding/learning/forwarding; root, designated, alternate, backup; edge; proposal/agreement.</li>
+  <li>PortFast chỉ cho máy trạm, luôn kèm BPDU Guard (err-disabled). Root đặt ở core = gateway chính.</li>
+</ul></details>
+<div class="fix"><b>Lỗi hay mắc</b> Tie-break nhìn port của mình thay vì của bên gửi · nghĩ root có root port · bật PortFast trên port nối switch.</div>
+<label class="done"><input type="checkbox" id="d7"> Đã ôn tuần 7</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m8"><span class="no">8.</span> Tuần 8 · EtherChannel, CDP/LLDP, port security</h1>
+<p>Sổ tay gốc: <a href="tuan-08-kien-thuc.html">tuần 8</a>.</p>
+<details><summary>Phải nhớ</summary>
+<ul>
+  <li>STP coi bó là một link. LACP active/passive; PAgP desirable/auto; on chỉ với on; passive+passive, auto+auto không lên.</li>
+  <li>Điều kiện gộp: speed, duplex, mode, VLAN (native + allowed). Lệch ⇒ (s).</li>
+  <li>LACP 16 port (8 active + 8 standby). Chia tải theo luồng; một luồng ≤ một dây.</li>
+  <li>Cờ: SU tốt, P bundled, s suspended, I stand-alone, D down, H hot-standby.</li>
+  <li>CDP Cisco 60/180 bật sẵn; LLDP IEEE 30/120 tắt sẵn (<code>lldp run</code>).</li>
+  <li>Port security mặc định max 1, shutdown. Sticky ghi running-config. protect / restrict (sống + log) / shutdown.</li>
+</ul></details>
+<div class="fix"><b>Lỗi hay mắc</b> "EtherChannel không có trên router" · "tối đa 8" · sửa cấu hình trên một thành viên thay vì port-channel.</div>
+<label class="done"><input type="checkbox" id="d8"> Đã ôn tuần 8</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m9"><span class="no">9.</span> Lệnh show theo chủ đề</h1>
+<div class="tbl"><table>
+<tr><th>Chủ đề</th><th class="l">Lệnh</th></tr>
+<tr><td>Tầng 1–2 port</td><td class="l"><code>show interfaces status</code> · <code>show interfaces gi0/1</code> · <code>show interfaces counters errors</code> · <code>show interfaces status err-disabled</code></td></tr>
+<tr><td>Bảng MAC</td><td class="l"><code>show mac address-table address|interface|vlan</code></td></tr>
+<tr><td>ARP / neighbor</td><td class="l"><code>show ip arp</code> · <code>show ipv6 neighbors</code></td></tr>
+<tr><td>IP</td><td class="l"><code>show ip interface brief</code> · <code>show ipv6 interface brief</code> · <code>show ip route [ip]</code> · <code>show ipv6 route</code></td></tr>
+<tr><td>VLAN</td><td class="l"><code>show vlan brief</code> · <code>show interfaces trunk</code> · <code>show interfaces gi0/1 switchport</code> · <code>show vtp status</code></td></tr>
+<tr><td>STP</td><td class="l"><code>show spanning-tree [vlan X]</code> · <code>show spanning-tree root</code> · <code>show spanning-tree summary</code> · <code>show spanning-tree detail | include ieee|occurr|from</code></td></tr>
+<tr><td>EtherChannel</td><td class="l"><code>show etherchannel summary</code> · <code>show lacp neighbor</code> · <code>show etherchannel load-balance</code></td></tr>
+<tr><td>Hàng xóm</td><td class="l"><code>show cdp neighbors [detail]</code> · <code>show lldp neighbors [detail]</code></td></tr>
+<tr><td>Port security</td><td class="l"><code>show port-security [interface]</code> · <code>show port-security address</code></td></tr>
+<tr><td>Log</td><td class="l"><code>show logging | include MACFLAP|NATIVE|DUPLEX|BPDU|PSECURE|EC-</code></td></tr>
+</table></div>
+<label class="done"><input type="checkbox" id="d9"> Đã ôn mục 9</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m10"><span class="no">10.</span> Bảng lỗi kinh điển: triệu chứng → lệnh → nguyên nhân</h1>
+<p>Dùng bảng này khi diễn tập Thứ 7. Đọc cột triệu chứng, tự nghĩ lệnh và nguyên nhân trước, rồi mới nhìn hai cột sau.</p>
+<div class="tbl"><table>
+<tr><th class="l">Triệu chứng</th><th class="l">Lệnh phát hiện</th><th class="l">Nguyên nhân hay gặp</th></tr>
+<tr><td class="l">Một máy không ra ngoài, máy cùng phòng ổn</td><td class="l"><code>ipconfig /all</code>, ping gateway, <code>show interfaces … switchport</code></td><td class="l">Sai VLAN port, sai IP/mask/gateway, port err-disabled</td></tr>
+<tr><td class="l">Máy nhận 169.254.x.x</td><td class="l"><code>show interfaces status</code>, VLAN port, DHCP</td><td class="l">Sai VLAN, port chưa forwarding (thiếu PortFast), DHCP/helper lỗi</td></tr>
+<tr><td class="l">Cả một VLAN mất kết nối qua uplink, VLAN khác ổn</td><td class="l"><code>show interfaces trunk</code> (khối 1–3)</td><td class="l">VLAN thiếu trong allowed list, chưa tạo VLAN ở switch xa, STP block VLAN đó</td></tr>
+<tr><td class="l">Mọi VLAN qua uplink mất cùng lúc sau change</td><td class="l"><code>show interfaces trunk</code></td><td class="l">Quên <code>add</code> khi sửa allowed VLAN</td></tr>
+<tr><td class="l">Log NATIVE_VLAN_MISMATCH</td><td class="l"><code>show interfaces trunk</code> hai đầu</td><td class="l">Native khác nhau</td></tr>
+<tr><td class="l">Mạng cả tầng chậm, CPU cao, MACFLAP</td><td class="l"><code>show logging</code>, counters broadcast</td><td class="l">Loop L2</td></tr>
+<tr><td class="l">Link lên nhưng chậm, CRC/late collision</td><td class="l"><code>show interfaces</code>, <code>show interfaces status</code></td><td class="l">Lệch duplex, cáp/module hỏng</td></tr>
+<tr><td class="l">Không sang được VLAN khác, gateway ping được</td><td class="l"><code>show ip route</code> trên L3, <code>show running | include ip routing</code></td><td class="l">Thiếu <code>ip routing</code>, sai mask, ACL</td></tr>
+<tr><td class="l">SVI down/down</td><td class="l"><code>show vlan brief</code>, <code>show interfaces trunk</code></td><td class="l">VLAN chưa tạo, không có port active trong VLAN</td></tr>
+<tr><td class="l">Port-channel có thành viên (s)/(I)</td><td class="l"><code>show etherchannel summary</code>, <code>show lacp neighbor</code></td><td class="l">Lệch speed/VLAN/mode; đầu kia không LACP</td></tr>
+<tr><td class="l">Port err-disabled</td><td class="l"><code>show interfaces status err-disabled</code></td><td class="l">BPDU Guard, port security, UDLD</td></tr>
+<tr><td class="l">PC chỉ có fe80::, không có 2001:</td><td class="l"><code>show ipv6 interface</code> trên router</td><td class="l">Thiếu ipv6 unicast-routing, RA suppress, RA Guard</td></tr>
+<tr><td class="l">Ping được, ứng dụng không kết nối</td><td class="l"><code>Test-NetConnection -Port</code>, <code>netstat -ano</code>, Wireshark</td><td class="l">Firewall drop SYN, dịch vụ không nghe port (RST)</td></tr>
+<tr><td class="l">Kết nối chập chờn, mất một nửa gói</td><td class="l"><code>show ip arp</code> nhiều lần, <code>show ip route</code></td><td class="l">Trùng IP, trùng dải, hai route bằng nhau tới hai nơi</td></tr>
+<tr><td class="l">VPN: ping được, file lớn treo</td><td class="l"><code>ping -f -l</code></td><td class="l">MTU/PMTUD black hole</td></tr>
+</table></div>
+<label class="done"><input type="checkbox" id="d10"> Đã ôn mục 10</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m11"><span class="no">11.</span> 50 bài luyện subnet, VLSM, wildcard</h1>
+<p>Đầu ra: <b>≥ 45/50 đúng trong 30 phút</b>. Làm ra giấy, bấm giờ, gửi Claude chấm hoặc tự đối chiếu đáp án. Bài 1–25: network, broadcast, số host. 26–35: prefix nhỏ nhất cho số máy. 36–45: wildcard. 46–50: route tổng (ít dòng nhất, không thừa).</p>
+<div class="tbl"><table>
+<tr><th>#</th><th>Đề</th><th class="l">Tìm</th></tr>
+<tr><td>1</td><td>172.21.136.36/30</td><td class="l">network, broadcast</td></tr>
+<tr><td>2</td><td>192.168.173.129/29</td><td class="l">network, broadcast</td></tr>
+<tr><td>3</td><td>172.17.171.142/28</td><td class="l">network, broadcast</td></tr>
+<tr><td>4</td><td>192.168.86.181/27</td><td class="l">network, broadcast</td></tr>
+<tr><td>5</td><td>172.23.80.44/26</td><td class="l">network, broadcast</td></tr>
+<tr><td>6</td><td>10.56.67.130/25</td><td class="l">network, broadcast</td></tr>
+<tr><td>7</td><td>192.168.196.203/24</td><td class="l">network, broadcast</td></tr>
+<tr><td>8</td><td>192.168.149.53/23</td><td class="l">network, broadcast</td></tr>
+<tr><td>9</td><td>192.168.215.228/22</td><td class="l">network, broadcast</td></tr>
+<tr><td>10</td><td>10.136.107.102/21</td><td class="l">network, broadcast</td></tr>
+<tr><td>11</td><td>172.16.22.52/20</td><td class="l">network, broadcast</td></tr>
+<tr><td>12</td><td>172.31.193.217/19</td><td class="l">network, broadcast</td></tr>
+<tr><td>13</td><td>10.12.121.109/18</td><td class="l">network, broadcast</td></tr>
+<tr><td>14</td><td>192.168.1.32/17</td><td class="l">network, broadcast</td></tr>
+<tr><td>15</td><td>192.168.103.85/16</td><td class="l">network, broadcast</td></tr>
+<tr><td>16</td><td>10.42.68.139/12</td><td class="l">network, broadcast</td></tr>
+<tr><td>17</td><td>10.43.254.138/13</td><td class="l">network, broadcast</td></tr>
+<tr><td>18</td><td>10.215.35.102/14</td><td class="l">network, broadcast</td></tr>
+<tr><td>19</td><td>10.47.74.45/15</td><td class="l">network, broadcast</td></tr>
+<tr><td>20</td><td>192.168.27.70/9</td><td class="l">network, broadcast</td></tr>
+<tr><td>21</td><td>192.168.137.189/10</td><td class="l">network, broadcast</td></tr>
+<tr><td>22</td><td>192.168.62.223/11</td><td class="l">network, broadcast</td></tr>
+<tr><td>23</td><td>192.168.121.42/27</td><td class="l">network, broadcast</td></tr>
+<tr><td>24</td><td>192.168.187.217/26</td><td class="l">network, broadcast</td></tr>
+<tr><td>25</td><td>192.168.177.29/29</td><td class="l">network, broadcast</td></tr>
+<tr><td>26</td><td>5 máy</td><td class="l">prefix nhỏ nhất (không tính dự phòng)</td></tr>
+<tr><td>27</td><td>13 máy</td><td class="l">prefix nhỏ nhất (không tính dự phòng)</td></tr>
+<tr><td>28</td><td>30 máy</td><td class="l">prefix nhỏ nhất (không tính dự phòng)</td></tr>
+<tr><td>29</td><td>31 máy</td><td class="l">prefix nhỏ nhất (không tính dự phòng)</td></tr>
+<tr><td>30</td><td>60 máy</td><td class="l">prefix nhỏ nhất (không tính dự phòng)</td></tr>
+<tr><td>31</td><td>90 máy</td><td class="l">prefix nhỏ nhất (không tính dự phòng)</td></tr>
+<tr><td>32</td><td>130 máy</td><td class="l">prefix nhỏ nhất (không tính dự phòng)</td></tr>
+<tr><td>33</td><td>250 máy</td><td class="l">prefix nhỏ nhất (không tính dự phòng)</td></tr>
+<tr><td>34</td><td>600 máy</td><td class="l">prefix nhỏ nhất (không tính dự phòng)</td></tr>
+<tr><td>35</td><td>1500 máy</td><td class="l">prefix nhỏ nhất (không tính dự phòng)</td></tr>
+<tr><td>36</td><td>/27</td><td class="l">wildcard</td></tr>
+<tr><td>37</td><td>/21</td><td class="l">wildcard</td></tr>
+<tr><td>38</td><td>/18</td><td class="l">wildcard</td></tr>
+<tr><td>39</td><td>/29</td><td class="l">wildcard</td></tr>
+<tr><td>40</td><td>/23</td><td class="l">wildcard</td></tr>
+<tr><td>41</td><td>10.4.0.0 – 10.7.255.255</td><td class="l">một dòng địa chỉ + wildcard</td></tr>
+<tr><td>42</td><td>192.168.32.0 – 192.168.47.255</td><td class="l">một dòng địa chỉ + wildcard</td></tr>
+<tr><td>43</td><td>172.16.8.0 – 172.16.8.127</td><td class="l">một dòng địa chỉ + wildcard</td></tr>
+<tr><td>44</td><td>10.10.10.16 – 10.10.10.23</td><td class="l">một dòng địa chỉ + wildcard</td></tr>
+<tr><td>45</td><td>10.0.0.0 – 10.0.3.255</td><td class="l">một dòng địa chỉ + wildcard</td></tr>
+<tr><td>46</td><td>10.1.4.0/24 → 10.1.7.0/24</td><td class="l">route tổng</td></tr>
+<tr><td>47</td><td>172.16.16.0/24 → 172.16.31.0/24</td><td class="l">route tổng</td></tr>
+<tr><td>48</td><td>192.168.64.0/24, 192.168.65.0/24</td><td class="l">route tổng</td></tr>
+<tr><td>49</td><td>10.20.32.0/22 → 10.20.44.0/22</td><td class="l">route tổng</td></tr>
+<tr><td>50</td><td>192.168.10.0/26, 192.168.10.64/26, 192.168.10.128/25</td><td class="l">route tổng</td></tr>
+</table></div>
+<details><summary>Đáp án 50 bài (mở sau khi làm xong và đã ghi giờ)</summary>
+<div class="tbl"><table>
+<tr><th>#</th><th class="l">Đáp án</th></tr>
+<tr><td>1</td><td class="l">172.21.136.36 · 172.21.136.39 · 2 host</td></tr>
+<tr><td>2</td><td class="l">192.168.173.128 · 192.168.173.135 · 6 host</td></tr>
+<tr><td>3</td><td class="l">172.17.171.128 · 172.17.171.143 · 14 host</td></tr>
+<tr><td>4</td><td class="l">192.168.86.160 · 192.168.86.191 · 30 host</td></tr>
+<tr><td>5</td><td class="l">172.23.80.0 · 172.23.80.63 · 62 host</td></tr>
+<tr><td>6</td><td class="l">10.56.67.128 · 10.56.67.255 · 126 host</td></tr>
+<tr><td>7</td><td class="l">192.168.196.0 · 192.168.196.255 · 254 host</td></tr>
+<tr><td>8</td><td class="l">192.168.148.0 · 192.168.149.255 · 510 host</td></tr>
+<tr><td>9</td><td class="l">192.168.212.0 · 192.168.215.255 · 1022 host</td></tr>
+<tr><td>10</td><td class="l">10.136.104.0 · 10.136.111.255 · 2046 host</td></tr>
+<tr><td>11</td><td class="l">172.16.16.0 · 172.16.31.255 · 4094 host</td></tr>
+<tr><td>12</td><td class="l">172.31.192.0 · 172.31.223.255 · 8190 host</td></tr>
+<tr><td>13</td><td class="l">10.12.64.0 · 10.12.127.255 · 16382 host</td></tr>
+<tr><td>14</td><td class="l">192.168.0.0 · 192.168.127.255 · 32766 host</td></tr>
+<tr><td>15</td><td class="l">192.168.0.0 · 192.168.255.255 · 65534 host</td></tr>
+<tr><td>16</td><td class="l">10.32.0.0 · 10.47.255.255 · 1048574 host</td></tr>
+<tr><td>17</td><td class="l">10.40.0.0 · 10.47.255.255 · 524286 host</td></tr>
+<tr><td>18</td><td class="l">10.212.0.0 · 10.215.255.255 · 262142 host</td></tr>
+<tr><td>19</td><td class="l">10.46.0.0 · 10.47.255.255 · 131070 host</td></tr>
+<tr><td>20</td><td class="l">192.128.0.0 · 192.255.255.255 · 8388606 host</td></tr>
+<tr><td>21</td><td class="l">192.128.0.0 · 192.191.255.255 · 4194302 host</td></tr>
+<tr><td>22</td><td class="l">192.160.0.0 · 192.191.255.255 · 2097150 host</td></tr>
+<tr><td>23</td><td class="l">192.168.121.32 · 192.168.121.63 · 30 host</td></tr>
+<tr><td>24</td><td class="l">192.168.187.192 · 192.168.187.255 · 62 host</td></tr>
+<tr><td>25</td><td class="l">192.168.177.24 · 192.168.177.31 · 6 host</td></tr>
+<tr><td>26</td><td class="l">/29 (6 host)</td></tr>
+<tr><td>27</td><td class="l">/28 (14 host)</td></tr>
+<tr><td>28</td><td class="l">/27 (30 host)</td></tr>
+<tr><td>29</td><td class="l">/26 (62 host)</td></tr>
+<tr><td>30</td><td class="l">/26 (62 host)</td></tr>
+<tr><td>31</td><td class="l">/25 (126 host)</td></tr>
+<tr><td>32</td><td class="l">/24 (254 host)</td></tr>
+<tr><td>33</td><td class="l">/24 (254 host)</td></tr>
+<tr><td>34</td><td class="l">/22 (1022 host)</td></tr>
+<tr><td>35</td><td class="l">/21 (2046 host)</td></tr>
+<tr><td>36</td><td class="l">0.0.0.31</td></tr>
+<tr><td>37</td><td class="l">0.0.7.255</td></tr>
+<tr><td>38</td><td class="l">0.0.63.255</td></tr>
+<tr><td>39</td><td class="l">0.0.0.7</td></tr>
+<tr><td>40</td><td class="l">0.0.1.255</td></tr>
+<tr><td>41</td><td class="l">10.4.0.0 0.3.255.255</td></tr>
+<tr><td>42</td><td class="l">192.168.32.0 0.0.15.255</td></tr>
+<tr><td>43</td><td class="l">172.16.8.0 0.0.0.127</td></tr>
+<tr><td>44</td><td class="l">10.10.10.16 0.0.0.7</td></tr>
+<tr><td>45</td><td class="l">10.0.0.0 0.0.3.255</td></tr>
+<tr><td>46</td><td class="l">10.1.4.0/22</td></tr>
+<tr><td>47</td><td class="l">172.16.16.0/20</td></tr>
+<tr><td>48</td><td class="l">192.168.64.0/23</td></tr>
+<tr><td>49</td><td class="l">10.20.32.0/20</td></tr>
+<tr><td>50</td><td class="l">192.168.10.0/24</td></tr>
+</table></div>
+</details>
+<label class="done"><input type="checkbox" id="d11"> Đã làm 50 bài</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m12"><span class="no">12.</span> Câu hỏi giải thích bằng miệng</h1>
+<p>Ghi âm, mỗi câu 2–3 phút, nghe lại. Gửi bản ghi chữ cho Claude chấm nếu muốn.</p>
+<details><summary>1. STP chọn root và chọn port thế nào?</summary>
+<p>Gợi ý ý chính: BID (priority + VLAN + MAC) nhỏ nhất làm root; root không có root port, mọi port là DP. Mỗi switch còn lại chọn một root port theo cost về root thấp nhất, hòa thì sender BID, sender port priority, sender port number. Mỗi link chọn một designated port (bên gần root hơn). Còn lại block (alternate trong RSTP). Thiết kế: đặt root ở core bằng priority.</p></details>
+<details><summary>2. EtherChannel không lên do đâu?</summary>
+<p>Gợi ý: mode hai đầu không kết hợp được (passive+passive, auto+auto, on với LACP, LACP với PAgP); thành viên lệch speed/duplex/mode/VLAN ⇒ suspended; đầu kia không cấu hình ⇒ stand-alone; port down tầng 1. Kiểm: <code>show etherchannel summary</code> hai đầu, <code>show lacp neighbor</code>, log.</p></details>
+<details><summary>3. Kể đường đi của gói từ PC VLAN 10 sang PC VLAN 20 qua switch L3 SVI, có trunk ở giữa.</summary>
+<p>Gợi ý: PC10 thấy khác mạng ⇒ ARP gateway SVI 10 ⇒ frame lên trunk tag 10 ⇒ switch L3 nhận vào SVI 10, định tuyến (ip routing), ra SVI 20 ⇒ ARP PC20 nếu cần ⇒ frame tag 20 xuống trunk ⇒ switch access bỏ tag, giao PC20. MAC đổi, IP giữ, TTL − 1.</p></details>
+<details><summary>4. Vì sao IPv6 không cần ARP, không có broadcast?</summary>
+<p>Gợi ý: NDP dùng ICMPv6 NS/NA tới solicited-node multicast; "gửi tất cả" dùng ff02::1; RA cho prefix và gateway.</p></details>
+<label class="done"><input type="checkbox" id="d12"> Đã ghi âm 4 câu</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m13"><span class="no">13.</span> Danh sách sửa sổ tay tuần 1–8</h1>
+<p>Mỗi tuần có mục "Sửa sổ tay". Tuần này kiểm lại <b>tất cả đã sửa chưa</b> trong Google Docs. Danh sách có ô tick nằm ở <a href="tuan-09.html#t6">giáo án tuần 9, Thứ 6</a>. Mốc giai đoạn 1 yêu cầu "sổ tay CCNA đã sửa hết".</p>
+<label class="done"><input type="checkbox" id="d13"> Đã đối chiếu danh sách sửa</label>
+
+<!-- =========================================================== -->
+<h1 class="tab" id="m14"><span class="no">14.</span> Từ vựng ôn tập</h1>
+<p>Che cột nghĩa, đọc từ tiếng Anh, nói nghĩa. Sai thì đánh dấu.</p>
+<div class="tbl"><table>
+<tr><th class="l">Từ</th><th class="l">Nghĩa</th><th class="l">Từ</th><th class="l">Nghĩa</th></tr>
+<tr><td class="l">encapsulation</td><td class="l">đóng gói</td><td class="l">trailer</td><td class="l">phần đuôi (FCS)</td></tr>
+<tr><td class="l">flood</td><td class="l">gửi tràn trong VLAN</td><td class="l">aging time</td><td class="l">thời gian hết hạn</td></tr>
+<tr><td class="l">gratuitous ARP</td><td class="l">ARP tự thông báo</td><td class="l">handshake</td><td class="l">bắt tay</td></tr>
+<tr><td class="l">subnet mask / prefix length</td><td class="l">mặt nạ / độ dài tiền tố</td><td class="l">broadcast address</td><td class="l">địa chỉ quảng bá</td></tr>
+<tr><td class="l">summarization</td><td class="l">gộp route</td><td class="l">wildcard mask</td><td class="l">mặt nạ đại diện</td></tr>
+<tr><td class="l">link-local</td><td class="l">chỉ trong một link</td><td class="l">neighbor solicitation</td><td class="l">hỏi hàng xóm (NDP)</td></tr>
+<tr><td class="l">native VLAN</td><td class="l">VLAN không tag</td><td class="l">allowed VLAN</td><td class="l">VLAN được phép</td></tr>
+<tr><td class="l">root bridge</td><td class="l">cầu gốc</td><td class="l">alternate port</td><td class="l">cổng thay thế</td></tr>
+<tr><td class="l">bundle / suspended</td><td class="l">bó / bị treo</td><td class="l">violation</td><td class="l">vi phạm</td></tr>
+<tr><td class="l">err-disabled</td><td class="l">bị tắt do lỗi</td><td class="l">convergence</td><td class="l">hội tụ</td></tr>
+</table></div>
+<label class="done"><input type="checkbox" id="d14"> Đã ôn từ vựng</label>
+
+<p style="margin-top:36px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:12px">Xong sổ tay ôn thì làm lab dựng lại và diễn tập trong <a href="tuan-09.html">giáo án tuần 9</a>. Tiến độ tick lưu trong trình duyệt của máy đang mở.</p>
+</div>
+
+<a class="toplink" href="#top">Lên đầu</a>
+
+<script>
+(function(){
+  var KEY='tuan09-sotay-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.done input'));
+  function render(){
+    var n=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('pText').textContent=n+' / '+boxes.length+' mục';
+    document.getElementById('pBar').style.width=(n*100/boxes.length)+'%';
+  }
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.id]=b.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
